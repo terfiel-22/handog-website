@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On 
+  RewriteBase / 
+  
+  # Allow access to specified files
+  RewriteRule ^(index\.php|assets/*) - [L]
+  
+  # Rewrite all other requests to index.php
+  RewriteRule ^.*$ index.php [L]
+</IfModule>
