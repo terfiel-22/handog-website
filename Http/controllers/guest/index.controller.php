@@ -1,3 +1,5 @@
 <?php
 
-dd("HELLO");
+view(
+    "guest/index.view.php"
+);

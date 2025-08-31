@@ -22,3 +22,10 @@ function redirect($path = null)
     header("location: $url");
     die();
 }
+
+/** Function for directly importing file from view folder */
+function view($path, $attributes = []): void
+{
+    extract($attributes);
+    require base_path("views/" . $path);
+}
