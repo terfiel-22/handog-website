@@ -1,0 +1,17 @@
+{
+    "name": "taki/handog-web",
+    "type": "project",
+    "authors": [
+        {
+            "name": "terfiel-22",
+            "email": "dietherfiel@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/",
+            "Http\\": "Http/" 
+        }
+    }
+}
