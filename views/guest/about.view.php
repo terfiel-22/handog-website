@@ -108,7 +108,7 @@
                                     TESTIMONIAL
                                 </h6>
                                 <h2 class="wow fadeInUp" data-wow-delay=".2s">
-                                    What Our Guests Sayz
+                                    What Our Guests Say
                                 </h2>
                             </div>
                             <p class="gt-testimonial-text wow fadeInUp" data-wow-delay=".4s">
