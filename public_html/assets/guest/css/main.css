@@ -57,6 +57,7 @@ Version: 1.0.0
 .gt-theme-btn {
   display: inline-block;
   vertical-align: middle;
+  appearance: none;
   -webkit-appearance: none;
   border: none;
   outline: none !important;
@@ -491,15 +492,7 @@ span {
 .gt-about-wrapper-2 .gt-about-left-content .gt-about-box-items .gt-about-images .title-box img {
   width: initial;
   margin-right: 10px;
-}
-.gt-about-wrapper-2 .gt-about-left-content .gt-about-box-items .about-content-icon {
-  margin-left: 30px;
-}
-@media (max-width: 1199px) {
-  .gt-about-wrapper-2 .gt-about-left-content .gt-about-box-items .about-content-icon {
-    margin-left: 0;
-  }
-}
+} 
 .gt-about-wrapper-2 .gt-about-left-content .gt-about-box-items .about-content-icon .gt-icon-box {
   display: flex;
   gap: 25px;
