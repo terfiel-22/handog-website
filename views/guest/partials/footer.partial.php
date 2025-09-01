@@ -16,28 +16,28 @@
                         <ul class="contact-list">
                             <li>
                                 <img src="/assets/guest/img/home-1/footer/call.svg" alt="img" />
-                                <a href="tel:0945424780">(094) 542 - 4780</a>
+                                <a href="tel:09099597451">09099597451</a>
                             </li>
                             <li>
                                 <img src="/assets/guest/img/home-1/footer/email.svg" alt="img" />
-                                <a href="mailto:info@example.com">info@example.com</a>
+                                <a href="mailto:handogresortandeventplace2017@gmail.com">HREP2017@gmail.com</a>
                             </li>
                         </ul>
                         <ul class="footer-menu-list">
                             <li>
-                                <a href="index.html">Home</a>
+                                <a href="/">Home</a>
                             </li>
                             <li>
-                                <a href="index.html">About</a>
+                                <a href="/accommodation">Accommodation</a>
                             </li>
                             <li>
-                                <a href="index.html">Framework</a>
+                                <a href="/amenities">Amenities</a>
                             </li>
                             <li>
-                                <a href="room.html">Rooms</a>
+                                <a href="/gallery">Gallery</a>
                             </li>
                             <li>
-                                <a href="index.html">Blog</a>
+                                <a href="/about">About</a>
                             </li>
                         </ul>
                     </div>
@@ -64,25 +64,28 @@
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="footer-widget-items">
-                                    <h3 class="widget-title">New York</h3>
+                                    <h3 class="widget-title">Philippines</h3>
                                     <ul class="gt-contact-list">
                                         <li>
                                             <img
                                                 src="/assets/guest/img/home-1/footer/location.svg"
                                                 alt="img" />
-                                            <p>UK, 1212; 102/B New Elephant Road London</p>
+                                            <p>Handog Compound
+                                                960Toclong, Kawit, Cavite</p>
                                         </li>
                                         <li>
                                             <img
                                                 src="/assets/guest/img/home-1/footer/email.svg"
                                                 alt="img" />
-                                            <a href="mailto:info@example.com">info@example.com</a>
+                                            <a href="mailto:handogresortandeventplace2017@gmail.com">
+                                                HREP2017@gmail.com
+                                            </a>
                                         </li>
                                         <li>
                                             <img
                                                 src="/assets/guest/img/home-1/footer/call.svg"
                                                 alt="img" />
-                                            <a href="tel:0945424780">(094) 542 - 4780</a>
+                                            <a href="tel:09099597451">09099597451</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -90,25 +93,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-bottom wow fadeInUp" data-wow-delay=".3s">
-        <div class="container">
-            <div
-                class="footer-wrapper d-flex align-items-center justify-content-between">
-                <p>Copyright© <a href="index.html">GRAMENTHEME</a></p>
-                <ul>
-                    <li>
-                        <a href="contact.html"> Terms & Conditions </a>
-                    </li>
-                    <li>
-                        <a href="contact.html"> Privacy Policy </a>
-                    </li>
-                    <li>
-                        <a href="contact.html"> Contact Us </a>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>

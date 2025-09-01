@@ -248,7 +248,7 @@
                                         <p>Location</p>
                                         <h4>
                                             Handog Compound
-                                            960Toclong, Kawit ,Cavite
+                                            960Toclong, Kawit, Cavite
                                             Philippines
                                         </h4>
                                     </div>
@@ -261,7 +261,7 @@
                                         <p>Email Address</p>
                                         <h4 class="fs-8">
                                             <a href="mailto:handogresortandeventplace2017@gmail.com">
-                                                handogresortandevent<br />place2017@gmail.com
+                                                HREP2017@gmail.com
                                             </a>
                                         </h4>
                                     </div>
