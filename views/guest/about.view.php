@@ -220,7 +220,7 @@
 
     <!-- GT Location Section Start -->
     <div class="googpemap-2">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6678.7619084840835!2d144.9618311901502!3d-37.81450084255415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642b4758afc1d%3A0x3119cc820fdfc62e!2sEnvato!5e0!3m2!1sen!2sbd!4v1641984054261!5m2!1sen!2sbd" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3134.58641613077!2d120.90409467398754!3d14.418793981504217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d30419c9c3bb%3A0x996422ef2d5b95c0!2sHandog%20Resort%20and%20Events%20Place!5e1!3m2!1sen!2sph!4v1756739870463!5m2!1sen!2sph" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 
     <!-- GT Contacts Section Start -->
@@ -247,7 +247,9 @@
                                     <div class="content">
                                         <p>Location</p>
                                         <h4>
-                                            43 Sardinella, 3nd Land Walk, Orchard view, London, UK
+                                            Handog Compound
+                                            960Toclong, Kawit ,Cavite
+                                            Philippines
                                         </h4>
                                     </div>
                                 </li>
@@ -257,7 +259,11 @@
                                     </div>
                                     <div class="content">
                                         <p>Email Address</p>
-                                        <h4><a href="mailto:supportinfo@gmail.com">supportinfo@gmail.com</a></h4>
+                                        <h4 class="fs-8">
+                                            <a href="mailto:handogresortandeventplace2017@gmail.com">
+                                                handogresortandevent<br />place2017@gmail.com
+                                            </a>
+                                        </h4>
                                     </div>
                                 </li>
                                 <li>
@@ -266,7 +272,7 @@
                                     </div>
                                     <div class="content">
                                         <p>Phone No</p>
-                                        <h4><a href="tel:0945424780">(094) 542 - 4780</a></h4>
+                                        <h4><a href="tel:09099597451">09099597451</a></h4>
                                     </div>
                                 </li>
                             </ul>
