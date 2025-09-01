@@ -14,224 +14,10 @@
     <?php view("guest/partials/misc.partial.php") ?>
 
     <!-- Offcanvas Area Start -->
-    <div class="fix-area">
-        <div class="offcanvas__info">
-            <div class="offcanvas__wrapper">
-                <div class="offcanvas__content">
-                    <div
-                        class="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
-                        <div class="offcanvas__logo">
-                            <a href="index.html">
-                                <img src="/assets/guest/img/logo/black-logo.svg" alt="logo-img" />
-                            </a>
-                        </div>
-                        <div class="offcanvas__close">
-                            <button>
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p class="text d-none d-xl-block">
-                        Nullam dignissim, ante scelerisque the is euismod fermentum odio
-                        sem semper the is erat, a feugiat leo urna eget eros. Duis Aenean
-                        a imperdiet risus.
-                    </p>
-                    <div class="mobile-menu fix mb-3"></div>
-                    <div class="offcanvas__contact">
-                        <h4>Contact Info</h4>
-                        <ul>
-                            <li class="d-flex align-items-center">
-                                <div class="offcanvas__contact-icon">
-                                    <i class="fal fa-map-marker-alt"></i>
-                                </div>
-                                <div class="offcanvas__contact-text">
-                                    <a target="_blank" href="#">Main Street, Melbourne, Australia</a>
-                                </div>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <div class="offcanvas__contact-icon mr-15">
-                                    <i class="fal fa-envelope"></i>
-                                </div>
-                                <div class="offcanvas__contact-text">
-                                    <a href="mailto:info@example.com"><span class="mailto:info@example.com">info@example.com</span></a>
-                                </div>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <div class="offcanvas__contact-icon mr-15">
-                                    <i class="fal fa-clock"></i>
-                                </div>
-                                <div class="offcanvas__contact-text">
-                                    <a target="_blank" href="#">Mod-friday, 09am -05pm</a>
-                                </div>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <div class="offcanvas__contact-icon mr-15">
-                                    <i class="far fa-phone"></i>
-                                </div>
-                                <div class="offcanvas__contact-text">
-                                    <a href="tel:+11002345909">+11002345909</a>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="header-button mt-4"></div>
-                        <a href="contact.html" class="gt-theme-btn">BOOK NOW</a>
-                        <div class="social-icon d-flex align-items-center">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-youtube"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="offcanvas__overlay"></div>
+    <?php view("guest/partials/off_canvas.partial.php") ?>
 
     <!-- Header Section Start -->
-    <header id="header-sticky" class="header-1 header-2">
-        <div class="container-fluid">
-            <div class="mega-menu-wrapper">
-                <div class="header-main">
-                    <div class="logo">
-                        <a href="index.html" class="header-logo">
-                            <img src="/assets/guest/img/logo/white-logo.svg" alt="logo-img" />
-                        </a>
-                        <a href="index.html" class="header-logo-2">
-                            <img src="/assets/guest/img/logo/black-logo.svg" alt="logo-img" />
-                        </a>
-                    </div>
-                    <div class="mean__menu-wrapper">
-                        <div class="main-menu">
-                            <nav id="mobile-menu">
-                                <ul>
-                                    <li class="has-dropdown active menu-thumb">
-                                        <a href="index.html"> Home </a>
-                                        <ul class="submenu has-homemenu">
-                                            <li>
-                                                <div class="homemenu-items">
-                                                    <div class="homemenu">
-                                                        <div class="homemenu-thumb">
-                                                            <img
-                                                                src="/assets/guest/img/header/home-01.jpg"
-                                                                alt="img" />
-                                                            <div class="demo-button">
-                                                                <a href="index.html" class="gt-theme-btn">Demo page</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="homemenu-content text-center">
-                                                            <h4 class="homemenu-title">Luxery Hotel</h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="homemenu">
-                                                        <div class="homemenu-thumb mb-15">
-                                                            <img
-                                                                src="/assets/guest/img/header/home-02.jpg"
-                                                                alt="img" />
-                                                            <div class="demo-button">
-                                                                <a href="index-2.html" class="gt-theme-btn">Demo page</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="homemenu-content text-center">
-                                                            <h4 class="homemenu-title">Beach Hotel</h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="homemenu">
-                                                        <div class="homemenu-thumb mb-15">
-                                                            <img
-                                                                src="/assets/guest/img/header/home-03.jpg"
-                                                                alt="img" />
-                                                            <div class="demo-button">
-                                                                <a href="index-3.html" class="gt-theme-btn">Demo page</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="homemenu-content text-center">
-                                                            <h4 class="homemenu-title">City Hotel</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-dropdown active d-xl-none">
-                                        <a href="index.html" class="border-none"> Home </a>
-                                        <ul class="submenu">
-                                            <li><a href="index.html">Luxery Hote</a></li>
-                                            <li><a href="index-2.html">Beach Hotel</a></li>
-                                            <li><a href="index-3.html">City Hotel</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-dropdown">
-                                        <a href="news.html"> Pages </a>
-                                        <ul class="submenu">
-                                            <li><a href="about.html">About Us</a></li>
-                                            <li class="has-dropdown">
-                                                <a href="team-details.html">
-                                                    Our Team
-                                                    <i class="fas fa-angle-right"></i>
-                                                </a>
-                                                <ul class="submenu">
-                                                    <li><a href="team.html">Our Team</a></li>
-                                                    <li>
-                                                        <a href="team-details.html">Team Details</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="restaurant.html">Restaurant</a></li>
-                                            <li><a href="testimonial.html">Our Testimonial</a></li>
-                                            <li><a href="404.html">404 Page</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="service-details.html"> Services </a>
-                                        <ul class="submenu">
-                                            <li><a href="service.html">Service Page</a></li>
-                                            <li>
-                                                <a href="service-details.html">Service Details</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="room-details.html"> Room </a>
-                                        <ul class="submenu">
-                                            <li><a href="room.html">Room 01 Page</a></li>
-                                            <li><a href="room-2.html">Room 02 Page</a></li>
-                                            <li><a href="room-details.html">Room Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="news-details.html"> Blog </a>
-                                        <ul class="submenu">
-                                            <li><a href="news-grid.html">Blog Grid</a></li>
-                                            <li><a href="news.html">Blog Standard</a></li>
-                                            <li><a href="news-details.html">Blog Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="contact.html">Contact Us</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                    <div
-                        class="header-right d-flex justify-content-end align-items-center">
-                        <div class="header__hamburger my-auto">
-                            <div class="sidebar__toggle">
-                                <div class="header-bar">
-                                    <span></span>
-                                    <span></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="hero-button">
-                            <a href="contact.html" class="gt-theme-btn">BOOKING ONLINE</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+    <?php view("guest/partials/header.partial.php") ?>
 
     <!-- GT Hero Section Start -->
     <section
@@ -245,7 +31,7 @@
             <a href="#"><i class="fab fa-twitter"></i></a>
             <a href="#"><i class="fab fa-youtube"></i></a>
             <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            <span>Fallow Us:</span>
+            <span>Follow Us:</span>
         </div>
         <div class="hero-shape-right">
             <img src="/assets/guest/img/home-2/hero/Vector-right.png" alt="img" />
@@ -1284,7 +1070,7 @@
                 <div class="icon">
                     <i class="fa-brands fa-instagram"></i>
                 </div>
-                Fallow Us On Instagram
+                Follow Us On Instagram
             </div>
         </div>
     </section>

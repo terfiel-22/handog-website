@@ -9,7 +9,7 @@
             <span data-text-preloader="O" class="letters-loading"> O </span>
             <span data-text-preloader="G" class="letters-loading"> G </span>
         </div>
-        <p class="text-center">Loading</p>
+        <p class="text-center">Resort & Events Place</p>
     </div>
     <div class="loader">
         <div class="row">
