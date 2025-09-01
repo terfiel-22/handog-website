@@ -20,54 +20,17 @@
                                 <li class="active d-xl-none">
                                     <a href="/" class="border-none">Home</a>
                                 </li>
-                                <li class="has-dropdown">
-                                    <a href="news.html"> Pages </a>
-                                    <ul class="submenu">
-                                        <li><a href="about.html">About Us</a></li>
-                                        <li class="has-dropdown">
-                                            <a href="team-details.html">
-                                                Our Team
-                                                <i class="fas fa-angle-right"></i>
-                                            </a>
-                                            <ul class="submenu">
-                                                <li><a href="team.html">Our Team</a></li>
-                                                <li>
-                                                    <a href="team-details.html">Team Details</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="restaurant.html">Restaurant</a></li>
-                                        <li><a href="testimonial.html">Our Testimonial</a></li>
-                                        <li><a href="404.html">404 Page</a></li>
-                                    </ul>
+                                <li>
+                                    <a href="/accommodation">Accommodation</a>
                                 </li>
                                 <li>
-                                    <a href="service-details.html"> Services </a>
-                                    <ul class="submenu">
-                                        <li><a href="service.html">Service Page</a></li>
-                                        <li>
-                                            <a href="service-details.html">Service Details</a>
-                                        </li>
-                                    </ul>
+                                    <a href="/amenities">Amenities</a>
                                 </li>
                                 <li>
-                                    <a href="room-details.html"> Room </a>
-                                    <ul class="submenu">
-                                        <li><a href="room.html">Room 01 Page</a></li>
-                                        <li><a href="room-2.html">Room 02 Page</a></li>
-                                        <li><a href="room-details.html">Room Details</a></li>
-                                    </ul>
+                                    <a href="/gallery">Gallery</a>
                                 </li>
                                 <li>
-                                    <a href="news-details.html"> Blog </a>
-                                    <ul class="submenu">
-                                        <li><a href="news-grid.html">Blog Grid</a></li>
-                                        <li><a href="news.html">Blog Standard</a></li>
-                                        <li><a href="news-details.html">Blog Details</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="contact.html">Contact Us</a>
+                                    <a href="/about">About Us</a>
                                 </li>
                             </ul>
                         </nav>
