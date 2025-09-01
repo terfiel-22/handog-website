@@ -1,80 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<!--<< Header Area >>-->
 
-<head>
-    <!-- ========== Meta Tags ========== -->
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="Gramentheme" />
-    <meta
-        name="description"
-        content="Arlux- Hotel & Resort Booking HTML Template" />
-    <!-- ======== Page title ============ -->
-    <title>Arlux- Hotel & Resort Booking HTML Template</title>
-    <!--<< Favcion >>-->
-    <link rel="shortcut icon" href="/assets/guest/img/favicon.svg" />
-    <!--<< Bootstrap min.css >>-->
-    <link rel="stylesheet" href="/assets/guest/css/bootstrap.min.css" />
-    <!--<< All Min Css >>-->
-    <link rel="stylesheet" href="/assets/guest/css/all.min.css" />
-    <!--<< Animate.css >>-->
-    <link rel="stylesheet" href="/assets/guest/css/animate.css" />
-    <!--<< Magnific Popup.css >>-->
-    <link rel="stylesheet" href="/assets/guest/css/magnific-popup.css" />
-    <!--<< MeanMenu.css >>-->
-    <link rel="stylesheet" href="/assets/guest/css/meanmenu.css" />
-    <!--<< Swiper Bundle.css >>-->
-    <link rel="stylesheet" href="/assets/guest/css/swiper-bundle.min.css" />
-    <!--<< Nice Select.css >>-->
-    <link rel="stylesheet" href="/assets/guest/css/nice-select.css" />
-    <!--<< Main.css >>-->
-    <link rel="stylesheet" href="/assets/guest/css/flaticon.css" />
-    <!--<< Main.css >>-->
-    <link rel="stylesheet" href="/assets/guest/css/main.css" />
-</head>
+<!--<< Header Area >>-->
+<?php view("guest/partials/head.partial.php", [
+    'title' => "Handog"
+]) ?>
 
 <body>
     <!-- Preloader Start -->
-    <div id="preloader" class="preloader">
-        <div class="animation-preloader">
-            <div class="spinner"></div>
-            <div class="txt-loading">
-                <span data-text-preloader="A" class="letters-loading"> A </span>
-                <span data-text-preloader="R" class="letters-loading"> R </span>
-                <span data-text-preloader="L" class="letters-loading"> L </span>
-                <span data-text-preloader="U" class="letters-loading"> U </span>
-                <span data-text-preloader="X" class="letters-loading"> X </span>
-            </div>
-            <p class="text-center">Loading</p>
-        </div>
-        <div class="loader">
-            <div class="row">
-                <div class="col-3 loader-section section-left">
-                    <div class="bg"></div>
-                </div>
-                <div class="col-3 loader-section section-left">
-                    <div class="bg"></div>
-                </div>
-                <div class="col-3 loader-section section-right">
-                    <div class="bg"></div>
-                </div>
-                <div class="col-3 loader-section section-right">
-                    <div class="bg"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php view("guest/partials/preloader.partial.php") ?>
 
-    <!-- GT Back To Top Start -->
-    <button id="gt-back-top" class="gt-back-to-top show">
-        <i class="fa-solid fa-chevrons-up"></i>
-    </button>
-
-    <!-- GT MouseCursor Start -->
-    <div class="mouseCursor cursor-outer"></div>
-    <div class="mouseCursor cursor-inner"></div>
+    <!-- Misc Section -->
+    <?php view("guest/partials/misc.partial.php") ?>
 
     <!-- Offcanvas Area Start -->
     <div class="fix-area">
@@ -1353,146 +1290,10 @@
     </section>
 
     <!-- GT Footer Section Start -->
-    <footer
-        class="gt-footer-section fix bg-cover"
-        style="background-image: url('/assets/guest/img/home-1/footer/footer-img.jpg')">
-        <div class="container">
-            <div class="gt-footer-widget-wrapper-2">
-                <div class="row g-4">
-                    <div class="col-xl-6 col-lg-6 wow fadeInUp" data-wow-delay=".3s">
-                        <div class="footer-left">
-                            <a href="index.html" class="footer-logo">
-                                <img src="/assets/guest/img/logo/white-logo.svg" alt="img" />
-                            </a>
-                            <p>
-                                At Arlux, we believe luxury is not just a destination—it’s a
-                                feeling, an experience, and a way of life
-                            </p>
-                            <ul class="contact-list">
-                                <li>
-                                    <img src="/assets/guest/img/home-1/footer/call.svg" alt="img" />
-                                    <a href="tel:0945424780">(094) 542 - 4780</a>
-                                </li>
-                                <li>
-                                    <img src="/assets/guest/img/home-1/footer/email.svg" alt="img" />
-                                    <a href="mailto:info@example.com">info@example.com</a>
-                                </li>
-                            </ul>
-                            <ul class="footer-menu-list">
-                                <li>
-                                    <a href="index.html">Home</a>
-                                </li>
-                                <li>
-                                    <a href="index.html">About</a>
-                                </li>
-                                <li>
-                                    <a href="index.html">Framework</a>
-                                </li>
-                                <li>
-                                    <a href="room.html">Rooms</a>
-                                </li>
-                                <li>
-                                    <a href="index.html">Blog</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 wow fadeInUp" data-wow-delay=".5s">
-                        <div class="footer-right-items">
-                            <div class="row g-4">
-                                <div class="col-lg-6">
-                                    <div class="footer-widget-items">
-                                        <h3 class="widget-title">Working Hours</h3>
-                                        <ul class="gt-working-hour">
-                                            <li>Mon to Fri : <span>08:00 - 11:00</span></li>
-                                            <li>Saturday : <span>08:00 - 11:00</span></li>
-                                            <li>Sunday : <span>Closed</span></li>
-                                        </ul>
-                                        <div class="gt-social-icon d-flex align-items-center">
-                                            <span>Follow On:</span>
-                                            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                                            <a href="#"><i class="fab fa-twitter"></i></a>
-                                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="footer-widget-items">
-                                        <h3 class="widget-title">New York</h3>
-                                        <ul class="gt-contact-list">
-                                            <li>
-                                                <img
-                                                    src="/assets/guest/img/home-1/footer/location.svg"
-                                                    alt="img" />
-                                                <p>UK, 1212; 102/B New Elephant Road London</p>
-                                            </li>
-                                            <li>
-                                                <img
-                                                    src="/assets/guest/img/home-1/footer/email.svg"
-                                                    alt="img" />
-                                                <a href="mailto:info@example.com">info@example.com</a>
-                                            </li>
-                                            <li>
-                                                <img
-                                                    src="/assets/guest/img/home-1/footer/call.svg"
-                                                    alt="img" />
-                                                <a href="tel:0945424780">(094) 542 - 4780</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom wow fadeInUp" data-wow-delay=".3s">
-            <div class="container">
-                <div
-                    class="footer-wrapper d-flex align-items-center justify-content-between">
-                    <p>Copyright© <a href="index.html">GRAMENTHEME</a></p>
-                    <ul>
-                        <li>
-                            <a href="contact.html"> Terms & Conditions </a>
-                        </li>
-                        <li>
-                            <a href="contact.html"> Privacy Policy </a>
-                        </li>
-                        <li>
-                            <a href="contact.html"> Contact Us </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <?php view("guest/partials/footer.partial.php") ?>
 
     <!--<< All JS Plugins >>-->
-    <script src="/assets/guest/js/jquery-3.7.1.min.js"></script>
-    <!--<< Viewport Js >>-->
-    <script src="/assets/guest/js/viewport.jquery.js"></script>
-    <!--<< Bootstrap Js >>-->
-    <script src="/assets/guest/js/bootstrap.bundle.min.js"></script>
-    <!--<< nice-selec Js >>-->
-    <script src="/assets/guest/js/jquery.nice-select.min.js"></script>
-    <!--<< Waypoints Js >>-->
-    <script src="/assets/guest/js/jquery.waypoints.js"></script>
-    <!--<< Counterup Js >>-->
-    <script src="/assets/guest/js/jquery.counterup.min.js"></script>
-    <!--<< Swiper Slider Js >>-->
-    <script src="/assets/guest/js/swiper-bundle.min.js"></script>
-    <!--<< MeanMenu Js >>-->
-    <script src="/assets/guest/js/jquery.meanmenu.min.js"></script>
-    <!--<< Parallaxie Js >>-->
-    <script src="/assets/guest/js/parallaxie.js"></script>
-    <!--<< Magnific Popup Js >>-->
-    <script src="/assets/guest/js/jquery.magnific-popup.min.js"></script>
-    <!--<< Wow Animation Js >>-->
-    <script src="/assets/guest/js/wow.min.js"></script>
-    <!--<< Main.js >>-->
-    <script src="/assets/guest/js/main.js"></script>
+    <?php view("guest/partials/plugins.partial.php") ?>
 </body>
 
 </html>
