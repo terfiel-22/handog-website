@@ -3,7 +3,7 @@
 
 <!--<< Header Area >>-->
 <?php view("guest/partials/head.partial.php", [
-    'title' => "Handog"
+    'title' => "Handog | Home"
 ]) ?>
 
 <body>
