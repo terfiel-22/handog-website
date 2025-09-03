@@ -7207,3 +7207,9 @@ span {
     padding: 0 30px;
   }
 }/*# sourceMappingURL=main.css.map */
+
+
+.check-list li i {
+    color: var(--gt-theme);
+    margin: 0 8px 0 16px;
+}
