@@ -21,48 +21,54 @@
 
     <!-- GT Hero Section Start -->
     <section
-        class="gt-hero-section gt-hero-2 parallaxie fix bg-cover"
-        style="background-image: url('/assets/guest/img/home-2/hero/hero-01.jpg')">
-        <div class="hero-shape-bottom">
-            <img src="/assets/guest/img/home-2/hero/hero-Vector.png" alt="img" />
-        </div>
-        <div class="social-icon d-flex align-items-center">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            <span>Follow Us:</span>
-        </div>
-        <div class="hero-shape-right">
-            <img src="/assets/guest/img/home-2/hero/Vector-right.png" alt="img" />
-        </div>
-        <ul class="hero-contact">
-            <li>
-                <img src="/assets/guest/img/home-1/footer/location.svg" alt="img" />
-                <a href="mailto:info@example.com">
-                    Tuesday - Saturday 8:00 Am - 11:00 Pm</a>
-            </li>
-            <li>
-                <img src="/assets/guest/img/home-1/footer/email.svg" alt="img" />
-                <a href="mailto:info@example.com"> info@example.com</a>
-            </li>
-        </ul>
-        <div class="container">
-            <div class="gt-hero-content text-center">
-                <span class="wow fadeInUp"><img src="/assets/guest/img/sub-left.svg" alt="img" /> Our Seaside Retreat
-                    Is Stunning <img src="/assets/guest/img/sub-right.svg" alt="img" /></span>
-                <h1 class="text-white wow fadeInUp" data-wow-delay=".2s">
-                    Explore the Magnificence of Our Beach Haven
-                </h1>
-                <p class="text-white mt-3 wow fadeInUp" data-wow-delay=".4s">
-                    Discover a sanctuary where sun-kissed shores meet timeless elegance.
-                    Nestled along pristine coastline, our Beach Haven offers a serene
-                    escape infused with luxurious comfort and breathtaking natural
-                    beauty.
-                </p>
-                <div class="gt-hero-button wow fadeInUp" data-wow-delay=".6s">
-                    <a href="room.html" class="gt-theme-btn">DISCOVER ROOM</a>
-                    <a href="contact.html" class="gt-theme-btn style-2">Book Now</a>
+        class="scroll-down-intro-banner-container">
+        <div class="scroll-down-intro-banner-container">
+            <video class="scroll-down-hero-banner-img-desktop" autoplay="" muted="" loop="" playsinline="">
+                <source src="https://cdn.shopify.com/videos/c/o/v/a4b23976f97b443e941da0e24984701f.mp4" type="video/mp4">
+            </video>
+            <video class="scroll-down-hero-banner-img-mobile" autoplay="" muted="" loop="" playsinline="">
+                <source src="https://cdn.shopify.com/videos/c/o/v/2f1ab6719dbc419283fb397fa3684151.mp4" type="video/mp4">
+            </video>
+            <div class="scroll-down-hero-banner-content gt-hero-2">
+                <div class="hero-shape-bottom">
+                    <img src="/assets/guest/img/bottom-shape2.png" alt="img" />
+                </div>
+                <div class="social-icon d-flex align-items-center">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <span>Follow Us:</span>
+                </div>
+                <ul class="hero-contact">
+                    <li>
+                        <img src="/assets/guest/img/home-1/footer/location.svg" alt="img" />
+                        <a href="mailto:info@example.com">
+                            Tuesday - Saturday 8:00 Am - 11:00 Pm</a>
+                    </li>
+                    <li>
+                        <img src="/assets/guest/img/home-1/footer/email.svg" alt="img" />
+                        <a href="mailto:info@example.com"> info@example.com</a>
+                    </li>
+                </ul>
+                <div class="container">
+                    <div class="gt-hero-content text-center">
+                        <span class="wow fadeInUp"><img src="/assets/guest/img/sub-left.svg" alt="img" /> Our Seaside Retreat
+                            Is Stunning <img src="/assets/guest/img/sub-right.svg" alt="img" /></span>
+                        <h1 class="text-white wow fadeInUp" data-wow-delay=".2s">
+                            Explore the Magnificence of Our Beach Haven
+                        </h1>
+                        <p class="text-white mt-3 wow fadeInUp" data-wow-delay=".4s">
+                            Discover a sanctuary where sun-kissed shores meet timeless elegance.
+                            Nestled along pristine coastline, our Beach Haven offers a serene
+                            escape infused with luxurious comfort and breathtaking natural
+                            beauty.
+                        </p>
+                        <div class="gt-hero-button wow fadeInUp" data-wow-delay=".6s">
+                            <a href="room.html" class="gt-theme-btn">DISCOVER ROOM</a>
+                            <a href="contact.html" class="gt-theme-btn style-2">Book Now</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
