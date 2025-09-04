@@ -19,6 +19,78 @@
     <!-- Header Section Start -->
     <?php view("guest/partials/header.partial.php") ?>
 
+    <!-- Promo Section Start -->
+    <div class="marquee-section fix">
+        <div class="marquee">
+            <div class="marquee-group">
+                <div class="text">Limited-Time Offer</div>
+                <div class="text">
+                    <img src="/assets/guest/img/home-1/star.png" alt="img">
+                </div>
+                <div class="text">Book Now & Save 20%</div>
+                <div class="text">
+                    <img src="/assets/guest/img/home-1/star.png" alt="img">
+                </div>
+                <div class="text">Best Luxury Resort</div>
+                <div class="text">
+                    <img src="/assets/guest/img/home-1/star.png" alt="img">
+                </div>
+                <div class="text">Early Bird Special</div>
+                <div class="text">
+                    <img src="/assets/guest/img/home-1/star.png" alt="img">
+                </div>
+                <div class="text">All-Inclusive Promo</div>
+                <div class="text">
+                    <img src="/assets/guest/img/home-1/star.png" alt="img">
+                </div>
+            </div>
+            <div class="marquee-group">
+                <div class="text">Limited-Time Offer</div>
+                <div class="text">
+                    <img src="/assets/guest/img/home-1/star.png" alt="img">
+                </div>
+                <div class="text">Book Now & Save 20%</div>
+                <div class="text">
+                    <img src="/assets/guest/img/home-1/star.png" alt="img">
+                </div>
+                <div class="text">Best Luxury Resort</div>
+                <div class="text">
+                    <img src="/assets/guest/img/home-1/star.png" alt="img">
+                </div>
+                <div class="text">Early Bird Special</div>
+                <div class="text">
+                    <img src="/assets/guest/img/home-1/star.png" alt="img">
+                </div>
+                <div class="text">All-Inclusive Promo</div>
+                <div class="text">
+                    <img src="/assets/guest/img/home-1/star.png" alt="img">
+                </div>
+            </div>
+            <div class="marquee-group">
+                <div class="text">Limited-Time Offer</div>
+                <div class="text">
+                    <img src="/assets/guest/img/home-1/star.png" alt="img">
+                </div>
+                <div class="text">Book Now & Save 20%</div>
+                <div class="text">
+                    <img src="/assets/guest/img/home-1/star.png" alt="img">
+                </div>
+                <div class="text">Best Luxury Resort</div>
+                <div class="text">
+                    <img src="/assets/guest/img/home-1/star.png" alt="img">
+                </div>
+                <div class="text">Early Bird Special</div>
+                <div class="text">
+                    <img src="/assets/guest/img/home-1/star.png" alt="img">
+                </div>
+                <div class="text">All-Inclusive Promo</div>
+                <div class="text">
+                    <img src="/assets/guest/img/home-1/star.png" alt="img">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- GT Hero Section Start -->
     <section
         class="scroll-down-intro-banner-container">
