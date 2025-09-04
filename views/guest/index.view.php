@@ -146,23 +146,26 @@
         </div>
     </section>
 
-    <!-- GT Why Choose Us Section Start -->
+    <!-- GT Rates Section Start -->
     <section class="gt-why-choose-us-section-2 section-padding fix">
         <div class="gt-choose-us-shape">
             <img src="/assets/guest/img/home-2/choose-us/Vector-01.png" alt="img" />
         </div>
         <div class="container">
-            <div class="gt-section-title text-center">
-                <h6 class="justify-content-center wow fadeInUp">
-                    <img src="/assets/guest/img/sub-left.svg" alt="img" />
-                    Facilities
-                    <img src="/assets/guest/img/sub-right.svg" alt="img" />
-                </h6>
-                <h2 class="wow fadeInUp" data-wow-delay=".2s">Why Choose Us</h2>
+            <div class="gt-section-title-area">
+                <div class="gt-section-title">
+                    <h6 class="wow fadeInUp">
+                        <img src="/assets/guest/img/sub-left.svg" alt="img" />
+                        Luxury stays, flexible pricing
+                    </h6>
+                    <h2 class="wow fadeInUp" data-wow-delay=".2s">
+                        Rates
+                    </h2>
+                </div>
             </div>
             <div class="row">
                 <div
-                    class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp"
+                    class="col-12 col-md-6 wow fadeInUp"
                     data-wow-delay=".3s">
                     <div class="gt-why-choose-us-images">
                         <div class="gt-choose-us-image">
@@ -170,46 +173,34 @@
                                 src="/assets/guest/img/home-2/choose-us/choose-us-01.jpg"
                                 alt="img" />
                             <div class="gt-content">
-                                <h3>Romantic Escapes</h3>
+                                <h3>Enjoy the Adult Pool</h3>
                                 <p>
-                                    Wake up to breathtaking ocean views in our elegant, serene,
-                                    and beautifully
+                                    Take a refreshing dip in our adult pool,
+                                    designed for relaxation and recreation.
+                                    With ample space for swimming and
+                                    lounging, it's the perfect spot to soak up
+                                    the sun and enjoy a leisurely afternoon.
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div
-                    class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp"
-                    data-wow-delay=".5s">
+                    class="col-12 col-md-6 wow fadeInUp"
+                    data-wow-delay=".3s">
                     <div class="gt-why-choose-us-images">
                         <div class="gt-choose-us-image">
                             <img
-                                src="/assets/guest/img/home-2/choose-us/choose-us-02.jpg"
+                                src="/assets/guest/img/home-2/choose-us/choose-us-01.jpg"
                                 alt="img" />
                             <div class="gt-content">
-                                <h3>Oceanfront Rooms</h3>
+                                <h3>Enjoy the Adult Pool</h3>
                                 <p>
-                                    Wake up to breathtaking ocean views in our elegant, serene,
-                                    and beautifully
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp"
-                    data-wow-delay=".7s">
-                    <div class="gt-why-choose-us-images">
-                        <div class="gt-choose-us-image">
-                            <img
-                                src="/assets/guest/img/home-2/choose-us/choose-us-03.jpg"
-                                alt="img" />
-                            <div class="gt-content">
-                                <h3>Hotel Diner</h3>
-                                <p>
-                                    Wake up to breathtaking ocean views in our elegant, serene,
-                                    and beautifully
+                                    Take a refreshing dip in our adult pool,
+                                    designed for relaxation and recreation.
+                                    With ample space for swimming and
+                                    lounging, it's the perfect spot to soak up
+                                    the sun and enjoy a leisurely afternoon.
                                 </p>
                             </div>
                         </div>
@@ -219,418 +210,130 @@
         </div>
     </section>
 
-    <!-- GT Hotel Facilities Section Start -->
-    <section class="gt-hotel-facilities-section-2 section-padding fix">
-        <div class="gt-hotel-facilities-shape">
-            <img src="/assets/guest/img/home-2/hotel-facilites/Vector-01.png" alt="img" />
+    <!-- GT Safety Guidelines Section Start -->
+    <section class="gt-why-choose-us-section-2 section-padding fix section-bg-3">
+        <div class="gt-choose-us-shape">
+            <img src="/assets/guest/img/home-2/choose-us/Vector-01.png" alt="img" />
         </div>
         <div class="container">
-            <div class="gt-hotel-facilities-wrapper-2">
-                <div class="row g-4">
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay=".3s">
-                        <div class="gt-hotel-left-images">
-                            <img src="/assets/guest/img/home-2/hotel-facilites/01.jpg" alt="img" />
-                            <a
-                                href="https://www.youtube.com/watch?v=Cn4G2lZ_g2I"
-                                class="video-btn ripple video-popup">
-                                <i class="fa-solid fa-play"></i>
-                            </a>
-                            <div class="gt-counter">
-                                <h2><span class="gt-count">21</span>+</h2>
-                                <p>
-                                    Years Of <br />
-                                    Experience
-                                </p>
-                            </div>
-                            <div class="gt-hotel-img wow fadeInUp" data-wow-delay=".5s">
-                                <img
-                                    src="/assets/guest/img/home-2/hotel-facilites/02.jpg"
-                                    alt="img" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="gt-hotel-right-content">
-                            <div class="gt-section-title mb-0">
-                                <h6 class="wow fadeInUp">
-                                    <img src="/assets/guest/img/sub-left.svg" alt="img" />
-                                    Hotel Facilities
-                                </h6>
-                                <h2 class="wow fadeInUp" data-wow-delay=".2s">
-                                    The Framework
-                                </h2>
-                            </div>
-                            <p class="gt-hotel-text wow fadeInUp" data-wow-delay=".4s">
-                                The Framework blends modern luxury with timeless design,
-                                offering sophisticated spaces, elegant details, and a serene
-                                atmosphere crafted for unforgettable beachfront living and
-                                elevated guest experiences.
-                            </p>
-                            <div class="gt-skill-feature-items">
-                                <div
-                                    class="gt-skill-feature wow fadeInUp"
-                                    data-wow-delay=".3s">
-                                    <h3 class="gt-box-title">Room Service</h3>
-                                    <div class="gt-progress">
-                                        <div
-                                            class="gt-progress-bar"
-                                            style="
-                          width: 90%;
-                          animation: 2.6s ease 0s 1 normal none running
-                            animate-positive;
-                          opacity: 1;
-                        ">
-                                            <div class="gt-progress-value">
-                                                <span class="counter-number2">90</span>%
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="gt-skill-feature wow fadeInUp"
-                                    data-wow-delay=".4s">
-                                    <h3 class="gt-box-title">Breakfast Included</h3>
-                                    <div class="gt-progress">
-                                        <div
-                                            class="gt-progress-bar"
-                                            style="
-                          width: 55%;
-                          animation: 2.6s ease 0s 1 normal none running
-                            animate-positive;
-                          opacity: 1;
-                        ">
-                                            <div class="gt-progress-value">
-                                                <span class="counter-number2">55</span>%
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="gt-skill-feature wow fadeInUp"
-                                    data-wow-delay=".4s">
-                                    <h3 class="gt-box-title">Laundry & Ironing</h3>
-                                    <div class="gt-progress">
-                                        <div
-                                            class="gt-progress-bar"
-                                            style="
-                          width: 79%;
-                          animation: 2.6s ease 0s 1 normal none running
-                            animate-positive;
-                          opacity: 1;
-                        ">
-                                            <div class="gt-progress-value">
-                                                <span class="counter-number2">79</span>%
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a
-                                href="about.html"
-                                class="gt-theme-btn wow fadeInUp"
-                                data-wow-delay=".6s">VIEW All DETAILS</a>
-                        </div>
-                    </div>
+            <div class="gt-section-title-area">
+                <div class="gt-section-title">
+                    <h6 class="wow fadeInUp">
+                        <img src="/assets/guest/img/sub-left.svg" alt="img" />
+                        For a safe and enjoyable stay
+                    </h6>
+                    <h2 class="wow fadeInUp" data-wow-delay=".2s">
+                        Rules & Safety Guidelines
+                    </h2>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- GT Hotel Feature Section Start -->
-    <section class="gt-hotel-feature-section-2 section-padding fix pt-0">
-        <div class="container">
-            <div class="gt-hotel-feature-area">
-                <div class="gt-hotel-feature-items wow fadeInUp" data-wow-delay=".2s">
+            <div class="gt-hotel-feature-area row g-3 pt-3">
+                <div class="col-md-4 col-12 gt-hotel-feature-items wow fadeInUp" data-wow-delay=".2s">
                     <div class="icon">
                         <i class="flaticon-fitness-center"></i>
                     </div>
                     <div class="content">
-                        <h3>Fitness Center</h3>
-                        <p>Lorem ipsum dolor</p>
+                        <h3>No Lifeguard On Duty</h3>
+                        <p>Swim at your own risk</p>
                     </div>
                 </div>
-                <div class="gt-hotel-feature-items wow fadeInUp" data-wow-delay=".4s">
+                <div class="col-md-4 col-12 gt-hotel-feature-items wow fadeInUp" data-wow-delay=".4s">
                     <div class="icon">
                         <i class="flaticon-disinfect"></i>
                     </div>
                     <div class="content">
-                        <h3>Disinfection</h3>
-                        <p>Lorem ipsum dolor</p>
+                        <h3>Watch Your Children</h3>
+                        <p>At all times</p>
                     </div>
                 </div>
-                <div class="gt-hotel-feature-items wow fadeInUp" data-wow-delay=".6s">
+                <div class="col-md-4 col-12 gt-hotel-feature-items wow fadeInUp" data-wow-delay=".4s">
+                    <div class="icon">
+                        <i class="flaticon-disinfect"></i>
+                    </div>
+                    <div class="content">
+                        <h3>Shower</h3>
+                        <p>Before entering the pool</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12 gt-hotel-feature-items wow fadeInUp" data-wow-delay=".6s">
                     <div class="icon">
                         <i class="flaticon-suite"></i>
                     </div>
                     <div class="content">
-                        <h3>Rooms and Suites</h3>
-                        <p>Lorem ipsum dolor</p>
+                        <h3>No Pets Allowed</h3>
+                        <p>By the pool side</p>
                     </div>
                 </div>
-                <div class="gt-hotel-feature-items wow fadeInUp" data-wow-delay=".8s">
+                <div class="col-md-4 col-12 gt-hotel-feature-items wow fadeInUp" data-wow-delay=".8s">
                     <div class="icon">
                         <i class="flaticon-luggage"></i>
                     </div>
                     <div class="content">
-                        <h3>Store Luggage</h3>
-                        <p>Lorem ipsum dolor</p>
+                        <h3>Foods and Drinks</h3>
+                        <p>Are not allowed by the poolside</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12 gt-hotel-feature-items wow fadeInUp" data-wow-delay=".2s">
+                    <div class="icon">
+                        <i class="flaticon-fitness-center"></i>
+                    </div>
+                    <div class="content">
+                        <h3>No Diving</h3>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12 gt-hotel-feature-items wow fadeInUp" data-wow-delay=".4s">
+                    <div class="icon">
+                        <i class="flaticon-disinfect"></i>
+                    </div>
+                    <div class="content">
+                        <h3>No Running</h3>
+                        <p>Around the poolside</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12 gt-hotel-feature-items wow fadeInUp" data-wow-delay=".6s">
+                    <div class="icon">
+                        <i class="flaticon-suite"></i>
+                    </div>
+                    <div class="content">
+                        <h3>No Peeing</h3>
+                        <p>In the pool</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12 gt-hotel-feature-items wow fadeInUp" data-wow-delay=".8s">
+                    <div class="icon">
+                        <i class="flaticon-luggage"></i>
+                    </div>
+                    <div class="content">
+                        <h3>No Pushing</h3>
+                        <p>Or horseplay</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12 gt-hotel-feature-items wow fadeInUp" data-wow-delay=".8s">
+                    <div class="icon">
+                        <i class="flaticon-luggage"></i>
+                    </div>
+                    <div class="content">
+                        <h3>Drugs and Firearms</h3>
+                        <p>Are strictly prohibited</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- GT Discpunt Section Start -->
-    <section
-        class="gt-discount-section-2 fix section-padding bg-cover"
-        style="background-image: url('/assets/guest/img/home-2/discount-bg.jpg')">
-        <div class="container">
-            <div class="gt-discount-wrapper">
-                <div class="row g-4 justify-content-between">
-                    <div class="col-lg-6">
-                        <div class="discount-left">
-                            <div class="gt-section-title mb-0">
-                                <h6 class="wow fadeInUp">
-                                    <img src="/assets/guest/img/sub-left.svg" alt="img" />
-                                    Up to 30% Off
-                                </h6>
-                                <h2 class="text-white wow fadeInUp" data-wow-delay=".2s">
-                                    Romantic Seaside Escape
-                                </h2>
-                            </div>
-                            <p class="text wow fadeInUp" data-wow-delay=".4s">
-                                Includes a private beach dinner, couples’ spa treatment, and a
-                                sunset sail for two.
-                            </p>
-                            <a
-                                href="room.html"
-                                class="gt-theme-btn wow fadeInUp"
-                                data-wow-delay=".6s">
-                                <span class="gt-text-btn">
-                                    <span class="gt-text-2">FIND OUR MORE</span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="discount-left style-2">
-                            <div class="gt-section-title mb-0">
-                                <h6 class="wow fadeInUp justify-content-end">
-                                    <img src="/assets/guest/img/sub-right.svg" alt="img" />
-                                    Enjoy 20% off
-                                </h6>
-                                <h2 class="text-white wow fadeInUp" data-wow-delay=".2s">
-                                    Dine & Drink
-                                </h2>
-                            </div>
-                            <p class="text wow fadeInUp" data-wow-delay=".4s">
-                                Includes a private beach dinner, couples’ spa treatment
-                            </p>
-                            <a
-                                href="restaurant.html"
-                                class="gt-theme-btn wow fadeInUp"
-                                data-wow-delay=".6s">
-                                <span class="gt-text-btn">
-                                    <span class="gt-text-2">FIND OUR MORE</span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- GT Testimonial Section Start -->
-    <section
-        class="gt-testimonial-section-2 fix section-padding bg-cover"
-        style="
-        background-image: url('/assets/guest/img/home-2/testimonial/testimonial-bg.jpg');
-      ">
-        <div class="container">
-            <div class="gt-section-title text-center mb-0">
-                <h6 class="wow fadeInUp justify-content-center">
-                    <img src="/assets/guest/img/sub-left.svg" alt="img" />
-                    Testimonial
-                    <img src="/assets/guest/img/sub-right.svg" alt="img" />
-                </h6>
-                <h2 class="wow fadeInUp" data-wow-delay=".2s">What Our Guests Say</h2>
-            </div>
-            <div class="testimonial-wrapper-2">
-                <div class="map-bg">
-                    <img src="/assets/guest/img/home-2/testimonial/map-shape.png" alt="img" />
-                    <div class="testimonial-box-area">
-                        <div class="testimonial-box-2">
-                            <div class="star">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <p>
-                                From the moment we arrived, every detail was flawless. The
-                                staff anticipated our every need, and the suite was pure
-                                perfection. We’ll be back soon!"
-                            </p>
-                            <div class="client-info">
-                                <h4>Marvin McKinney</h4>
-                                <span>Product Manager</span>
-                            </div>
-                            <div class="arrow-shape">
-                                <img
-                                    src="/assets/guest/img/home-2/testimonial/arrow-bottom.png"
-                                    alt="img" />
-                            </div>
-                        </div>
-                        <div class="client-info-image">
-                            <img
-                                src="/assets/guest/img/home-2/testimonial/client-1.png"
-                                alt="img" />
-                        </div>
-                    </div>
-                    <div class="testimonial-box-area style-2">
-                        <div class="testimonial-box-2">
-                            <div class="star">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <p>
-                                From the moment we arrived, every detail was flawless. The
-                                staff anticipated our every need, and the suite was pure
-                                perfection. We’ll be back soon!"
-                            </p>
-                            <div class="client-info">
-                                <h4>Marvin McKinney</h4>
-                                <span>Product Manager</span>
-                            </div>
-                            <div class="arrow-shape">
-                                <img
-                                    src="/assets/guest/img/home-2/testimonial/arrow-bottom.png"
-                                    alt="img" />
-                            </div>
-                        </div>
-                        <div class="client-info-image">
-                            <img
-                                src="/assets/guest/img/home-2/testimonial/client-2.png"
-                                alt="img" />
-                        </div>
-                    </div>
-                    <div class="testimonial-box-area style-3">
-                        <div class="testimonial-box-2">
-                            <div class="star">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <p>
-                                From the moment we arrived, every detail was flawless. The
-                                staff anticipated our every need, and the suite was pure
-                                perfection. We’ll be back soon!"
-                            </p>
-                            <div class="client-info">
-                                <h4>Marvin McKinney</h4>
-                                <span>Product Manager</span>
-                            </div>
-                            <div class="arrow-shape">
-                                <img
-                                    src="/assets/guest/img/home-2/testimonial/arrow-bottom.png"
-                                    alt="img" />
-                            </div>
-                        </div>
-                        <div class="client-info-image">
-                            <img
-                                src="/assets/guest/img/home-2/testimonial/client-3.png"
-                                alt="img" />
-                        </div>
-                    </div>
-                    <div class="testimonial-box-area style-4">
-                        <div class="testimonial-box-2">
-                            <div class="star">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <p>
-                                From the moment we arrived, every detail was flawless. The
-                                staff anticipated our every need, and the suite was pure
-                                perfection. We’ll be back soon!"
-                            </p>
-                            <div class="client-info">
-                                <h4>Marvin McKinney</h4>
-                                <span>Product Manager</span>
-                            </div>
-                            <div class="arrow-shape">
-                                <img
-                                    src="/assets/guest/img/home-2/testimonial/arrow-bottom.png"
-                                    alt="img" />
-                            </div>
-                        </div>
-                        <div class="client-info-image">
-                            <img
-                                src="/assets/guest/img/home-2/testimonial/client-4.png"
-                                alt="img" />
-                        </div>
-                    </div>
-                    <div class="testimonial-box-area style-5">
-                        <div class="testimonial-box-2">
-                            <div class="star">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <p>
-                                From the moment we arrived, every detail was flawless. The
-                                staff anticipated our every need, and the suite was pure
-                                perfection. We’ll be back soon!"
-                            </p>
-                            <div class="client-info">
-                                <h4>Marvin McKinney</h4>
-                                <span>Product Manager</span>
-                            </div>
-                            <div class="arrow-shape">
-                                <img
-                                    src="/assets/guest/img/home-2/testimonial/arrow-bottom.png"
-                                    alt="img" />
-                            </div>
-                        </div>
-                        <div class="client-info-image">
-                            <img
-                                src="/assets/guest/img/home-2/testimonial/client-5.png"
-                                alt="img" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- GT News Section Start -->
+    <!-- GT Events Section Start -->
     <section class="news-section-2 section-padding fix">
         <div class="container">
             <div class="gt-section-title-area">
                 <div class="gt-section-title">
                     <h6 class="wow fadeInUp">
                         <img src="/assets/guest/img/sub-left.svg" alt="img" />
-                        Lastest News
+                        Be part of unforgettable moments
                     </h6>
                     <h2 class="wow fadeInUp" data-wow-delay=".2s">
-                        Our Latest News Feed
+                        Upcoming Events
                     </h2>
                 </div>
-                <a
-                    href="news.html"
-                    class="gt-theme-btn wow fadeInUp"
-                    data-wow-delay=".4s">VIEW DETAILS</a>
             </div>
             <div class="row">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay=".3s">
@@ -638,7 +341,6 @@
                         <div class="gt-thumb">
                             <img src="/assets/guest/img/home-2/news/01.jpg" alt="img" />
                             <img src="/assets/guest/img/home-2/news/01.jpg" alt="img" />
-                            <span class="gt-post-box"> OceanfrontStay </span>
                         </div>
                         <div class="gt-content">
                             <ul class="gt-list">
@@ -653,7 +355,7 @@
                             <h3>
                                 <a href="news-details.html">Your Ultimate Guide to Relaxing at the Beach Hotel Arlux</a>
                             </h3>
-                            <a href="news-details.html" class="gt-theme-btn">VIEW MORE</a>
+                            <a href="news-details.html" class="gt-theme-btn">VIEW DETAILS</a>
                         </div>
                     </div>
                 </div>
@@ -662,7 +364,6 @@
                         <div class="gt-thumb">
                             <img src="/assets/guest/img/home-2/news/02.jpg" alt="img" />
                             <img src="/assets/guest/img/home-2/news/02.jpg" alt="img" />
-                            <span class="gt-post-box"> BeachGetaway </span>
                         </div>
                         <div class="gt-content">
                             <ul class="gt-list">
@@ -677,7 +378,7 @@
                             <h3>
                                 <a href="news-details.html">Life at Aro Where Ocean Breeze Meets Arlux Modern Luxury</a>
                             </h3>
-                            <a href="news-details.html" class="gt-theme-btn">VIEW MORE</a>
+                            <a href="news-details.html" class="gt-theme-btn">VIEW DETAILS</a>
                         </div>
                     </div>
                 </div>
