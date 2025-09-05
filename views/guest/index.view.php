@@ -222,43 +222,59 @@
                                 What we offer:
                             </h3>
                         </div>
-                        <div class="mb-2">
-                            <h4 class="mb-2">Day Rate (6AM - 5PM)</h4>
-                            <ul class="check-list">
-                                <li>
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    Adult - 120 (10 yrs old above)
-                                </li>
-                                <li>
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    Kid - 90 (3-9 yrs old)
-                                </li>
-                            </ul>
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <h4 class="mb-2">Event Hall</h4>
+                                <ul class="check-list">
+                                    <li>
+                                        <i class="fa-solid fa-circle-check"></i>
+                                        3,000 per hour
+                                    </li>
+                                    <li>
+                                        <i class="fa-solid fa-circle-check"></i>
+                                        25,000 for 12hrs with 1 standard room + chairs & tables for 50pax
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <h4 class="mb-2">Exclusive Rates</h4>
+                                <ul class="check-list">
+                                    <li>
+                                        <i class="fa-solid fa-circle-check"></i>
+                                        55,000 for 12hrs
+                                    </li>
+                                    <li>
+                                        <i class="fa-solid fa-circle-check"></i>
+                                        80,000 for 24hrs
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="mb-2">
-                            <h4 class="mb-2">Night Rate (6PM - 5AM)</h4>
-                            <ul class="check-list">
-                                <li>
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    Adult - 200 (10 yrs old above)
-                                </li>
-                                <li>
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    Kid - 100 (3-9 yrs old)
-                                </li>
-                            </ul>
+                        <div class="row my-2 justify-content-center">
+                            <div class="col-12 col-md-8 col-lg-6">
+                                <h4 class="mb-2">Rooms</h4>
+                                <ul class="check-list">
+                                    <li>
+                                        <i class="fa-solid fa-circle-check"></i>
+                                        Standard Room - 1,500 for 12hrs
+                                    </li>
+                                    <li>
+                                        <i class="fa-solid fa-circle-check"></i>
+                                        Family Room - 2,500 for 12hrs
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="my-3">
-                            <ul class="check-list">
-                                <li>
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    1 & 2 yrs old are free
-                                </li>
-                                <li>
-                                    <i class="fa-solid fa-circle-check"></i>
-                                    Senior and PWD - 20% discount
-                                </li>
-                            </ul>
+                        <div class="row">
+                            <div class="col-12">
+                                <h4 class="mb-2">Additional Offers</h4>
+                                <ul class="check-list">
+                                    <li>
+                                        <i class="fa-solid fa-circle-check"></i>
+                                        Videoke for Rent - 1,500 for 8hrs
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
