@@ -163,46 +163,102 @@
                     </h2>
                 </div>
             </div>
-            <div class="row">
+            <div class="row g-3">
                 <div
-                    class="col-12 col-md-6 wow fadeInUp"
+                    class="col-12 col-md-4 wow fadeInUp"
                     data-wow-delay=".3s">
-                    <div class="gt-why-choose-us-images">
-                        <div class="gt-choose-us-image">
-                            <img
-                                src="/assets/guest/img/home-2/choose-us/choose-us-01.jpg"
-                                alt="img" />
-                            <div class="gt-content">
-                                <h3>Enjoy the Adult Pool</h3>
-                                <p>
-                                    Take a refreshing dip in our adult pool,
-                                    designed for relaxation and recreation.
-                                    With ample space for swimming and
-                                    lounging, it's the perfect spot to soak up
-                                    the sun and enjoy a leisurely afternoon.
-                                </p>
-                            </div>
+                    <div class="colored-container wow fadeInUp" data-wow-delay=".2s">
+                        <div class="title-text-container">
+                            <h3>
+                                Entrance Pool Rates
+                            </h3>
+                        </div>
+                        <div class="mb-2">
+                            <h4 class="mb-2">Day Rate (6AM - 5PM)</h4>
+                            <ul class="check-list">
+                                <li>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Adult - 120 (10 yrs old above)
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Kid - 90 (3-9 yrs old)
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mb-2">
+                            <h4 class="mb-2">Night Rate (6PM - 5AM)</h4>
+                            <ul class="check-list">
+                                <li>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Adult - 200 (10 yrs old above)
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Kid - 100 (3-9 yrs old)
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="my-3">
+                            <ul class="check-list">
+                                <li>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    1 & 2 yrs old are free
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Senior and PWD - 20% discount
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
                 <div
-                    class="col-12 col-md-6 wow fadeInUp"
+                    class="col-12 col-md-8 wow fadeInUp"
                     data-wow-delay=".3s">
-                    <div class="gt-why-choose-us-images">
-                        <div class="gt-choose-us-image">
-                            <img
-                                src="/assets/guest/img/home-2/choose-us/choose-us-01.jpg"
-                                alt="img" />
-                            <div class="gt-content">
-                                <h3>Enjoy the Adult Pool</h3>
-                                <p>
-                                    Take a refreshing dip in our adult pool,
-                                    designed for relaxation and recreation.
-                                    With ample space for swimming and
-                                    lounging, it's the perfect spot to soak up
-                                    the sun and enjoy a leisurely afternoon.
-                                </p>
-                            </div>
+                    <div class="colored-container wow fadeInUp" data-wow-delay=".2s">
+                        <div class="title-text-container">
+                            <h3>
+                                What we offer:
+                            </h3>
+                        </div>
+                        <div class="mb-2">
+                            <h4 class="mb-2">Day Rate (6AM - 5PM)</h4>
+                            <ul class="check-list">
+                                <li>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Adult - 120 (10 yrs old above)
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Kid - 90 (3-9 yrs old)
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mb-2">
+                            <h4 class="mb-2">Night Rate (6PM - 5AM)</h4>
+                            <ul class="check-list">
+                                <li>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Adult - 200 (10 yrs old above)
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Kid - 100 (3-9 yrs old)
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="my-3">
+                            <ul class="check-list">
+                                <li>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    1 & 2 yrs old are free
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Senior and PWD - 20% discount
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

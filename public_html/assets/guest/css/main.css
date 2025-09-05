@@ -5105,7 +5105,7 @@ span {
 .gt-main-sideber .gt-single-sideber-widget .gt-search-widget form button:hover {
   background-color: var(--gt-header);
 }
-.gt-main-sideber .gt-single-sideber-widget .gt-widget-title {
+.gt-main-sideber .gt-single-sideber-widget .gt-widget-title, .title-text-container {
   border-bottom: 1.5px solid rgba(129, 129, 129, 0.24);
   padding-bottom: 16px;
   margin-bottom: 30px;
@@ -7214,6 +7214,12 @@ span {
 .check-list li i {
     color: var(--gt-theme);
     margin: 0 8px 0 16px;
+}
+
+.colored-container {
+    border-radius: 8px;
+    background-color: var(--gt-bg);
+    padding: 32px;
 }
 
 .scroll-down-intro-banner-container {
