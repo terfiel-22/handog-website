@@ -96,10 +96,10 @@
         class="scroll-down-intro-banner-container">
         <div class="scroll-down-intro-banner-container">
             <video class="scroll-down-hero-banner-img-desktop" autoplay="" muted="" loop="" playsinline="">
-                <source src="https://cdn.shopify.com/videos/c/o/v/a4b23976f97b443e941da0e24984701f.mp4" type="video/mp4">
+                <source src="https://media.istockphoto.com/id/1459175082/video/mid-adult-woman-in-a-hotel-pool.mp4?s=mp4-640x640-is&k=20&c=ZN1ytJAbTJ2kIczDspWXxC0gn6G2AOr1kXmvdIScZv8=" type="video/mp4">
             </video>
             <video class="scroll-down-hero-banner-img-mobile" autoplay="" muted="" loop="" playsinline="">
-                <source src="https://cdn.shopify.com/videos/c/o/v/2f1ab6719dbc419283fb397fa3684151.mp4" type="video/mp4">
+                <source src="https://media.istockphoto.com/id/1459175082/video/mid-adult-woman-in-a-hotel-pool.mp4?s=mp4-640x640-is&k=20&c=ZN1ytJAbTJ2kIczDspWXxC0gn6G2AOr1kXmvdIScZv8=" type="video/mp4">
             </video>
             <div class="scroll-down-hero-banner-content gt-hero-2">
                 <div class="hero-shape-bottom">
