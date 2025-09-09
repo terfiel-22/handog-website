@@ -16,9 +16,7 @@
                     </div>
                 </div>
                 <p class="text d-none d-xl-block">
-                    Nullam dignissim, ante scelerisque the is euismod fermentum odio
-                    sem semper the is erat, a feugiat leo urna eget eros. Duis Aenean
-                    a imperdiet risus.
+                    Welcome to Handog Resort, your sanctuary of relaxation and escape. Surrounded by nature&apos;s beauty and designed with comfort in mind, our resort offers the perfect blend of luxury and serenity. Whether you&apos;re here for a family getaway, a celebration, or simply to unwind, Handog Resort is where unforgettable memories begin.
                 </p>
                 <div class="mobile-menu fix mb-3"></div>
                 <div class="offcanvas__contact">
@@ -29,7 +27,10 @@
                                 <i class="fal fa-map-marker-alt"></i>
                             </div>
                             <div class="offcanvas__contact-text">
-                                <a target="_blank" href="#">Main Street, Melbourne, Australia</a>
+                                <a target="_blank" href="#">
+                                    Handog Compound
+                                    960Toclong, Kawit, Cavite
+                                </a>
                             </div>
                         </li>
                         <li class="d-flex align-items-center">
@@ -37,15 +38,9 @@
                                 <i class="fal fa-envelope"></i>
                             </div>
                             <div class="offcanvas__contact-text">
-                                <a href="mailto:info@example.com"><span class="mailto:info@example.com">info@example.com</span></a>
-                            </div>
-                        </li>
-                        <li class="d-flex align-items-center">
-                            <div class="offcanvas__contact-icon mr-15">
-                                <i class="fal fa-clock"></i>
-                            </div>
-                            <div class="offcanvas__contact-text">
-                                <a target="_blank" href="#">Mod-friday, 09am -05pm</a>
+                                <a href="mailto:handogresortandeventplace2017@gmail.com">
+                                    HREP2017@gmail.com
+                                </a>
                             </div>
                         </li>
                         <li class="d-flex align-items-center">
@@ -53,7 +48,7 @@
                                 <i class="far fa-phone"></i>
                             </div>
                             <div class="offcanvas__contact-text">
-                                <a href="tel:+11002345909">+11002345909</a>
+                                <a href="tel:09099597451">09099597451</a>
                             </div>
                         </li>
                     </ul>

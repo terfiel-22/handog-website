@@ -10,8 +10,7 @@
                             <img src="/assets/guest/img/logo/white-logo.svg" alt="img" />
                         </a>
                         <p>
-                            At Arlux, we believe luxury is not just a destination—it’s a
-                            feeling, an experience, and a way of life
+                            Welcome to Handog Resort, your sanctuary of relaxation and escape. Surrounded by nature&apos;s beauty and designed with comfort in mind, our resort offers the perfect blend of luxury and serenity. Whether you&apos;re here for a family getaway, a celebration, or simply to unwind, Handog Resort is where unforgettable memories begin.
                         </p>
                         <ul class="contact-list">
                             <li>
