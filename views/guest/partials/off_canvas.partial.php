@@ -53,7 +53,7 @@
                         </li>
                     </ul>
                     <div class="header-button mt-4"></div>
-                    <a href="contact.html" class="gt-theme-btn">BOOK NOW</a>
+                    <a href="/accommodation" class="gt-theme-btn">BOOK NOW</a>
                     <div class="social-icon d-flex align-items-center">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
