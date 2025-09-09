@@ -121,10 +121,6 @@
                         Rooms
                     </h2>
                 </div>
-                <a
-                    href="room.html"
-                    class="gt-theme-btn wow fadeInUp"
-                    data-wow-delay=".4s">VIEW DETAILS</a>
             </div>
             <div class="gt-room-explore-wrapper">
                 <div class="swiper gt-room-explore-slider">
@@ -140,7 +136,7 @@
                                         <div class="gt-room-exlore-box-items">
                                             <span class="gt-rate-title"> Rates From $120 </span>
                                             <h3>
-                                                <a href="room-details.html">Presidential Beachfront Villa</a>
+                                                <a href="/room-details">Presidential Beachfront Villa</a>
                                             </h3>
                                             <p>
                                                 The pinnacle of seaside luxury—private pool, personal
@@ -168,7 +164,7 @@
                                                     : Dramatic City Views
                                                 </li>
                                             </ul>
-                                            <a href="room-details.html" class="gt-theme-btn">ROOM DETAILS</a>
+                                            <a href="/room-details" class="gt-theme-btn">ROOM DETAILS</a>
                                         </div>
                                     </div>
                                 </div>
@@ -185,7 +181,7 @@
                                         <div class="gt-room-exlore-box-items">
                                             <span class="gt-rate-title"> Rates From $120 </span>
                                             <h3>
-                                                <a href="room-details.html">
+                                                <a href="/room-details">
                                                     Presidential Beachfront Villa</a>
                                             </h3>
                                             <p>
@@ -214,7 +210,7 @@
                                                     : Dramatic City Views
                                                 </li>
                                             </ul>
-                                            <a href="room-details.html" class="gt-theme-btn">ROOM DETAILS</a>
+                                            <a href="/room-details" class="gt-theme-btn">ROOM DETAILS</a>
                                         </div>
                                     </div>
                                 </div>
@@ -231,7 +227,7 @@
                                         <div class="gt-room-exlore-box-items">
                                             <span class="gt-rate-title"> Rates From $120 </span>
                                             <h3>
-                                                <a href="room-details.html">
+                                                <a href="/room-details">
                                                     Presidential Beachfront Villa</a>
                                             </h3>
                                             <p>
@@ -260,7 +256,7 @@
                                                     : Dramatic City Views
                                                 </li>
                                             </ul>
-                                            <a href="room-details.html" class="gt-theme-btn">ROOM DETAILS</a>
+                                            <a href="/room-details" class="gt-theme-btn">ROOM DETAILS</a>
                                         </div>
                                     </div>
                                 </div>
