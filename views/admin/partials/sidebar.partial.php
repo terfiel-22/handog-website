@@ -11,70 +11,39 @@
     </div>
     <div class="sidebar-menu-area">
         <ul class="sidebar-menu" id="sidebar-menu">
-            <li class="dropdown">
-                <a href="javascript:void(0)">
+            <li>
+                <a href="/admin">
                     <iconify-icon icon="solar:home-smile-angle-outline" class="menu-icon"></iconify-icon>
                     <span>Dashboard</span>
                 </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="index.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> AI</a>
-                    </li>
-                    <li>
-                        <a href="index-2.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> CRM</a>
-                    </li>
-                    <li>
-                        <a href="index-3.html"><i class="ri-circle-fill circle-icon text-info-main w-auto"></i> eCommerce</a>
-                    </li>
-                    <li>
-                        <a href="index-4.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i> Cryptocurrency</a>
-                    </li>
-                    <li>
-                        <a href="index-5.html"><i class="ri-circle-fill circle-icon text-success-main w-auto"></i> Investment</a>
-                    </li>
-                </ul>
             </li>
-            <li class="sidebar-menu-group-title">Application</li>
+            <li class="sidebar-menu-group-title">Resources</li>
             <li>
-                <a href="email.html">
-                    <iconify-icon icon="mage:email" class="menu-icon"></iconify-icon>
-                    <span>Email</span>
+                <a href="/admin/rooms">
+                    <iconify-icon icon="material-symbols:room-service-outline-sharp" class="menu-icon"></iconify-icon>
+                    <span>Rooms</span>
                 </a>
             </li>
             <li>
-                <a href="chat-message.html">
-                    <iconify-icon icon="bi:chat-dots" class="menu-icon"></iconify-icon>
-                    <span>Chat</span>
+                <a href="/admin/cottages">
+                    <iconify-icon icon="material-symbols:cottage-outline" class="menu-icon"></iconify-icon>
+                    <span>Cottages</span>
                 </a>
             </li>
             <li>
-                <a href="calendar-main.html">
-                    <iconify-icon icon="solar:calendar-outline" class="menu-icon"></iconify-icon>
-                    <span>Calendar</span>
+                <a href="/admin/event-hall">
+                    <iconify-icon icon="ic:outline-home" class="menu-icon"></iconify-icon>
+                    <span>Event Hall</span>
                 </a>
             </li>
-            <li class="dropdown">
-                <a href="javascript:void(0)">
-                    <iconify-icon icon="hugeicons:invoice-03" class="menu-icon"></iconify-icon>
-                    <span>Invoice</span>
+            <li>
+                <a href="/admin/exclusive">
+                    <iconify-icon icon="ic:outline-home-work" class="menu-icon"></iconify-icon>
+                    <span>Exclusive</span>
                 </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="invoice-list.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> List</a>
-                    </li>
-                    <li>
-                        <a href="invoice-preview.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Preview</a>
-                    </li>
-                    <li>
-                        <a href="invoice-add.html"><i class="ri-circle-fill circle-icon text-info-main w-auto"></i> Add new</a>
-                    </li>
-                    <li>
-                        <a href="invoice-edit.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i> Edit</a>
-                    </li>
-                </ul>
             </li>
 
-            <li class="sidebar-menu-group-title">Application</li>
+            <li class="sidebar-menu-group-title">Reservations</li>
 
             <li class="dropdown">
                 <a href="javascript:void(0)">
