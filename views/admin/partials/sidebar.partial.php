@@ -95,7 +95,7 @@
                 </a>
             </li>
 
-            <li class="sidebar-menu-group-title">Other</li>
+            <li class="sidebar-menu-group-title">Web</li>
             <li>
                 <a href="/admin/shower-rooms">
                     <iconify-icon icon="ic:outline-image-search" class="menu-icon"></iconify-icon>
@@ -112,6 +112,18 @@
                 <a href="/admin/upcoming-events">
                     <iconify-icon icon="ic:round-edit-calendar" class="menu-icon"></iconify-icon>
                     <span>Upcoming Events</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/testimonials">
+                    <iconify-icon icon="ic:outline-message" class="menu-icon"></iconify-icon>
+                    <span>Testimonials</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/about">
+                    <iconify-icon icon="ic:outline-announcement" class="menu-icon"></iconify-icon>
+                    <span>About</span>
                 </a>
             </li>
         </ul>
