@@ -34,7 +34,7 @@
             </li>
             <li class="dropdown">
                 <a href="javascript:void(0)">
-                    <iconify-icon icon="material-symbols:room-service-outline-sharp" class="menu-icon"></iconify-icon>
+                    <iconify-icon icon="material-symbols:cottage-outline" class="menu-icon"></iconify-icon>
                     <span>Cottages</span>
                 </a>
                 <ul class="sidebar-submenu">
@@ -48,7 +48,7 @@
             </li>
             <li class="dropdown">
                 <a href="javascript:void(0)">
-                    <iconify-icon icon="material-symbols:room-service-outline-sharp" class="menu-icon"></iconify-icon>
+                    <iconify-icon icon="ic:outline-home" class="menu-icon"></iconify-icon>
                     <span>Event Hall</span>
                 </a>
                 <ul class="sidebar-submenu">
@@ -62,7 +62,7 @@
             </li>
             <li class="dropdown">
                 <a href="javascript:void(0)">
-                    <iconify-icon icon="material-symbols:room-service-outline-sharp" class="menu-icon"></iconify-icon>
+                    <iconify-icon icon="ic:outline-home-work" class="menu-icon"></iconify-icon>
                     <span>Exclusive</span>
                 </a>
                 <ul class="sidebar-submenu">
