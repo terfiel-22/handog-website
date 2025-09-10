@@ -1,10 +1,14 @@
+<?php
+$pageName = "Dashboard"
+?>
+
 <!-- meta tags and other links -->
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 
 <!-- Head Tag -->
 <?php view("admin/partials/head.partial.php", [
-    'title' => "Handog Admin | Dashboard"
+    'title' => "Handog Admin | " . $pageName
 ]) ?>
 
 <body>
@@ -22,7 +26,7 @@
         <div class="dashboard-main-body">
 
             <!-- Breadcrumbs -->
-            <?php view("admin/partials/breadcrumb.partial.php") ?>
+            <?php view("admin/partials/breadcrumb.partial.php", compact('pageName')) ?>
 
             <div class="row row-cols-xxxl-5 row-cols-lg-3 row-cols-sm-2 row-cols-1 gy-4">
                 <div class="col">
