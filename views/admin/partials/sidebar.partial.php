@@ -78,19 +78,19 @@
             <li class="sidebar-menu-group-title">Amenities</li>
             <li>
                 <a href="/admin/pools">
-                    <iconify-icon icon="ic:outline-home-work" class="menu-icon"></iconify-icon>
+                    <iconify-icon icon="ic:outline-pool" class="menu-icon"></iconify-icon>
                     <span>Pools</span>
                 </a>
             </li>
             <li>
                 <a href="/admin/grillers">
-                    <iconify-icon icon="ic:outline-home-work" class="menu-icon"></iconify-icon>
+                    <iconify-icon icon="ic:outline-outdoor-grill" class="menu-icon"></iconify-icon>
                     <span>Grillers</span>
                 </a>
             </li>
             <li>
                 <a href="/admin/shower-rooms">
-                    <iconify-icon icon="ic:outline-home-work" class="menu-icon"></iconify-icon>
+                    <iconify-icon icon="ic:outline-shower" class="menu-icon"></iconify-icon>
                     <span>Shower Rooms</span>
                 </a>
             </li>
@@ -98,19 +98,19 @@
             <li class="sidebar-menu-group-title">Other</li>
             <li>
                 <a href="/admin/shower-rooms">
-                    <iconify-icon icon="ic:outline-home-work" class="menu-icon"></iconify-icon>
+                    <iconify-icon icon="ic:outline-image-search" class="menu-icon"></iconify-icon>
                     <span>Gallery</span>
                 </a>
             </li>
             <li>
                 <a href="/admin/promotions">
-                    <iconify-icon icon="ic:outline-home-work" class="menu-icon"></iconify-icon>
+                    <iconify-icon icon="ic:outline-card-giftcard" class="menu-icon"></iconify-icon>
                     <span>Promotion</span>
                 </a>
             </li>
             <li>
                 <a href="/admin/upcoming-events">
-                    <iconify-icon icon="ic:outline-home-work" class="menu-icon"></iconify-icon>
+                    <iconify-icon icon="ic:round-edit-calendar" class="menu-icon"></iconify-icon>
                     <span>Upcoming Events</span>
                 </a>
             </li>
