@@ -17,6 +17,13 @@
                     <span>Dashboard</span>
                 </a>
             </li>
+            <li>
+                <a href="/admin/facilities">
+                    <iconify-icon icon="ic:outline-home" class="menu-icon"></iconify-icon>
+                    <span>Facility</span>
+                </a>
+            </li>
+
             <li class="sidebar-menu-group-title">Resources</li>
             <li class="dropdown">
                 <a href="javascript:void(0)">
