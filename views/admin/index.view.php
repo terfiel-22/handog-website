@@ -689,6 +689,7 @@ $pageName = "Dashboard"
 
     <!-- JS Plugins -->
     <?php view("admin/partials/plugins.partial.php") ?>
+    <script src="/assets/admin/js/homeOneChart.js"></script>
 
 </body>
 

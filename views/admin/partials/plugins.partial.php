@@ -19,4 +19,3 @@
     <script src="/assets/admin/js/lib/slick.min.js"></script>
     <!-- main js -->
     <script src="/assets/admin/js/app.js"></script>
-    <script src="/assets/admin/js/homeOneChart.js"></script>
