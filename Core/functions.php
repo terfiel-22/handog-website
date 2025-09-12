@@ -29,3 +29,11 @@ function view($path, $attributes = []): void
     extract($attributes);
     require base_path("views/" . $path);
 }
+
+/** Function for displaying error in browser */
+function abort($code = 404)
+{
+    http_response_code($code);
+    require base_path("/views/errors/$code.view.php");
+    die();
+}
