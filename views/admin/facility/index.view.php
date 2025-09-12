@@ -48,30 +48,32 @@ $pageName = "Facilities"
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><a href="javascript:void(0)" class="text-primary-600">#526534</a></td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="/assets/admin/images/user-list/user-list1.png" alt="" class="flex-shrink-0 me-12 radius-8">
-                                        <h6 class="text-md mb-0 fw-medium flex-grow-1">Room 4</h6>
-                                    </div>
-                                </td>
-                                <td>Room</td>
-                                <td>5</td>
-                                <td>200.00</td>
-                                <td> <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm">Available</span> </td>
-                                <td>
-                                    <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
-                                        <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
-                                    </a>
-                                    <a href="javascript:void(0)" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                                        <iconify-icon icon="lucide:edit"></iconify-icon>
-                                    </a>
-                                    <a href="javascript:void(0)" class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                                        <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
-                                    </a>
-                                </td>
-                            </tr>
+                            <?php foreach ($facilities as $facility): ?>
+                                <tr>
+                                    <td><a href="javascript:void(0)" class="text-primary-600">#<?= $facility['id'] ?></a></td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="<?= imagePlaceholder($facility['image']) ?> " alt="<?= $facility['name'] ?>" class="flex-shrink-0 me-12 radius-8">
+                                            <h6 class="text-md mb-0 fw-medium flex-grow-1"><?= $facility['name'] ?></h6>
+                                        </div>
+                                    </td>
+                                    <td><?= $facility['type'] ?></td>
+                                    <td><?= $facility['capacity'] ?> pax</td>
+                                    <td><?= moneyFormat($facility['price']) ?></td>
+                                    <td> <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm"><?= $facility['status'] ?></span> </td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
+                                            <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
+                                        </a>
+                                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
+                                            <iconify-icon icon="lucide:edit"></iconify-icon>
+                                        </a>
+                                        <a href="javascript:void(0)" class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
+                                            <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>

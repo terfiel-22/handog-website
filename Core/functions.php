@@ -37,3 +37,15 @@ function abort($code = 404)
     require base_path("/views/errors/$code.view.php");
     die();
 }
+
+/** Function for displaying image and returning placeholder if null */
+function imagePlaceholder($image)
+{
+    return $image ?? "/assets/admin/images/user-list/user-list1.png";
+}
+
+/** Convert number into currency number format */
+function moneyFormat($value)
+{
+    return "₱ " . number_format($value, 2);
+}
