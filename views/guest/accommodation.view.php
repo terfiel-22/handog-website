@@ -125,143 +125,38 @@
             <div class="gt-room-explore-wrapper">
                 <div class="swiper gt-room-explore-slider">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div
-                                class="gt-room-explore-items bg-cover"
-                                style="
-                    background-image: url('/assets/guest/img/home-2/room-explore/01.jpg');
-                  ">
-                                <div class="row justify-content-end">
-                                    <div class="col-xl-5 col-lg-6">
-                                        <div class="gt-room-exlore-box-items">
-                                            <span class="gt-rate-title"> Rates From $120 </span>
-                                            <h3>
-                                                <a href="/room-details">Presidential Beachfront Villa</a>
-                                            </h3>
-                                            <p>
-                                                The pinnacle of seaside luxury—private pool, personal
-                                                butler service, and breathtaking beachfront location.
-                                            </p>
-                                            <ul>
-                                                <li>
-                                                    <span>Capocity</span>
-                                                    : 2 Persons
-                                                </li>
-                                                <li>
-                                                    <span>Size</span>
-                                                    : 80 sqr
-                                                </li>
-                                                <li>
-                                                    <span>Bed</span>
-                                                    : Kind Bed
-                                                </li>
-                                                <li>
-                                                    <span>Services</span>
-                                                    : Free Breakfast, Free Wifi, Free Water
-                                                </li>
-                                                <li>
-                                                    <span>View</span>
-                                                    : Dramatic City Views
-                                                </li>
-                                            </ul>
-                                            <a href="/room-details" class="gt-theme-btn">ROOM DETAILS</a>
+                        <?php foreach ($rooms as $room): ?>
+                            <div class="swiper-slide">
+                                <div
+                                    class="gt-room-explore-items bg-cover h-40"
+                                    style=" background-image: url('<?= $room['image'] ?? "/assets/guest/img/home-2/room-explore/01.jpg" ?>');">
+                                    <div class="row justify-content-end">
+                                        <div class="col-xl-5 col-lg-6">
+                                            <div class="gt-room-exlore-box-items">
+                                                <span class="gt-rate-title"> Rates From <?= moneyFormat($room['price']) ?> </span>
+                                                <h3>
+                                                    <a href="/room-details"><?= $room['name'] ?></a>
+                                                </h3>
+                                                <p>
+                                                    <?= $room['description'] ?>
+                                                </p>
+                                                <ul>
+                                                    <li>
+                                                        <span>Capacity</span>
+                                                        : <?= $room['capacity'] ?> Persons
+                                                    </li>
+                                                    <li>
+                                                        <span>Amenities</span>
+                                                        : <?= $room['amenities'] ?>
+                                                    </li>
+                                                </ul>
+                                                <a href="/room-details" class="gt-theme-btn">ROOM DETAILS</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div
-                                class="gt-room-explore-items bg-cover"
-                                style="
-                    background-image: url('/assets/guest/img/home-2/room-explore/01.jpg');
-                  ">
-                                <div class="row justify-content-end">
-                                    <div class="col-xl-5 col-lg-6">
-                                        <div class="gt-room-exlore-box-items">
-                                            <span class="gt-rate-title"> Rates From $120 </span>
-                                            <h3>
-                                                <a href="/room-details">
-                                                    Presidential Beachfront Villa</a>
-                                            </h3>
-                                            <p>
-                                                The pinnacle of seaside luxury—private pool, personal
-                                                butler service, and breathtaking beachfront location.
-                                            </p>
-                                            <ul>
-                                                <li>
-                                                    <span>Capocity</span>
-                                                    : 2 Persons
-                                                </li>
-                                                <li>
-                                                    <span>Size</span>
-                                                    : 80 sqr
-                                                </li>
-                                                <li>
-                                                    <span>Bed</span>
-                                                    : Kind Bed
-                                                </li>
-                                                <li>
-                                                    <span>Services</span>
-                                                    : Free Breakfast, Free Wifi, Free Water
-                                                </li>
-                                                <li>
-                                                    <span>View</span>
-                                                    : Dramatic City Views
-                                                </li>
-                                            </ul>
-                                            <a href="/room-details" class="gt-theme-btn">ROOM DETAILS</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div
-                                class="gt-room-explore-items bg-cover"
-                                style="
-                    background-image: url('/assets/guest/img/home-2/room-explore/01.jpg');
-                  ">
-                                <div class="row justify-content-end">
-                                    <div class="col-xl-5 col-lg-6">
-                                        <div class="gt-room-exlore-box-items">
-                                            <span class="gt-rate-title"> Rates From $120 </span>
-                                            <h3>
-                                                <a href="/room-details">
-                                                    Presidential Beachfront Villa</a>
-                                            </h3>
-                                            <p>
-                                                The pinnacle of seaside luxury—private pool, personal
-                                                butler service, and breathtaking beachfront location.
-                                            </p>
-                                            <ul>
-                                                <li>
-                                                    <span>Capocity</span>
-                                                    : 2 Persons
-                                                </li>
-                                                <li>
-                                                    <span>Size</span>
-                                                    : 80 sqr
-                                                </li>
-                                                <li>
-                                                    <span>Bed</span>
-                                                    : Kind Bed
-                                                </li>
-                                                <li>
-                                                    <span>Services</span>
-                                                    : Free Breakfast, Free Wifi, Free Water
-                                                </li>
-                                                <li>
-                                                    <span>View</span>
-                                                    : Dramatic City Views
-                                                </li>
-                                            </ul>
-                                            <a href="/room-details" class="gt-theme-btn">ROOM DETAILS</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>

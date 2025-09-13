@@ -1619,7 +1619,12 @@ span {
 }
 .gt-room-explore-wrapper .gt-room-explore-items {
   padding: 40px;
-  border-radius: 12px;
+  border-radius: 12px; 
+}
+@media (min-width: 799px) {
+  .gt-room-explore-wrapper .gt-room-explore-items {
+    height: 600px;
+  }
 }
 .gt-room-explore-wrapper .gt-room-exlore-box-items {
   max-width: 410px;
