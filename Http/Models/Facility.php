@@ -24,7 +24,7 @@ class Facility
 
     public function fetchFacilityById($id)
     {
-        return $this->db->query('SELECT * FROM facilities WHERE id=:id', compact('id'))->find();
+        return $this->db->query('SELECT * FROM facilities WHERE id=:id', compact('id'))->findOrFail();
     }
 
     public function fetchFacilities()

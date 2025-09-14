@@ -135,7 +135,7 @@
                                             <div class="gt-room-exlore-box-items">
                                                 <span class="gt-rate-title"> Rates From <?= moneyFormat($room['price']) ?> </span>
                                                 <h3>
-                                                    <a href="/room-details"><?= $room['name'] ?></a>
+                                                    <a href="/room-details?id=<?= $room['id'] ?>"><?= $room['name'] ?></a>
                                                 </h3>
                                                 <p>
                                                     <?= $room['description'] ?>
@@ -150,7 +150,7 @@
                                                         : <?= $room['amenities'] ?>
                                                     </li>
                                                 </ul>
-                                                <a href="/room-details" class="gt-theme-btn">ROOM DETAILS</a>
+                                                <a href="/room-details?id=<?= $room['id'] ?>" class="gt-theme-btn">ROOM DETAILS</a>
                                             </div>
                                         </div>
                                     </div>
