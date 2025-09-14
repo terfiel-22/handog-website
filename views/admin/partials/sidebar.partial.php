@@ -20,66 +20,34 @@
             <li>
                 <a href="/admin/facilities">
                     <iconify-icon icon="ic:outline-home" class="menu-icon"></iconify-icon>
-                    <span>Facility</span>
+                    <span>Facilities</span>
                 </a>
             </li>
 
-            <li class="sidebar-menu-group-title">Resources</li>
-            <li class="dropdown">
+            <li class="sidebar-menu-group-title">Reservations</li>
+            <li>
                 <a href="javascript:void(0)">
                     <iconify-icon icon="material-symbols:room-service-outline-sharp" class="menu-icon"></iconify-icon>
                     <span>Rooms</span>
                 </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="/admin/rooms/manage"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Manage</a>
-                    </li>
-                    <li>
-                        <a href="/admin/rooms/reservations"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Reservations</a>
-                    </li>
-                </ul>
             </li>
-            <li class="dropdown">
+            <li>
                 <a href="javascript:void(0)">
                     <iconify-icon icon="material-symbols:cottage-outline" class="menu-icon"></iconify-icon>
                     <span>Cottages</span>
                 </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="/admin/cottages/manage"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Manage</a>
-                    </li>
-                    <li>
-                        <a href="/admin/cottages/reservations"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Reservations</a>
-                    </li>
-                </ul>
             </li>
-            <li class="dropdown">
+            <li>
                 <a href="javascript:void(0)">
                     <iconify-icon icon="ic:outline-home" class="menu-icon"></iconify-icon>
                     <span>Event Hall</span>
                 </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="/admin/event-hall/manage"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Manage</a>
-                    </li>
-                    <li>
-                        <a href="/admin/event-hall/reservations"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Reservations</a>
-                    </li>
-                </ul>
             </li>
-            <li class="dropdown">
+            <li>
                 <a href="javascript:void(0)">
                     <iconify-icon icon="ic:outline-home-work" class="menu-icon"></iconify-icon>
                     <span>Exclusive</span>
                 </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="/admin/exclusive/manage"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Manage</a>
-                    </li>
-                    <li>
-                        <a href="/admin/exclusive/reservations"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Reservations</a>
-                    </li>
-                </ul>
             </li>
 
             <li class="sidebar-menu-group-title">Amenities</li>
