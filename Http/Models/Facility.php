@@ -4,6 +4,7 @@ namespace Http\Models;
 
 use Core\App;
 use Core\Database;
+use Http\Enums\FacilityStatus;
 
 class Facility
 {
@@ -30,6 +31,13 @@ class Facility
     public function fetchFacilities()
     {
         return $this->db->query('SELECT * FROM facilities')->get();
+    }
+
+    public function fetchAvailableFacilities()
+    {
+        return $this->db->query('SELECT * FROM facilities WHERE status=:status', [
+            'status' => FacilityStatus::AVAILABLE
+        ])->get();
     }
 
     public function fetchFacilitiesByType($type)
