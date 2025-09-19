@@ -32,7 +32,7 @@ $pageName = "Reservations"
             <div class="card basic-data-table">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class="card-title mb-0">List of Reservations</h6>
-                    <button type="button" class="btn btn-primary-600 radius-8 px-20 py-11">Add</button>
+                    <a href="/admin/reservations/add" class="btn btn-primary-600 radius-8 px-20 py-11">Add</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

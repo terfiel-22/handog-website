@@ -17,3 +17,4 @@
 
   // Reservation 
   $router->get('/admin/reservations', 'admin/reservation/index.controller.php')->only('guest');
+  $router->get('/admin/reservations/add', 'admin/reservation/store.controller.php')->only('guest');
