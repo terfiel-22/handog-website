@@ -23,6 +23,12 @@
                     <span>Facilities</span>
                 </a>
             </li>
+            <li>
+                <a href="/admin/reservations">
+                    <iconify-icon icon="ic:outline-bookmarks" class="menu-icon"></iconify-icon>
+                    <span>Reservations</span>
+                </a>
+            </li>
 
             <li class="sidebar-menu-group-title">Reservations</li>
             <li>
