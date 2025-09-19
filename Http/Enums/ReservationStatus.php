@@ -2,7 +2,7 @@
 
 namespace Http\Enums;
 
-class BookingStatus extends Enums
+class ReservationStatus extends Enums
 {
     const PENDING = "pending";
     const CONFIRMED = "confirmed";
