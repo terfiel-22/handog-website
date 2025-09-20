@@ -40,12 +40,12 @@ $pageName = "Reservations"
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
+                                    <th scope="col">Contact Person</th>
+                                    <th scope="col">Guest Count</th>
                                     <th scope="col">Facility</th>
-                                    <th scope="col">Check In</th>
-                                    <th scope="col">Check Out</th>
-                                    <th scope="col">Adult Count</th>
-                                    <th scope="col">Kid Count</th>
+                                    <th scope="col">With Videoke</th>
                                     <th scope="col">Total Price</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -53,12 +53,17 @@ $pageName = "Reservations"
                                 <?php foreach ($reservations as $reservation): ?>
                                     <tr>
                                         <td><a href="javascript:void(0)" class="text-primary-600">#<?= $reservation['id'] ?></a></td>
+                                        <td>
+                                            <h6 class="text-md mb-0 fw-normal"><?= $reservation['contact_person'] ?></h6>
+                                            <span class="text-sm text-secondary-light fw-normal"><?= $reservation['contact_email'] ?></span><br />
+                                            <span class="text-sm text-secondary-light fw-normal"><?= $reservation['contact_no'] ?></span><br />
+                                            <span class="text-sm text-secondary-light fw-normal"><?= $reservation['contact_address'] ?></span>
+                                        </td>
+                                        <td><?= $reservation['guest_count'] ?></td>
                                         <td><?= $reservation['facility'] ?></td>
-                                        <td><?= $reservation['check_in'] ?></td>
-                                        <td><?= $reservation['check_out'] ?></td>
-                                        <td><?= $reservation['adult_count'] ?></td>
-                                        <td><?= $reservation['kid_count'] ?></td>
-                                        <td><?= moneyFormat($reservation['price']) ?></td>
+                                        <td><?= ucfirst($reservation['rent_videoke']) ?></td>
+                                        <td><?= moneyFormat($reservation['total_price']) ?></td>
+                                        <td><?= ucfirst($reservation['status']) ?></td>
                                         <td>
                                             <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
                                                 <iconify-icon icon="iconamoon:eye-light"></iconify-icon>

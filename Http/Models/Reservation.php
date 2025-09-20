@@ -21,4 +21,9 @@ class Reservation
             $attributes
         )->id();
     }
+
+    public function fetchReservations()
+    {
+        return $this->db->query('SELECT *, fac.name as facility FROM reservations res INNER JOIN facilities fac ON fac.id=res.facility_id')->get();
+    }
 }
