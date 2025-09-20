@@ -11,7 +11,7 @@ class Enums
      */
     public static function toArray(): array
     {
-        $reflection = new \ReflectionClass(self::class);
+        $reflection = new \ReflectionClass(static::class);
         return $reflection->getConstants();
     }
 }

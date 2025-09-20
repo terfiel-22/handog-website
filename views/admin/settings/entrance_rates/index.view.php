@@ -32,6 +32,7 @@ $pageName = "Entrance Rates"
             <div class="card basic-data-table">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class="card-title mb-0">Entrance Rates</h6>
+                    <a href="/admin/settings/entrance-rates/create" class="btn btn-primary-600 radius-8 px-20 py-11">Add</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
