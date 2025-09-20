@@ -328,7 +328,9 @@
   -webkit-user-modify: read-write;
   overflow-wrap: break-word;
   -webkit-line-break: after-white-space;
+  line-break: after-white-space;
   -webkit-user-select: auto;
+  user-select: auto;
 }
 
 :where([draggable=true]) {
@@ -542,6 +544,7 @@ button,
 [type=submit] {
   cursor: pointer;
   -webkit-appearance: button;
+  appearance: button;
 }
 
 button:disabled,
@@ -601,6 +604,7 @@ textarea {
 
 [type=number] {
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 label[for] {
@@ -5842,6 +5846,7 @@ h6, .h6 {
 .text-line-1 {
   display: -webkit-box;
   -webkit-line-clamp: 1;
+  line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -5850,6 +5855,7 @@ h6, .h6 {
 .text-line-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -5858,6 +5864,7 @@ h6, .h6 {
 .text-line-3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -13133,3 +13140,7 @@ td.fc-header-center {
 }
 
 /* === footer css end === */
+
+/* Form Wizard */
+.step { display: none; }
+.step.active { display: block; }
