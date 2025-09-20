@@ -8,7 +8,7 @@ class Middleware
         "guest" => Guest::class,
     ];
 
-    public function resolve(string|null $key): void
+    public function resolve($key): void
     {
         if (!$key) return;
 
