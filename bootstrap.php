@@ -3,6 +3,7 @@
 use Core\App;
 use Core\Container;
 use Core\Database;
+use Http\Models\EntranceRates;
 use Http\Models\Facility;
 use Http\Models\Reservation;
 
@@ -20,6 +21,9 @@ $container->bind(Facility::class, function () {
 });
 $container->bind(Reservation::class, function () {
     return new Reservation();
+});
+$container->bind(EntranceRates::class, function () {
+    return new EntranceRates();
 });
 
 App::setContainer($container);
