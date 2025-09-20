@@ -26,4 +26,9 @@ class EntranceRates
     {
         return $this->db->query('SELECT * FROM entrance_rates')->get();
     }
+
+    public function fetchEntranceRateByTimeSlot($time_slot)
+    {
+        return $this->db->query('SELECT * FROM entrance_rates WHERE time_slot=:time_slot', compact('time_slot'))->find();
+    }
 }

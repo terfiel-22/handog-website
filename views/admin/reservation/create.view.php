@@ -75,12 +75,16 @@ $pageName = "Reservations"
                                     <input type="text" name="contact_person" id="contact_person" class="form-control" placeholder="Enter Name">
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    <label class="form-label" for="contact_no">Contact Number</label>
+                                    <label class="form-label" for="contact_no">Phone Number</label>
                                     <input type="tel" name="contact_no" id="contact_no" class="form-control" placeholder="Enter Phone No.">
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    <label class="form-label" for="contact_email">Contact Email</label>
+                                    <label class="form-label" for="contact_email">Email</label>
                                     <input type="text" name="contact_email" id="contact_email" class="form-control" placeholder="Enter Email">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label" for="contact_address">Address</label>
+                                    <input type="text" name="contact_address" id="contact_address" class="form-control" placeholder="Enter Email">
                                 </div>
                                 <div class="col-12">
                                     <button type="button" class="btn btn-secondary prev">Previous</button>
@@ -105,6 +109,14 @@ $pageName = "Reservations"
                         <div class="step">
                             <h6>Step 4: Completion</h6>
                             <div class="row gy-3">
+                                <div class="col-12 col-md-6">
+                                    <label for="rent_videoke">Rent Videoke?</label>
+                                    <select name="rent_videoke" id="rent_videoke" class="form-control">
+                                        <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
+                                            <option value="<?= $yesNo ?>"><?= ucfirst($yesNo) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
                                 <div class="col-12">
                                     <button type="button" class="btn btn-secondary prev">Previous</button>
                                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -131,15 +143,15 @@ $pageName = "Reservations"
                         let fieldGroup = `
                         <div class="col-12 col-md-6"> 
                             <label>Guest ${i}</label>
-                            <input type="text" name="persons[${i}][guest_name]" class="form-control" placeholder="Enter name">
+                            <input type="text" name="guests[${i}][guest_name]" class="form-control" placeholder="Enter name">
                         </div> 
                         <div class="col-12 col-md-2">
                             <label>Age</label>
-                            <input type="number" name="persons[${i}][guest_age]" class="form-control" placeholder="Enter age">
+                            <input type="number" name="guests[${i}][guest_age]" class="form-control" placeholder="Enter age" min="0">
                         </div>
                         <div class="col-12 col-md-2">
                             <label>Type</label>
-                            <select name="persons[${i}][guest_type]" class="form-control">
+                            <select name="guests[${i}][guest_type]" class="form-control">
                                 <?php foreach (\Http\Enums\GuestType::toArray() as $type): ?>
                                     <option value="<?= $type ?>"><?= ucfirst($type) ?></option>
                                 <?php endforeach; ?>
@@ -147,9 +159,10 @@ $pageName = "Reservations"
                         </div>
                         <div class="col-12 col-md-2">
                             <label>Senior/PWD</label>
-                            <select name="persons[${i}][senior_pwd]" class="form-control"> 
-                                <option value="0">No</option>
-                                <option value="1">Yes</option>
+                            <select name="guests[${i}][senior_pwd]" class="form-control"> 
+                                <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
+                                    <option value="<?= $yesNo ?>"><?= ucfirst($yesNo) ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         `;
