@@ -21,4 +21,9 @@ class EntranceRates
             $attributes
         );
     }
+
+    public function fetchEntranceRates()
+    {
+        return $this->db->query('SELECT * FROM entrance_rates')->get();
+    }
 }

@@ -54,7 +54,7 @@ $pageName = "Entrance Rates"
                                         <td><?= $rate['guest_type'] ?></td>
                                         <td><?= $rate['start_time'] ?></td>
                                         <td><?= $rate['end_time'] ?></td>
-                                        <td><?= $rate['rate'] ?></td>
+                                        <td><?= moneyFormat($rate['rate']) ?></td>
                                         <td>
                                             <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
                                                 <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
