@@ -43,9 +43,6 @@ $pageName = "Reservations"
 
     <!-- JS Plugins -->
     <?php view("admin/partials/plugins.partial.php") ?>
-    <script>
-        let table = new DataTable('#dataTable');
-    </script>
 
 </body>
 
