@@ -44,10 +44,6 @@ $pageName = "Reservations"
                                     <input type="time" name="check_in" id="check_in" class="form-control" placeholder="Enter Check In">
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    <label class="form-label" for="check_out">Check Out</label>
-                                    <input type="time" name="check_out" id="check_out" class="form-control" placeholder="Enter Check Out">
-                                </div>
-                                <div class="col-12 col-md-6">
                                     <label class="form-label" for="facility">Facility</label>
                                     <select name="facility" id="facility" class="form-control">
                                         <?php foreach ($facilities as $facility): ?>
@@ -96,7 +92,18 @@ $pageName = "Reservations"
                                 <div id="facility-fields" class="col-12 row gy-3"></div>
                                 <div class="col-12">
                                     <button type="button" class="btn btn-secondary prev">Previous</button>
-                                    <button type="submit" class="btn btn-primary next">Submit</button>
+                                    <button type="button" class="btn btn-primary next">Next</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="step">
+                            <h6>Step 4: Completion</h6>
+                            <div class="row gy-3">
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-secondary prev">Previous</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </div>
                         </div>
@@ -121,13 +128,21 @@ $pageName = "Reservations"
                 if (capacity > 0) {
                     for (let i = 1; i <= capacity; i++) {
                         let fieldGroup = `
-                        <div class="col-12 col-md-6"> 
-                                <label>Name ${i}</label>
-                                <input type="text" name="persons[${i}][name]" class="form-control" placeholder="Enter name">
+                        <div class="col-12 col-md-4"> 
+                            <label>Guest ${i}</label>
+                            <input type="text" name="persons[${i}][guest_name]" class="form-control" placeholder="Enter name">
                         </div> 
-                        <div class="col-12 col-md-6">
-                            <label>Age ${i}</label>
-                            <input type="number" name="persons[${i}][age]" class="form-control" placeholder="Enter age">
+                        <div class="col-12 col-md-4">
+                            <label>Age</label>
+                            <input type="number" name="persons[${i}][guest_age]" class="form-control" placeholder="Enter age">
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>Type</label>
+                            <select name="persons[${i}][guest_type]" class="form-control">
+                                <?php foreach (\Http\Enums\GuestType::toArray() as $type): ?>
+                                    <option value="<?= $type ?>"><?= ucfirst($type) ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                         `;
                         $container.append(fieldGroup);
