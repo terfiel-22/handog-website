@@ -40,20 +40,24 @@ $pageName = "Reservations"
                             <h6>Step 1: Reservation</h6>
                             <div class="row gy-3">
                                 <div class="col-12 col-md-6">
-                                    <label class="form-label" for="check_in">Check In</label>
-                                    <input type="time" name="check_in" id="check_in" class="form-control" placeholder="Enter Check In">
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <label class="form-label" for="facility">Facility</label>
-                                    <select name="facility" id="facility" class="form-control">
-                                        <?php foreach ($facilities as $facility): ?>
-                                            <option value="<?= $facility['id'] ?>" data-capacity="<?= $facility['capacity'] ?>"><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
+                                    <label class="form-label" for="time_slot">Time Slot</label>
+                                    <select name="time_slot" id="time_slot" class="form-control">
+                                        <?php foreach (\Http\Enums\TimeSlot::toArray() as $timeSlot): ?>
+                                            <option value="<?= $timeSlot ?>"><?= ucfirst($timeSlot) ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    <label class="form-label" for="capacity">Capacity</label>
-                                    <input type="number" id="capacity" class="form-control" readonly>
+                                    <label class="form-label" for="guest_count">Guest Count</label>
+                                    <input type="number" id="guest_count" name="guest_count" class="form-control" min="0" max="99" value="1">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label" for="facility">Facility</label>
+                                    <select name="facility" id="facility" class="form-control">
+                                        <?php foreach ($facilities as $facility): ?>
+                                            <option value="<?= $facility['id'] ?>"><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                                 <div class="col-12">
                                     <a href="/admin/reservations" class="btn btn-danger-600">Cancel</a>
@@ -118,25 +122,22 @@ $pageName = "Reservations"
     <?php view("admin/partials/plugins.partial.php") ?>
     <script>
         $(document).ready(function() {
-            $("#facility").on("change", function() {
-
-                let capacity = $(this).find(":selected").data("capacity");
-                $("#capacity").val(capacity);
+            const generateGuestFields = (count) => {
                 let $container = $("#facility-fields");
-                $container.empty();
+                $container.empty(); // clear old fields
 
-                if (capacity > 0) {
-                    for (let i = 1; i <= capacity; i++) {
+                if (count > 0) {
+                    for (let i = 1; i <= count; i++) {
                         let fieldGroup = `
-                        <div class="col-12 col-md-4"> 
+                        <div class="col-12 col-md-6"> 
                             <label>Guest ${i}</label>
                             <input type="text" name="persons[${i}][guest_name]" class="form-control" placeholder="Enter name">
                         </div> 
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-2">
                             <label>Age</label>
                             <input type="number" name="persons[${i}][guest_age]" class="form-control" placeholder="Enter age">
                         </div>
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-2">
                             <label>Type</label>
                             <select name="persons[${i}][guest_type]" class="form-control">
                                 <?php foreach (\Http\Enums\GuestType::toArray() as $type): ?>
@@ -144,14 +145,26 @@ $pageName = "Reservations"
                                 <?php endforeach; ?>
                             </select>
                         </div>
+                        <div class="col-12 col-md-2">
+                            <label>Senior/PWD</label>
+                            <select name="persons[${i}][senior_pwd]" class="form-control"> 
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
                         `;
                         $container.append(fieldGroup);
                     }
                 }
+            }
+
+            $("#guest_count").on("input", function() {
+                let guestCount = parseInt($(this).val()) || 1;
+                generateGuestFields(guestCount);
             });
 
-            // Trigger once on page load if a facility is already selected
-            $("#facility").trigger("change");
+            // Generate atleast 1 guest field
+            generateGuestFields(1);
         });
     </script>
 

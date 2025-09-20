@@ -6,5 +6,4 @@ class GuestType extends Enums
 {
     const ADULT = "adult";
     const KID = "kid";
-    const SENIOR_PWD = "senior_pwd";
 }
