@@ -17,7 +17,7 @@ class EntranceRates
     public function createEntranceRates($attributes)
     {
         $this->db->query(
-            "INSERT INTO entrance_rates(guest_type, rate, start_time, end_time) VALUES(:guest_type, :rate, :start_time,:end_time)",
+            "INSERT INTO entrance_rates(time_slot, adult_rate, kid_rate, senior_pwd_discount) VALUES(:time_slot, :adult_rate, :kid_rate,:senior_pwd_discount)",
             $attributes
         );
     }

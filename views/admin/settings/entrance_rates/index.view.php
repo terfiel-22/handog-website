@@ -40,10 +40,10 @@ $pageName = "Entrance Rates"
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Guest Type</th>
-                                    <th scope="col">Start Time</th>
-                                    <th scope="col">End Time</th>
-                                    <th scope="col">Rate</th>
+                                    <th scope="col">Time Slot</th>
+                                    <th scope="col">Adult Rate</th>
+                                    <th scope="col">Kid Rate</th>
+                                    <th scope="col">Senior/PWD Discount (%)</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -51,10 +51,10 @@ $pageName = "Entrance Rates"
                                 <?php foreach ($rates as $rate): ?>
                                     <tr>
                                         <td><a href="javascript:void(0)" class="text-primary-600">#<?= $rate['id'] ?></a></td>
-                                        <td><?= $rate['guest_type'] ?></td>
-                                        <td><?= $rate['start_time'] ?></td>
-                                        <td><?= $rate['end_time'] ?></td>
-                                        <td><?= moneyFormat($rate['rate']) ?></td>
+                                        <td><?= $rate['time_slot'] ?></td>
+                                        <td><?= moneyFormat($rate['adult_rate']) ?></td>
+                                        <td><?= moneyFormat($rate['kid_rate']) ?></td>
+                                        <td><?= $rate['senior_pwd_discount'] * 100 ?>%</td>
                                         <td>
                                             <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
                                                 <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
