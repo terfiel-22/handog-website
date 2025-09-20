@@ -30,7 +30,19 @@
                 </a>
             </li>
 
-            <li class="sidebar-menu-group-title">Reservations</li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">
+                    <iconify-icon icon="ic:outline-settings" class="menu-icon"></iconify-icon>
+                    <span>Settings</span>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li>
+                        <a href="/admin/settings/pricing"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Entrance Pricing</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- <li class="sidebar-menu-group-title">Reservations</li>
             <li>
                 <a href="javascript:void(0)">
                     <iconify-icon icon="material-symbols:room-service-outline-sharp" class="menu-icon"></iconify-icon>
@@ -106,7 +118,7 @@
                     <iconify-icon icon="ic:outline-announcement" class="menu-icon"></iconify-icon>
                     <span>About</span>
                 </a>
-            </li>
+            </li> -->
         </ul>
     </div>
 </aside>

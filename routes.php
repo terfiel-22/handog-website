@@ -18,3 +18,6 @@
   // Reservation 
   $router->get('/admin/reservations', 'admin/reservation/index.controller.php')->only('guest');
   $router->get('/admin/reservations/add', 'admin/reservation/store.controller.php')->only('guest');
+
+  // Settings
+  $router->get('/admin/settings/pricing', 'admin/settings/pricing/index.controller.php')->only('guest');
