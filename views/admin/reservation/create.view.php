@@ -46,10 +46,20 @@ $pageName = "Reservations"
                                             <option value="<?= $timeSlot ?>"><?= ucfirst($timeSlot) ?></option>
                                         <?php endforeach; ?>
                                     </select>
+                                    <?php if (isset($errors["time_slot"])) : ?>
+                                        <div class="error-text">
+                                            <?= $errors["time_slot"] ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <label class="form-label" for="guest_count">Guest Count</label>
                                     <input type="number" id="guest_count" name="guest_count" class="form-control" min="0" max="99" value="1">
+                                    <?php if (isset($errors["guest_count"])) : ?>
+                                        <div class="error-text">
+                                            <?= $errors["guest_count"] ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label" for="facility">Facility</label>
@@ -58,6 +68,11 @@ $pageName = "Reservations"
                                             <option value="<?= $facility['id'] ?>"><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
                                         <?php endforeach; ?>
                                     </select>
+                                    <?php if (isset($errors["facility"])) : ?>
+                                        <div class="error-text">
+                                            <?= $errors["facility"] ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-12">
                                     <a href="/admin/reservations" class="btn btn-danger-600">Cancel</a>
@@ -73,18 +88,38 @@ $pageName = "Reservations"
                                 <div class="col-12 col-md-12">
                                     <label class="form-label" for="contact_person">Contact Person</label>
                                     <input type="text" name="contact_person" id="contact_person" class="form-control" placeholder="Enter Name">
+                                    <?php if (isset($errors["contact_person"])) : ?>
+                                        <div class="error-text">
+                                            <?= $errors["contact_person"] ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <label class="form-label" for="contact_no">Phone Number</label>
                                     <input type="tel" name="contact_no" id="contact_no" class="form-control" placeholder="Enter Phone No.">
+                                    <?php if (isset($errors["contact_no"])) : ?>
+                                        <div class="error-text">
+                                            <?= $errors["contact_no"] ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <label class="form-label" for="contact_email">Email</label>
                                     <input type="text" name="contact_email" id="contact_email" class="form-control" placeholder="Enter Email">
+                                    <?php if (isset($errors["contact_email"])) : ?>
+                                        <div class="error-text">
+                                            <?= $errors["contact_email"] ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label" for="contact_address">Address</label>
                                     <input type="text" name="contact_address" id="contact_address" class="form-control" placeholder="Enter Email">
+                                    <?php if (isset($errors["contact_address"])) : ?>
+                                        <div class="error-text">
+                                            <?= $errors["contact_address"] ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-12">
                                     <button type="button" class="btn btn-secondary prev">Previous</button>
@@ -98,6 +133,11 @@ $pageName = "Reservations"
                             <h6>Step 3: Guest Info</h6>
                             <div class="row gy-3">
                                 <div id="facility-fields" class="col-12 row gy-3"></div>
+                                <?php if (isset($errors["guests"])) : ?>
+                                    <div class="error-text">
+                                        <?= $errors["guests"] ?>
+                                    </div>
+                                <?php endif; ?>
                                 <div class="col-12">
                                     <button type="button" class="btn btn-secondary prev">Previous</button>
                                     <button type="button" class="btn btn-primary next">Next</button>
@@ -116,6 +156,11 @@ $pageName = "Reservations"
                                             <option value="<?= $yesNo ?>"><?= ucfirst($yesNo) ?></option>
                                         <?php endforeach; ?>
                                     </select>
+                                    <?php if (isset($errors["rent_videoke"])) : ?>
+                                        <div class="error-text">
+                                            <?= $errors["rent_videoke"] ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-12">
                                     <button type="button" class="btn btn-secondary prev">Previous</button>

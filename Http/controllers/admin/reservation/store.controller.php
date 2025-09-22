@@ -3,10 +3,15 @@
 use Core\App;
 use Http\Enums\GuestType;
 use Http\Enums\YesNo;
+use Http\Forms\ReservationForm;
 use Http\Models\EntranceRates;
 use Http\Models\Facility;
 use Http\Models\Reservation;
 use Http\Models\ReservationGuest;
+
+ReservationForm::validate($_POST);
+
+dd($_POST);
 
 // Get selected facility
 $facility = App::resolve(Facility::class)->fetchFacilityById($_POST['facility']);
