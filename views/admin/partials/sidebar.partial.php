@@ -37,7 +37,7 @@
                 </a>
                 <ul class="sidebar-submenu">
                     <li>
-                        <a href="/admin/settings/entrance-rates"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Entrance Rates</a>
+                        <a href="/admin/settings/rates"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Rates</a>
                     </li>
                 </ul>
             </li>
