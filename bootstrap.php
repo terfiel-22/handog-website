@@ -5,6 +5,7 @@ use Core\Container;
 use Core\Database;
 use Http\Models\EntranceRates;
 use Http\Models\Facility;
+use Http\Models\Rates;
 use Http\Models\Reservation;
 use Http\Models\ReservationGuest;
 
@@ -25,6 +26,9 @@ $container->bind(Reservation::class, function () {
 });
 $container->bind(ReservationGuest::class, function () {
     return new ReservationGuest();
+});
+$container->bind(Rates::class, function () {
+    return new Rates();
 });
 $container->bind(EntranceRates::class, function () {
     return new EntranceRates();

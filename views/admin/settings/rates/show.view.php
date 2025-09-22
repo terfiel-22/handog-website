@@ -38,27 +38,27 @@ $pageName = "Rates"
                     <form class="row gy-3" method="POST" action="#">
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="adult_rate_day">Adult Rate (Day)</label>
-                            <input type="number" name="adult_rate_day" id="adult_rate_day" class="form-control" placeholder="Enter Adult Entrance Rate (Day)">
+                            <input type="number" name="adult_rate_day" id="adult_rate_day" class="form-control" placeholder="Enter Adult Entrance Rate (Day)" value="<?= $rates['adult_rate_day'] ?>">
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="adult_rate_night">Adult Rate (Night)</label>
-                            <input type="number" name="adult_rate_night" id="adult_rate_night" class="form-control" placeholder="Enter Adult Entrance Rate (Night)">
+                            <input type="number" name="adult_rate_night" id="adult_rate_night" class="form-control" placeholder="Enter Adult Entrance Rate (Night)" value="<?= $rates['adult_rate_night'] ?>">
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="kid_rate_day">Kid Rate (Day)</label>
-                            <input type="number" name="kid_rate_day" id="kid_rate_day" class="form-control" placeholder="Enter Kid Entrance Rate (Day)">
+                            <input type="number" name="kid_rate_day" id="kid_rate_day" class="form-control" placeholder="Enter Kid Entrance Rate (Day)" value="<?= $rates['kid_rate_day'] ?>">
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="kid_rate_night">Kid Rate (Night)</label>
-                            <input type="number" name="kid_rate_night" id="kid_rate_night" class="form-control" placeholder="Enter Kid Entrance Rate (Night)">
+                            <input type="number" name="kid_rate_night" id="kid_rate_night" class="form-control" placeholder="Enter Kid Entrance Rate (Night)" value="<?= $rates['kid_rate_night'] ?>">
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="senior_pwd_discount">Senior/PWD Discount (%)</label>
-                            <input type="number" name="senior_pwd_discount" id="senior_pwd_discount" class="form-control" placeholder="Enter Senior/PWD Discount (%)">
+                            <input type="number" name="senior_pwd_discount" id="senior_pwd_discount" class="form-control" placeholder="Enter Senior/PWD Discount (%)" value="<?= $rates['senior_pwd_discount'] * 100 ?>">
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="videoke_rent">Videoke Rent</label>
-                            <input type="number" name="videoke_rent" id="videoke_rent" class="form-control" placeholder="Enter Videoke Rent Rate">
+                            <input type="number" name="videoke_rent" id="videoke_rent" class="form-control" placeholder="Enter Videoke Rent Rate" value="<?= $rates['videoke_rent'] ?>">
                         </div>
                         <div class="col-12 g-5">
                             <button type="submit" class="btn btn-primary-600">Submit</button>
