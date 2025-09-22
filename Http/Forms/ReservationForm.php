@@ -18,7 +18,7 @@ class ReservationForm extends Form
             $this->errors["time_slot"] = "Please select a valid timeslot.";
         }
 
-        if (!Validator::not_empty($guest_count)) {
+        if (!Validator::quantity($guest_count)) {
             $this->errors["guest_count"] = "Guest count is required.";
         }
         if (!Validator::not_empty($facility)) {

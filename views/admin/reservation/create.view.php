@@ -54,7 +54,7 @@ $pageName = "Reservations"
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <label class="form-label" for="guest_count">Guest Count</label>
-                                    <input type="number" id="guest_count" name="guest_count" class="form-control" min="0" max="99" value="1">
+                                    <input type="number" id="guest_count" name="guest_count" class="form-control" min="0" max="99" value="<?= old("guest_count") ?>">
                                     <?php if (isset($errors["guest_count"])) : ?>
                                         <div class="error-text">
                                             <?= $errors["guest_count"] ?>
@@ -87,7 +87,7 @@ $pageName = "Reservations"
                             <div class="row gy-3">
                                 <div class="col-12 col-md-12">
                                     <label class="form-label" for="contact_person">Contact Person</label>
-                                    <input type="text" name="contact_person" id="contact_person" class="form-control" placeholder="Enter Name">
+                                    <input type="text" name="contact_person" id="contact_person" class="form-control" placeholder="Enter Name" value="<?= old("contact_person") ?>">
                                     <?php if (isset($errors["contact_person"])) : ?>
                                         <div class="error-text">
                                             <?= $errors["contact_person"] ?>
@@ -96,7 +96,7 @@ $pageName = "Reservations"
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <label class="form-label" for="contact_no">Phone Number</label>
-                                    <input type="tel" name="contact_no" id="contact_no" class="form-control" placeholder="Enter Phone No.">
+                                    <input type="tel" name="contact_no" id="contact_no" class="form-control" placeholder="Enter Phone No." value="<?= old("contact_no") ?>">
                                     <?php if (isset($errors["contact_no"])) : ?>
                                         <div class="error-text">
                                             <?= $errors["contact_no"] ?>
@@ -105,7 +105,7 @@ $pageName = "Reservations"
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <label class="form-label" for="contact_email">Email</label>
-                                    <input type="text" name="contact_email" id="contact_email" class="form-control" placeholder="Enter Email">
+                                    <input type="text" name="contact_email" id="contact_email" class="form-control" placeholder="Enter Email" value="<?= old("contact_email") ?>">
                                     <?php if (isset($errors["contact_email"])) : ?>
                                         <div class="error-text">
                                             <?= $errors["contact_email"] ?>
@@ -114,7 +114,7 @@ $pageName = "Reservations"
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label" for="contact_address">Address</label>
-                                    <input type="text" name="contact_address" id="contact_address" class="form-control" placeholder="Enter Email">
+                                    <input type="text" name="contact_address" id="contact_address" class="form-control" placeholder="Enter Email" value="<?= old("contact_address") ?>">
                                     <?php if (isset($errors["contact_address"])) : ?>
                                         <div class="error-text">
                                             <?= $errors["contact_address"] ?>

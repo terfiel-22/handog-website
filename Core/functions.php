@@ -43,3 +43,9 @@ function moneyFormat($value)
 {
     return "₱ " . number_format($value, 2);
 }
+
+/** Function for getting old form data */
+function old($key,  $default = '')
+{
+    return Core\Session::get('old')[$key] ?? $default;
+}
