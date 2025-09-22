@@ -18,4 +18,9 @@ class Rates
     {
         return $this->db->query('SELECT * FROM st_rates LIMIT 1')->find();
     }
+
+    public function updateRates($attributes)
+    {
+        $this->db->query("UPDATE st_rates SET adult_rate_day = :adult_rate_day, adult_rate_night = :adult_rate_night, kid_rate_day = :kid_rate_day, kid_rate_night = :kid_rate_night, senior_pwd_discount = :senior_pwd_discount, videoke_rent = :videoke_rent WHERE id = :id", $attributes);
+    }
 }

@@ -35,21 +35,23 @@ $pageName = "Rates"
                 </div>
 
                 <div class="card-body">
-                    <form class="row gy-3" method="POST" action="#">
+                    <form class="row gy-3" method="POST">
+                        <input type="hidden" name="_method" value="PUT">
+                        <input type="hidden" name="id" value="<?= $rates['id'] ?>">
                         <div class="col-12 col-md-6">
-                            <label class="form-label" for="adult_rate_day">Adult Rate (Day)</label>
+                            <label class="form-label" for="adult_rate_day">Adult Entrance Rate (Day)</label>
                             <input type="number" name="adult_rate_day" id="adult_rate_day" class="form-control" placeholder="Enter Adult Entrance Rate (Day)" value="<?= $rates['adult_rate_day'] ?>">
                         </div>
                         <div class="col-12 col-md-6">
-                            <label class="form-label" for="adult_rate_night">Adult Rate (Night)</label>
+                            <label class="form-label" for="adult_rate_night">Adult Entrance Rate (Night)</label>
                             <input type="number" name="adult_rate_night" id="adult_rate_night" class="form-control" placeholder="Enter Adult Entrance Rate (Night)" value="<?= $rates['adult_rate_night'] ?>">
                         </div>
                         <div class="col-12 col-md-6">
-                            <label class="form-label" for="kid_rate_day">Kid Rate (Day)</label>
+                            <label class="form-label" for="kid_rate_day">Kid Entrance Rate (Day)</label>
                             <input type="number" name="kid_rate_day" id="kid_rate_day" class="form-control" placeholder="Enter Kid Entrance Rate (Day)" value="<?= $rates['kid_rate_day'] ?>">
                         </div>
                         <div class="col-12 col-md-6">
-                            <label class="form-label" for="kid_rate_night">Kid Rate (Night)</label>
+                            <label class="form-label" for="kid_rate_night">Kid Entrance Rate (Night)</label>
                             <input type="number" name="kid_rate_night" id="kid_rate_night" class="form-control" placeholder="Enter Kid Entrance Rate (Night)" value="<?= $rates['kid_rate_night'] ?>">
                         </div>
                         <div class="col-12 col-md-6">
