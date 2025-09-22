@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 20, 2025 at 06:10 PM
+-- Generation Time: Sep 22, 2025 at 10:41 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,30 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `handog_db`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `entrance_rates`
---
-
-CREATE TABLE `entrance_rates` (
-  `id` int(11) NOT NULL,
-  `time_slot` enum('day','night') NOT NULL,
-  `adult_rate` decimal(10,2) NOT NULL,
-  `kid_rate` decimal(10,2) NOT NULL,
-  `senior_pwd_discount` decimal(10,2) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `entrance_rates`
---
-
-INSERT INTO `entrance_rates` (`id`, `time_slot`, `adult_rate`, `kid_rate`, `senior_pwd_discount`, `created_at`, `updated_at`) VALUES
-(1, 'day', 120.00, 80.00, 0.20, '2025-09-20 11:57:16', '2025-09-20 11:57:16'),
-(2, 'night', 200.00, 100.00, 0.20, '2025-09-20 11:57:44', '2025-09-20 11:57:44');
 
 -- --------------------------------------------------------
 
@@ -81,7 +57,6 @@ INSERT INTO `facilities` (`id`, `name`, `type`, `description`, `image`, `capacit
 CREATE TABLE `reservations` (
   `id` int(11) NOT NULL,
   `facility_id` int(11) NOT NULL,
-  `entrance_rate_id` int(11) NOT NULL,
   `contact_person` varchar(150) NOT NULL,
   `contact_no` varchar(150) NOT NULL,
   `contact_email` varchar(150) NOT NULL,
@@ -98,8 +73,8 @@ CREATE TABLE `reservations` (
 -- Dumping data for table `reservations`
 --
 
-INSERT INTO `reservations` (`id`, `facility_id`, `entrance_rate_id`, `contact_person`, `contact_no`, `contact_email`, `contact_address`, `guest_count`, `rent_videoke`, `total_price`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', 2, 'no', 1140.00, 'pending', '2025-09-20 15:35:26', '2025-09-20 15:35:26');
+INSERT INTO `reservations` (`id`, `facility_id`, `contact_person`, `contact_no`, `contact_email`, `contact_address`, `guest_count`, `rent_videoke`, `total_price`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', 1, 'no', 1020.00, 'pending', '2025-09-22 08:37:58', '2025-09-22 08:37:58');
 
 -- --------------------------------------------------------
 
@@ -123,18 +98,34 @@ CREATE TABLE `reservation_guests` (
 --
 
 INSERT INTO `reservation_guests` (`id`, `reservation_id`, `guest_name`, `guest_age`, `guest_type`, `senior_pwd`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Taki Fimito', 24, 'adult', 'no', '2025-09-20 15:35:26', '2025-09-20 15:35:26'),
-(2, 1, 'Tafi Fimito', 24, 'adult', 'no', '2025-09-20 15:35:26', '2025-09-20 15:35:26');
+(5, 1, 'Taki Fimito', 23, 'adult', 'no', '2025-09-22 08:37:58', '2025-09-22 08:37:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `st_rates`
+--
+
+CREATE TABLE `st_rates` (
+  `id` int(11) NOT NULL,
+  `adult_rate_day` decimal(10,2) NOT NULL,
+  `kid_rate_day` decimal(10,2) NOT NULL,
+  `adult_rate_night` decimal(10,2) NOT NULL,
+  `kid_rate_night` decimal(10,2) NOT NULL,
+  `senior_pwd_discount` decimal(10,2) NOT NULL,
+  `videoke_rent` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `st_rates`
+--
+
+INSERT INTO `st_rates` (`id`, `adult_rate_day`, `kid_rate_day`, `adult_rate_night`, `kid_rate_night`, `senior_pwd_discount`, `videoke_rent`) VALUES
+(1, 120.00, 80.00, 200.00, 100.00, 20.00, 1500.00);
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `entrance_rates`
---
-ALTER TABLE `entrance_rates`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `facilities`
@@ -147,8 +138,7 @@ ALTER TABLE `facilities`
 --
 ALTER TABLE `reservations`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `facility_id` (`facility_id`),
-  ADD KEY `entrance_rate_id` (`entrance_rate_id`);
+  ADD KEY `facility_id` (`facility_id`);
 
 --
 -- Indexes for table `reservation_guests`
@@ -158,14 +148,14 @@ ALTER TABLE `reservation_guests`
   ADD KEY `reservation_id` (`reservation_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indexes for table `st_rates`
 --
+ALTER TABLE `st_rates`
+  ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for table `entrance_rates`
+-- AUTO_INCREMENT for dumped tables
 --
-ALTER TABLE `entrance_rates`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `facilities`
@@ -183,7 +173,13 @@ ALTER TABLE `reservations`
 -- AUTO_INCREMENT for table `reservation_guests`
 --
 ALTER TABLE `reservation_guests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `st_rates`
+--
+ALTER TABLE `st_rates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -193,8 +189,7 @@ ALTER TABLE `reservation_guests`
 -- Constraints for table `reservations`
 --
 ALTER TABLE `reservations`
-  ADD CONSTRAINT `reservations_ibfk_1` FOREIGN KEY (`facility_id`) REFERENCES `facilities` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `reservations_ibfk_2` FOREIGN KEY (`entrance_rate_id`) REFERENCES `entrance_rates` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `reservations_ibfk_1` FOREIGN KEY (`facility_id`) REFERENCES `facilities` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `reservation_guests`

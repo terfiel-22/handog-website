@@ -23,7 +23,3 @@
    // Settings
    $router->get('/admin/settings/rates', 'admin/settings/rates/show.controller.php')->only('guest');
    $router->put('/admin/settings/rates', 'admin/settings/rates/update.controller.php')->only('guest');
-
-   $router->get('/admin/settings/entrance-rates', 'admin/settings/entrance_rates/index.controller.php')->only('guest');
-   $router->get('/admin/settings/entrance-rates/create', 'admin/settings/entrance_rates/create.controller.php')->only('guest');
-   $router->post('/admin/settings/entrance-rates/store', 'admin/settings/entrance_rates/store.controller.php')->only('guest');
