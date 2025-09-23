@@ -37,7 +37,7 @@ $pageName = "Add Facility"
                 <div class="card-body">
                     <form class="row gy-3" method="POST" action="/admin/facilities/store" enctype="multipart/form-data">
                         <div class="col-12">
-                            <label class="form-label">Upload facility images</label>
+                            <label class="form-label" for="upload-file-multiple">Upload facility images</label>
                             <div class="upload-image-wrapper d-flex align-items-center gap-3 flex-wrap">
                                 <div class="uploaded-imgs-container d-flex gap-3 flex-wrap"></div>
                                 <label class="upload-file-multiple h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50 bg-hover-neutral-200 d-flex align-items-center flex-column justify-content-center gap-1">
@@ -46,10 +46,20 @@ $pageName = "Add Facility"
                                     <input id="upload-file-multiple" name="images[]" type="file" accept="image/*" hidden multiple>
                                 </label>
                             </div>
+                            <?php if (isset($errors["image"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["image"] ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="name">Name</label>
                             <input type="text" name="name" id="name" class="form-control" placeholder="Enter facility name" value="<?= old('name') ?>">
+                            <?php if (isset($errors["name"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["name"] ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="type">Type</label>
@@ -58,21 +68,41 @@ $pageName = "Add Facility"
                                     <option value="<?= $type ?>"> <?= ucfirst($type) ?> </option>
                                 <?php endforeach; ?>
                             </select>
+                            <?php if (isset($errors["type"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["type"] ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="col-12">
                             <label class="form-label" for="description">Description</label>
                             <textarea type="number" name="description" id="description" class="form-control" placeholder="Enter facility description"><?= old('description') ?></textarea>
+                            <?php if (isset($errors["description"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["description"] ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="capacity">Capacity</label>
                             <input type="number" name="capacity" id="capacity" class="form-control" placeholder="Enter facility capacity" value="<?= old('capacity') ?>">
+                            <?php if (isset($errors["capacity"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["capacity"] ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="rate">Rate</label>
                             <input type="number" name="rate" id="rate" class="form-control" placeholder="Enter facility rate" value="<?= old('rate') ?>">
+                            <?php if (isset($errors["rate"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["rate"] ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="col-12">
-                            <label class="form-label" for="amenities">Amenities</label>
+                            <label class="form-label" for="amenities">Amenities <span class="fw-normal">(Optional)</span></label>
                             <textarea type="number" name="amenities" id="amenities" class="form-control" placeholder="Enter facility amenities"><?= old('amenities') ?></textarea>
                         </div>
                         <div class="col-12 g-5">
