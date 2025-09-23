@@ -129,7 +129,7 @@
                             <div class="swiper-slide">
                                 <div
                                     class="gt-room-explore-items bg-cover h-40"
-                                    style=" background-image: url('<?= $room['image'] ?? "/assets/guest/img/home-2/room-explore/01.jpg" ?>');">
+                                    style=" background-image: url('<?= handleImage($room['image'], "/assets/guest/img/home-2/room-explore/01.jpg") ?>');">
                                     <div class="row justify-content-end">
                                         <div class="col-xl-5 col-lg-6">
                                             <div class="gt-room-exlore-box-items">

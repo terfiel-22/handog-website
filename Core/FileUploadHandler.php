@@ -14,7 +14,7 @@ class FileUploadHandler
         int $maxSize = 5242880 // 5MB
     ) {
 
-        $this->uploadDir = rtrim(base_path("public_html/uploads/$folderName"), "/") . "/";
+        $this->uploadDir = rtrim("uploads/$folderName", "/") . "/";
         $this->allowedTypes = $allowedTypes;
         $this->maxSize = $maxSize;
 

@@ -54,7 +54,7 @@ $pageName = "Facilities"
                                         <td><a href="javascript:void(0)" class="text-primary-600">#<?= $facility['id'] ?></a></td>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <img src="<?= $facility['image'] ?? "/assets/admin/images/user-list/user-list1.png" ?> " alt="<?= $facility['name'] ?>" class="flex-shrink-0 me-12 radius-8" style="width: 80px;">
+                                                <img src="<?= handleImage($facility['image'], "/assets/admin/images/user-list/user-list1.png")  ?> " alt="<?= $facility['name'] ?>" class="flex-shrink-0 me-12 radius-8" style="width: 80px;">
                                                 <h6 class="text-md mb-0 fw-medium flex-grow-1"><?= $facility['name'] ?></h6>
                                             </div>
                                         </td>
