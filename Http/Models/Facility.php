@@ -17,10 +17,10 @@ class Facility
 
     public function createFacility($attributes)
     {
-        $this->db->query(
-            "INSERT INTO facilities(name, type, description, image, capacity, price, amenities, status) VALUES(:name, :type, :description,:image, :capacity, :price, :amenities, :status)",
+        return $this->db->query(
+            "INSERT INTO facilities(name, type, description, capacity, rate, amenities) VALUES(:name, :type, :description, :capacity, :rate, :amenities)",
             $attributes
-        );
+        )->id();
     }
 
     public function fetchFacilityById($id)
