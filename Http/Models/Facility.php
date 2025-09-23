@@ -30,7 +30,18 @@ class Facility
 
     public function fetchFacilities()
     {
-        return $this->db->query('SELECT * FROM facilities')->get();
+        return $this->db->query(
+            "
+            SELECT fac.*, fi.image
+            FROM facilities fac
+            LEFT JOIN facility_images fi 
+                ON fi.id = (
+                    SELECT MIN(id) 
+                    FROM facility_images 
+                    WHERE facility_id = fac.id
+                );
+            "
+        )->get();
     }
 
     public function fetchAvailableFacilities()
@@ -42,7 +53,20 @@ class Facility
 
     public function fetchFacilitiesByType($type)
     {
-        return $this->db->query('SELECT * FROM facilities WHERE type=:type', compact('type'))->get();
+        return $this->db->query(
+            "
+            SELECT fac.*, fi.image
+            FROM facilities fac
+            LEFT JOIN facility_images fi 
+                ON fi.id = (
+                    SELECT MIN(id) 
+                    FROM facility_images 
+                    WHERE facility_id = fac.id
+                )
+            WHERE fac.type=:type
+            ",
+            compact('type')
+        )->get();
     }
 
     public function deleteFacility($id)
