@@ -144,16 +144,11 @@
                                     A Space for Every Occasion
                                 </h6>
                                 <h2 class="wow fadeInUp" data-wow-delay=".2s">
-                                    Event Hall
+                                    <?= $eventHall["name"] ?>
                                 </h2>
                             </div>
                             <p class="service-text wow fadeInUp" data-wow-delay=".4s">
-                                Planning a special event? Our spacious event
-                                hall is perfect for birthdays, reunions, weddings,
-                                and more. With a flexible setup, relaxing resort
-                                vibes, and access to our pool and amenities, it's
-                                the perfect place to celebrate. Book now and
-                                make your event easy, fun, and unforgettable!
+                                <?= $eventHall["description"] ?>
                             </p>
                             <a href="/" class="gt-theme-btn wow fadeInUp" data-wow-delay=".9s">LEARN MORE</a>
                         </div>
@@ -161,21 +156,16 @@
                     <div class="col-lg-6">
                         <div class="swiper service-image-slider">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="service-image">
-                                        <img src="/assets/guest/img/home-3/service/service-01.jpg" alt="img">
+                                <?php
+                                $eventHallImages = explode(",", $eventHall["images"]);
+                                foreach ($eventHallImages as $eventHallImage):
+                                ?>
+                                    <div class="swiper-slide">
+                                        <div class="service-image">
+                                            <img src="<?= handleImage($eventHallImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="img">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="service-image">
-                                        <img src="/assets/guest/img/home-3/service/service-01.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="service-image">
-                                        <img src="/assets/guest/img/home-3/service/service-01.jpg" alt="img">
-                                    </div>
-                                </div>
+                                <?php endforeach; ?>
                             </div>
                             <div class="array-button-2 justify-content-center">
                                 <button class="array-next"><i class="fa-solid fa-chevron-left"></i></button>

@@ -79,6 +79,25 @@ class Facility
         )->get();
     }
 
+    public function fetchSingleFacilityWithImagesByType($type)
+    {
+        return $this->db->query(
+            "
+            SELECT 
+                fac.id,
+                fac.name,
+                fac.description,
+                GROUP_CONCAT(fi.image) AS images
+            FROM facilities fac
+            LEFT JOIN facility_images fi ON fac.id = fi.facility_id
+            WHERE fac.type = :type
+            GROUP BY fac.id
+            LIMIT 1
+            ",
+            compact('type')
+        )->find();
+    }
+
     public function deleteFacility($id)
     {
         $this->db->query(
