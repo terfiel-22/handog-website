@@ -46,60 +46,25 @@
                     data-wow-delay=".4s">BOOK NOW</a>
             </div>
             <div class="row">
-                <div
-                    class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp"
-                    data-wow-delay=".3s">
-                    <div class="gt-why-choose-us-images">
-                        <div class="gt-choose-us-image">
-                            <img
-                                src="/assets/guest/img/home-2/choose-us/choose-us-01.jpg"
-                                alt="img" />
-                            <div class="gt-content">
-                                <h3>Romantic Escapes</h3>
-                                <p>
-                                    Wake up to breathtaking ocean views in our elegant, serene,
-                                    and beautifully
-                                </p>
+                <?php foreach ($cottages as $cottage): ?>
+                    <div
+                        class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp"
+                        data-wow-delay=".3s">
+                        <div class="gt-why-choose-us-images">
+                            <div class="gt-choose-us-image">
+                                <img
+                                    src="<?= handleImage($cottage["image"], "/assets/guest/img/home-2/choose-us/choose-us-01.jpg") ?>"
+                                    alt="img" />
+                                <div class="gt-content">
+                                    <h3><?= $cottage["name"] ?></h3>
+                                    <p>
+                                        <?= $cottage["description"] ?>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div
-                    class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp"
-                    data-wow-delay=".5s">
-                    <div class="gt-why-choose-us-images">
-                        <div class="gt-choose-us-image">
-                            <img
-                                src="/assets/guest/img/home-2/choose-us/choose-us-02.jpg"
-                                alt="img" />
-                            <div class="gt-content">
-                                <h3>Oceanfront Rooms</h3>
-                                <p>
-                                    Wake up to breathtaking ocean views in our elegant, serene,
-                                    and beautifully
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp"
-                    data-wow-delay=".7s">
-                    <div class="gt-why-choose-us-images">
-                        <div class="gt-choose-us-image">
-                            <img
-                                src="/assets/guest/img/home-2/choose-us/choose-us-03.jpg"
-                                alt="img" />
-                            <div class="gt-content">
-                                <h3>Hotel Diner</h3>
-                                <p>
-                                    Wake up to breathtaking ocean views in our elegant, serene,
-                                    and beautifully
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
