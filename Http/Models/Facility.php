@@ -50,13 +50,15 @@ class Facility
                 MAX(CASE WHEN fr.time_range = '12hrs' THEN fr.rate END) AS rate_12hrs,
                 MAX(CASE WHEN fr.time_range = '1day' THEN fr.rate END) AS rate_1day
             FROM facilities fac
-            LEFT JOIN facility_rates fr ON fac.id = fr.facility_id
+            LEFT JOIN facility_rates fr 
+                ON fac.id = fr.facility_id
             LEFT JOIN facility_images fi 
                 ON fi.id = (
                     SELECT MIN(id) 
                     FROM facility_images 
                     WHERE facility_id = fac.id
-                );
+                )
+            GROUP BY fac.id;
             "
         )->get();
     }
