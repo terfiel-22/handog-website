@@ -98,7 +98,7 @@
                                     <div class="row justify-content-end">
                                         <div class="col-xl-5 col-lg-6">
                                             <div class="gt-room-exlore-box-items">
-                                                <span class="gt-rate-title"> Rates From <?= moneyFormat($room['rate']) ?> </span>
+                                                <span class="gt-rate-title"> Rates From <?= moneyFormat($room['rate_hourly'] ?? $room['rate_8hrs'] ?? $room['rate_12hrs'] ?? $room['rate_1day']) ?> </span>
                                                 <h3>
                                                     <a href="/facility?id=<?= $room['id'] ?>"><?= $room['name'] ?></a>
                                                 </h3>
