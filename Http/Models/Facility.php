@@ -42,8 +42,15 @@ class Facility
     {
         return $this->db->query(
             "
-            SELECT fac.*, fi.image
+            SELECT
+                fac.*,
+                fi.image, 
+                MAX(CASE WHEN fr.time_range = 'hourly' THEN fr.rate END) AS rate_hourly,
+                MAX(CASE WHEN fr.time_range = '8hrs' THEN fr.rate END) AS rate_8hrs,
+                MAX(CASE WHEN fr.time_range = '12hrs' THEN fr.rate END) AS rate_12hrs,
+                MAX(CASE WHEN fr.time_range = '1day' THEN fr.rate END) AS rate_1day
             FROM facilities fac
+            LEFT JOIN facility_rates fr ON fac.id = fr.facility_id
             LEFT JOIN facility_images fi 
                 ON fi.id = (
                     SELECT MIN(id) 
