@@ -2,6 +2,7 @@
 
 use Core\App;
 use Http\Enums\GuestType;
+use Http\Enums\ReservationStatus;
 use Http\Enums\TimeSlot;
 use Http\Enums\YesNo;
 use Http\Forms\ReservationForm;
@@ -64,6 +65,7 @@ $reservation = [
     "rent_videoke" => $_POST["rent_videoke"],
     "guest_count" => count($_POST["guests"]),
     "total_price" => $total_price,
+    "status" => ReservationStatus::CONFIRMED
 ];
 $reservationId = App::resolve(Reservation::class)->createReservation($reservation);
 

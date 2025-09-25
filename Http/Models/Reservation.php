@@ -17,7 +17,7 @@ class Reservation
     public function createReservation($attributes)
     {
         return $this->db->query(
-            "INSERT INTO reservations(facility_id, contact_person, contact_no, contact_email, contact_address, check_in, check_out, rent_videoke, guest_count, total_price) VALUES(:facility_id, :contact_person, :contact_no, :contact_email, :contact_address, :check_in, :check_out, :rent_videoke, :guest_count, :total_price)",
+            "INSERT INTO reservations(facility_id, contact_person, contact_no, contact_email, contact_address, check_in, check_out, rent_videoke, guest_count, total_price, status) VALUES(:facility_id, :contact_person, :contact_no, :contact_email, :contact_address, :check_in, :check_out, :rent_videoke, :guest_count, :total_price, :status)",
             $attributes
         )->id();
     }
