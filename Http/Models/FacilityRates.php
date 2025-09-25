@@ -5,7 +5,7 @@ namespace Http\Models;
 use Core\App;
 use Core\Database;
 
-class FacilityImage
+class FacilityRates
 {
     protected Database $db;
 
@@ -14,10 +14,10 @@ class FacilityImage
         $this->db = App::resolve(Database::class);
     }
 
-    public function createFacilityImage($attributes)
+    public function createFacilityRate($attributes)
     {
         $this->db->query(
-            "INSERT INTO facility_images(facility_id, image) VALUES(:facility_id, :image)",
+            "INSERT INTO facility_rates(facility_id, rate, time_range) VALUES(:facility_id, :rate, :time_range)",
             $attributes
         );
     }

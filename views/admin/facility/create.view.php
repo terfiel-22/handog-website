@@ -52,7 +52,7 @@ $pageName = "Add Facility"
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-4">
                             <label class="form-label" for="name">Name</label>
                             <input type="text" name="name" id="name" class="form-control" placeholder="Enter facility name" value="<?= old('name') ?>">
                             <?php if (isset($errors["name"])) : ?>
@@ -61,7 +61,7 @@ $pageName = "Add Facility"
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-4">
                             <label class="form-label" for="type">Type</label>
                             <select name="type" id="type" class="form-control">
                                 <?php foreach (\Http\Enums\FacilityType::toArray() as $type): ?>
@@ -74,6 +74,15 @@ $pageName = "Add Facility"
                                 </div>
                             <?php endif; ?>
                         </div>
+                        <div class="col-12 col-md-4">
+                            <label class="form-label" for="capacity">Capacity</label>
+                            <input type="number" name="capacity" id="capacity" class="form-control" placeholder="Enter facility capacity" value="<?= old('capacity') ?>">
+                            <?php if (isset($errors["capacity"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["capacity"] ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
                         <div class="col-12">
                             <label class="form-label" for="description">Description</label>
                             <textarea type="number" name="description" id="description" class="form-control" placeholder="Enter facility description"><?= old('description') ?></textarea>
@@ -83,21 +92,39 @@ $pageName = "Add Facility"
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="capacity">Capacity</label>
-                            <input type="number" name="capacity" id="capacity" class="form-control" placeholder="Enter facility capacity" value="<?= old('capacity') ?>">
-                            <?php if (isset($errors["capacity"])) : ?>
+                        <div class="col-12 col-md-3">
+                            <label class="form-label" for="hourly_rate">Hourly Rate <span class="fw-normal">(Optional)</span></label>
+                            <input type="number" name="hourly_rate" id="hourly_rate" class="form-control" placeholder="Enter facility hourly rate" value="<?= old('hourly_rate') ?>">
+                            <?php if (isset($errors["hourly_rate"])) : ?>
                                 <div class="error-text">
-                                    <?= $errors["capacity"] ?>
+                                    <?= $errors["hourly_rate"] ?>
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="rate">Rate</label>
-                            <input type="number" name="rate" id="rate" class="form-control" placeholder="Enter facility rate" value="<?= old('rate') ?>">
-                            <?php if (isset($errors["rate"])) : ?>
+                        <div class="col-12 col-md-3">
+                            <label class="form-label" for="8h_rate">8-Hours Rate <span class="fw-normal">(Optional)</span></label>
+                            <input type="number" name="8h_rate" id="8h_rate" class="form-control" placeholder="Enter facility 8-hours rate" value="<?= old('8h_rate') ?>">
+                            <?php if (isset($errors["8h_rate"])) : ?>
                                 <div class="error-text">
-                                    <?= $errors["rate"] ?>
+                                    <?= $errors["8h_rate"] ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label class="form-label" for="12h_rate">12-Hours Rate <span class="fw-normal">(Optional)</span></label>
+                            <input type="number" name="12h_rate" id="12h_rate" class="form-control" placeholder="Enter facility 12-hours rate" value="<?= old('12h_rate') ?>">
+                            <?php if (isset($errors["12h_rate"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["12h_rate"] ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label class="form-label" for="1d_rate">1-Day Rate <span class="fw-normal">(Optional)</span></label>
+                            <input type="number" name="1d_rate" id="1d_rate" class="form-control" placeholder="Enter facility 1-day rate" value="<?= old('1d_rate') ?>">
+                            <?php if (isset($errors["1d_rate"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["1d_rate"] ?>
                                 </div>
                             <?php endif; ?>
                         </div>

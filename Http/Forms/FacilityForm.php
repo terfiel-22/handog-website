@@ -25,9 +25,6 @@ class FacilityForm extends Form
         if (!Validator::quantity($capacity)) {
             $this->errors["capacity"] = "Please put a valid capacity.";
         }
-        if (!Validator::money($rate)) {
-            $this->errors["rate"] = "Please put a valid rate.";
-        }
 
         if (!Validator::not_empty($image)) {
             $this->errors["image"] = "Atleast one image is required.";
