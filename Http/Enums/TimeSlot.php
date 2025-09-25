@@ -7,13 +7,27 @@ class TimeSlot extends Enums
     const DAY = "day";
     const NIGHT = "night";
 
-    public function timeSlot($timeSlot)
+    public static function checkInTime($timeSlot)
     {
+        $currentDate = date("Y-m-d");
+
         switch ($timeSlot) {
             case self::DAY:
-                return "6AM - 5PM";
+                return $currentDate . " 06:00:00";
             default:
-                return "6PM - 5AM";
+                return $currentDate . " 18:00:00";
+        }
+    }
+
+    public static function checkOutTime($timeSlot)
+    {
+        $currentDate = date("Y-m-d");
+
+        switch ($timeSlot) {
+            case self::DAY:
+                return $currentDate . " 17:00:00";
+            default:
+                return $currentDate . " 05:00:00";
         }
     }
 }

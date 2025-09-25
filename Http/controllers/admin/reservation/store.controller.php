@@ -14,7 +14,7 @@ ReservationForm::validate($_POST);
 
 // Get selected facility
 $facility = App::resolve(Facility::class)->fetchFacilityById($_POST['facility']);
-$facilityPrice = $facility["price"];
+$facilityPrice = $facility["rate"];
 
 $rates = App::resolve(Rates::class)->fetchRates();
 
@@ -59,11 +59,12 @@ $reservation = [
     "contact_no" => $_POST["contact_no"],
     "contact_email" => $_POST["contact_email"],
     "contact_address" => $_POST["contact_address"],
+    "check_in" => TimeSlot::checkInTime($_POST["time_slot"]),
+    "check_out" => TimeSlot::checkOutTime($_POST["time_slot"]),
     "rent_videoke" => $_POST["rent_videoke"],
     "guest_count" => count($_POST["guests"]),
     "total_price" => $total_price,
 ];
-
 $reservationId = App::resolve(Reservation::class)->createReservation($reservation);
 
 // Add all the guest to reservation_guests table
