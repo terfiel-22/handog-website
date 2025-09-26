@@ -93,38 +93,38 @@ $pageName = "Add Facility"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-3">
-                            <label class="form-label" for="hourly_rate">Hourly Rate <span class="fw-normal">(Optional)</span></label>
-                            <input type="number" name="hourly_rate" id="hourly_rate" class="form-control" placeholder="Enter facility hourly rate" value="<?= old('hourly_rate') ?>">
-                            <?php if (isset($errors["hourly_rate"])) : ?>
+                            <label class="form-label" for="rate_hourly">Hourly Rate</label>
+                            <input type="number" name="rate_hourly" id="rate_hourly" class="form-control" placeholder="Enter facility hourly rate" value="<?= old('rate_hourly') ?>">
+                            <?php if (isset($errors["rate_hourly"])) : ?>
                                 <div class="error-text">
-                                    <?= $errors["hourly_rate"] ?>
+                                    <?= $errors["rate_hourly"] ?>
                                 </div>
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-3">
-                            <label class="form-label" for="8h_rate">8-Hours Rate <span class="fw-normal">(Optional)</span></label>
-                            <input type="number" name="8h_rate" id="8h_rate" class="form-control" placeholder="Enter facility 8-hours rate" value="<?= old('8h_rate') ?>">
-                            <?php if (isset($errors["8h_rate"])) : ?>
+                            <label class="form-label" for="rate_8hrs">8-Hours Rate</label>
+                            <input type="number" name="rate_8hrs" id="rate_8hrs" class="form-control" placeholder="Enter facility 8-hours rate" value="<?= old('rate_8hrs') ?>">
+                            <?php if (isset($errors["rate_8hrs"])) : ?>
                                 <div class="error-text">
-                                    <?= $errors["8h_rate"] ?>
+                                    <?= $errors["rate_8hrs"] ?>
                                 </div>
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-3">
-                            <label class="form-label" for="12h_rate">12-Hours Rate <span class="fw-normal">(Optional)</span></label>
-                            <input type="number" name="12h_rate" id="12h_rate" class="form-control" placeholder="Enter facility 12-hours rate" value="<?= old('12h_rate') ?>">
-                            <?php if (isset($errors["12h_rate"])) : ?>
+                            <label class="form-label" for="rate_12hrs">12-Hours Rate</label>
+                            <input type="number" name="rate_12hrs" id="rate_12hrs" class="form-control" placeholder="Enter facility 12-hours rate" value="<?= old('rate_12hrs') ?>">
+                            <?php if (isset($errors["rate_12hrs"])) : ?>
                                 <div class="error-text">
-                                    <?= $errors["12h_rate"] ?>
+                                    <?= $errors["rate_12hrs"] ?>
                                 </div>
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-3">
-                            <label class="form-label" for="1d_rate">1-Day Rate <span class="fw-normal">(Optional)</span></label>
-                            <input type="number" name="1d_rate" id="1d_rate" class="form-control" placeholder="Enter facility 1-day rate" value="<?= old('1d_rate') ?>">
-                            <?php if (isset($errors["1d_rate"])) : ?>
+                            <label class="form-label" for="rate_1day">1-Day Rate</label>
+                            <input type="number" name="rate_1day" id="rate_1day" class="form-control" placeholder="Enter facility 1-day rate" value="<?= old('rate_1day') ?>">
+                            <?php if (isset($errors["rate_1day"])) : ?>
                                 <div class="error-text">
-                                    <?= $errors["1d_rate"] ?>
+                                    <?= $errors["rate_1day"] ?>
                                 </div>
                             <?php endif; ?>
                         </div>

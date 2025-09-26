@@ -18,7 +18,7 @@ class Facility
     public function createFacility($attributes)
     {
         return $this->db->query(
-            "INSERT INTO facilities(name, type, description, capacity, amenities) VALUES(:name, :type, :description, :capacity, :amenities)",
+            "INSERT INTO facilities(name, type, capacity, description, rate_hourly, rate_8hrs, rate_12hrs, rate_1day, amenities) VALUES(:name, :type, :capacity, :description, :rate_hourly, :rate_8hrs, :rate_12hrs, :rate_1day, :amenities)",
             $attributes
         )->id();
     }
@@ -44,14 +44,8 @@ class Facility
             "
             SELECT
                 fac.*,
-                fi.image, 
-                MAX(CASE WHEN fr.time_range = 'hourly' THEN fr.rate END) AS rate_hourly,
-                MAX(CASE WHEN fr.time_range = '8hrs' THEN fr.rate END) AS rate_8hrs,
-                MAX(CASE WHEN fr.time_range = '12hrs' THEN fr.rate END) AS rate_12hrs,
-                MAX(CASE WHEN fr.time_range = '1day' THEN fr.rate END) AS rate_1day
+                fi.image
             FROM facilities fac
-            LEFT JOIN facility_rates fr 
-                ON fac.id = fr.facility_id
             LEFT JOIN facility_images fi 
                 ON fi.id = (
                     SELECT MIN(id) 
@@ -76,14 +70,8 @@ class Facility
             "
             SELECT
                 fac.*,
-                fi.image, 
-                MAX(CASE WHEN fr.time_range = 'hourly' THEN fr.rate END) AS rate_hourly,
-                MAX(CASE WHEN fr.time_range = '8hrs' THEN fr.rate END) AS rate_8hrs,
-                MAX(CASE WHEN fr.time_range = '12hrs' THEN fr.rate END) AS rate_12hrs,
-                MAX(CASE WHEN fr.time_range = '1day' THEN fr.rate END) AS rate_1day
+                fi.image
             FROM facilities fac
-            LEFT JOIN facility_rates fr 
-                ON fac.id = fr.facility_id
             LEFT JOIN facility_images fi 
                 ON fi.id = (
                     SELECT MIN(id) 

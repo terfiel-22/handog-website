@@ -50,7 +50,10 @@
                                                 <i class="fa-solid fa-circle-check"></i>
                                                 Price:
                                             </span>
-                                            <?= moneyFormat($facility["price"]) ?>
+                                            <?= ($facility['rate_hourly'] > 0) ? moneyFormat($facility['rate_hourly']) . " / hour</br>" : "" ?>
+                                            <?= ($facility['rate_8hrs'] > 0) ? moneyFormat($facility['rate_8hrs']) . " / 8-hours</br>" : "" ?>
+                                            <?= ($facility['rate_12hrs'] > 0) ? moneyFormat($facility['rate_12hrs']) . " / 12-hours</br>" : "" ?>
+                                            <?= ($facility['rate_1day'] > 0) ? moneyFormat($facility['rate_1day']) . " / 1 day" : "" ?>
                                         </li>
                                         <li>
                                             <span>

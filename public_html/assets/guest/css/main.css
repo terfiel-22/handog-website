@@ -7261,3 +7261,7 @@ span {
     display: none;
   }
 }
+
+.cottage-img {
+  height: 400px !important;
+}

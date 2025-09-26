@@ -4,8 +4,8 @@ namespace Http\Enums;
 
 class FacilityRateTimeRange extends Enums
 {
-    const HOURLY = "hourly";
-    const PER_8_HOURS = "8hrs";
-    const PER_12_HOURS = "12hrs";
-    const PER_1_DAY = "1day";
+    const HOURLY = "rate_hourly";
+    const RATE_HOURLY = "rate_8hrs";
+    const RATE_12HRS = "rate_12hrs";
+    const RATE_1DAY = "rate_1day";
 }

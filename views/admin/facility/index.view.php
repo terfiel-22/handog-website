@@ -61,10 +61,10 @@ $pageName = "Facilities"
                                         <td><?= $facility['type'] ?></td>
                                         <td><?= $facility['capacity'] ?> pax</td>
                                         <td>
-                                            <?= $facility['rate_hourly'] ? moneyFormat($facility['rate_hourly']) . " / hour</br>" : "" ?>
-                                            <?= $facility['rate_8hrs'] ? moneyFormat($facility['rate_8hrs']) . " / 8-hours</br>" : "" ?>
-                                            <?= $facility['rate_12hrs'] ? moneyFormat($facility['rate_12hrs']) . " / 12-hours</br>" : "" ?>
-                                            <?= $facility['rate_1day'] ? moneyFormat($facility['rate_1day']) . " / 1 day" : "" ?>
+                                            <?= moneyFormat($facility['rate_hourly']) . " / hour</br>" ?>
+                                            <?= moneyFormat($facility['rate_8hrs']) . " / 8-hours</br>" ?>
+                                            <?= moneyFormat($facility['rate_12hrs']) . " / 12-hours</br>" ?>
+                                            <?= moneyFormat($facility['rate_1day']) . " / 1 day" ?>
                                         </td>
                                         <td> <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm"><?= $facility['status'] ?></span> </td>
                                         <td>

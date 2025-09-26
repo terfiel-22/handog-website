@@ -48,13 +48,14 @@
             <div class="row">
                 <?php foreach ($cottages as $cottage): ?>
                     <div
-                        class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp"
+                        class="col wow fadeInUp"
                         data-wow-delay=".3s">
                         <div class="gt-why-choose-us-images">
                             <div class="gt-choose-us-image">
                                 <img
                                     src="<?= handleImage($cottage["image"], "/assets/guest/img/home-2/choose-us/choose-us-01.jpg") ?>"
-                                    alt="img" />
+                                    alt="<?= $cottage["name"] ?>"
+                                    class="cottage-img" />
                                 <div class="gt-content">
                                     <h3><?= $cottage["name"] ?></h3>
                                     <p>
@@ -98,7 +99,7 @@
                                     <div class="row justify-content-end">
                                         <div class="col-xl-5 col-lg-6">
                                             <div class="gt-room-exlore-box-items">
-                                                <span class="gt-rate-title"> Rates From <?= moneyFormat($room['rate_hourly'] ?? $room['rate_8hrs'] ?? $room['rate_12hrs'] ?? $room['rate_1day']) ?> </span>
+                                                <span class="gt-rate-title"> Rates From <?= moneyFormat($room['rate_12hrs']) ?> </span>
                                                 <h3>
                                                     <a href="/facility?id=<?= $room['id'] ?>"><?= $room['name'] ?></a>
                                                 </h3>
