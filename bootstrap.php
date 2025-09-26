@@ -4,6 +4,7 @@ use Core\App;
 use Core\Container;
 use Core\Database;
 use Core\FileUploadHandler;
+use Http\Helpers\ReservationHelper;
 use Http\Models\Facility;
 use Http\Models\FacilityImage;
 use Http\Models\Rates;
@@ -38,6 +39,11 @@ $container->bind(Rates::class, function () {
 /** Handler */
 $container->bind(FileUploadHandler::class, function () {
     return new FileUploadHandler();
+});
+
+/** Helpers */
+$container->bind(ReservationHelper::class, function () {
+    return new ReservationHelper();
 });
 
 
