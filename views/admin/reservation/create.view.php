@@ -28,7 +28,7 @@ $pageName = "Reservations"
             <!-- Breadcrumbs -->
             <?php view("admin/partials/breadcrumb.partial.php", compact('pageName')) ?>
 
-            <!-- Table -->
+            <!-- Form -->
             <div class="card basic-data-table">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class="card-title mb-0">Add Reservation</h6>
@@ -61,7 +61,7 @@ $pageName = "Reservations"
                                         </div>
                                     <?php endif; ?>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 col-md-6">
                                     <label class="form-label" for="facility">Facility</label>
                                     <select name="facility" id="facility" class="form-control">
                                         <?php foreach ($facilities as $facility): ?>
@@ -71,6 +71,19 @@ $pageName = "Reservations"
                                     <?php if (isset($errors["facility"])) : ?>
                                         <div class="error-text">
                                             <?= $errors["facility"] ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label" for="time_range">Time Range</label>
+                                    <select name="time_range" id="time_range" class="form-control">
+                                        <?php foreach (\Http\Enums\ReservationTimeRange::toArray() as $time_range): ?>
+                                            <option value="<?= $time_range ?>"><?= $time_range ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <?php if (isset($errors["time_range"])) : ?>
+                                        <div class="error-text">
+                                            <?= $errors["time_range"] ?>
                                         </div>
                                     <?php endif; ?>
                                 </div>

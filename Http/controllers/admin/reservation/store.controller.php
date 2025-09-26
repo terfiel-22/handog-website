@@ -3,6 +3,7 @@
 use Core\App;
 use Http\Enums\GuestType;
 use Http\Enums\ReservationStatus;
+use Http\Enums\ReservationTimeRange;
 use Http\Enums\TimeSlot;
 use Http\Enums\YesNo;
 use Http\Forms\ReservationForm;
@@ -13,24 +14,35 @@ use Http\Models\ReservationGuest;
 
 ReservationForm::validate($_POST);
 
-// Get selected facility
-$facility = App::resolve(Facility::class)->fetchFacilityById($_POST['facility']);
-$facilityPrice = $facility["rate"];
+function getFacilityRate($timeRange)
+{
+    // Get selected facility
+    $facility = App::resolve(Facility::class)->fetchFacilityById($_POST['facility']);
+    switch ($timeRange) {
+        case ReservationTimeRange::RESERVE_8HRS:
+            return $facility["rate_8hrs"];
+        case ReservationTimeRange::RESERVE_12HRS:
+            return $facility["rate_12hrs"];
+        case ReservationTimeRange::RESERVE_1DAY:
+            return $facility["rate_1day"];
+    }
+}
 
-$rates = App::resolve(Rates::class)->fetchRates();
+$facilityRate = getFacilityRate($_POST["time_range"]);
 
 // Function for computing total price
-function getTotalPrice($facilityPrice, $rates, $data)
+function getTotalPrice($facilityRate, $data)
 {
+    $miscRates = App::resolve(Rates::class)->fetchRates();
     // Get videoke rent
-    $videokeRentRate = $_POST["rent_videoke"] == YesNo::YES ? $rates["videoke_rent"] : 0;
+    $videokeRentRate = $_POST["rent_videoke"] == YesNo::YES ? $miscRates["videoke_rent"] : 0;
 
     // Initialize total price
-    $total_price = $facilityPrice + $videokeRentRate;
+    $total_price = $facilityRate + $videokeRentRate;
 
-    // Get rates for adult and kid based on time slot
-    $adultRate = $_POST["time_slot"] == TimeSlot::DAY ? $rates["adult_rate_day"] : $rates["adult_rate_night"];
-    $kidRate = $_POST["time_slot"] == TimeSlot::DAY ? $rates["kid_rate_day"] : $rates["kid_rate_night"];
+    // Get miscRates for adult and kid based on time slot
+    $adultRate = $_POST["time_slot"] == TimeSlot::DAY ? $miscRates["adult_rate_day"] : $miscRates["adult_rate_night"];
+    $kidRate = $_POST["time_slot"] == TimeSlot::DAY ? $miscRates["kid_rate_day"] : $miscRates["kid_rate_night"];
 
     // Get all the guests
     $guests = $data["guests"];
@@ -43,7 +55,7 @@ function getTotalPrice($facilityPrice, $rates, $data)
             : $kidRate;
 
         if ($isDiscounted) {
-            $guestRate = $guestRate - ($guestRate * $rates["senior_pwd_discount"]);
+            $guestRate = $guestRate - ($guestRate * $miscRates["senior_pwd_discount"]);
         }
 
         $total_price += $guestRate;
@@ -52,7 +64,7 @@ function getTotalPrice($facilityPrice, $rates, $data)
     return $total_price;
 }
 
-$total_price = getTotalPrice($facilityPrice, $rates, $_POST);
+$total_price = getTotalPrice($facilityRate, $_POST);
 
 $reservation = [
     "facility_id" => $_POST["facility"],
@@ -67,6 +79,7 @@ $reservation = [
     "total_price" => $total_price,
     "status" => ReservationStatus::CONFIRMED
 ];
+
 $reservationId = App::resolve(Reservation::class)->createReservation($reservation);
 
 // Add all the guest to reservation_guests table
