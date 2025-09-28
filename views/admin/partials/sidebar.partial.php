@@ -24,6 +24,12 @@
                 </a>
             </li>
             <li>
+                <a href="/admin/amenities">
+                    <iconify-icon icon="ic:outline-pool" class="menu-icon"></iconify-icon>
+                    <span>Amenities</span>
+                </a>
+            </li>
+            <li>
                 <a href="/admin/reservations">
                     <iconify-icon icon="ic:outline-bookmarks" class="menu-icon"></iconify-icon>
                     <span>Reservations</span>
