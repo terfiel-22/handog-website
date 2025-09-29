@@ -5,6 +5,8 @@ use Core\Container;
 use Core\Database;
 use Core\FileUploadHandler;
 use Http\Helpers\ReservationHelper;
+use Http\Models\Amenity;
+use Http\Models\AmenityImage;
 use Http\Models\Facility;
 use Http\Models\FacilityImage;
 use Http\Models\Rates;
@@ -25,6 +27,12 @@ $container->bind(Facility::class, function () {
 });
 $container->bind(FacilityImage::class, function () {
     return new FacilityImage();
+});
+$container->bind(Amenity::class, function () {
+    return new Amenity();
+});
+$container->bind(AmenityImage::class, function () {
+    return new AmenityImage();
 });
 $container->bind(Reservation::class, function () {
     return new Reservation();
