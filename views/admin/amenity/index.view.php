@@ -42,7 +42,6 @@ $pageName = "Amenities"
                                     <th scope="col">ID</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Type</th>
-                                    <th scope="col">Description</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -56,8 +55,7 @@ $pageName = "Amenities"
                                                 <h6 class="text-md mb-0 fw-medium flex-grow-1"><?= $amenity['name'] ?></h6>
                                             </div>
                                         </td>
-                                        <td><?= $amenity['type'] ?></td>
-                                        <td><small><?= $amenity['description'] ?></small></td>
+                                        <td><?= ucfirst($amenity['type']) ?></td>
                                         <td>
                                             <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
                                                 <iconify-icon icon="iconamoon:eye-light"></iconify-icon>

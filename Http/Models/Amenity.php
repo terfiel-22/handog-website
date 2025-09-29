@@ -22,6 +22,25 @@ class Amenity
         )->id();
     }
 
+    public function fetchAmenities()
+    {
+        return $this->db->query(
+            "
+            SELECT
+                am.*,
+                ai.image
+            FROM amenities am
+            LEFT JOIN amenity_images ai 
+                ON ai.id = (
+                    SELECT MIN(id) 
+                    FROM amenity_images 
+                    WHERE amenity_id = am.id
+                )
+            GROUP BY am.id;
+            "
+        )->get();
+    }
+
     public function fetchAmenitiesByType($type)
     {
         return $this->db->query(
