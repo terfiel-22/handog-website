@@ -21,4 +21,9 @@ class GalleryImage
             $attributes
         )->id();
     }
+
+    public function fetchGalleryImages()
+    {
+        return $this->db->query('SELECT * FROM gallery_images')->get();
+    }
 }
