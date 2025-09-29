@@ -163,7 +163,7 @@
                                 ?>
                                     <div class="swiper-slide">
                                         <div class="service-image">
-                                            <img src="<?= handleImage($eventHallImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="img">
+                                            <img src="<?= handleImage($eventHallImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $eventHall["name"] ?>">
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
@@ -191,21 +191,16 @@
                     <div class="col-lg-6">
                         <div class="swiper service-image-slider">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="service-image">
-                                        <img src="/assets/guest/img/home-3/service/service-01.jpg" alt="img">
+                                <?php
+                                $exclusiveImages = explode(",", $exclusive["images"]);
+                                foreach ($exclusiveImages as $exclusiveImage):
+                                ?>
+                                    <div class="swiper-slide">
+                                        <div class="service-image">
+                                            <img src="<?= handleImage($exclusiveImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $exclusive["name"] ?>">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="service-image">
-                                        <img src="/assets/guest/img/home-3/service/service-01.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="service-image">
-                                        <img src="/assets/guest/img/home-3/service/service-01.jpg" alt="img">
-                                    </div>
-                                </div>
+                                <?php endforeach; ?>
                             </div>
                             <div class="array-button-2 justify-content-center">
                                 <button class="array-next"><i class="fa-solid fa-chevron-left"></i></button>
@@ -222,52 +217,12 @@
                                     Privacy Beyond Compare
                                 </h6>
                                 <h2 class="wow fadeInUp" data-wow-delay=".2s">
-                                    Exclusive
+                                    <?= $exclusive["name"] ?>
                                 </h2>
                             </div>
                             <p class="service-text wow fadeInUp" data-wow-delay=".4s">
-                                Make the entire resort your own private paradise!
-                                With our exclusive reservation package, you get full,
-                                private access to all our amenities. Perfect for
-                                reunions, celebrations, or peaceful getaways. No
-                                crowds, no interruptions just you and your loved ones
-                                enjoying the moment.
+                                <?= $exclusive["description"] ?>
                             </p>
-                            <div class="wow fadeInUp" data-wow-delay=".5s">
-                                <h3>
-                                    What&apos;s included in your exclusive reservation?
-                                </h3>
-                                <ul class="check-list">
-                                    <li>
-                                        <i class="fa-solid fa-circle-check"></i>
-                                        Swimming pool
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-circle-check"></i>
-                                        Cottages
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-circle-check"></i>
-                                        3 Standard Rooms (ideal for solo guests or couples)
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-circle-check"></i>
-                                        1 Family Room (perfect for 2 to 4 guests)
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-circle-check"></i>
-                                        Event hall
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-circle-check"></i>
-                                        Sound System
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-circle-check"></i>
-                                        Open relaxing spaces and resort grounds
-                                    </li>
-                                </ul>
-                            </div>
                             <div class="wow fadeInUp my-2" data-wow-delay=".6s">
                                 <h3>
                                     How much does it cost to rent the entire resort?
@@ -275,11 +230,11 @@
                                 <ul class="check-list">
                                     <li>
                                         <i class="fa-solid fa-circle-check"></i>
-                                        55,000 Pesos for 12 hrs
+                                        <?= moneyFormat($exclusive["rate_12hrs"]) ?> for 12 hrs
                                     </li>
                                     <li>
                                         <i class="fa-solid fa-circle-check"></i>
-                                        80,000 pesos for 24 hrs
+                                        <?= moneyFormat($exclusive["rate_1day"]) ?> for 24 hrs
                                     </li>
                                 </ul>
                             </div>

@@ -90,9 +90,7 @@ class Facility
         return $this->db->query(
             "
             SELECT 
-                fac.id,
-                fac.name,
-                fac.description,
+                fac.*, 
                 GROUP_CONCAT(fi.image) AS images
             FROM facilities fac
             LEFT JOIN facility_images fi ON fac.id = fi.facility_id
