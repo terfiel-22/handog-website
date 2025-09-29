@@ -82,32 +82,27 @@
                                     Perfect for outdoor feasts
                                 </h6>
                                 <h2 class="wow fadeInUp" data-wow-delay=".2s">
-                                    Grillers
+                                    <?= $griller["name"] ?>
                                 </h2>
                             </div>
                             <p class="service-text wow fadeInUp" data-wow-delay=".4s">
-                                Indulge in a refined outdoor dining experience with our premium grillers, designed to bring people together over flavors and fire. Perfect for private gatherings, each moment is elevated with the touch of resort-style luxury.
+                                <?= $griller["description"] ?>
                             </p>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="swiper service-image-slider">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="service-image">
-                                        <img src="/assets/guest/img/home-3/service/service-01.jpg" alt="img">
+                                <?php
+                                $grillerImages = explode(",", $griller["images"]);
+                                foreach ($grillerImages as $grillerImage):
+                                ?>
+                                    <div class="swiper-slide">
+                                        <div class="service-image">
+                                            <img src="<?= handleImage($grillerImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $griller["name"] ?>">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="service-image">
-                                        <img src="/assets/guest/img/home-3/service/service-01.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="service-image">
-                                        <img src="/assets/guest/img/home-3/service/service-01.jpg" alt="img">
-                                    </div>
-                                </div>
+                                <?php endforeach; ?>
                             </div>
                             <div class="array-button-2 justify-content-center">
                                 <button class="array-next"><i class="fa-solid fa-chevron-left"></i></button>
@@ -132,21 +127,16 @@
                     <div class="col-lg-6">
                         <div class="swiper service-image-slider">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="service-image">
-                                        <img src="/assets/guest/img/home-3/service/service-01.jpg" alt="img">
+                                <?php
+                                $showerImages = explode(",", $shower["images"]);
+                                foreach ($showerImages as $showerImage):
+                                ?>
+                                    <div class="swiper-slide">
+                                        <div class="service-image">
+                                            <img src="<?= handleImage($showerImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $shower["name"] ?>">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="service-image">
-                                        <img src="/assets/guest/img/home-3/service/service-01.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="service-image">
-                                        <img src="/assets/guest/img/home-3/service/service-01.jpg" alt="img">
-                                    </div>
-                                </div>
+                                <?php endforeach; ?>
                             </div>
                             <div class="array-button-2 justify-content-center">
                                 <button class="array-next"><i class="fa-solid fa-chevron-left"></i></button>
@@ -163,11 +153,11 @@
                                     Refresh and recharge
                                 </h6>
                                 <h2 class="wow fadeInUp" data-wow-delay=".2s">
-                                    Shower Rooms
+                                    <?= $shower["name"] ?>
                                 </h2>
                             </div>
                             <p class="service-text wow fadeInUp" data-wow-delay=".4s">
-                                Enjoy the convenience of our outdoor grillers, perfect for family cookouts, friendly gatherings, or simply savoring a fresh meal under the open sky. After a day of fun, step into our well-equipped shower rooms designed for comfort and refreshment, ensuring you feel relaxed and ready for more.
+                                <?= $shower["description"] ?>
                             </p>
                         </div>
                     </div>

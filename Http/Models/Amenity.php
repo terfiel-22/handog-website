@@ -62,6 +62,25 @@ class Amenity
         )->get();
     }
 
+    public function fetchSingleAmenityWithImagesByType($type)
+    {
+        return $this->db->query(
+            "
+            SELECT 
+                am.id,
+                am.name,
+                am.description,
+                GROUP_CONCAT(ai.image) AS images
+            FROM amenities am
+            LEFT JOIN amenity_images ai ON am.id = ai.amenity_id
+            WHERE am.type = :type
+            GROUP BY am.id
+            LIMIT 1
+            ",
+            compact('type')
+        )->find();
+    }
+
     public function deleteAmenity($id)
     {
         $this->db->query(
