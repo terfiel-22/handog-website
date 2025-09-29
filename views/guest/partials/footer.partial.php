@@ -1,3 +1,14 @@
+<!-- Overlay for image -->
+<div class="modal fade" id="imageModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="" alt="Fullscreen Image" class="overlay-image">
+            </div>
+        </div>
+    </div>
+</div>
+
 <footer
     class="gt-footer-section fix bg-cover"
     style="background-image: url('/assets/guest/img/home-1/footer/footer-img.jpg')">

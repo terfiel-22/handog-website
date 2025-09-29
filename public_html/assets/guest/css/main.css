@@ -7261,7 +7261,12 @@ span {
     display: none;
   }
 }
-
+ 
 .fixed-height-img {
   height: 400px !important;
+  cursor: pointer !important;
+} 
+.overlay-image {
+  max-width: 100%;
+  max-height: 100vh;
 }

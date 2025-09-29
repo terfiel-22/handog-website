@@ -51,7 +51,7 @@
                                 <img
                                     src="<?= handleImage($pool["image"], "/assets/guest/img/home-2/choose-us/choose-us-01.jpg")  ?>"
                                     alt="<?= $pool["name"] ?>"
-                                    class="fixed-height-img" />
+                                    class="fixed-height-img clickable-img" />
                                 <div class="gt-content">
                                     <h3><?= $pool["name"] ?></h3>
                                     <p>
