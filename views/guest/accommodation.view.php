@@ -55,7 +55,7 @@
                                 <img
                                     src="<?= handleImage($cottage["image"], "/assets/guest/img/home-2/choose-us/choose-us-01.jpg") ?>"
                                     alt="<?= $cottage["name"] ?>"
-                                    class="cottage-img" />
+                                    class="fixed-height-img" />
                                 <div class="gt-content">
                                     <h3><?= $cottage["name"] ?></h3>
                                     <p>
