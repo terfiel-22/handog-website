@@ -30,6 +30,12 @@
                 </a>
             </li>
             <li>
+                <a href="/admin/gallery">
+                    <iconify-icon icon="ic:outline-image" class="menu-icon"></iconify-icon>
+                    <span>Gallery</span>
+                </a>
+            </li>
+            <li>
                 <a href="/admin/reservations">
                     <iconify-icon icon="ic:outline-bookmarks" class="menu-icon"></iconify-icon>
                     <span>Reservations</span>
