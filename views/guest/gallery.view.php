@@ -42,31 +42,13 @@
                 </div>
             </div>
             <div class="row g-3 wow fadeInUp">
-                <!-- Example images -->
-                <div class="col-6 col-md-4 col-lg-3">
-                    <img src="/assets/guest/img/home-2/choose-us/choose-us-01.jpg" class="img-fluid gallery-img clickable-img" alt="Beach" data-index="0">
-                </div>
-                <div class="col-6 col-md-4 col-lg-3">
-                    <img src="/assets/guest/img/home-2/choose-us/choose-us-01.jpg" class="img-fluid gallery-img clickable-img" alt="Pool" data-index="1">
-                </div>
-                <div class="col-6 col-md-4 col-lg-3">
-                    <img src="/assets/guest/img/home-2/choose-us/choose-us-01.jpg" class="img-fluid gallery-img clickable-img" alt="Restaurant" data-index="2">
-                </div>
-                <div class="col-6 col-md-4 col-lg-3">
-                    <img src="/assets/guest/img/home-2/choose-us/choose-us-01.jpg" class="img-fluid gallery-img clickable-img" alt="Rooms" data-index="3">
-                </div>
-                <div class="col-6 col-md-4 col-lg-3">
-                    <img src="/assets/guest/img/home-2/choose-us/choose-us-01.jpg" class="img-fluid gallery-img clickable-img" alt="Beach" data-index="0">
-                </div>
-                <div class="col-6 col-md-4 col-lg-3">
-                    <img src="/assets/guest/img/home-2/choose-us/choose-us-01.jpg" class="img-fluid gallery-img clickable-img" alt="Pool" data-index="1">
-                </div>
-                <div class="col-6 col-md-4 col-lg-3">
-                    <img src="/assets/guest/img/home-2/choose-us/choose-us-01.jpg" class="img-fluid gallery-img clickable-img" alt="Restaurant" data-index="2">
-                </div>
-                <div class="col-6 col-md-4 col-lg-3">
-                    <img src="/assets/guest/img/home-2/choose-us/choose-us-01.jpg" class="img-fluid gallery-img clickable-img" alt="Rooms" data-index="3">
-                </div>
+                <?php foreach ($images as $image): ?>
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <img src="<?= handleImage($image["image"], "/assets/guest/img/home-2/choose-us/choose-us-01.jpg") ?>" class="img-fluid gallery-img clickable-img" alt="<?= $image["name"] ?>">
+                        <h5 class="mt-2"><?= $image["name"] ?></h5>
+                        <p class="text-muted small"><?= $image["description"] ?></p>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
