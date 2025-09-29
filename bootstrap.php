@@ -9,6 +9,7 @@ use Http\Models\Amenity;
 use Http\Models\AmenityImage;
 use Http\Models\Facility;
 use Http\Models\FacilityImage;
+use Http\Models\GalleryImage;
 use Http\Models\Rates;
 use Http\Models\Reservation;
 use Http\Models\ReservationGuest;
@@ -33,6 +34,9 @@ $container->bind(Amenity::class, function () {
 });
 $container->bind(AmenityImage::class, function () {
     return new AmenityImage();
+});
+$container->bind(GalleryImage::class, function () {
+    return new GalleryImage();
 });
 $container->bind(Reservation::class, function () {
     return new Reservation();

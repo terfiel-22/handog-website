@@ -53,6 +53,15 @@ $pageName = "Add Gallery"
                             <?php endif; ?>
                         </div>
                         <div class="col-12">
+                            <label class="form-label" for="name">Name</label>
+                            <input type="text" name="name" id="name" class="form-control" placeholder="Enter image name" value="<?= old('name') ?>">
+                            <?php if (isset($errors["name"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["name"] ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="col-12">
                             <label class="form-label" for="description">Description</label>
                             <textarea type="number" name="description" id="description" class="form-control" placeholder="Enter image description"><?= old('description') ?></textarea>
                             <?php if (isset($errors["description"])) : ?>
