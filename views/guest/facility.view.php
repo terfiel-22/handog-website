@@ -82,45 +82,55 @@
                                     <h3>Hotel Booking</h3>
                                 </div>
                                 <div class="booking-item">
-                                    <form action="#">
+                                    <form action="/book/info" method="POST">
                                         <div class="row g-4">
                                             <div class="col-lg-12">
                                                 <div class="form-clt">
-                                                    <input type="text" placeholder="Check In">
+                                                    <input type="text" id="check_in" name="check_in" placeholder="Check In">
+                                                    <?php if (isset($errors["check_in"])) : ?>
+                                                        <div class=" error-text">
+                                                            <?= $errors["check_in"] ?>
+                                                        </div>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-clt">
-                                                    <input type="text" placeholder="Check Out">
+                                                    <input type="text" id="check_out" name="check_out" placeholder="Check Out">
+                                                    <?php if (isset($errors["check_out"])) : ?>
+                                                        <div class=" error-text">
+                                                            <?= $errors["check_out"] ?>
+                                                        </div>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-clt">
                                                     <div class="form">
-                                                        <select class="single-select w-100">
-                                                            <option>Room</option>
-                                                            <option>01</option>
-                                                            <option>02</option>
-                                                            <option>03</option>
+                                                        <select name="facility" id="facility" class="single-select w-100">
+                                                            <option hidden>Facility</option>
+                                                            <?php foreach ($facilities as $facility): ?>
+                                                                <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= $_GET["id"] == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
+                                                            <?php endforeach; ?>
                                                         </select>
+                                                        <?php if (isset($errors["facility"])) : ?>
+                                                            <div class=" error-text">
+                                                                <?= $errors["facility"] ?>
+                                                            </div>
+                                                        <?php endif; ?>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-clt">
                                                     <div class="form">
-                                                        <select class="single-select w-100">
-                                                            <option>Guest</option>
-                                                            <option>01</option>
-                                                            <option>02</option>
-                                                            <option>03</option>
-                                                        </select>
+                                                        <input type="number" id="guest_count" name="guest_count" placeholder="Guest Count">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
                                                 <button class="gt-theme-btn w-100" type="submit">
-                                                    CHECK AVAILABILITY
+                                                    BOOK
                                                 </button>
                                             </div>
                                         </div>
@@ -140,6 +150,18 @@
 
     <!--<< All JS Plugins >>-->
     <?php view("guest/partials/plugins.partial.php") ?>
+
+    <script>
+        // Flat pickr or date picker js
+        function getDatePicker(receiveID) {
+            flatpickr(receiveID, {
+                enableTime: true,
+                dateFormat: "d/m/Y H:i",
+            });
+        }
+        getDatePicker("#check_in");
+        getDatePicker("#check_out");
+    </script>
 </body>
 
 </html>

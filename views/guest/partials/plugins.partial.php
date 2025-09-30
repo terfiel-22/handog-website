@@ -19,5 +19,7 @@
 <script src="/assets/guest/js/jquery.magnific-popup.min.js"></script>
 <!--<< Wow Animation Js >>-->
 <script src="/assets/guest/js/wow.min.js"></script>
+<!--<< Datepicker Js >>-->
+<script src="/assets/admin/js/flatpickr.js"></script>
 <!--<< Main.js >>-->
 <script src="/assets/guest/js/main.js"></script>

@@ -27,8 +27,10 @@
     <link rel="stylesheet" href="/assets/guest/css/swiper-bundle.min.css" />
     <!--<< Nice Select.css >>-->
     <link rel="stylesheet" href="/assets/guest/css/nice-select.css" />
-    <!--<< Main.css >>-->
+    <!--<< Flaticon.css >>-->
     <link rel="stylesheet" href="/assets/guest/css/flaticon.css" />
+    <!-- Date picker css -->
+    <link rel="stylesheet" href="/assets/admin/css/lib/flatpickr.min.css">
     <!--<< Main.css >>-->
     <link rel="stylesheet" href="/assets/guest/css/main.css" />
 </head>
