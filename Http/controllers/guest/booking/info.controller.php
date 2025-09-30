@@ -1,3 +1,7 @@
 <?php
 
-dd($_POST);
+// dd($_POST);
+
+view(
+    "guest/booking/info.view.php"
+);
