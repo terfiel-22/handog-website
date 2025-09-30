@@ -151,7 +151,7 @@
                             <p class="service-text wow fadeInUp" data-wow-delay=".4s">
                                 <?= $eventHall["description"] ?>
                             </p>
-                            <a href="/" class="gt-theme-btn wow fadeInUp" data-wow-delay=".9s">LEARN MORE</a>
+                            <a href="/facility?id=<?= $eventHall["id"] ?>" class="gt-theme-btn wow fadeInUp" data-wow-delay=".9s">BOOK NOW</a>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -238,7 +238,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <a href="/" class="gt-theme-btn wow fadeInUp" data-wow-delay=".9s">BOOK NOW</a>
+                            <a href="/facility?id=<?= $exclusive["id"] ?>" class="gt-theme-btn wow fadeInUp" data-wow-delay=".9s">BOOK NOW</a>
                         </div>
                     </div>
                 </div>

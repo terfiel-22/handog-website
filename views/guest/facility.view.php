@@ -107,10 +107,10 @@
                                             <div class="col-lg-12">
                                                 <div class="form-clt">
                                                     <div class="form">
-                                                        <select name="facility" id="facility" class="single-select w-100">
+                                                        <select name="facility_id" id="facility" class="single-select w-100">
                                                             <option hidden>Facility</option>
                                                             <?php foreach ($facilities as $facility): ?>
-                                                                <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= $_GET["id"] == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
+                                                                <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= $_GET["id"] == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?></option>
                                                             <?php endforeach; ?>
                                                         </select>
                                                         <?php if (isset($errors["facility"])) : ?>
