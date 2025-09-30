@@ -1,10 +1,12 @@
 <?php
 
 use Core\App;
+use Http\Enums\PaymentMethod;
 use Http\Enums\ReservationStatus;
 use Http\Enums\TimeSlot;
 use Http\Forms\ReservationForm;
 use Http\Helpers\ReservationHelper;
+use Http\Models\Payment;
 use Http\Models\Reservation;
 
 ReservationForm::validate($_POST);
@@ -29,5 +31,15 @@ $reservation = [
 $reservationId = App::resolve(Reservation::class)->createReservation($reservation);
 
 App::resolve(ReservationHelper::class)->addGuestList($reservationId, $_POST["guests"]);
+
+/** Set payment */
+$payment = [
+    "reservation_id" => $reservationId,
+    "amount" => $total_price,
+    "payment_method" => PaymentMethod::CASH,
+    "payment_status" => $_POST["payment_status"],
+    "transaction_reference" => NULL,
+];
+App::resolve(Payment::class)->createPayment($payment);
 
 redirect("/admin/reservations");

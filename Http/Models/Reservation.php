@@ -24,6 +24,19 @@ class Reservation
 
     public function fetchReservations()
     {
-        return $this->db->query('SELECT res.*, fac.name as facility FROM reservations res INNER JOIN facilities fac ON fac.id=res.facility_id')->get();
+        return $this->db->query("
+        SELECT 
+            res.*, fac.name as facility, p.payment_status 
+        FROM 
+            reservations res 
+        INNER JOIN 
+            facilities fac 
+        ON 
+            fac.id=res.facility_id
+        INNER JOIN 
+            payments p 
+        ON 
+            res.id=p.reservation_id
+        ")->get();
     }
 }

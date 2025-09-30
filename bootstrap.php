@@ -10,6 +10,7 @@ use Http\Models\AmenityImage;
 use Http\Models\Facility;
 use Http\Models\FacilityImage;
 use Http\Models\GalleryImage;
+use Http\Models\Payment;
 use Http\Models\Rates;
 use Http\Models\Reservation;
 use Http\Models\ReservationGuest;
@@ -43,6 +44,9 @@ $container->bind(Reservation::class, function () {
 });
 $container->bind(ReservationGuest::class, function () {
     return new ReservationGuest();
+});
+$container->bind(Payment::class, function () {
+    return new Payment();
 });
 $container->bind(Rates::class, function () {
     return new Rates();

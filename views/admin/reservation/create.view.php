@@ -39,7 +39,7 @@ $pageName = "Reservations"
                         <div class="step active">
                             <h6>Step 1: Reservation</h6>
                             <div class="row gy-3">
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-4">
                                     <label class="form-label" for="time_slot">Time Slot</label>
                                     <select name="time_slot" id="time_slot" class="form-control">
                                         <?php foreach (\Http\Enums\TimeSlot::toArray() as $timeSlot): ?>
@@ -52,12 +52,25 @@ $pageName = "Reservations"
                                         </div>
                                     <?php endif; ?>
                                 </div>
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-4">
                                     <label class="form-label" for="guest_count">Guest Count</label>
-                                    <input type="number" id="guest_count" name="guest_count" class="form-control" min="0" max="99" value="<?= old("guest_count") ?>">
+                                    <input type="number" id="guest_count" name="guest_count" class="form-control" min="0" max="99" value="<?= old("guest_count") || 1 ?>">
                                     <?php if (isset($errors["guest_count"])) : ?>
                                         <div class="error-text">
                                             <?= $errors["guest_count"] ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label for="rent_videoke">Rent Videoke?</label>
+                                    <select name="rent_videoke" id="rent_videoke" class="form-control">
+                                        <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
+                                            <option value="<?= $yesNo ?>"><?= ucfirst($yesNo) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <?php if (isset($errors["rent_videoke"])) : ?>
+                                        <div class="error-text">
+                                            <?= $errors["rent_videoke"] ?>
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -65,11 +78,11 @@ $pageName = "Reservations"
                                     <label class="form-label" for="facility">Facility</label>
                                     <select name="facility" id="facility" class="form-control">
                                         <?php foreach ($facilities as $facility): ?>
-                                            <option value="<?= $facility['id'] ?>"><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
+                                            <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>"><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
                                         <?php endforeach; ?>
                                     </select>
                                     <?php if (isset($errors["facility"])) : ?>
-                                        <div class="error-text">
+                                        <div class=" error-text">
                                             <?= $errors["facility"] ?>
                                         </div>
                                     <?php endif; ?>
@@ -163,15 +176,19 @@ $pageName = "Reservations"
                             <h6>Step 4: Completion</h6>
                             <div class="row gy-3">
                                 <div class="col-12 col-md-6">
-                                    <label for="rent_videoke">Rent Videoke?</label>
-                                    <select name="rent_videoke" id="rent_videoke" class="form-control">
-                                        <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
-                                            <option value="<?= $yesNo ?>"><?= ucfirst($yesNo) ?></option>
+                                    <label for="total_rate" class="form-label">Total Rate</label>
+                                    <input type="number" id="total_rate" class="form-control" disabled>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label" for="payment_status">Payment Status</label>
+                                    <select name="payment_status" id="payment_status" class="form-control">
+                                        <?php foreach (\Http\Enums\PaymentStatus::toArray() as $payment_status): ?>
+                                            <option value="<?= $payment_status ?>"><?= $payment_status ?></option>
                                         <?php endforeach; ?>
                                     </select>
-                                    <?php if (isset($errors["rent_videoke"])) : ?>
+                                    <?php if (isset($errors["payment_status"])) : ?>
                                         <div class="error-text">
-                                            <?= $errors["rent_videoke"] ?>
+                                            <?= $errors["payment_status"] ?>
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -190,6 +207,8 @@ $pageName = "Reservations"
 
     <!-- JS Plugins -->
     <?php view("admin/partials/plugins.partial.php") ?>
+
+    <!-- Generate Guest Fields -->
     <script>
         $(document).ready(function() {
             const generateGuestFields = (count) => {
@@ -228,14 +247,85 @@ $pageName = "Reservations"
                     }
                 }
             }
-
             $("#guest_count").on("input", function() {
                 let guestCount = parseInt($(this).val()) || 1;
                 generateGuestFields(guestCount);
             });
-
             // Generate atleast 1 guest field
             generateGuestFields(1);
+        });
+    </script>
+
+    <!-- Generate Total Rate -->
+    <script>
+        $(document).ready(function() {
+            // Inject PHP rates
+            const rates = <?= json_encode($rates) ?>;
+
+            function computeTotal() {
+                let total = 0;
+
+                // --- Time range (8hrs/12hrs/1day) for getting facility rate ---
+                const reservationTimeRanges = <?= json_encode(\Http\Enums\ReservationTimeRange::toArray()) ?>;
+                const timeRange = $("#time_range").val() || reservationTimeRanges.RESERVE_8HRS;
+                // --- Facility rate based on time_range ---
+                let facilityRate = 0;
+                if (timeRange === reservationTimeRanges.RESERVE_8HRS) {
+                    facilityRate = parseFloat($("#facility option:selected").data("rate-8hrs")) || 0;
+                } else if (timeRange === reservationTimeRanges.RESERVE_12HRS) {
+                    facilityRate = parseFloat($("#facility option:selected").data("rate-12hrs")) || 0;
+                } else if (timeRange === reservationTimeRanges.RESERVE_1DAY) {
+                    facilityRate = parseFloat($("#facility option:selected").data("rate-1day")) || 0;
+                }
+                total += facilityRate;
+
+
+                // --- Time slot (day/night) for per-guest computation ---
+                const yesNo = <?= json_encode(\Http\Enums\YesNo::toArray()) ?>;
+                const guestType = <?= json_encode(\Http\Enums\GuestType::toArray()) ?>;
+                const timeSlots = <?= json_encode(\Http\Enums\TimeSlot::toArray()) ?>;
+                const timeSlot = $("#time_slot").val() || timeSlots.DAY;
+                // --- Guest rates (adult/kid per day/night) ---
+                $("#facility-fields").find("[name*='[guest_type]']").each(function() {
+                    const guestIndex = $(this).attr("name").match(/\d+/)[0]; // extract index
+                    const type = $(`[name='guests[${guestIndex}][guest_type]']`).val();
+                    const seniorPwd = $(`[name='guests[${guestIndex}][senior_pwd]']`).val();
+
+                    let rate = 0;
+                    if (type === guestType.ADULT) {
+                        rate = parseFloat(rates[`adult_rate_${timeSlot}`]) || 0;
+                    } else if (type === guestType.KID) {
+                        rate = parseFloat(rates[`kid_rate_${timeSlot}`]) || 0;
+                    }
+
+                    if (seniorPwd === yesNo.YES) {
+                        const discountPercent = parseFloat(rates.senior_pwd_discount) || 0;
+                        const discount = rate * (discountPercent / 100);
+                        rate -= discount;
+
+                        // Prevent negative rate
+                        if (rate < 0) {
+                            rate = 0;
+                        }
+                    }
+
+                    total += rate;
+                });
+
+                // --- Videoke rent ---
+                if ($("#rent_videoke").val() === yesNo.YES) {
+                    total += parseFloat(rates.videoke_rent) || 0;
+                }
+
+                // --- Display total ---
+                $("#total_rate").val(total.toFixed(2));
+            }
+
+            // Recompute whenever form values change
+            $(document).on("change input", "#time_range, #time_slot, #rent_videoke, #facility, #facility-fields select", computeTotal);
+
+            // Initial compute
+            computeTotal();
         });
     </script>
 
