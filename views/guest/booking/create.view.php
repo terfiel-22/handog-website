@@ -48,9 +48,9 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
-                                            <label for="facility_id">Facility</label>
+                                            <label for="facility">Facility</label>
                                             <div class="form-clt">
-                                                <select name="facility_id" id="facility_id" class="single-select w-100">
+                                                <select name="facility" id="facility" class="single-select w-100">
                                                     <option hidden>Facility</option>
                                                     <?php foreach ($facilities as $facility): ?>
                                                         <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= ($_GET["facility_id"] ?? 0) == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?></option>
@@ -99,6 +99,20 @@
                                             <label for="contact_address">Address</label>
                                             <div class="form-clt">
                                                 <input type="text" name="contact_address" id="contact_address" placeholder="Your Address">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- Contact Information -->
+                                <div class="form-block">
+                                    <h4 class="fw-bold">Payment Information</h4>
+                                    <div class="row g-4 align-items-center">
+                                        <div class="col-12 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                                            <label for="total_rate">Total</label>
+                                            <div class="form-clt">
+                                                <input type="number" name="total_rate" id="total_rate" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -186,6 +200,101 @@
             // Generate atleast 1 guest field
             const guestCount = <?= $_GET["guest_count"] ?? 1 ?>;
             generateGuestFields(guestCount);
+        });
+    </script>
+
+
+    <!-- Generate Total Rate -->
+    <script>
+        $(document).ready(function() {
+            // Inject PHP rates
+            const rates = <?= json_encode($rates) ?>;
+            const reservationTimeRanges = <?= json_encode(\Http\Enums\ReservationTimeRange::toArray()) ?>;
+
+            const getTimeRange = (checkIn, checkOut) => {
+                let start = new Date(checkIn);
+                let end = new Date(checkOut);
+
+                if (isNaN(start) || isNaN(end)) return null;
+
+                // Difference in hours
+                let diffMs = end - start;
+                let diffHrs = diffMs / (1000 * 60 * 60);
+
+                if (diffHrs < 8) {
+                    return reservationTimeRanges.RESERVE_HOURLY;
+                } else if (diffHrs < 12) {
+                    return reservationTimeRanges.RESERVE_8HRS;
+                } else if (diffHrs < 24) {
+                    return reservationTimeRanges.RESERVE_12HRS;
+                } else {
+                    return reservationTimeRanges.RESERVE_1DAY;
+                }
+            }
+
+            function computeTotal() {
+                let total = 0;
+
+                // --- Time range (8hrs/12hrs/1day) for getting facility rate ---
+                const timeRange = getTimeRange($("#check_in").val(), $("#check_out").val());
+
+                // --- Facility rate based on time_range ---
+                let facilityRate = 0;
+                if (timeRange === reservationTimeRanges.RESERVE_8HRS) {
+                    facilityRate = parseFloat($("#facility option:selected").data("rate-8hrs")) || 0;
+                } else if (timeRange === reservationTimeRanges.RESERVE_12HRS) {
+                    facilityRate = parseFloat($("#facility option:selected").data("rate-12hrs")) || 0;
+                } else if (timeRange === reservationTimeRanges.RESERVE_1DAY) {
+                    facilityRate = parseFloat($("#facility option:selected").data("rate-1day")) || 0;
+                }
+                total += facilityRate;
+
+                // --- Time slot (day/night) for per-guest computation ---
+                const yesNo = <?= json_encode(\Http\Enums\YesNo::toArray()) ?>;
+                const guestType = <?= json_encode(\Http\Enums\GuestType::toArray()) ?>;
+                const timeSlots = <?= json_encode(\Http\Enums\TimeSlot::toArray()) ?>;
+                const timeSlot = $("#time_slot").val() || timeSlots.DAY;
+                // --- Guest rates (adult/kid per day/night) ---
+                $("#guest-list").find("[name*='[guest_type]']").each(function() {
+                    const guestIndex = $(this).attr("name").match(/\d+/)[0]; // extract index
+                    const type = $(`[name='guests[${guestIndex}][guest_type]']`).val();
+                    const seniorPwd = $(`[name='guests[${guestIndex}][senior_pwd]']`).val();
+
+                    let rate = 0;
+                    if (type === guestType.ADULT) {
+                        rate = parseFloat(rates[`adult_rate_${timeSlot}`]) || 0;
+                    } else if (type === guestType.KID) {
+                        rate = parseFloat(rates[`kid_rate_${timeSlot}`]) || 0;
+                    }
+
+                    if (seniorPwd === yesNo.YES) {
+                        const discountPercent = parseFloat(rates.senior_pwd_discount) || 0;
+                        const discount = rate * (discountPercent / 100);
+                        rate -= discount;
+
+                        // Prevent negative rate
+                        if (rate < 0) {
+                            rate = 0;
+                        }
+                    }
+
+                    total += rate;
+                });
+
+                // --- Videoke rent ---
+                if ($("#rent_videoke").val() === yesNo.YES) {
+                    total += parseFloat(rates.videoke_rent) || 0;
+                }
+
+                // --- Display total ---
+                $("#total_rate").val(total.toFixed(2));
+            }
+
+            // Recompute whenever form values change
+            $(document).on("change input", "#time_range, #time_slot, #rent_videoke, #facility, #guest-list select, #check_in, #check_out", computeTotal);
+
+            // Initial compute
+            computeTotal();
         });
     </script>
 </body>
