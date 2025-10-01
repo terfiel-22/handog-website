@@ -1,7 +1,11 @@
 <?php
 
-// dd($_POST);
+use Core\App;
+use Http\Models\Facility;
+
+$facilities = App::resolve(Facility::class)->fetchFacilities();
 
 view(
-    "guest/booking/create.view.php"
+    "guest/booking/create.view.php",
+    compact('facilities')
 );

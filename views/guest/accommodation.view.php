@@ -41,7 +41,7 @@
                     </h2>
                 </div>
                 <a
-                    href="/"
+                    href="/booking"
                     class="gt-theme-btn wow fadeInUp"
                     data-wow-delay=".4s">BOOK NOW</a>
             </div>

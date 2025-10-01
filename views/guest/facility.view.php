@@ -86,7 +86,7 @@
                                         <div class="row g-4">
                                             <div class="col-lg-12">
                                                 <div class="form-clt">
-                                                    <input type="text" id="check_in" name="check_in" placeholder="Check In">
+                                                    <input type="text" id="check_in" name="check_in" placeholder="Check In" required>
                                                     <?php if (isset($errors["check_in"])) : ?>
                                                         <div class=" error-text">
                                                             <?= $errors["check_in"] ?>
@@ -96,7 +96,7 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-clt">
-                                                    <input type="text" id="check_out" name="check_out" placeholder="Check Out">
+                                                    <input type="text" id="check_out" name="check_out" placeholder="Check Out" required>
                                                     <?php if (isset($errors["check_out"])) : ?>
                                                         <div class=" error-text">
                                                             <?= $errors["check_out"] ?>
@@ -107,7 +107,7 @@
                                             <div class="col-lg-12">
                                                 <div class="form-clt">
                                                     <div class="form">
-                                                        <select name="facility_id" id="facility" class="single-select w-100">
+                                                        <select name="facility_id" id="facility_id">
                                                             <option hidden>Facility</option>
                                                             <?php foreach ($facilities as $facility): ?>
                                                                 <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= $_GET["id"] == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?></option>
@@ -124,7 +124,7 @@
                                             <div class="col-lg-12">
                                                 <div class="form-clt">
                                                     <div class="form">
-                                                        <input type="number" id="guest_count" name="guest_count" placeholder="Guest Count">
+                                                        <input type="number" id="guest_count" name="guest_count" placeholder="Guest Count" required>
                                                     </div>
                                                 </div>
                                             </div>

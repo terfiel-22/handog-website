@@ -1375,14 +1375,13 @@ span {
 .gt-contact-wrapper .gt-contact-right-items .contact-form-box h4, .booking h4 {
   margin-bottom: 10px;
 }
-.gt-contact-wrapper .gt-contact-right-items .contact-form-box .form-clt input, .gt-contact-wrapper .gt-contact-right-items .contact-form-box .form-clt textarea, .booking .form-clt input, .booking .form-clt textarea {
+.gt-contact-wrapper .gt-contact-right-items .contact-form-box .form-clt input, .gt-contact-wrapper .gt-contact-right-items .contact-form-box .form-clt textarea, .booking .form-clt input, .booking .form-clt textarea, .booking .form-clt select {
   border-radius: 4px;
   border: none;
   background: var(--gt-white);
   line-height: 1;
   padding: 20px 25px;
-  width: 100%;
-  text-transform: capitalize;
+  width: 100%; 
   color: var(--gt-text);
 }
 .gt-contact-wrapper .gt-contact-right-items .contact-form-box .form-clt textarea, .booking .form-clt textarea {
@@ -7270,6 +7269,9 @@ span {
 .overlay-image {
   width: 100% !important;
   max-height: 100vh;
+}
+.form-block {
+  padding: 0.8rem 0;
 }
 
 /* Gallery */
