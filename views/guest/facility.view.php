@@ -82,7 +82,7 @@
                                     <h3>Hotel Booking</h3>
                                 </div>
                                 <div class="booking-item">
-                                    <form action="/book/info" method="POST">
+                                    <form action="/booking" method="GET">
                                         <div class="row g-4">
                                             <div class="col-lg-12">
                                                 <div class="form-clt">

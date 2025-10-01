@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <div class="hero-button">
-                        <a href="/accommodation" class="gt-theme-btn">BOOKING ONLINE</a>
+                        <a href="/booking" class="gt-theme-btn">BOOKING ONLINE</a>
                     </div>
                 </div>
             </div>
