@@ -158,7 +158,7 @@ $pageName = "Reservations"
                         <div class="step">
                             <h6>Step 3: Guest Info</h6>
                             <div class="row gy-3">
-                                <div id="facility-fields" class="col-12 row gy-3"></div>
+                                <div id="guest-list" class="col-12 row gy-3"></div>
                                 <?php if (isset($errors["guests"])) : ?>
                                     <div class="error-text">
                                         <?= $errors["guests"] ?>
@@ -212,7 +212,7 @@ $pageName = "Reservations"
     <script>
         $(document).ready(function() {
             const generateGuestFields = (count) => {
-                let $container = $("#facility-fields");
+                let $container = $("#guest-list");
                 $container.empty(); // clear old fields
 
                 if (count > 0) {
@@ -286,7 +286,7 @@ $pageName = "Reservations"
                 const timeSlots = <?= json_encode(\Http\Enums\TimeSlot::toArray()) ?>;
                 const timeSlot = $("#time_slot").val() || timeSlots.DAY;
                 // --- Guest rates (adult/kid per day/night) ---
-                $("#facility-fields").find("[name*='[guest_type]']").each(function() {
+                $("#guest-list").find("[name*='[guest_type]']").each(function() {
                     const guestIndex = $(this).attr("name").match(/\d+/)[0]; // extract index
                     const type = $(`[name='guests[${guestIndex}][guest_type]']`).val();
                     const seniorPwd = $(`[name='guests[${guestIndex}][senior_pwd]']`).val();
@@ -322,7 +322,7 @@ $pageName = "Reservations"
             }
 
             // Recompute whenever form values change
-            $(document).on("change input", "#time_range, #time_slot, #rent_videoke, #facility, #facility-fields select", computeTotal);
+            $(document).on("change input", "#time_range, #time_slot, #rent_videoke, #facility, #guest-list select", computeTotal);
 
             // Initial compute
             computeTotal();

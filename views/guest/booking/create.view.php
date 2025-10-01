@@ -31,6 +31,7 @@
                             </h2>
                             <p>Complete filling up the form to continue.</p>
                             <form action="#" id="contact-form" class="booking">
+                                <!-- Booking Information -->
                                 <div class="form-block">
                                     <h4 class="fw-bold">Booking Information</h4>
                                     <div class="row g-4 align-items-center">
@@ -60,11 +61,19 @@
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="guest_count">Guest Count</label>
                                             <div class="form-clt">
-                                                <input type="number" name="guest_count" id="guest_count" placeholder="Guest Count" value="<?= $_GET["guest_count"] ?? "" ?>">
+                                                <input type="number" name="guest_count" id="guest_count" placeholder="Guest Count" value="<?= $_GET["guest_count"] ?? 1 ?>" min="1">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Guest Information -->
+                                <div class="form-block">
+                                    <h4 class="fw-bold">Guest Information</h4>
+                                    <div id="guest-list" class="row g-4 align-items-center"></div>
+                                </div>
+
+                                <!-- Contact Information -->
                                 <div class="form-block">
                                     <h4 class="fw-bold">Contact Information</h4>
                                     <div class="row g-4 align-items-center">
@@ -120,6 +129,64 @@
         }
         getDatePicker("#check_in");
         getDatePicker("#check_out");
+    </script>
+
+
+    <!-- Generate Guest Fields -->
+    <script>
+        $(document).ready(function() {
+            const generateGuestFields = (count) => {
+                let $container = $("#guest-list");
+                $container.empty(); // clear old fields
+
+                if (count > 0) {
+                    for (let i = 1; i <= count; i++) {
+                        let fieldGroup = `
+                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s"> 
+                            <label for"guests[${i}][guest_name]">Guest ${i} Name</label>
+                            <div class="form-clt">
+                                <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Guest Name">
+                            </div>
+                        </div> 
+                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s"> 
+                            <label for"guests[${i}][guest_age]">Guest ${i} Age</label>
+                            <div class="form-clt">
+                                <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" placeholder="Guest Age">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s">
+                            <label for="guests[${i}][guest_type]">Type</label> 
+                            <div class="form-clt">
+                                <select name="guests[${i}][guest_type]" id="guests[${i}][guest_type]" class="single-select w-100">
+                                    <?php foreach (\Http\Enums\GuestType::toArray() as $type): ?>
+                                        <option value="<?= $type ?>"><?= ucfirst($type) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s"> 
+                            <label for="guests[${i}][senior_pwd]">Senior/PWD</label> 
+                            <div class="form-clt">
+                                <select name="guests[${i}][senior_pwd]" id="guests[${i}][senior_pwd]" class="single-select w-100"> 
+                                    <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
+                                        <option value="<?= $yesNo ?>"><?= ucfirst($yesNo) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div> 
+                        </div>
+                        `;
+                        $container.append(fieldGroup);
+                    }
+                }
+            }
+            $("#guest_count").on("input", function() {
+                let guestCount = parseInt($(this).val()) || 1;
+                generateGuestFields(guestCount);
+            });
+            // Generate atleast 1 guest field
+            const guestCount = <?= $_GET["guest_count"] ?? 1 ?>;
+            generateGuestFields(guestCount);
+        });
     </script>
 </body>
 

@@ -137,8 +137,8 @@
                             beauty.
                         </p>
                         <div class="gt-hero-button wow fadeInUp" data-wow-delay=".6s">
-                            <a href="room.html" class="gt-theme-btn">DISCOVER ROOM</a>
-                            <a href="/accommodation" class="gt-theme-btn style-2">Book Now</a>
+                            <a href="/accommodation" class="gt-theme-btn">DISCOVER ROOM</a>
+                            <a href="/booking" class="gt-theme-btn style-2">Book Now</a>
                         </div>
                     </div>
                 </div>
