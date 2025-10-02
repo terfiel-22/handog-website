@@ -142,7 +142,7 @@
         function getDatePicker(receiveID) {
             flatpickr(receiveID, {
                 enableTime: true,
-                dateFormat: "d/m/Y H:i",
+                dateFormat: "Y-m-d H:i",
             });
         }
         getDatePicker("#check_in");
