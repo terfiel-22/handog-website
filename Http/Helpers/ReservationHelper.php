@@ -3,6 +3,7 @@
 namespace Http\Helpers;
 
 use Core\App;
+use DateTime;
 use Http\Enums\GuestType;
 use Http\Enums\ReservationTimeRange;
 use Http\Enums\TimeSlot;
@@ -66,5 +67,29 @@ class ReservationHelper
             $data = array_merge($guest, ["reservation_id" => $reservationId]);
             App::resolve(ReservationGuest::class)->createReservationGuest($data);
         }
+    }
+
+    public function calculateCheckOut(string $checkIn, string $timeRange): string
+    {
+        $checkInDate = new DateTime($checkIn);
+
+        switch ($timeRange) {
+            case ReservationTimeRange::RESERVE_8HRS:
+                $checkInDate->modify('+8 hours');
+                break;
+
+            case ReservationTimeRange::RESERVE_12HRS:
+                $checkInDate->modify('+12 hours');
+                break;
+
+            case ReservationTimeRange::RESERVE_1DAY:
+                $checkInDate->modify('+1 day');
+                break;
+
+            default:
+                return $checkIn;
+        }
+
+        return $checkInDate->format('Y-m-d H:i');
     }
 }
