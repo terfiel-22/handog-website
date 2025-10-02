@@ -39,7 +39,7 @@
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="check_in">Check In</label>
                                             <div class="form-clt">
-                                                <input type="text" name="check_in" id="check_in" value="<?= $_GET["check_in"] ?? date("d/m/Y H:i") ?>">
+                                                <input type="text" name="check_in" id="check_in" value="<?= old("check_in", ($_GET["check_in"] ?? date("d/m/Y H:i"))) ?>">
                                                 <?php if (isset($errors["check_in"])) : ?>
                                                     <div class="error-text">
                                                         <?= $errors["check_in"] ?>
@@ -62,13 +62,13 @@
                                                 <?php endif; ?>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="facility">Facility</label>
                                             <div class="form-clt">
                                                 <select name="facility" id="facility" class="single-select w-100">
                                                     <option hidden>Facility</option>
                                                     <?php foreach ($facilities as $facility): ?>
-                                                        <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= ($_GET["facility_id"] ?? 0) == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?></option>
+                                                        <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= ($_GET["facility_id"] ?? 0) == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <?php if (isset($errors["facility"])) : ?>
@@ -78,13 +78,28 @@
                                                 <?php endif; ?>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="guest_count">Guest Count</label>
                                             <div class="form-clt">
                                                 <input type="number" name="guest_count" id="guest_count" placeholder="Guest Count" value="<?= $_GET["guest_count"] ?? 1 ?>" min="1">
                                                 <?php if (isset($errors["guest_count"])) : ?>
                                                     <div class="error-text">
                                                         <?= $errors["guest_count"] ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s">
+                                            <label for="rent_videoke">Rent Videoke?</label>
+                                            <div class="form-clt">
+                                                <select name="rent_videoke" id="rent_videoke" class="single-select w-100" required>
+                                                    <?php foreach (\Http\Enums\YesNo::toArray() as $rent_videoke): ?>
+                                                        <option value="<?= $rent_videoke ?>"><?= ucfirst($rent_videoke) ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <?php if (isset($errors["rent_videoke"])) : ?>
+                                                    <div class="error-text">
+                                                        <?= $errors["rent_videoke"] ?>
                                                     </div>
                                                 <?php endif; ?>
                                             </div>
@@ -105,7 +120,7 @@
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="contact_person">Full Name</label>
                                             <div class="form-clt">
-                                                <input type="text" name="contact_person" id="contact_person" placeholder="Your Name">
+                                                <input type="text" name="contact_person" id="contact_person" placeholder="Your Name" value="<?= old("contact_person") ?>">
                                                 <?php if (isset($errors["contact_person"])) : ?>
                                                     <div class="error-text">
                                                         <?= $errors["contact_person"] ?>
@@ -116,7 +131,7 @@
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".5s">
                                             <label for="contact_email">Email</label>
                                             <div class="form-clt">
-                                                <input type="email" name="contact_email" id="contact_email" placeholder="Your Email">
+                                                <input type="email" name="contact_email" id="contact_email" placeholder="Your Email" value="<?= old("contact_email") ?>">
                                                 <?php if (isset($errors["contact_email"])) : ?>
                                                     <div class="error-text">
                                                         <?= $errors["contact_email"] ?>
@@ -127,7 +142,7 @@
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="contact_no">Phone Number</label>
                                             <div class="form-clt">
-                                                <input type="tel" name="contact_no" id="contact_no" placeholder="Your Phone Number">
+                                                <input type="tel" name="contact_no" id="contact_no" placeholder="Your Phone Number" value="<?= old("contact_no") ?>">
                                                 <?php if (isset($errors["contact_no"])) : ?>
                                                     <div class="error-text">
                                                         <?= $errors["contact_no"] ?>
@@ -138,7 +153,7 @@
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="contact_address">Address</label>
                                             <div class="form-clt">
-                                                <input type="text" name="contact_address" id="contact_address" placeholder="Your Address">
+                                                <input type="text" name="contact_address" id="contact_address" placeholder="Your Address" value="<?= old("contact_address") ?>">
                                                 <?php if (isset($errors["contact_address"])) : ?>
                                                     <div class="error-text">
                                                         <?= $errors["contact_address"] ?>
