@@ -46,7 +46,7 @@
                                             <div class="form-clt">
                                                 <select name="time_range" id="time_range" class="single-select w-100" required>
                                                     <?php foreach (\Http\Enums\ReservationTimeRange::toArray() as $time_range): ?>
-                                                        <option value="<?= $time_range ?>" <?= ($_GET["time_range"] || \Http\Enums\ReservationTimeRange::RESERVE_8HRS) == $time_range ? "selected" : "" ?>><?= ucfirst($time_range) ?></option>
+                                                        <option value="<?= $time_range ?>" <?= ($_GET["time_range"] ?? \Http\Enums\ReservationTimeRange::RESERVE_8HRS) == $time_range ? "selected" : "" ?>><?= ucfirst($time_range) ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
@@ -146,7 +146,6 @@
             });
         }
         getDatePicker("#check_in");
-        getDatePicker("#check_out");
     </script>
 
 
@@ -213,35 +212,22 @@
         $(document).ready(function() {
             // Inject PHP rates
             const rates = <?= json_encode($rates) ?>;
-            const reservationTimeRanges = <?= json_encode(\Http\Enums\ReservationTimeRange::toArray()) ?>;
 
-            const getTimeRange = (checkIn, checkOut) => {
-                let start = new Date(checkIn);
-                let end = new Date(checkOut);
+            const isDaySlot = (checkIn) => {
+                let checkDate = new Date(checkIn);
+                if (isNaN(checkDate)) return null;
 
-                if (isNaN(start) || isNaN(end)) return null;
-
-                // Difference in hours
-                let diffMs = end - start;
-                let diffHrs = diffMs / (1000 * 60 * 60);
-
-                if (diffHrs < 8) {
-                    return reservationTimeRanges.RESERVE_HOURLY;
-                } else if (diffHrs < 12) {
-                    return reservationTimeRanges.RESERVE_8HRS;
-                } else if (diffHrs < 24) {
-                    return reservationTimeRanges.RESERVE_12HRS;
-                } else {
-                    return reservationTimeRanges.RESERVE_1DAY;
-                }
+                let hour = checkDate.getHours();
+                console.log(hour >= 6 && hour < 18);
+                return hour >= 6 && hour < 18;
             }
 
             function computeTotal() {
                 let total = 0;
 
                 // --- Time range (8hrs/12hrs/1day) for getting facility rate ---
-                const timeRange = getTimeRange($("#check_in").val(), $("#check_out").val());
-
+                const reservationTimeRanges = <?= json_encode(\Http\Enums\ReservationTimeRange::toArray()) ?>;
+                const timeRange = $("#time_range").val() || reservationTimeRanges.RESERVE_8HRS;
                 // --- Facility rate based on time_range ---
                 let facilityRate = 0;
                 if (timeRange === reservationTimeRanges.RESERVE_8HRS) {
@@ -253,11 +239,12 @@
                 }
                 total += facilityRate;
 
+
                 // --- Time slot (day/night) for per-guest computation ---
                 const yesNo = <?= json_encode(\Http\Enums\YesNo::toArray()) ?>;
                 const guestType = <?= json_encode(\Http\Enums\GuestType::toArray()) ?>;
                 const timeSlots = <?= json_encode(\Http\Enums\TimeSlot::toArray()) ?>;
-                const timeSlot = $("#time_slot").val() || timeSlots.DAY;
+                const timeSlot = isDaySlot($("#check_in").val()) ? timeSlots.DAY : timeSlots.NIGHT;
                 // --- Guest rates (adult/kid per day/night) ---
                 $("#guest-list").find("[name*='[guest_type]']").each(function() {
                     const guestIndex = $(this).attr("name").match(/\d+/)[0]; // extract index
@@ -295,7 +282,7 @@
             }
 
             // Recompute whenever form values change
-            $(document).on("change input", "#time_range, #time_slot, #rent_videoke, #facility, #guest-list select, #check_in, #check_out", computeTotal);
+            $(document).on("change input", "#time_range, #check_in, #rent_videoke, #facility, #guest-list select", computeTotal);
 
             // Initial compute
             computeTotal();
