@@ -41,10 +41,14 @@
                                                 <input type="text" name="check_in" id="check_in" value="<?= $_GET["check_in"] ?? date("d/m/Y H:i") ?>">
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".5s">
-                                            <label for="check_out">Check Out</label>
+                                        <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                                            <label for="facility">Hours Stay</label>
                                             <div class="form-clt">
-                                                <input type="text" name="check_out" id="check_out" value="<?= $_GET["check_out"] ?? date("d/m/Y H:i") ?>">
+                                                <select name="time_range" id="time_range" class="single-select w-100" required>
+                                                    <?php foreach (\Http\Enums\ReservationTimeRange::toArray() as $time_range): ?>
+                                                        <option value="<?= $time_range ?>" <?= ($_GET["time_range"] || \Http\Enums\ReservationTimeRange::RESERVE_8HRS) == $time_range ? "selected" : "" ?>><?= ucfirst($time_range) ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">

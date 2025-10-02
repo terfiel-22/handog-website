@@ -96,19 +96,17 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-clt">
-                                                    <input type="text" id="check_out" name="check_out" placeholder="Check Out" required>
-                                                    <?php if (isset($errors["check_out"])) : ?>
-                                                        <div class=" error-text">
-                                                            <?= $errors["check_out"] ?>
-                                                        </div>
-                                                    <?php endif; ?>
+                                                    <select name="time_range" id="time_range" class="single-select w-100" required>
+                                                        <?php foreach (\Http\Enums\ReservationTimeRange::toArray() as $time_range): ?>
+                                                            <option value="<?= $time_range ?>"><?= ucfirst($time_range) ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-clt">
                                                     <div class="form">
-                                                        <select name="facility_id" id="facility_id" class="single-select w-100">
-                                                            <option hidden>Facility</option>
+                                                        <select name="facility_id" id="facility_id" class="single-select w-100" required>
                                                             <?php foreach ($facilities as $facility): ?>
                                                                 <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= $_GET["id"] == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?></option>
                                                             <?php endforeach; ?>
@@ -160,7 +158,6 @@
             });
         }
         getDatePicker("#check_in");
-        getDatePicker("#check_out");
     </script>
 </body>
 
