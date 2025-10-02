@@ -31,14 +31,20 @@
                             </h2>
                             <p>Complete filling up the form to continue.</p>
                             <form action="/booking/store" method="POST" class="booking">
+                                <input type="hidden" name="time_slot" id="time_slot">
                                 <!-- Booking Information -->
                                 <div class="form-block">
                                     <h4 class="fw-bold">Booking Information</h4>
-                                    <div class="row g-4 align-items-center">
+                                    <div class="row g-4">
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="check_in">Check In</label>
                                             <div class="form-clt">
                                                 <input type="text" name="check_in" id="check_in" value="<?= $_GET["check_in"] ?? date("d/m/Y H:i") ?>">
+                                                <?php if (isset($errors["check_in"])) : ?>
+                                                    <div class="error-text">
+                                                        <?= $errors["check_in"] ?>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
@@ -49,6 +55,11 @@
                                                         <option value="<?= $time_range ?>" <?= ($_GET["time_range"] ?? \Http\Enums\ReservationTimeRange::RESERVE_8HRS) == $time_range ? "selected" : "" ?>><?= ucfirst($time_range) ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
+                                                <?php if (isset($errors["time_range"])) : ?>
+                                                    <div class="error-text">
+                                                        <?= $errors["time_range"] ?>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
@@ -60,12 +71,22 @@
                                                         <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= ($_GET["facility_id"] ?? 0) == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
+                                                <?php if (isset($errors["facility"])) : ?>
+                                                    <div class="error-text">
+                                                        <?= $errors["facility"] ?>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="guest_count">Guest Count</label>
                                             <div class="form-clt">
                                                 <input type="number" name="guest_count" id="guest_count" placeholder="Guest Count" value="<?= $_GET["guest_count"] ?? 1 ?>" min="1">
+                                                <?php if (isset($errors["guest_count"])) : ?>
+                                                    <div class="error-text">
+                                                        <?= $errors["guest_count"] ?>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -74,35 +95,55 @@
                                 <!-- Guest Information -->
                                 <div class="form-block">
                                     <h4 class="fw-bold">Guest Information</h4>
-                                    <div id="guest-list" class="row g-4 align-items-center"></div>
+                                    <div id="guest-list" class="row g-4"></div>
                                 </div>
 
                                 <!-- Contact Information -->
                                 <div class="form-block">
                                     <h4 class="fw-bold">Contact Information</h4>
-                                    <div class="row g-4 align-items-center">
+                                    <div class="row g-4">
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="contact_person">Full Name</label>
                                             <div class="form-clt">
                                                 <input type="text" name="contact_person" id="contact_person" placeholder="Your Name">
+                                                <?php if (isset($errors["contact_person"])) : ?>
+                                                    <div class="error-text">
+                                                        <?= $errors["contact_person"] ?>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".5s">
                                             <label for="contact_email">Email</label>
                                             <div class="form-clt">
                                                 <input type="email" name="contact_email" id="contact_email" placeholder="Your Email">
+                                                <?php if (isset($errors["contact_email"])) : ?>
+                                                    <div class="error-text">
+                                                        <?= $errors["contact_email"] ?>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="contact_no">Phone Number</label>
                                             <div class="form-clt">
                                                 <input type="tel" name="contact_no" id="contact_no" placeholder="Your Phone Number">
+                                                <?php if (isset($errors["contact_no"])) : ?>
+                                                    <div class="error-text">
+                                                        <?= $errors["contact_no"] ?>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="contact_address">Address</label>
                                             <div class="form-clt">
                                                 <input type="text" name="contact_address" id="contact_address" placeholder="Your Address">
+                                                <?php if (isset($errors["contact_address"])) : ?>
+                                                    <div class="error-text">
+                                                        <?= $errors["contact_address"] ?>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -112,7 +153,7 @@
                                 <!-- Contact Information -->
                                 <div class="form-block">
                                     <h4 class="fw-bold">Payment Information</h4>
-                                    <div class="row g-4 align-items-center">
+                                    <div class="row g-4">
                                         <div class="col-12 col-md-6 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="total_rate">Total</label>
                                             <div class="form-clt">
@@ -218,7 +259,6 @@
                 if (isNaN(checkDate)) return null;
 
                 let hour = checkDate.getHours();
-                console.log(hour >= 6 && hour < 18);
                 return hour >= 6 && hour < 18;
             }
 
@@ -245,6 +285,7 @@
                 const guestType = <?= json_encode(\Http\Enums\GuestType::toArray()) ?>;
                 const timeSlots = <?= json_encode(\Http\Enums\TimeSlot::toArray()) ?>;
                 const timeSlot = isDaySlot($("#check_in").val()) ? timeSlots.DAY : timeSlots.NIGHT;
+                $("#time_slot").val(timeSlot);
                 // --- Guest rates (adult/kid per day/night) ---
                 $("#guest-list").find("[name*='[guest_type]']").each(function() {
                     const guestIndex = $(this).attr("name").match(/\d+/)[0]; // extract index

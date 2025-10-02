@@ -52,6 +52,7 @@ Version: 1.0.0
   --gt-bg2: #F8F8F8;
   --gt-bg3: #F7F3EE;
   --gt-box-shadow: 0px 1px 14px 0px rgba(0, 0, 0, 0.13);
+  --danger-main: #EF4A00;
 }
 
 .gt-theme-btn {
@@ -7281,4 +7282,9 @@ span {
 }
 .gallery-img:hover {
   transform: scale(1.05);
+}
+
+.error-text {
+  color: var(--danger-main);
+  font-size: 14px;
 }
