@@ -30,7 +30,7 @@
                                 Book a reservation
                             </h2>
                             <p>Complete filling up the form to continue.</p>
-                            <form action="#" id="contact-form" class="booking">
+                            <form action="/booking/store" method="POST" class="booking">
                                 <!-- Booking Information -->
                                 <div class="form-block">
                                     <h4 class="fw-bold">Booking Information</h4>
