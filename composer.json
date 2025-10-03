@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "shinidev/paymongo-php": "^2.0"
+        "guzzlehttp/guzzle": "^7.10"
     },
     "autoload": {
         "psr-4": {

@@ -1,6 +1,7 @@
 <?php
 
 use Core\App;
+use Http\Constants\PaymongoPayment;
 use Http\Enums\ReservationStatus;
 use Http\Forms\BookingForm;
 use Http\Helpers\PaymentHelper;
@@ -12,6 +13,19 @@ BookingForm::validate($_POST);
 $facilityRate = App::resolve(ReservationHelper::class)->getFacilityRate($_POST["time_range"], $_POST['facility']);
 $total_price = App::resolve(ReservationHelper::class)->getReservationTotalPrice($facilityRate, $_POST);
 $check_out = App::resolve(ReservationHelper::class)->calculateCheckOut($_POST["check_in"], $_POST["time_range"]);
+
+// Create Payment Intent
+$paymentIntentId = App::resolve(PaymentHelper::class)->createPaymentIntent($total_price);
+
+// Create Payment Method
+$paymentMethod = array_key_first(PaymongoPayment::METHODS); // gcash
+$paymentMethodId = App::resolve(PaymentHelper::class)->createPaymentMethod($paymentMethod);
+
+// Attach
+$redirectUrl = App::resolve(PaymentHelper::class)->attachPaymentIntent($paymentIntentId, $paymentMethodId);
+
+header("Location: $redirectUrl");
+dd(compact('paymentIntentId', 'paymentMethodId'));
 
 $reservation = [
     "facility_id" => $_POST["facility"],
@@ -28,9 +42,6 @@ $reservation = [
 ];
 
 $reservationId = App::resolve(Reservation::class)->createReservation($reservation);
-
-// Create Payment Intent
-$paymentIntent = App::resolve(PaymentHelper::class)->createPaymentIntent($total_price);
 
 App::resolve(ReservationHelper::class)->addGuestList($reservationId, $_POST["guests"]);
 
