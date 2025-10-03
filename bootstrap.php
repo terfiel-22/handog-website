@@ -4,6 +4,7 @@ use Core\App;
 use Core\Container;
 use Core\Database;
 use Core\FileUploadHandler;
+use Http\Helpers\PaymentHelper;
 use Http\Helpers\ReservationHelper;
 use Http\Models\Amenity;
 use Http\Models\AmenityImage;
@@ -61,6 +62,9 @@ $container->bind(FileUploadHandler::class, function () {
 $container->bind(ReservationHelper::class, function () {
     return new ReservationHelper();
 });
-
+$container->bind(PaymentHelper::class, function () {
+    $config = require base_path("config.php");
+    return new PaymentHelper($config["paymongo"]);
+});
 
 App::setContainer($container);

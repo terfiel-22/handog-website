@@ -3,6 +3,7 @@
 use Core\App;
 use Http\Enums\ReservationStatus;
 use Http\Forms\BookingForm;
+use Http\Helpers\PaymentHelper;
 use Http\Helpers\ReservationHelper;
 use Http\Models\Reservation;
 
@@ -27,6 +28,9 @@ $reservation = [
 ];
 
 $reservationId = App::resolve(Reservation::class)->createReservation($reservation);
+
+// Create Payment Intent
+$paymentIntent = App::resolve(PaymentHelper::class)->createPaymentIntent($total_price);
 
 App::resolve(ReservationHelper::class)->addGuestList($reservationId, $_POST["guests"]);
 
