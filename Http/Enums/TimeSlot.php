@@ -25,9 +25,9 @@ class TimeSlot extends Enums
 
         switch ($timeSlot) {
             case self::DAY:
-                return $currentDate . " 17:00:00";
+                return $currentDate . " 18:00:00";
             default:
-                return $currentDate . " 05:00:00";
+                return $currentDate . " 06:00:00";
         }
     }
 }

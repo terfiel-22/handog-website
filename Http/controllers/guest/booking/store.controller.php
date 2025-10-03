@@ -2,9 +2,9 @@
 
 use Core\App;
 use Http\Enums\ReservationStatus;
-use Http\Enums\TimeSlot;
 use Http\Forms\BookingForm;
 use Http\Helpers\ReservationHelper;
+use Http\Models\Reservation;
 
 BookingForm::validate($_POST);
 
@@ -26,4 +26,9 @@ $reservation = [
     "status" => ReservationStatus::PENDING
 ];
 
+$reservationId = App::resolve(Reservation::class)->createReservation($reservation);
+
+App::resolve(ReservationHelper::class)->addGuestList($reservationId, $_POST["guests"]);
+
+// TODO: GO TO PAYMENT
 dd($reservation);
