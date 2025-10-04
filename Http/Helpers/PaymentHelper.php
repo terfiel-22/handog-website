@@ -7,12 +7,13 @@ use Http\Constants\PaymongoPayment;
 
 class PaymentHelper
 {
-    public string $auth;
+    public string $apiUrl;
     public Client $client;
+    public string $auth;
 
     public function __construct(array $config)
     {
-
+        $this->apiUrl = "https://api.paymongo.com/v1";
         $this->client = new Client();
         $this->auth = "Basic " . base64_encode($config["secret"] . ":");
     }
@@ -36,7 +37,7 @@ class PaymentHelper
                 ],
             ];
 
-            $response = $this->client->request('POST', 'https://api.paymongo.com/v1/payment_intents', [
+            $response = $this->client->request('POST', $this->apiUrl . '/payment_intents', [
                 'body' => json_encode($payload),
                 'headers' => [
                     'Content-Type' => 'application/json',
@@ -68,7 +69,7 @@ class PaymentHelper
                 $payload['data']['attributes']['details'] = $details;
             }
 
-            $response = $this->client->request('POST', 'https://api.paymongo.com/v1/payment_methods', [
+            $response = $this->client->request('POST', $this->apiUrl . '/payment_methods', [
                 'body' => json_encode($payload),
                 'headers' => [
                     'Content-Type' => 'application/json',
@@ -84,7 +85,7 @@ class PaymentHelper
     }
 
 
-    public function attachPaymentIntent($paymentIntentId, $paymentMethodId, $returnUrl = 'http://localhost:8000/booking')
+    public function attachPaymentIntent($paymentIntentId, $paymentMethodId, $returnUrl)
     {
         try {
             $payload = [
@@ -96,7 +97,7 @@ class PaymentHelper
                 ],
             ];
 
-            $response = $this->client->request('POST', "https://api.paymongo.com/v1/payment_intents/{$paymentIntentId}/attach", [
+            $response = $this->client->request('POST', $this->apiUrl . "/payment_intents/{$paymentIntentId}/attach", [
                 'body' => json_encode($payload),
                 'headers' => [
                     'Content-Type' => 'application/json',

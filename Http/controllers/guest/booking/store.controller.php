@@ -18,11 +18,12 @@ $check_out = App::resolve(ReservationHelper::class)->calculateCheckOut($_POST["c
 $paymentIntentId = App::resolve(PaymentHelper::class)->createPaymentIntent($total_price);
 
 // Create Payment Method
-$paymentMethod = array_key_first(PaymongoPayment::METHODS); // gcash
+$paymentMethod = array_key_first(PaymongoPayment::METHODS); // gcash hardcoded
 $paymentMethodId = App::resolve(PaymentHelper::class)->createPaymentMethod($paymentMethod);
 
 // Attach
-$redirectUrl = App::resolve(PaymentHelper::class)->attachPaymentIntent($paymentIntentId, $paymentMethodId);
+$returnUrl = $_SERVER["HTTP_ORIGIN"] . "/booking/success";
+$redirectUrl = App::resolve(PaymentHelper::class)->attachPaymentIntent($paymentIntentId, $paymentMethodId, $returnUrl);
 
 header("Location: $redirectUrl");
 dd(compact('paymentIntentId', 'paymentMethodId'));
