@@ -26,6 +26,7 @@ $returnUrl = $_SERVER["HTTP_ORIGIN"] . "/booking/success";
 $redirectUrl = App::resolve(PaymentHelper::class)->attachPaymentIntent($paymentIntentId, $paymentMethodId, $returnUrl);
 
 header("Location: $redirectUrl");
+
 dd(compact('paymentIntentId', 'paymentMethodId'));
 
 $reservation = [

@@ -66,7 +66,6 @@
                                             <label for="facility">Facility</label>
                                             <div class="form-clt">
                                                 <select name="facility" id="facility" class="single-select w-100">
-                                                    <option hidden>Facility</option>
                                                     <?php foreach ($facilities as $facility): ?>
                                                         <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= ($_GET["facility_id"] ?? 0) == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
                                                     <?php endforeach; ?>
