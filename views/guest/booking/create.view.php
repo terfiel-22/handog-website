@@ -218,13 +218,13 @@
                         <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s"> 
                             <label for"guests[${i}][guest_name]">Guest ${i} Name</label>
                             <div class="form-clt">
-                                <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Guest Name">
+                                <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Guest Name" required>
                             </div>
                         </div> 
                         <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s"> 
                             <label for"guests[${i}][guest_age]">Guest ${i} Age</label>
                             <div class="form-clt">
-                                <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" placeholder="Guest Age">
+                                <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" placeholder="Guest Age" required>
                             </div>
                         </div>
                         <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s">
