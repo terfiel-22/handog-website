@@ -190,6 +190,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row g-4 mt-2" id="card-fields"></div>
                                 </div>
                                 <button type="submit" class="gt-theme-btn mt-2">PROCEED</button>
                             </form>
@@ -217,7 +218,6 @@
         }
         getDatePicker("#check_in");
     </script>
-
 
     <!-- Generate Guest Fields -->
     <script>
@@ -276,6 +276,66 @@
         });
     </script>
 
+    <!-- Generate Card Details Fields -->
+    <script>
+        $(document).ready(function() {
+            $('#payment_method').on('change', function() {
+                let selected = $(this).val();
+                let cardFields = $('#card-fields');
+
+                cardFields.empty(); // clear old fields
+
+                if (selected === 'card') {
+                    cardFields.append(`
+                                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s">
+                                            <label for="card_number">Card Number</label>
+                                            <div class="form-clt">
+                                                <input type="text" name="card_number" id="card_number" value="<?= old("card_number") ?>">
+                                                <?php if (isset($errors["card_number"])) : ?>
+                                                    <div class="error-text">
+                                                        <?= $errors["card_number"] ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s">
+                                            <label for="exp_month">Expiration Month</label>
+                                            <div class="form-clt">
+                                                <input type="number" name="exp_month" id="exp_month" value="<?= old("exp_month") ?>">
+                                                <?php if (isset($errors["exp_month"])) : ?>
+                                                    <div class="error-text">
+                                                        <?= $errors["exp_month"] ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s">
+                                            <label for="exp_year">Expiration Year</label>
+                                            <div class="form-clt">
+                                                <input type="number" name="exp_year" id="exp_year" value="<?= old("exp_year") ?>">
+                                                <?php if (isset($errors["exp_year"])) : ?>
+                                                    <div class="error-text">
+                                                        <?= $errors["exp_year"] ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s">
+                                            <label for="cvc">CVC</label>
+                                            <div class="form-clt">
+                                                <input type="text" name="cvc" id="cvc" value="<?= old("cvc") ?>">
+                                                <?php if (isset($errors["cvc"])) : ?>
+                                                    <div class="error-text">
+                                                        <?= $errors["cvc"] ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+            `);
+                }
+            });
+        });
+    </script>
 
     <!-- Generate Total Rate -->
     <script>
