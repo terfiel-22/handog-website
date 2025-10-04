@@ -174,6 +174,21 @@
                                                 <input type="number" name="total_rate" id="total_rate" disabled>
                                             </div>
                                         </div>
+                                        <div class="col-12 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                                            <label for="payment_method">Payment Method</label>
+                                            <div class="form-clt">
+                                                <select name="payment_method" id="payment_method" class="single-select w-100" required>
+                                                    <?php foreach (\Http\Constants\PaymongoPayment::METHODS as $payment_method_key => $payment_method_label): ?>
+                                                        <option value="<?= $payment_method_key ?>"><?= ucfirst($payment_method_label) ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <?php if (isset($errors["payment_method"])) : ?>
+                                                    <div class="error-text">
+                                                        <?= $errors["payment_method"] ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <button type="submit" class="gt-theme-btn mt-2">PROCEED</button>
