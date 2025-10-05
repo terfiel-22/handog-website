@@ -46,8 +46,8 @@ class ReservationHelper
 
         foreach ($guests as $guest) {
             $isDiscounted = $guest["senior_pwd"] === YesNo::YES;
-
-            $guestRate = $guest["guest_type"] === GuestType::ADULT
+            $type = guestType($guest["guest_age"]);
+            $guestRate =  $type == GuestType::ADULT
                 ? $adultRate
                 : $kidRate;
 
@@ -64,7 +64,8 @@ class ReservationHelper
     public function addGuestList($reservationId, $guests)
     {
         foreach ($guests as $guest) {
-            $data = array_merge($guest, ["reservation_id" => $reservationId]);
+            $guestType = guestType($guest["guest_age"]);
+            $data = array_merge($guest, ["reservation_id" => $reservationId, "guest_type" => $guestType]);
             App::resolve(ReservationGuest::class)->createReservationGuest($data);
         }
     }

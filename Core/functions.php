@@ -55,3 +55,9 @@ function handleImage($image, $default = "/assets/admin/images/unavailable-image.
 {
     return !empty($image) ? "/" . $image : $default;
 }
+
+/** Function to return guest type */
+function guestType($age)
+{
+    return $age >= 10 ? \Http\Enums\GuestType::ADULT :  \Http\Enums\GuestType::KID;
+}

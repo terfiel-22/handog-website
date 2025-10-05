@@ -231,29 +231,19 @@
                 if (count > 0) {
                     for (let i = 1; i <= count; i++) {
                         let fieldGroup = `
-                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s"> 
+                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s"> 
                             <label for"guests[${i}][guest_name]">Guest ${i} Name</label>
                             <div class="form-clt">
                                 <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Guest Name" value="${oldValues[i]?.guest_name ?? ''}" required>
                             </div>
                         </div> 
-                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s"> 
+                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s"> 
                             <label for"guests[${i}][guest_age]">Guest ${i} Age</label>
                             <div class="form-clt">
                                 <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" placeholder="Guest Age" value="${oldValues[i]?.guest_age ?? ''}" required>
                             </div>
                         </div>
-                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s">
-                            <label for="guests[${i}][guest_type]">Type</label> 
-                            <div class="form-clt">
-                                <select name="guests[${i}][guest_type]" id="guests[${i}][guest_type]" class="single-select w-100">
-                                    <?php foreach (\Http\Enums\GuestType::toArray() as $type): ?>
-                                        <option value="<?= $type ?>"><?= ucfirst($type) ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s"> 
+                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s"> 
                             <label for="guests[${i}][senior_pwd]">Senior/PWD</label> 
                             <div class="form-clt">
                                 <select name="guests[${i}][senior_pwd]" id="guests[${i}][senior_pwd]" class="single-select w-100"> 
@@ -385,9 +375,10 @@
                 const timeSlot = isDaySlot($("#check_in").val()) ? timeSlots.DAY : timeSlots.NIGHT;
                 $("#time_slot").val(timeSlot);
                 // --- Guest rates (adult/kid per day/night) ---
-                $("#guest-list").find("[name*='[guest_type]']").each(function() {
+                $("#guest-list").find("[name*='[guest_age]']").each(function() {
                     const guestIndex = $(this).attr("name").match(/\d+/)[0]; // extract index
-                    const type = $(`[name='guests[${guestIndex}][guest_type]']`).val();
+                    const age = $(`[name='guests[${guestIndex}][guest_age]']`).val();
+                    const type = age >= 10 ? guestType.ADULT : guestType.KID;
                     const seniorPwd = $(`[name='guests[${guestIndex}][senior_pwd]']`).val();
 
                     let rate = 0;
@@ -421,7 +412,7 @@
             }
 
             // Recompute whenever form values change
-            $(document).on("change input", "#time_range, #check_in, #rent_videoke, #facility, #guest-list select", computeTotal);
+            $(document).on("change input", "#time_range, #check_in, #rent_videoke, #facility, #guest-list input", computeTotal);
 
             // Initial compute
             computeTotal();

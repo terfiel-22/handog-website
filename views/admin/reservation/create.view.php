@@ -218,23 +218,15 @@ $pageName = "Reservations"
                 if (count > 0) {
                     for (let i = 1; i <= count; i++) {
                         let fieldGroup = `
-                        <div class="col-12 col-md-6"> 
+                        <div class="col-12 col-md-4"> 
                             <label>Guest ${i}</label>
                             <input type="text" name="guests[${i}][guest_name]" class="form-control" placeholder="Enter name">
                         </div> 
-                        <div class="col-12 col-md-2">
+                        <div class="col-12 col-md-4">
                             <label>Age</label>
                             <input type="number" name="guests[${i}][guest_age]" class="form-control" placeholder="Enter age" min="0">
-                        </div>
-                        <div class="col-12 col-md-2">
-                            <label>Type</label>
-                            <select name="guests[${i}][guest_type]" class="form-control">
-                                <?php foreach (\Http\Enums\GuestType::toArray() as $type): ?>
-                                    <option value="<?= $type ?>"><?= ucfirst($type) ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="col-12 col-md-2">
+                        </div> 
+                        <div class="col-12 col-md-4">
                             <label>Senior/PWD</label>
                             <select name="guests[${i}][senior_pwd]" class="form-control"> 
                                 <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
@@ -286,9 +278,10 @@ $pageName = "Reservations"
                 const timeSlots = <?= json_encode(\Http\Enums\TimeSlot::toArray()) ?>;
                 const timeSlot = $("#time_slot").val() || timeSlots.DAY;
                 // --- Guest rates (adult/kid per day/night) ---
-                $("#guest-list").find("[name*='[guest_type]']").each(function() {
+                $("#guest-list").find("[name*='[guest_age]']").each(function() {
                     const guestIndex = $(this).attr("name").match(/\d+/)[0]; // extract index
-                    const type = $(`[name='guests[${guestIndex}][guest_type]']`).val();
+                    const age = $(`[name='guests[${guestIndex}][guest_age]']`).val();
+                    const type = age >= 10 ? guestType.ADULT : guestType.KID;
                     const seniorPwd = $(`[name='guests[${guestIndex}][senior_pwd]']`).val();
 
                     let rate = 0;
