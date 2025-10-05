@@ -14,6 +14,9 @@ class PaymentHelper
     public Client $client;
     public string $auth;
 
+    public string $paymentIntentId;
+    public string $paymentMethodId;
+
     public function __construct(array $config)
     {
         $this->apiUrl = "https://api.paymongo.com/v1";
@@ -49,12 +52,14 @@ class PaymentHelper
                 ],
             ]);
 
-            return json_decode($response->getBody()->getContents())->data->id;
+            $this->paymentIntentId = json_decode($response->getBody()->getContents())->data->id;
+            return $this;
         } catch (ClientException $e) {
             // Handle 4xx client errors
             $response = $e->getResponse()->getBody()->getContents();
             $errors = json_decode($response);
-            dd(reset($errors)[0]->detail);
+            $_SESSION["_flash"]["errors"]["payment_method"] = reset($errors)[0]->detail;
+            redirect();
         } catch (RequestException $e) {
             // Handle other request errors (network, server, etc.)
             echo "Request Error: " . $e->getMessage();
@@ -90,12 +95,14 @@ class PaymentHelper
                 ],
             ]);
 
-            return json_decode($response->getBody()->getContents())->data->id;
+            $this->paymentMethodId = json_decode($response->getBody()->getContents())->data->id;
+            return $this;
         } catch (ClientException $e) {
             // Handle 4xx client errors
             $response = $e->getResponse()->getBody()->getContents();
             $errors = json_decode($response);
-            dd(reset($errors)[0]->detail);
+            $_SESSION["_flash"]["errors"]["payment_method"] = reset($errors)[0]->detail;
+            redirect();
         } catch (RequestException $e) {
             // Handle other request errors (network, server, etc.)
             echo "Request Error: " . $e->getMessage();
@@ -106,19 +113,19 @@ class PaymentHelper
     }
 
 
-    public function attachPaymentIntent($paymentIntentId, $paymentMethodId, $returnUrl)
+    public function attachPaymentIntent($returnUrl)
     {
         try {
             $payload = [
                 'data' => [
                     'attributes' => [
-                        'payment_method' => $paymentMethodId,
+                        'payment_method' => $this->paymentMethodId,
                         'return_url'     => $returnUrl,
                     ],
                 ],
             ];
 
-            $response = $this->client->request('POST', $this->apiUrl . "/payment_intents/{$paymentIntentId}/attach", [
+            $response = $this->client->request('POST', $this->apiUrl . "/payment_intents/{$this->paymentIntentId}/attach", [
                 'body' => json_encode($payload),
                 'headers' => [
                     'Content-Type' => 'application/json',
@@ -132,7 +139,8 @@ class PaymentHelper
             // Handle 4xx client errors
             $response = $e->getResponse()->getBody()->getContents();
             $errors = json_decode($response);
-            dd(reset($errors)[0]->detail);
+            $_SESSION["_flash"]["errors"]["payment_method"] = reset($errors)[0]->detail;
+            redirect();
         } catch (RequestException $e) {
             // Handle other request errors (network, server, etc.)
             echo "Request Error: " . $e->getMessage();

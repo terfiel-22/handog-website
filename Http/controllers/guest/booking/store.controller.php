@@ -14,9 +14,6 @@ $facilityRate = App::resolve(ReservationHelper::class)->getFacilityRate($_POST["
 $total_price = App::resolve(ReservationHelper::class)->getReservationTotalPrice($facilityRate, $_POST);
 $check_out = App::resolve(ReservationHelper::class)->calculateCheckOut($_POST["check_in"], $_POST["time_range"]);
 
-// Create Payment Intent
-$paymentIntentId = App::resolve(PaymentHelper::class)->createPaymentIntent($total_price);
-
 // Create Payment Method
 $paymentMethod = $_POST["payment_method"];
 $cardDetails = [
@@ -26,11 +23,10 @@ $cardDetails = [
     'cvc'         => $_POST["cvc"] ?? '',
 ];
 
-$paymentMethodId = App::resolve(PaymentHelper::class)->createPaymentMethod($paymentMethod, $cardDetails);
-
 // Attach
 $returnUrl = $_SERVER["HTTP_ORIGIN"] . "/booking/show";
-$attachedPaymentIntent = App::resolve(PaymentHelper::class)->attachPaymentIntent($paymentIntentId, $paymentMethodId, $returnUrl);
+$attachedPaymentIntent = App::resolve(PaymentHelper::class)->createPaymentIntent($total_price)->createPaymentMethod($paymentMethod, $cardDetails)->attachPaymentIntent($returnUrl);
+
 if ($paymentMethod != PaymentMethod::CARD) {
     $redirectUrl = $attachedPaymentIntent->attributes->next_action->redirect->url;
     header("Location: $redirectUrl");
