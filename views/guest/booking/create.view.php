@@ -52,7 +52,7 @@
                                             <div class="form-clt">
                                                 <select name="time_range" id="time_range" class="single-select w-100" required>
                                                     <?php foreach (\Http\Enums\ReservationTimeRange::toArray() as $time_range): ?>
-                                                        <option value="<?= $time_range ?>" <?= ($_GET["time_range"] ?? \Http\Enums\ReservationTimeRange::RESERVE_8HRS) == $time_range ? "selected" : "" ?>><?= ucfirst($time_range) ?></option>
+                                                        <option value="<?= $time_range ?>" <?= (old("time_range", $_GET["time_range"] ?? \Http\Enums\ReservationTimeRange::RESERVE_8HRS)) == $time_range ? "selected" : "" ?>><?= ucfirst($time_range) ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <?php if (isset($errors["time_range"])) : ?>
@@ -67,7 +67,7 @@
                                             <div class="form-clt">
                                                 <select name="facility" id="facility" class="single-select w-100">
                                                     <?php foreach ($facilities as $facility): ?>
-                                                        <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= ($_GET["facility_id"] ?? 0) == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
+                                                        <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= (old("facility", $_GET["facility_id"] ?? 0)) == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <?php if (isset($errors["facility"])) : ?>
