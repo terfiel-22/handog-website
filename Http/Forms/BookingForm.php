@@ -3,6 +3,8 @@
 namespace Http\Forms;
 
 use Core\Validator;
+use Http\Constants\PaymongoPayment;
+use Http\Enums\PaymentMethod;
 use Http\Enums\ReservationTimeRange;
 use Http\Enums\TimeSlot;
 
@@ -40,6 +42,24 @@ class BookingForm extends Form
         }
         if (!Validator::not_empty_array($guests)) {
             $this->errors["guests"] = "Atleast one guest is required.";
+        }
+
+        if (!Validator::in_options($payment_method, array_keys(PaymongoPayment::METHODS))) {
+            $this->errors["time_range"] = "Please select a valid time range.";
+        }
+        if ($payment_method == PaymentMethod::CARD) {
+            if (!Validator::not_empty($card_number)) {
+                $this->errors["card_number"] = "Card number is required.";
+            }
+            if (!Validator::not_empty($exp_month)) {
+                $this->errors["exp_month"] = "Expiration month is required.";
+            }
+            if (!Validator::not_empty($exp_year)) {
+                $this->errors["exp_year"] = "Expiration year is required.";
+            }
+            if (!Validator::not_empty($cvc)) {
+                $this->errors["cvc"] = "CVC is required.";
+            }
         }
     }
 }

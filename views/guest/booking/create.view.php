@@ -179,7 +179,7 @@
                                             <div class="form-clt">
                                                 <select name="payment_method" id="payment_method" class="single-select w-100" required>
                                                     <?php foreach (\Http\Constants\PaymongoPayment::METHODS as $payment_method_key => $payment_method_label): ?>
-                                                        <option value="<?= $payment_method_key ?>"><?= ucfirst($payment_method_label) ?></option>
+                                                        <option value="<?= $payment_method_key ?>" <?= old('payment_method') == $payment_method_key ? "selected" : "" ?>><?= ucfirst($payment_method_label) ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <?php if (isset($errors["payment_method"])) : ?>
@@ -226,19 +226,21 @@
                 let $container = $("#guest-list");
                 $container.empty(); // clear old fields
 
+                let oldValues = <?= json_encode(old('guests', [])) ?>;
+
                 if (count > 0) {
                     for (let i = 1; i <= count; i++) {
                         let fieldGroup = `
                         <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s"> 
                             <label for"guests[${i}][guest_name]">Guest ${i} Name</label>
                             <div class="form-clt">
-                                <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Guest Name" required>
+                                <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Guest Name" value="${oldValues[i]?.guest_name ?? ''}" required>
                             </div>
                         </div> 
                         <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s"> 
                             <label for"guests[${i}][guest_age]">Guest ${i} Age</label>
                             <div class="form-clt">
-                                <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" placeholder="Guest Age" required>
+                                <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" placeholder="Guest Age" value="${oldValues[i]?.guest_age ?? ''}" required>
                             </div>
                         </div>
                         <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s">
@@ -279,10 +281,9 @@
     <!-- Generate Card Details Fields -->
     <script>
         $(document).ready(function() {
-            $('#payment_method').on('change', function() {
-                let selected = $(this).val();
+            const generateCardDetailsField = (selected) => {
+                if (!selected) return;
                 let cardFields = $('#card-fields');
-
                 cardFields.empty(); // clear old fields
 
                 if (selected === 'card') {
@@ -331,9 +332,17 @@
                                                 <?php endif; ?>
                                             </div>
                                         </div>
-            `);
+                    `);
                 }
+            }
+
+            $('#payment_method').on('change', function() {
+                let selected = $(this).val();
+                generateCardDetailsField(selected);
             });
+
+            let oldPaymentMethod = $("#payment_method").val();
+            generateCardDetailsField(oldPaymentMethod)
         });
     </script>
 
