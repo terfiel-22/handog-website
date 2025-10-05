@@ -291,7 +291,7 @@
                                         <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="card_number">Card Number</label>
                                             <div class="form-clt">
-                                                <input type="text" name="card_number" id="card_number" value="<?= old("card_number") ?>">
+                                                <input type="text" name="card_number" id="card_number" value="<?= old("card_number") ?>" placeholder="XXXXXXXXXXXXXXXX">
                                                 <?php if (isset($errors["card_number"])) : ?>
                                                     <div class="error-text">
                                                         <?= $errors["card_number"] ?>
@@ -302,7 +302,7 @@
                                         <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="exp_month">Expiration Month</label>
                                             <div class="form-clt">
-                                                <input type="number" name="exp_month" id="exp_month" value="<?= old("exp_month") ?>">
+                                                <input type="number" name="exp_month" id="exp_month" value="<?= old("exp_month") ?>" placeholder="XX">
                                                 <?php if (isset($errors["exp_month"])) : ?>
                                                     <div class="error-text">
                                                         <?= $errors["exp_month"] ?>
@@ -313,7 +313,7 @@
                                         <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="exp_year">Expiration Year</label>
                                             <div class="form-clt">
-                                                <input type="number" name="exp_year" id="exp_year" value="<?= old("exp_year") ?>">
+                                                <input type="number" name="exp_year" id="exp_year" value="<?= old("exp_year") ?>"  placeholder="XXXX">
                                                 <?php if (isset($errors["exp_year"])) : ?>
                                                     <div class="error-text">
                                                         <?= $errors["exp_year"] ?>
@@ -324,7 +324,7 @@
                                         <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="cvc">CVC</label>
                                             <div class="form-clt">
-                                                <input type="text" name="cvc" id="cvc" value="<?= old("cvc") ?>">
+                                                <input type="text" name="cvc" id="cvc" value="<?= old("cvc") ?>"  placeholder="XXX">
                                                 <?php if (isset($errors["cvc"])) : ?>
                                                     <div class="error-text">
                                                         <?= $errors["cvc"] ?>
