@@ -2,10 +2,12 @@
 
 use Core\App;
 use Http\Enums\PaymentMethod;
+use Http\Enums\PaymentStatus;
 use Http\Enums\ReservationStatus;
 use Http\Forms\BookingForm;
 use Http\Helpers\PaymentHelper;
 use Http\Helpers\ReservationHelper;
+use Http\Models\Payment;
 use Http\Models\Reservation;
 
 $bookingForm = BookingForm::validate($_POST);
@@ -25,22 +27,13 @@ $cardDetails = [
 
 // Attach
 $returnUrl = $_SERVER["HTTP_ORIGIN"] . "/booking/show";
-$payment = App::resolve(PaymentHelper::class)->createPaymentIntent($total_price)->createPaymentMethod($paymentMethod, $cardDetails)->attachPaymentIntent($returnUrl);
-if (!empty($payment->errors)) {
+$paymentResult = App::resolve(PaymentHelper::class)->createPaymentIntent($total_price)->createPaymentMethod($paymentMethod, $cardDetails)->attachPaymentIntent($returnUrl);
+if (!empty($paymentResult->errors)) {
     $bookingForm->error(
         "payment_method",
-        $payment->errors["payment_method"]
+        $paymentResult->errors["payment_method"]
     )->throw();
 }
-
-if ($paymentMethod != PaymentMethod::CARD) {
-    $redirectUrl = $attachedPaymentIntent->attributes->next_action->redirect->url;
-    redirect($redirectUrl);
-} else {
-    redirect($returnUrl . "?payment_intent_id=" . $attachedPaymentIntent->id);
-}
-
-dd($attachedPaymentIntent);
 
 $reservation = [
     "facility_id" => $_POST["facility"],
@@ -60,5 +53,20 @@ $reservationId = App::resolve(Reservation::class)->createReservation($reservatio
 
 App::resolve(ReservationHelper::class)->addGuestList($reservationId, $_POST["guests"]);
 
-// TODO: GO TO PAYMENT
-dd($reservation);
+// Record Payment Result 
+$payment = [
+    "reservation_id" => $reservationId,
+    "amount" => $total_price,
+    "payment_method" => $paymentMethod,
+    "payment_status" => PaymentStatus::HALF_PAID,
+    "payment_intent_id" => $paymentResult->attachedPaymentIntent->id,
+];
+App::resolve(Payment::class)->createPayment($payment);
+
+// Redirect to booking display page
+if ($paymentMethod != PaymentMethod::CARD) {
+    $redirectUrl = $paymentResult->attachedPaymentIntent->attributes->next_action->redirect->url;
+    redirect($redirectUrl);
+} else {
+    redirect($returnUrl . "?payment_intent_id=" . $paymentResult->attachedPaymentIntent->id);
+}
