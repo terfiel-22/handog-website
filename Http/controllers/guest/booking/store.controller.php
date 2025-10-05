@@ -8,7 +8,7 @@ use Http\Helpers\PaymentHelper;
 use Http\Helpers\ReservationHelper;
 use Http\Models\Reservation;
 
-BookingForm::validate($_POST);
+$bookingForm = BookingForm::validate($_POST);
 
 $facilityRate = App::resolve(ReservationHelper::class)->getFacilityRate($_POST["time_range"], $_POST['facility']);
 $total_price = App::resolve(ReservationHelper::class)->getReservationTotalPrice($facilityRate, $_POST);
@@ -25,11 +25,19 @@ $cardDetails = [
 
 // Attach
 $returnUrl = $_SERVER["HTTP_ORIGIN"] . "/booking/show";
-$attachedPaymentIntent = App::resolve(PaymentHelper::class)->createPaymentIntent($total_price)->createPaymentMethod($paymentMethod, $cardDetails)->attachPaymentIntent($returnUrl);
+$payment = App::resolve(PaymentHelper::class)->createPaymentIntent($total_price)->createPaymentMethod($paymentMethod, $cardDetails)->attachPaymentIntent($returnUrl);
+if (!empty($payment->errors)) {
+    $bookingForm->error(
+        "payment_method",
+        $payment->errors["payment_method"]
+    )->throw();
+}
 
 if ($paymentMethod != PaymentMethod::CARD) {
     $redirectUrl = $attachedPaymentIntent->attributes->next_action->redirect->url;
-    header("Location: $redirectUrl");
+    redirect($redirectUrl);
+} else {
+    redirect($returnUrl . "?payment_intent_id=" . $attachedPaymentIntent->id);
 }
 
 dd($attachedPaymentIntent);

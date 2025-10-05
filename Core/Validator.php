@@ -82,4 +82,26 @@ class Validator
     {
         return in_array($value, $array);
     }
+
+    public static function validCardNumber(string $number): bool
+    {
+        return preg_match('/^[0-9]{13,19}$/', $number);
+    }
+
+    public static function validExpMonth(string $month): bool
+    {
+        return preg_match('/^(0[1-9]|1[0-2])$/', $month);
+    }
+
+    public static function validExpYear(string $year): bool
+    {
+        $currentYear = (int) date('Y');
+        $expYear = strlen($year) === 2 ? (int) ('20' . $year) : (int) $year;
+        return $expYear >= $currentYear;
+    }
+
+    public static function validCvc(string $cvc): bool
+    {
+        return preg_match('/^[0-9]{3,4}$/', $cvc);
+    }
 }

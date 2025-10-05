@@ -51,14 +51,29 @@ class BookingForm extends Form
             if (!Validator::not_empty($card_number)) {
                 $this->errors["card_number"] = "Card number is required.";
             }
+            if (!Validator::validCardNumber($card_number)) {
+                $this->errors["card_number"] = "Card number must be 13–19 digits.";
+            }
+
             if (!Validator::not_empty($exp_month)) {
                 $this->errors["exp_month"] = "Expiration month is required.";
             }
+            if (!Validator::validExpMonth($exp_month)) {
+                $this->errors["exp_month"] = "Expiration month must be between 01 and 12";
+            }
+
             if (!Validator::not_empty($exp_year)) {
                 $this->errors["exp_year"] = "Expiration year is required.";
             }
+            if (!Validator::validExpYear($exp_year)) {
+                $this->errors["exp_year"] = "Expiration year cannot be in the past";
+            }
+
             if (!Validator::not_empty($cvc)) {
                 $this->errors["cvc"] = "CVC is required.";
+            }
+            if (!Validator::validCvc($cvc)) {
+                $this->errors["cvc"] = "CVC must be 3 or 4 digits";
             }
         }
     }

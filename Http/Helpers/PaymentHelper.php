@@ -4,7 +4,6 @@ namespace Http\Helpers;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\RequestException;
 use Http\Constants\PaymongoPayment;
 use Http\Enums\PaymentMethod;
 
@@ -13,9 +12,11 @@ class PaymentHelper
     public string $apiUrl;
     public Client $client;
     public string $auth;
+    public array $errors;
 
     public string $paymentIntentId;
     public string $paymentMethodId;
+    public object $attachedPaymentIntent;
 
     public function __construct(array $config)
     {
@@ -58,14 +59,8 @@ class PaymentHelper
             // Handle 4xx client errors
             $response = $e->getResponse()->getBody()->getContents();
             $errors = json_decode($response);
-            $_SESSION["_flash"]["errors"]["payment_method"] = reset($errors)[0]->detail;
-            redirect();
-        } catch (RequestException $e) {
-            // Handle other request errors (network, server, etc.)
-            echo "Request Error: " . $e->getMessage();
-            if ($e->hasResponse()) {
-                echo " - " . $e->getResponse()->getBody()->getContents();
-            }
+            $this->errors["payment_method"] = reset($errors)[0]->detail;
+            return $this;
         }
     }
 
@@ -101,14 +96,8 @@ class PaymentHelper
             // Handle 4xx client errors
             $response = $e->getResponse()->getBody()->getContents();
             $errors = json_decode($response);
-            $_SESSION["_flash"]["errors"]["payment_method"] = reset($errors)[0]->detail;
-            redirect();
-        } catch (RequestException $e) {
-            // Handle other request errors (network, server, etc.)
-            echo "Request Error: " . $e->getMessage();
-            if ($e->hasResponse()) {
-                echo " - " . $e->getResponse()->getBody()->getContents();
-            }
+            $this->errors["payment_method"] = reset($errors)[0]->detail;
+            return $this;
         }
     }
 
@@ -134,19 +123,14 @@ class PaymentHelper
                 ],
             ]);
 
-            return json_decode($response->getBody()->getContents())->data;
+            $this->attachedPaymentIntent = json_decode($response->getBody()->getContents())->data;
+            return $this;
         } catch (ClientException $e) {
             // Handle 4xx client errors
             $response = $e->getResponse()->getBody()->getContents();
             $errors = json_decode($response);
-            $_SESSION["_flash"]["errors"]["payment_method"] = reset($errors)[0]->detail;
-            redirect();
-        } catch (RequestException $e) {
-            // Handle other request errors (network, server, etc.)
-            echo "Request Error: " . $e->getMessage();
-            if ($e->hasResponse()) {
-                echo " - " . $e->getResponse()->getBody()->getContents();
-            }
+            $this->errors["payment_method"] = reset($errors)[0]->detail;
+            return $this;
         }
     }
 }
