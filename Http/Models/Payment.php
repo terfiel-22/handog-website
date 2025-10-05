@@ -17,7 +17,7 @@ class Payment
     public function createPayment($attributes)
     {
         return $this->db->query(
-            "INSERT INTO payments(reservation_id, amount, payment_method, payment_status, transaction_reference) VALUES(:reservation_id, :amount, :payment_method, :payment_status, :transaction_reference)",
+            "INSERT INTO payments(reservation_id, amount, payment_method, payment_status, payment_intent_id) VALUES(:reservation_id, :amount, :payment_method, :payment_status, :payment_intent_id)",
             $attributes
         )->id();
     }

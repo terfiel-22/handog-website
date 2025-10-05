@@ -38,7 +38,7 @@ $payment = [
     "amount" => $total_price,
     "payment_method" => PaymentMethod::CASH,
     "payment_status" => $_POST["payment_status"],
-    "transaction_reference" => NULL,
+    "payment_intent_id" => NULL,
 ];
 App::resolve(Payment::class)->createPayment($payment);
 
