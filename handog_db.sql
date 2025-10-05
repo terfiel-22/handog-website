@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 30, 2025 at 08:39 PM
+-- Generation Time: Oct 05, 2025 at 09:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -163,9 +163,9 @@ CREATE TABLE `payments` (
   `id` int(11) NOT NULL,
   `reservation_id` int(11) NOT NULL,
   `amount` decimal(10,2) NOT NULL,
-  `payment_method` enum('cash','credit_card','debit_card','bank_transfer','ewallet') NOT NULL,
+  `payment_method` enum('cash','card','gcash','grab_pay','paymaya','billease') NOT NULL,
   `payment_status` enum('pending','paid','half_paid','failed','refunded','cancelled') NOT NULL DEFAULT 'pending',
-  `transaction_reference` varchar(100) DEFAULT NULL,
+  `payment_intent_id` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -174,8 +174,10 @@ CREATE TABLE `payments` (
 -- Dumping data for table `payments`
 --
 
-INSERT INTO `payments` (`id`, `reservation_id`, `amount`, `payment_method`, `payment_status`, `transaction_reference`, `created_at`, `updated_at`) VALUES
-(1, 1, 420.00, 'cash', 'paid', NULL, '2025-09-30 11:08:57', '2025-09-30 11:08:57');
+INSERT INTO `payments` (`id`, `reservation_id`, `amount`, `payment_method`, `payment_status`, `payment_intent_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 420.00, 'cash', 'paid', NULL, '2025-09-30 11:08:57', '2025-09-30 11:08:57'),
+(2, 3, 420.00, 'cash', 'pending', NULL, '2025-10-05 16:34:18', '2025-10-05 16:34:18'),
+(3, 4, 200.00, 'card', 'half_paid', 'pi_cXDhXZa2XgNmUYX3BGdkZ369', '2025-10-05 19:13:52', '2025-10-05 19:13:52');
 
 -- --------------------------------------------------------
 
@@ -205,7 +207,9 @@ CREATE TABLE `reservations` (
 --
 
 INSERT INTO `reservations` (`id`, `facility_id`, `contact_person`, `contact_no`, `contact_email`, `contact_address`, `check_in`, `check_out`, `guest_count`, `rent_videoke`, `total_price`, `status`, `created_at`, `updated_at`) VALUES
-(1, 9, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-09-30 06:00:00', '2025-09-30 17:00:00', 1, 'no', 420.00, 'confirmed', '2025-09-30 11:08:57', '2025-09-30 11:08:57');
+(1, 9, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-09-30 06:00:00', '2025-09-30 17:00:00', 1, 'no', 420.00, 'confirmed', '2025-09-30 11:08:57', '2025-10-03 10:17:19'),
+(3, 9, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-10-06 06:00:00', '2025-10-06 18:00:00', 1, 'no', 420.00, 'confirmed', '2025-10-05 16:34:18', '2025-10-05 16:34:18'),
+(4, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-03-29 00:00:00', '2025-03-29 08:00:00', 1, 'no', 200.00, 'pending', '2025-10-05 19:13:52', '2025-10-05 19:13:52');
 
 -- --------------------------------------------------------
 
@@ -229,7 +233,9 @@ CREATE TABLE `reservation_guests` (
 --
 
 INSERT INTO `reservation_guests` (`id`, `reservation_id`, `guest_name`, `guest_age`, `guest_type`, `senior_pwd`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Taki Fimito', 22, 'adult', 'no', '2025-09-30 11:08:57', '2025-09-30 11:08:57');
+(1, 1, 'Taki Fimito', 22, 'adult', 'no', '2025-09-30 11:08:57', '2025-09-30 11:08:57'),
+(3, 3, 'Taki Fimito', 22, 'adult', 'no', '2025-10-05 16:34:18', '2025-10-05 16:34:18'),
+(4, 4, 'Taki Fimito', 22, 'adult', 'no', '2025-10-05 19:13:52', '2025-10-05 19:13:52');
 
 -- --------------------------------------------------------
 
@@ -355,19 +361,19 @@ ALTER TABLE `gallery_images`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `reservation_guests`
 --
 ALTER TABLE `reservation_guests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `st_rates`
