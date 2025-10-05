@@ -1,7 +1,7 @@
 <?php
 
 use Core\App;
-use Http\Constants\PaymongoPayment;
+use Http\Enums\PaymentMethod;
 use Http\Enums\ReservationStatus;
 use Http\Forms\BookingForm;
 use Http\Helpers\PaymentHelper;
@@ -18,16 +18,25 @@ $check_out = App::resolve(ReservationHelper::class)->calculateCheckOut($_POST["c
 $paymentIntentId = App::resolve(PaymentHelper::class)->createPaymentIntent($total_price);
 
 // Create Payment Method
-$paymentMethod = array_key_first(PaymongoPayment::METHODS); // gcash hardcoded
-$paymentMethodId = App::resolve(PaymentHelper::class)->createPaymentMethod($paymentMethod);
+$paymentMethod = $_POST["payment_method"];
+$cardDetails = [
+    'card_number' => $_POST["card_number"] ?? '',
+    'exp_month'   => isset($_POST["exp_month"]) ? (int) $_POST["exp_month"] : 0,
+    'exp_year'    => isset($_POST["exp_year"]) ? (int) $_POST["exp_year"] : 0,
+    'cvc'         => $_POST["cvc"] ?? '',
+];
+
+$paymentMethodId = App::resolve(PaymentHelper::class)->createPaymentMethod($paymentMethod, $cardDetails);
 
 // Attach
-$returnUrl = $_SERVER["HTTP_ORIGIN"] . "/booking/success";
-$redirectUrl = App::resolve(PaymentHelper::class)->attachPaymentIntent($paymentIntentId, $paymentMethodId, $returnUrl);
+$returnUrl = $_SERVER["HTTP_ORIGIN"] . "/booking/show";
+$attachedPaymentIntent = App::resolve(PaymentHelper::class)->attachPaymentIntent($paymentIntentId, $paymentMethodId, $returnUrl);
+if ($paymentMethod != PaymentMethod::CARD) {
+    $redirectUrl = $attachedPaymentIntent->attributes->next_action->redirect->url;
+    header("Location: $redirectUrl");
+}
 
-header("Location: $redirectUrl");
-
-dd(compact('paymentIntentId', 'paymentMethodId'));
+dd($attachedPaymentIntent);
 
 $reservation = [
     "facility_id" => $_POST["facility"],

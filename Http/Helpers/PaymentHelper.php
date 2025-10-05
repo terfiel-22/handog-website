@@ -4,6 +4,7 @@ namespace Http\Helpers;
 
 use GuzzleHttp\Client;
 use Http\Constants\PaymongoPayment;
+use Http\Enums\PaymentMethod;
 
 class PaymentHelper
 {
@@ -65,7 +66,7 @@ class PaymentHelper
             ];
 
             // If it's a card, append details
-            if ($type === 'card' && !empty($details)) {
+            if ($type === PaymentMethod::CARD && !empty($details)) {
                 $payload['data']['attributes']['details'] = $details;
             }
 
@@ -106,7 +107,7 @@ class PaymentHelper
                 ],
             ]);
 
-            return json_decode($response->getBody()->getContents())->data->attributes->next_action->redirect->url;
+            return json_decode($response->getBody()->getContents())->data;
         } catch (\Throwable $e) {
             echo "Payment API Error: " . $e->getMessage();
         }
