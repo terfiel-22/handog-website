@@ -27,11 +27,12 @@
                     <div class="col-12">
                         <div class="gt-contact-right-items text-center">
                             <h2>
-                                <?= $title ?>
+                                Your Reservation is Saved!
                             </h2>
                             <p>
-                                <?= $subtitle ?>
+                                Complete your booking by making the payment. Click below to continue.
                             </p>
+                            <a href="<?= $payment["payment_link"] ?>" target="_blank" rel="noopener noreferrer" class="gt-theme-btn mt-5">Go to Payment</a>
                         </div>
                     </div>
                 </div>
