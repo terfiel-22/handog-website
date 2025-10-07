@@ -75,9 +75,8 @@ class PaymentHelper
             $attributes = $responseData['data']['attributes'];
 
             $paymentMethod = 'N/A';
-            if (!empty($attributes['payments']['data'])) {
-                $firstPayment = $attributes['payments']['data'][0];
-                $paymentMethod = $firstPayment['attributes']['source']['type'] ?? 'N/A';
+            if (!empty($attributes['payments'][0]['data'])) {
+                $paymentMethod = $attributes['payments'][0]["data"]["attributes"]["source"]["type"] ?? 'N/A';
             }
 
             return [
