@@ -16,7 +16,7 @@ $facilityRate = App::resolve(ReservationHelper::class)->getFacilityRate($_POST["
 $total_price = App::resolve(ReservationHelper::class)->getReservationTotalPrice($facilityRate, $_POST);
 $check_out = App::resolve(ReservationHelper::class)->calculateCheckOut($_POST["check_in"], $_POST["time_range"]);
 $bookingDeposit = bookingDeposit($total_price);
-$paymentLink = App::resolve(PaymentHelper::class)->createPaymentLink($total_price);
+$paymentLink = App::resolve(PaymentHelper::class)->createPaymentLink($bookingDeposit);
 if ($paymentLink["success"] == YesNo::NO) {
     $bookingForm->error(
         "total_rate",

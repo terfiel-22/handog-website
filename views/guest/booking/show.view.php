@@ -30,8 +30,12 @@
                                 <h2>
                                     Your Reservation is Saved!
                                 </h2>
+                                <div class="py-4">
+                                    <h1><?= moneyFormat($payment["amount"]) ?></h1>
+                                    <h4>Booking Deposit</h4>
+                                </div>
                                 <p>
-                                    Complete your booking by making the payment. Click below to continue.
+                                    Complete your booking by making the payment for booking deposit. Click below to continue.
                                 </p>
                                 <a href="<?= $payment["payment_link"] ?>" target="_blank" rel="noopener noreferrer" class="gt-theme-btn mt-5">Go to Payment</a>
                             </div>
