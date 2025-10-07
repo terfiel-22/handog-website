@@ -16,6 +16,18 @@ $facilityRate = App::resolve(ReservationHelper::class)->getFacilityRate($_POST["
 $total_price = App::resolve(ReservationHelper::class)->getReservationTotalPrice($facilityRate, $_POST);
 $check_out = App::resolve(ReservationHelper::class)->calculateCheckOut($_POST["check_in"], $_POST["time_range"]);
 
+
+$successUrl = $_SERVER["HTTP_ORIGIN"] . "/booking/success";
+$failedUrl = $_SERVER["HTTP_ORIGIN"] . "/booking/failed";
+$paymentLink = App::resolve(PaymentHelper::class)->createPaymentLink($total_price, $successUrl, $failedUrl);
+dd($paymentLink);
+$details = App::resolve(PaymentHelper::class)->retrievePaymentLink($paymentLink["id"]);
+dd($details);
+
+
+
+
+
 // Create Payment Method
 $paymentMethod = $_POST["payment_method"];
 $cardDetails = [

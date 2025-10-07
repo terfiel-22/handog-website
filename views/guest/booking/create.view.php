@@ -174,21 +174,6 @@
                                                 <input type="number" name="total_rate" id="total_rate" disabled>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-6 wow fadeInUp" data-wow-delay=".3s">
-                                            <label for="payment_method">Payment Method</label>
-                                            <div class="form-clt">
-                                                <select name="payment_method" id="payment_method" class="single-select w-100" required>
-                                                    <?php foreach (\Http\Constants\PaymongoPayment::METHODS as $payment_method_key => $payment_method_label): ?>
-                                                        <option value="<?= $payment_method_key ?>" <?= old('payment_method') == $payment_method_key ? "selected" : "" ?>><?= ucfirst($payment_method_label) ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                                <?php if (isset($errors["payment_method"])) : ?>
-                                                    <div class="error-text">
-                                                        <?= $errors["payment_method"] ?>
-                                                    </div>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="row g-4 mt-2" id="card-fields"></div>
                                 </div>
@@ -265,74 +250,6 @@
             // Generate atleast 1 guest field
             const guestCount = <?= $_GET["guest_count"] ?? 1 ?>;
             generateGuestFields(guestCount);
-        });
-    </script>
-
-    <!-- Generate Card Details Fields -->
-    <script>
-        $(document).ready(function() {
-            const generateCardDetailsField = (selected) => {
-                if (!selected) return;
-                let cardFields = $('#card-fields');
-                cardFields.empty(); // clear old fields
-
-                if (selected === 'card') {
-                    cardFields.append(`
-                                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s">
-                                            <label for="card_number">Card Number</label>
-                                            <div class="form-clt">
-                                                <input type="text" name="card_number" id="card_number" value="<?= old("card_number") ?>" placeholder="XXXXXXXXXXXXXXXX">
-                                                <?php if (isset($errors["card_number"])) : ?>
-                                                    <div class="error-text">
-                                                        <?= $errors["card_number"] ?>
-                                                    </div>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s">
-                                            <label for="exp_month">Expiration Month</label>
-                                            <div class="form-clt">
-                                                <input type="number" name="exp_month" id="exp_month" value="<?= old("exp_month") ?>" placeholder="XX">
-                                                <?php if (isset($errors["exp_month"])) : ?>
-                                                    <div class="error-text">
-                                                        <?= $errors["exp_month"] ?>
-                                                    </div>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s">
-                                            <label for="exp_year">Expiration Year</label>
-                                            <div class="form-clt">
-                                                <input type="number" name="exp_year" id="exp_year" value="<?= old("exp_year") ?>"  placeholder="XXXX">
-                                                <?php if (isset($errors["exp_year"])) : ?>
-                                                    <div class="error-text">
-                                                        <?= $errors["exp_year"] ?>
-                                                    </div>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s">
-                                            <label for="cvc">CVC</label>
-                                            <div class="form-clt">
-                                                <input type="text" name="cvc" id="cvc" value="<?= old("cvc") ?>"  placeholder="XXX">
-                                                <?php if (isset($errors["cvc"])) : ?>
-                                                    <div class="error-text">
-                                                        <?= $errors["cvc"] ?>
-                                                    </div>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                    `);
-                }
-            }
-
-            $('#payment_method').on('change', function() {
-                let selected = $(this).val();
-                generateCardDetailsField(selected);
-            });
-
-            let oldPaymentMethod = $("#payment_method").val();
-            generateCardDetailsField(oldPaymentMethod)
         });
     </script>
 

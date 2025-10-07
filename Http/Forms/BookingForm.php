@@ -44,9 +44,6 @@ class BookingForm extends Form
             $this->errors["guests"] = "Atleast one guest is required.";
         }
 
-        if (!Validator::in_options($payment_method, array_keys(PaymongoPayment::METHODS))) {
-            $this->errors["time_range"] = "Please select a valid time range.";
-        }
         if ($payment_method == PaymentMethod::CARD) {
             if (!Validator::not_empty($card_number)) {
                 $this->errors["card_number"] = "Card number is required.";
