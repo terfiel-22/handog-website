@@ -21,4 +21,21 @@ class Payment
             $attributes
         )->id();
     }
+
+
+    public function retrievePaymentByPaymentLink($payment_link)
+    {
+        return $this->db->query(
+            "SELECT * FROM payments WHERE payment_link=:payment_link",
+            compact('payment_link')
+        )->findOrFail();
+    }
+
+    public function updatePayment($attributes)
+    {
+        $this->db->query(
+            "UPDATE payments SET payment_method=:payment_method, payment_status=:payment_status WHERE id=:id",
+            $attributes
+        );
+    }
 }

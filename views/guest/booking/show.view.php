@@ -37,7 +37,7 @@
                                 <p>
                                     Complete your booking by making the payment for booking deposit. Click below to continue.
                                 </p>
-                                <a href="<?= $payment["payment_link"] ?>" target="_blank" rel="noopener noreferrer" class="gt-theme-btn mt-5">Go to Payment</a>
+                                <a href="<?= $payment["payment_link"] ?>" id="checkPayment" target="_blank" rel="noopener noreferrer" class="gt-theme-btn mt-5">Go to Payment</a>
                             </div>
                         <?php endif; ?>
                         <?php if ($payment["payment_status"] == \Http\Enums\PaymentStatus::PAID): ?>
@@ -62,6 +62,33 @@
 
     <!--<< All JS Plugins >>-->
     <?php view("guest/partials/plugins.partial.php") ?>
+
+    <!-- Reload page until the payment status is paid -->
+    <script>
+        $(document).ready(function() {
+            var paymentStatus = "<?= $payment["payment_status"]; ?>";
+
+            if (localStorage.getItem("checkingPayment") && localStorage.getItem("checkingPayment") === "true") {
+                if (paymentStatus === "paid") {
+                    localStorage.removeItem("checkingPayment");
+                } else {
+                    setTimeout(function() {
+                        location.reload();
+                    }, 5000);
+                }
+            }
+
+            $("#checkPayment").on("click", function(e) {
+                if (paymentStatus !== "paid") {
+                    localStorage.setItem("checkingPayment", "true");
+                    setTimeout(function() {
+                        location.reload();
+                    }, 5000);
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>
