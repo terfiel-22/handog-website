@@ -1,9 +1,9 @@
 <?php
 
 use Core\App;
-use Http\Enums\PaymentMethod;
 use Http\Enums\PaymentStatus;
 use Http\Enums\ReservationStatus;
+use Http\Enums\YesNo;
 use Http\Forms\BookingForm;
 use Http\Helpers\PaymentHelper;
 use Http\Helpers\ReservationHelper;
@@ -15,35 +15,12 @@ $bookingForm = BookingForm::validate($_POST);
 $facilityRate = App::resolve(ReservationHelper::class)->getFacilityRate($_POST["time_range"], $_POST['facility']);
 $total_price = App::resolve(ReservationHelper::class)->getReservationTotalPrice($facilityRate, $_POST);
 $check_out = App::resolve(ReservationHelper::class)->calculateCheckOut($_POST["check_in"], $_POST["time_range"]);
-
-
-$successUrl = $_SERVER["HTTP_ORIGIN"] . "/booking/success";
-$failedUrl = $_SERVER["HTTP_ORIGIN"] . "/booking/failed";
-$paymentLink = App::resolve(PaymentHelper::class)->createPaymentLink($total_price, $successUrl, $failedUrl);
-dd($paymentLink);
-$details = App::resolve(PaymentHelper::class)->retrievePaymentLink($paymentLink["id"]);
-dd($details);
-
-
-
-
-
-// Create Payment Method
-$paymentMethod = $_POST["payment_method"];
-$cardDetails = [
-    'card_number' => $_POST["card_number"] ?? '',
-    'exp_month'   => isset($_POST["exp_month"]) ? (int) $_POST["exp_month"] : 0,
-    'exp_year'    => isset($_POST["exp_year"]) ? (int) $_POST["exp_year"] : 0,
-    'cvc'         => $_POST["cvc"] ?? '',
-];
-
-// Attach
-$returnUrl = $_SERVER["HTTP_ORIGIN"] . "/booking/show";
-$paymentResult = App::resolve(PaymentHelper::class)->createPaymentIntent($total_price)->createPaymentMethod($paymentMethod, $cardDetails)->attachPaymentIntent($returnUrl);
-if (!empty($paymentResult->errors)) {
+$bookingDeposit = bookingDeposit($total_price);
+$paymentLink = App::resolve(PaymentHelper::class)->createPaymentLink($total_price);
+if ($paymentLink["success"] == YesNo::NO) {
     $bookingForm->error(
-        "payment_method",
-        $paymentResult->errors["payment_method"]
+        "total_rate",
+        $paymentLink["error"]
     )->throw();
 }
 
@@ -65,20 +42,13 @@ $reservationId = App::resolve(Reservation::class)->createReservation($reservatio
 
 App::resolve(ReservationHelper::class)->addGuestList($reservationId, $_POST["guests"]);
 
-// Record Payment Result 
 $payment = [
     "reservation_id" => $reservationId,
     "amount" => $total_price,
     "payment_method" => $paymentMethod,
-    "payment_status" => PaymentStatus::HALF_PAID,
-    "payment_intent_id" => $paymentResult->attachedPaymentIntent->id,
+    "payment_status" => PaymentStatus::UNPAID,
+    "payment_link" => $paymentLink["id"],
 ];
 App::resolve(Payment::class)->createPayment($payment);
 
-// Redirect to booking display page
-if ($paymentMethod != PaymentMethod::CARD) {
-    $redirectUrl = $paymentResult->attachedPaymentIntent->attributes->next_action->redirect->url;
-    redirect($redirectUrl);
-} else {
-    redirect($returnUrl . "?payment_intent_id=" . $paymentResult->attachedPaymentIntent->id);
-}
+redirect("/booking/show?payment_id=" . $paymentLink["id"]);

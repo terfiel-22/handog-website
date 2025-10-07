@@ -61,3 +61,9 @@ function guestType($age)
 {
     return $age >= 10 ? \Http\Enums\GuestType::ADULT :  \Http\Enums\GuestType::KID;
 }
+
+/** Function to return booking deposit */
+function bookingDeposit($total_amount)
+{
+    return $total_amount / 2;
+}

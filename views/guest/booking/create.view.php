@@ -169,9 +169,15 @@
                                     <h4 class="fw-bold">Payment Information</h4>
                                     <div class="row g-4">
                                         <div class="col-12 col-md-6 wow fadeInUp" data-wow-delay=".3s">
-                                            <label for="total_rate">Total</label>
+                                            <label for="total_rate">Total Amount</label>
                                             <div class="form-clt">
                                                 <input type="number" name="total_rate" id="total_rate" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                                            <label for="booking_deposit">Booking Deposit</label>
+                                            <div class="form-clt">
+                                                <input type="number" name="booking_deposit" id="booking_deposit" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -326,6 +332,7 @@
 
                 // --- Display total ---
                 $("#total_rate").val(total.toFixed(2));
+                $("#booking_deposit").val((total / 2).toFixed(2));
             }
 
             // Recompute whenever form values change
