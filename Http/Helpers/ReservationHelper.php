@@ -8,6 +8,7 @@ use Http\Enums\GuestType;
 use Http\Enums\ReservationTimeRange;
 use Http\Enums\TimeSlot;
 use Http\Enums\YesNo;
+use Http\Helpers\EmailHelper;
 use Http\Models\Facility;
 use Http\Models\Rates;
 use Http\Models\ReservationGuest;
@@ -92,5 +93,32 @@ class ReservationHelper
         }
 
         return $checkInDate->format('Y-m-d H:i');
+    }
+
+    public function sendEmailForBookingConfirmation($userName, $checkInDate, $checkInTime, $userEmail)
+    {
+        $subject = 'Booking Confirmation – Handog Resort Reservation';
+        $body = "
+            <h2>Booking Confirmation</h2>
+            <p>Dear <b>{$userName}</b>,</p>
+            <p>Thank you for booking with us!</p>
+            <p><b>Check-in Date:</b> {$checkInDate}<br>
+            <b>Check-in Time:</b> {$checkInTime}</p>
+            <p>Please note that <b>rebooking is allowed only 24 hours before your scheduled booking</b>.</p>
+            <p>We look forward to your stay!</p>
+            <br>
+            <p>Best regards,<br>
+            <b>Handog Resort Team</b></p>
+        ";
+
+        $altBody = "Dear {$userName},\n\n"
+            . "Thank you for booking with us!\n"
+            . "Check-in Date: {$checkInDate}\n"
+            . "Check-in Time: {$checkInTime}\n\n"
+            . "Note: Rebooking is allowed only 24 hours before your scheduled booking.\n\n"
+            . "Best regards,\nHandog Resort Team";
+
+        // Send email
+        App::resolve(EmailHelper::class)->sendEmail($userEmail, $userName, $subject, $body, $altBody);
     }
 }

@@ -26,7 +26,12 @@ class Payment
     public function retrievePaymentByPaymentLink($payment_link)
     {
         return $this->db->query(
-            "SELECT * FROM payments WHERE payment_link=:payment_link",
+            "SELECT 
+                p.*, r.contact_person, r.contact_email, r.check_in, r.check_out
+            FROM payments p 
+            INNER JOIN reservations r 
+            ON r.id=p.reservation_id 
+            WHERE payment_link=:payment_link",
             compact('payment_link')
         )->findOrFail();
     }
