@@ -21,5 +21,8 @@
 <script src="/assets/guest/js/wow.min.js"></script>
 <!--<< Datepicker Js >>-->
 <script src="/assets/admin/js/flatpickr.js"></script>
+<!--<< Calendar Js >>-->
+<script src="/assets/admin/js/full-calendar.js"></script>
+
 <!--<< Main.js >>-->
 <script src="/assets/guest/js/main.js"></script>

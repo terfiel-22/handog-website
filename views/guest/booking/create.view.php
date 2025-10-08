@@ -46,10 +46,11 @@
                                 <div class="form-block">
                                     <h4 class="fw-bold">Booking Information</h4>
                                     <div class="row g-4">
-                                        <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="check_in">Check In</label>
                                             <div class="form-clt">
                                                 <input type="text" name="check_in" id="check_in" value="<?= old("check_in", ($_GET["check_in"] ?? date("d/m/Y H:i"))) ?>">
+                                                <div id="check_in_msg"></div>
                                                 <?php if (isset($errors["check_in"])) : ?>
                                                     <div class="error-text">
                                                         <?= $errors["check_in"] ?>
@@ -57,7 +58,7 @@
                                                 <?php endif; ?>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="facility">Hours Stay</label>
                                             <div class="form-clt">
                                                 <select name="time_range" id="time_range" class="single-select w-100" required>
@@ -70,6 +71,12 @@
                                                         <?= $errors["time_range"] ?>
                                                     </div>
                                                 <?php endif; ?>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s">
+                                            <label for="check_in">Check Out</label>
+                                            <div class="form-clt">
+                                                <input type="text" name="check_out" id="check_out" readonly>
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s">
@@ -193,7 +200,7 @@
                                     </div>
                                     <div class="row g-4 mt-2" id="card-fields"></div>
                                 </div>
-                                <button type="submit" class="gt-theme-btn mt-2">PROCEED</button>
+                                <button type="submit" id="submitBtn" class="gt-theme-btn mt-2">PROCEED</button>
                             </form>
                         </div>
                     </div>
@@ -208,8 +215,7 @@
     <!--<< All JS Plugins >>-->
     <?php view("guest/partials/plugins.partial.php") ?>
 
-    <!-- CalendarJS -->
-    <script src="assets/admin/js/full-calendar.js"></script>
+    <!-- Calendar -->
     <script>
         $(document).ready(function() {
             const bookingsData = <?= json_encode($bookings) ?>;
@@ -221,7 +227,6 @@
                 backgroundColor: '#ff4d4d',
                 textColor: '#ffffff'
             }));
-            console.log(events);
 
             $('#calendar').fullCalendar({
                 header: {
@@ -245,14 +250,102 @@
 
     <!-- Date picker -->
     <script>
-        // Flat pickr or date picker js
-        function getDatePicker(receiveID) {
-            flatpickr(receiveID, {
+        $(function() {
+            const bookings = <?= json_encode($bookings) ?> || [];
+
+            function parseDateTime(str) {
+                if (!str) return null;
+                str = str.trim().replace(' ', 'T');
+                if (str.length === 16) str += ':00';
+                const d = new Date(str);
+                return isNaN(d.getTime()) ? null : d;
+            }
+
+            function formatDateTime(d) {
+                if (!d) return '';
+                const pad = n => (n < 10 ? '0' + n : n);
+                return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+            }
+
+            function parseDurationEnum(val) {
+                switch (val) {
+                    case '8-Hours':
+                        return 8;
+                    case '12-Hours':
+                        return 12;
+                    case '1-Day':
+                        return 24;
+                    default:
+                        return 0;
+                }
+            }
+
+            function overlaps(aStart, aEnd, bStart, bEnd) {
+                return aStart < bEnd && aEnd > bStart;
+            }
+
+            $('#check_in').flatpickr({
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
+                time_24hr: true,
+                minDate: "today",
+                onChange: function() {
+                    checkAvailability();
+                }
             });
-        }
-        getDatePicker("#check_in");
+
+            $('#check_in, #time_range, #facility').on('change blur', checkAvailability);
+
+            function checkAvailability() {
+                $('#check_in_msg').text('');
+                $('#submitBtn').prop('disabled', false);
+
+                const facilityId = $('#facility').val();
+                const checkInRaw = $('#check_in').val();
+                const durationVal = $('#time_range').val();
+
+                if (!checkInRaw) {
+                    $('#check_out').val('');
+                    return;
+                }
+
+                const selStart = parseDateTime(checkInRaw);
+                if (!selStart) {
+                    $('#check_in_msg').text('Invalid check-in date/time.');
+                    $('#submitBtn').prop('disabled', true);
+                    return;
+                }
+
+                const hours = parseDurationEnum(durationVal);
+                const selEnd = new Date(selStart.getTime() + hours * 60 * 60 * 1000);
+                $('#check_out').val(formatDateTime(selEnd));
+
+                if (!facilityId) return;
+
+                const facilityBookings = bookings.filter(b => String(b.facility_id) === String(facilityId));
+                for (let i = 0; i < facilityBookings.length; i++) {
+                    const b = facilityBookings[i];
+                    const bStart = parseDateTime(b.check_in_date);
+                    const bEnd = parseDateTime(b.check_out_date);
+                    if (!bStart || !bEnd) continue;
+
+                    if (overlaps(selStart, selEnd, bStart, bEnd)) {
+                        $('#check_in_msg').html(
+                            `<strong>Selected time is unavailable</strong><br>
+                     Conflicts with existing booking:<br>
+                     <strong>${formatDateTime(bStart)}</strong> → <strong>${formatDateTime(bEnd)}</strong>`
+                        );
+                        $('#submitBtn').prop('disabled', true);
+                        return;
+                    }
+                }
+
+                $('#check_in_msg').text('');
+                $('#submitBtn').prop('disabled', false);
+            }
+
+            checkAvailability();
+        });
     </script>
 
     <!-- Generate Guest Fields -->
