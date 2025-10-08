@@ -219,16 +219,8 @@
     <script>
         $(document).ready(function() {
             const bookingsData = <?= json_encode($bookings) ?>;
-            const events = bookingsData.map(b => ({
-                title: 'Not Available',
-                start: b.check_in_date,
-                end: b.check_out_date,
-                allDay: false,
-                backgroundColor: '#ff4d4d',
-                textColor: '#ffffff'
-            }));
 
-            $('#calendar').fullCalendar({
+            const calendar = $('#calendar').fullCalendar({
                 header: {
                     left: 'prev,next today',
                     center: 'title',
@@ -242,7 +234,39 @@
                 allDaySlot: false,
                 minTime: "00:00:00",
                 maxTime: "24:00:00",
-                events: events
+                events: [] // Start empty
+            });
+
+            function updateCalendarEvents(facilityId) {
+                $('#calendar').fullCalendar('removeEvents');
+
+                if (!facilityId) return;
+
+                const facilityBookings = bookingsData.filter(b => String(b.facility_id) === String(facilityId));
+
+                const events = facilityBookings.map(b => {
+                    const checkIn = new Date(b.check_in_date);
+                    const checkOut = new Date(b.check_out_date);
+
+                    // Add 1 hour cleaning buffer
+                    const checkOutWithBuffer = new Date(checkOut.getTime() + 60 * 60 * 1000);
+
+                    return {
+                        title: 'Not Available',
+                        start: checkIn,
+                        end: checkOutWithBuffer,
+                        allDay: false,
+                        backgroundColor: '#ff4d4d',
+                        textColor: '#ffffff'
+                    };
+                });
+
+                $('#calendar').fullCalendar('addEventSource', events);
+            }
+
+            $('#facility').on('change', function() {
+                const facilityId = $(this).val();
+                updateCalendarEvents(facilityId);
             });
         });
     </script>
@@ -311,7 +335,6 @@
 
                 const selStart = parseDateTime(checkInRaw);
                 if (!selStart) {
-                    $('#check_in_msg').text('Invalid check-in date/time.');
                     $('#submitBtn').prop('disabled', true);
                     return;
                 }
