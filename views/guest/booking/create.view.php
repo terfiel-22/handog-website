@@ -322,6 +322,7 @@
 
                 if (!facilityId) return;
 
+                // Filter for selected facility
                 const facilityBookings = bookings.filter(b => String(b.facility_id) === String(facilityId));
                 for (let i = 0; i < facilityBookings.length; i++) {
                     const b = facilityBookings[i];
@@ -329,11 +330,21 @@
                     const bEnd = parseDateTime(b.check_out_date);
                     if (!bStart || !bEnd) continue;
 
-                    if (overlaps(selStart, selEnd, bStart, bEnd)) {
+                    const bEndWithCleaning = new Date(bEnd.getTime() + 60 * 60 * 1000);
+
+                    if (overlaps(selStart, selEnd, bStart, bEndWithCleaning)) {
+                        const isCleaning = selStart >= bEnd && selStart < bEndWithCleaning;
+                        const conflictType = isCleaning ?
+                            'cleaning time (1-hour)' :
+                            'an existing booking';
+
                         $('#check_in_msg').html(
-                            `<strong>Selected time is unavailable</strong><br>
-                     Conflicts with existing booking:<br>
-                     <strong>${formatDateTime(bStart)}</strong> → <strong>${formatDateTime(bEnd)}</strong>`
+                            `<strong>Selected time is unavailable.</strong><br>
+                     Conflicts with ${conflictType}:<br>
+                     <strong>${isCleaning ? formatDateTime(bEnd) : formatDateTime(bStart)}</strong> → <strong>${
+                     isCleaning ?
+                     formatDateTime(bEndWithCleaning)
+                    : formatDateTime(bEnd)}</strong>`
                         );
                         $('#submitBtn').prop('disabled', true);
                         return;
