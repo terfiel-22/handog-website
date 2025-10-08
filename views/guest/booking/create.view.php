@@ -50,7 +50,7 @@
                                             <label for="check_in">Check In</label>
                                             <div class="form-clt">
                                                 <input type="text" name="check_in" id="check_in" value="<?= old("check_in", ($_GET["check_in"] ?? date("d/m/Y H:i"))) ?>">
-                                                <div id="check_in_msg"></div>
+                                                <div id="check_in_msg" class="error-text"></div>
                                                 <?php if (isset($errors["check_in"])) : ?>
                                                     <div class="error-text">
                                                         <?= $errors["check_in"] ?>
@@ -343,8 +343,6 @@
                 $('#check_in_msg').text('');
                 $('#submitBtn').prop('disabled', false);
             }
-
-            checkAvailability();
         });
     </script>
 
