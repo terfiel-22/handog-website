@@ -67,3 +67,21 @@ function bookingDeposit($total_amount)
 {
     return $total_amount / 2;
 }
+
+/** Function to return booking format (for calendar js) */
+function convertToBookingsFormat(array $data): array
+{
+    $bookings = [];
+
+    foreach ($data as $row) {
+        $checkIn = date('Y-m-d\TH:i:s', strtotime($row['check_in']));
+        $checkOut = date('Y-m-d\TH:i:s', strtotime($row['check_out']));
+
+        $bookings[] = [
+            'check_in_date' => $checkIn,
+            'check_out_date' => $checkOut
+        ];
+    }
+
+    return $bookings;
+}

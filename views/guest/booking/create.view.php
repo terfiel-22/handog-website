@@ -23,7 +23,17 @@
     <section class="gt-contacts-section section-padding fix">
         <div class="container">
             <div class="gt-contact-wrapper">
-                <div class="row g-4">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-12 col-md-8">
+                        <div class="card h-100 p-0">
+                            <div class="card-body p-24">
+                                <div id="wrap">
+                                    <div id="calendar"></div>
+                                    <div style="clear: both"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-12">
                         <div class="gt-contact-right-items">
                             <h2>
@@ -197,6 +207,41 @@
 
     <!--<< All JS Plugins >>-->
     <?php view("guest/partials/plugins.partial.php") ?>
+
+    <!-- CalendarJS -->
+    <script src="assets/admin/js/full-calendar.js"></script>
+    <script>
+        $(document).ready(function() {
+            const bookingsData = <?= json_encode($bookings) ?>;
+            const events = bookingsData.map(b => ({
+                title: 'Not Available',
+                start: b.check_in_date,
+                end: b.check_out_date,
+                allDay: false,
+                backgroundColor: '#ff4d4d',
+                textColor: '#ffffff'
+            }));
+            console.log(events);
+
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                weekends: true,
+                businessHours: false,
+                defaultView: 'agendaWeek',
+                editable: false,
+                selectable: false,
+                allDaySlot: false,
+                minTime: "00:00:00",
+                maxTime: "24:00:00",
+                events: events
+            });
+        });
+    </script>
+
 
     <!-- Date picker -->
     <script>

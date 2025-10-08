@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="/assets/guest/css/all.min.css" />
     <!--<< Animate.css >>-->
     <link rel="stylesheet" href="/assets/guest/css/animate.css" />
+    <!--<< Calendar >>-->
+    <link rel="stylesheet" href="assets/admin/css/lib/full-calendar.css" />
     <!--<< Magnific Popup.css >>-->
     <link rel="stylesheet" href="/assets/guest/css/magnific-popup.css" />
     <!--<< MeanMenu.css >>-->
