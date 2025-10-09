@@ -21,6 +21,8 @@
     $router->get('/admin/facilities', 'admin/facility/index.controller.php')->only('guest');
     $router->get('/admin/facilities/create', 'admin/facility/create.controller.php')->only('guest');
     $router->post('/admin/facilities/store', 'admin/facility/store.controller.php')->only('guest');
+    $router->get('/admin/facilities/edit', 'admin/facility/edit.controller.php')->only('guest');
+    $router->put('/admin/facilities/update', 'admin/facility/update.controller.php')->only('guest');
     $router->delete('/admin/facilities/destroy', 'admin/facility/destroy.controller.php')->only('guest');
 
     //   Amenities
