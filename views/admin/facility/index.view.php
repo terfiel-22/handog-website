@@ -68,15 +68,23 @@ $pageName = "Facilities"
                                         </td>
                                         <td> <span class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm"><?= $facility['status'] ?></span> </td>
                                         <td>
-                                            <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
+                                            <!-- <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
                                                 <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
                                             </a>
                                             <a href="javascript:void(0)" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
                                                 <iconify-icon icon="lucide:edit"></iconify-icon>
-                                            </a>
-                                            <a href="javascript:void(0)" class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
+                                            </a> 
+                                             
+                                            -->
+
+                                            <button
+                                                type="button"
+                                                class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center"
+                                                onclick="deleteModalForm('/admin/facilities/destroy','<?= $facility['id'] ?>')"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#al-warning-alert">
                                                 <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
-                                            </a>
+                                            </button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -89,8 +97,12 @@ $pageName = "Facilities"
         </div>
     </main>
 
+
     <!-- JS Plugins -->
     <?php view("admin/partials/plugins.partial.php") ?>
+
+    <?php view("admin/shared/delete-modal.php") ?>
+
     <script>
         let table = new DataTable('#dataTable');
     </script>
