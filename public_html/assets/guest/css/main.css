@@ -7288,3 +7288,12 @@ span {
   color: var(--danger-main);
   font-size: 14px;
 }
+
+/* Full Calendar */
+@media (max-width: 768px){
+    .fc-header-left, .fc-header-center, .fc-header-right {
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+}
