@@ -52,7 +52,7 @@ $pageName = "Add Facility"
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-3">
                             <label class="form-label" for="name">Name</label>
                             <input type="text" name="name" id="name" class="form-control" placeholder="Enter facility name" value="<?= old('name') ?>">
                             <?php if (isset($errors["name"])) : ?>
@@ -61,7 +61,7 @@ $pageName = "Add Facility"
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-3">
                             <label class="form-label" for="type">Type</label>
                             <select name="type" id="type" class="form-control">
                                 <?php foreach (\Http\Enums\FacilityType::toArray() as $type): ?>
@@ -74,7 +74,16 @@ $pageName = "Add Facility"
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-3">
+                            <label class="form-label" for="available_unit">Available Unit</label>
+                            <input type="number" name="available_unit" id="available_unit" class="form-control" placeholder="Enter facility available unit" value="<?= old('available_unit') ?>">
+                            <?php if (isset($errors["available_unit"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["available_unit"] ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="col-12 col-md-3">
                             <label class="form-label" for="capacity">Capacity</label>
                             <input type="number" name="capacity" id="capacity" class="form-control" placeholder="Enter facility capacity" value="<?= old('capacity') ?>">
                             <?php if (isset($errors["capacity"])) : ?>

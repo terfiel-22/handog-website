@@ -18,7 +18,7 @@ class Facility
     public function createFacility($attributes)
     {
         return $this->db->query(
-            "INSERT INTO facilities(name, type, capacity, description, rate_hourly, rate_8hrs, rate_12hrs, rate_1day, amenities) VALUES(:name, :type, :capacity, :description, :rate_hourly, :rate_8hrs, :rate_12hrs, :rate_1day, :amenities)",
+            "INSERT INTO facilities(name, type, available_unit, capacity, description, rate_hourly, rate_8hrs, rate_12hrs, rate_1day, amenities) VALUES(:name, :type, :available_unit, :capacity, :description, :rate_hourly, :rate_8hrs, :rate_12hrs, :rate_1day, :amenities)",
             $attributes
         )->id();
     }

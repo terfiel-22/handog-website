@@ -19,6 +19,9 @@ class FacilityForm extends Form
         if (!Validator::in_options($type, FacilityType::toArray())) {
             $this->errors["type"] = "Please select a valid facility type.";
         }
+        if (!Validator::quantity($available_unit, 1)) {
+            $this->errors["available_unit"] = "Atleast 1 available unit is required.";
+        }
         if (!Validator::not_empty($description)) {
             $this->errors["description"] = "Facility description is required.";
         }
