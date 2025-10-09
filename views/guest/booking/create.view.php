@@ -243,25 +243,44 @@
                 if (!facilityId) return;
 
                 const facilityBookings = bookingsData.filter(b => String(b.facility_id) === String(facilityId));
+                if (facilityBookings.length === 0) return;
 
-                const events = facilityBookings.map(b => {
-                    const checkIn = new Date(b.check_in_date);
-                    const checkOut = new Date(b.check_out_date);
+                const availableUnits = facilityBookings[0].available_unit; // assume same for this facility
+                const fullyBookedSlots = [];
 
-                    // Add 1 hour cleaning buffer
-                    const checkOutWithBuffer = new Date(checkOut.getTime() + 60 * 60 * 1000);
+                // Iterate through bookings to find overlapping fully booked ranges
+                for (let i = 0; i < facilityBookings.length; i++) {
+                    const current = facilityBookings[i];
+                    const start = new Date(current.check_in_date);
+                    const end = new Date(current.check_out_date);
+                    const endWithBuffer = new Date(end.getTime() + 60 * 60 * 1000); // +1 hr cleaning
 
-                    return {
-                        title: 'Not Available',
-                        start: checkIn,
-                        end: checkOutWithBuffer,
-                        allDay: false,
-                        backgroundColor: '#ff4d4d',
-                        textColor: '#ffffff'
-                    };
-                });
+                    // Count overlapping bookings within this time range
+                    let overlapCount = 0;
+                    for (let j = 0; j < facilityBookings.length; j++) {
+                        const other = facilityBookings[j];
+                        const otherStart = new Date(other.check_in_date);
+                        const otherEnd = new Date(other.check_out_date);
 
-                $('#calendar').fullCalendar('addEventSource', events);
+                        if (start < otherEnd && end > otherStart) {
+                            overlapCount++;
+                        }
+                    }
+
+                    // Only add to calendar if all units are booked at that time
+                    if (overlapCount >= availableUnits) {
+                        fullyBookedSlots.push({
+                            title: 'Not Available',
+                            start: start,
+                            end: endWithBuffer,
+                            allDay: false,
+                            backgroundColor: '#ff4d4d',
+                            textColor: '#ffffff'
+                        });
+                    }
+                }
+
+                $('#calendar').fullCalendar('addEventSource', fullyBookedSlots);
             }
 
             $('#facility').on('change', function() {

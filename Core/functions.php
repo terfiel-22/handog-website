@@ -79,6 +79,7 @@ function convertToBookingsFormat(array $data): array
         $checkOut = date('Y-m-d\TH:i:s', strtotime($row['check_out']));
 
         $bookings[] = [
+            'available_unit' => $row["available_unit"],
             'facility_id' => $row["facility_id"],
             'check_in_date' => $checkIn,
             'check_out_date' => $checkOut

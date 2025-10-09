@@ -45,9 +45,13 @@ class Reservation
     {
         return $this->db->query("
         SELECT 
-            res.*
+            res.*, fac.available_unit
         FROM 
             reservations res 
+        INNER JOIN 
+            facilities fac 
+        ON 
+            fac.id=res.facility_id
         INNER JOIN 
             payments p 
         ON 

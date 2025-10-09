@@ -9,7 +9,6 @@ use Http\Models\Reservation;
 $rates = App::resolve(Rates::class)->fetchRates();
 $facilities = App::resolve(Facility::class)->fetchFacilities();
 $errors = Session::get('errors', []);
-
 $confirmedReservations = App::resolve(Reservation::class)->fetchPaidReservations();
 $bookings = convertToBookingsFormat($confirmedReservations);
 
