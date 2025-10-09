@@ -40,6 +40,7 @@
                                 Book a reservation
                             </h2>
                             <p>Complete filling up the form to continue.</p>
+                            <div class="error-text" role="alert" id="check_in_msg"></div>
                             <form action="/booking/store" method="POST" class="booking">
                                 <input type="hidden" name="time_slot" id="time_slot">
                                 <!-- Booking Information -->
@@ -50,7 +51,6 @@
                                             <label for="check_in">Check In</label>
                                             <div class="form-clt">
                                                 <input type="text" name="check_in" id="check_in" value="<?= old("check_in", ($_GET["check_in"] ?? date("d/m/Y H:i"))) ?>">
-                                                <div id="check_in_msg" class="error-text"></div>
                                                 <?php if (isset($errors["check_in"])) : ?>
                                                     <div class="error-text">
                                                         <?= $errors["check_in"] ?>
@@ -290,7 +290,6 @@
         });
     </script>
 
-
     <!-- Date picker -->
     <script>
         $(function() {
@@ -308,6 +307,19 @@
                 if (!d) return '';
                 const pad = n => (n < 10 ? '0' + n : n);
                 return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+            }
+
+            function formatReadableDateTime(d) {
+                if (!d) return '';
+                const options = {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true,
+                };
+                return d.toLocaleString('en-US', options);
             }
 
             function parseDurationEnum(val) {
@@ -364,33 +376,46 @@
 
                 if (!facilityId) return;
 
-                // Filter for selected facility
+                // Filter bookings by facility
                 const facilityBookings = bookings.filter(b => String(b.facility_id) === String(facilityId));
+                if (facilityBookings.length === 0) return;
+
+                const availableUnits = facilityBookings[0].available_unit || 1;
+
+                // Count overlapping bookings
+                let overlapCount = 0;
+                let conflictDetails = [];
+
                 for (let i = 0; i < facilityBookings.length; i++) {
                     const b = facilityBookings[i];
                     const bStart = parseDateTime(b.check_in_date);
                     const bEnd = parseDateTime(b.check_out_date);
                     if (!bStart || !bEnd) continue;
 
+                    // Add 1-hour cleaning buffer
                     const bEndWithCleaning = new Date(bEnd.getTime() + 60 * 60 * 1000);
 
                     if (overlaps(selStart, selEnd, bStart, bEndWithCleaning)) {
-                        const isCleaning = selStart >= bEnd && selStart < bEndWithCleaning;
-                        const conflictType = isCleaning ?
-                            'cleaning time (1-hour)' :
-                            'an existing booking';
-
-                        $('#check_in_msg').html(
-                            `<strong>Selected time is unavailable.</strong><br>
-                     Conflicts with ${conflictType}:<br>
-                     <strong>${isCleaning ? formatDateTime(bEnd) : formatDateTime(bStart)}</strong> → <strong>${
-                     isCleaning ?
-                     formatDateTime(bEndWithCleaning)
-                    : formatDateTime(bEnd)}</strong>`
-                        );
-                        $('#submitBtn').prop('disabled', true);
-                        return;
+                        overlapCount++;
+                        conflictDetails.push({
+                            start: bStart,
+                            end: bEndWithCleaning
+                        });
                     }
+                }
+
+                // Disable only if all units are occupied
+                if (overlapCount >= availableUnits) {
+                    let conflictText = conflictDetails
+                        .map(c => `<strong>${formatReadableDateTime(c.start)}</strong> → <strong>${formatReadableDateTime(c.end)}</strong>`)
+                        .join('<br>');
+
+                    $('#check_in_msg').html(
+                        `<strong>Selected check-in time is unavailable.</strong><br>
+                 All ${availableUnits} unit(s) are booked during:<br>${conflictText}`
+                    );
+                    $('#submitBtn').prop('disabled', true);
+                    return;
                 }
 
                 $('#check_in_msg').text('');
