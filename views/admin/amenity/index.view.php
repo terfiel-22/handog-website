@@ -48,7 +48,7 @@ $pageName = "Amenities"
                             <tbody>
                                 <?php foreach ($amenities as $amenity): ?>
                                     <tr>
-                                        <td><a href="javascript:void(0)" class="text-primary-600">#<?= $amenity['id'] ?></a></td>
+                                        <td><a href="javascript:void(0)" class="text-primary-600"><?= $amenity['id'] ?></a></td>
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <img src="<?= handleImage($amenity['image'], "/assets/admin/images/user-list/user-list1.png")  ?> " alt="<?= $amenity['name'] ?>" class="flex-shrink-0 me-12 radius-8" style="width: 80px;">
@@ -57,15 +57,24 @@ $pageName = "Amenities"
                                         </td>
                                         <td><?= ucfirst($amenity['type']) ?></td>
                                         <td>
-                                            <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
+                                            <!-- <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
                                                 <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
-                                            </a>
-                                            <a href="javascript:void(0)" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                                                <iconify-icon icon="lucide:edit"></iconify-icon>
-                                            </a>
-                                            <a href="javascript:void(0)" class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                                                <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
-                                            </a>
+                                            </a> -->
+
+                                            <div class="d-flex align-items-center gap-2">
+                                                <a href="/admin/amenities/edit?id=<?= $amenity["id"] ?>" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                    <iconify-icon icon="lucide:edit"></iconify-icon>
+                                                </a>
+
+                                                <button
+                                                    type="button"
+                                                    class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center"
+                                                    onclick="deleteModalForm('/admin/amenities/destroy','<?= $amenity['id'] ?>')"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#al-warning-alert">
+                                                    <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
