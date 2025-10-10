@@ -21,4 +21,12 @@ class FacilityImage
             $attributes
         );
     }
+
+    public function deleteFacilityImageByPath($image)
+    {
+        $this->db->query(
+            "DELETE FROM facility_images WHERE image = :image",
+            compact('image')
+        );
+    }
 }

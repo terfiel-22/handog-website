@@ -6,7 +6,7 @@ use Http\Models\Facility;
 
 $errors = Session::get('errors', []);
 
-$id = $_GET["id"] || 0;
+$id = $_GET["id"] ?? 0;
 $facility = App::resolve(Facility::class)->fetchSingleFacilityWithImagesById($id);
 
 $images = explode(',', $facility["images"]);

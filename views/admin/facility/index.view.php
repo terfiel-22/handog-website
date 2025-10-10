@@ -51,7 +51,7 @@ $pageName = "Facilities"
                             <tbody>
                                 <?php foreach ($facilities as $facility): ?>
                                     <tr>
-                                        <td><a href="javascript:void(0)" class="text-primary-600">#<?= $facility['id'] ?></a></td>
+                                        <td><a href="javascript:void(0)" class="text-primary-600"><?= $facility['id'] ?></a></td>
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <img src="<?= handleImage($facility['image'], "/assets/admin/images/user-list/user-list1.png")  ?> " alt="<?= $facility['name'] ?>" class="flex-shrink-0 me-12 radius-8" style="width: 80px;">
