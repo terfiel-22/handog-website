@@ -1,5 +1,5 @@
 <?php
-$pageName = "Add Facility"
+$pageName = "Edit Facility"
 ?>
 
 <!-- meta tags and other links -->
