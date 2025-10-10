@@ -21,4 +21,12 @@ class AmenityImage
             $attributes
         );
     }
+
+    public function deleteAmenityImageByPath($image)
+    {
+        $this->db->query(
+            "DELETE FROM amenity_images WHERE image = :image",
+            compact('image')
+        );
+    }
 }

@@ -22,6 +22,20 @@ class Amenity
         )->id();
     }
 
+    public function updateAmenity($id, $attributes)
+    {
+        $attributes['id'] = $id;
+
+        return $this->db->query(
+            "UPDATE amenities 
+            SET name = :name,
+                type = :type, 
+                description = :description
+            WHERE id = :id",
+            $attributes
+        );
+    }
+
     public function fetchAmenities()
     {
         return $this->db->query(
