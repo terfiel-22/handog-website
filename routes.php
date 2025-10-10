@@ -31,6 +31,7 @@
    $router->post('/admin/amenities/store', 'admin/amenity/store.controller.php')->only('guest');
    $router->get('/admin/amenities/edit', 'admin/amenity/edit.controller.php')->only('guest');
    $router->put('/admin/amenities/update', 'admin/amenity/update.controller.php')->only('guest');
+   $router->delete('/admin/amenities/destroy', 'admin/amenity/destroy.controller.php')->only('guest');
 
    // Reservation 
    $router->get('/admin/reservations', 'admin/reservation/index.controller.php')->only('guest');

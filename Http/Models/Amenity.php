@@ -117,7 +117,7 @@ class Amenity
 
     public function deleteAmenity($id)
     {
-        $this->db->query(
+        $result = $this->db->query(
             "DELETE FROM amenities WHERE id = :id",
             compact('id')
         );

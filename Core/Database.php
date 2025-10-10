@@ -35,7 +35,7 @@ class Database
             $this->statement->execute($params);
             return $this;
         } catch (\PDOException $e) {
-            Session::flash('toastMsg', $e->getMessage());
+            error_log($e->getMessage());
             return $this;
         }
     }
