@@ -48,6 +48,7 @@ $pageName = "Add Facility"
                                     <input id="upload-file-multiple" name="images[]" type="file" accept="image/*" hidden multiple>
                                 </label>
                             </div>
+                            <input type="hidden" name="existing_images" id="existing_images">
                             <?php if (isset($errors["image"])) : ?>
                                 <div class="error-text">
                                     <?= $errors["image"] ?>
@@ -160,6 +161,12 @@ $pageName = "Add Facility"
             const imagesPath = <?= json_encode($readableImagePaths) ?>;
             const $fileInputMultiple = $("#upload-file-multiple");
             const $uploadedImgsContainer = $(".uploaded-imgs-container");
+            const $existingImagesInput = $("#existing_images");
+            let existingImages = Array.isArray(imagesPath) ? imagesPath.filter(p => p.trim() !== '') : [];
+
+            function updateHiddenInput() {
+                $existingImagesInput.val(JSON.stringify(existingImages));
+            }
 
             function createImagePreview(src, isExisting = false) {
                 const $imgContainer = $("<div>").addClass(
@@ -180,31 +187,32 @@ $pageName = "Add Facility"
                 $imgContainer.append($removeButton, $imagePreview);
                 $uploadedImgsContainer.append($imgContainer);
 
-                // Handle remove
+                // Remove handler
                 $removeButton.on("click", function() {
-                    if (!isExisting) {
+                    if (isExisting) {
+                        // Remove from existing list
+                        existingImages = existingImages.filter(img => img !== src);
+                        updateHiddenInput();
+                    } else {
                         URL.revokeObjectURL(src);
                     }
                     $imgContainer.remove();
                 });
             }
 
-            // ✅ Preload existing images
-            if (Array.isArray(imagesPath) && imagesPath.length > 0) {
-                imagesPath.forEach(path => {
-                    if (path.trim() !== "") {
-                        // You can adjust this if you need a base URL:
-                        // createImagePreview(`/uploads/facilities/${path}`, true);
-                        createImagePreview(path, true);
-                    }
-                });
+            // ✅ Load existing images
+            if (existingImages.length > 0) {
+                existingImages.forEach(path => createImagePreview(path, true));
+                updateHiddenInput();
             }
 
-            // ✅ Handle file uploads
+            // ✅ Handle new uploads
             $fileInputMultiple.on("change", function(e) {
-                $uploadedImgsContainer.empty(); // clear current previews
-                const files = e.target.files;
+                $uploadedImgsContainer.empty();
+                existingImages = []; // Means user replaced all images
+                updateHiddenInput();
 
+                const files = e.target.files;
                 $.each(files, function(_, file) {
                     const src = URL.createObjectURL(file);
                     createImagePreview(src);

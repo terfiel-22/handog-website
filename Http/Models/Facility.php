@@ -23,6 +23,29 @@ class Facility
         )->id();
     }
 
+    public function updateFacility($id, $attributes)
+    {
+        $attributes['id'] = $id;
+
+        return $this->db->query(
+            "UPDATE facilities 
+            SET name = :name,
+                type = :type,
+                available_unit = :available_unit,
+                capacity = :capacity,
+                description = :description,
+                rate_hourly = :rate_hourly,
+                rate_8hrs = :rate_8hrs,
+                rate_12hrs = :rate_12hrs,
+                rate_1day = :rate_1day,
+                amenities = :amenities
+            WHERE id = :id",
+            $attributes
+        );
+    }
+
+
+
     public function fetchFacilityById($id)
     {
         return $this->db->query("
