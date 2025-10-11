@@ -26,4 +26,9 @@ class GalleryImage
     {
         return $this->db->query('SELECT * FROM gallery_images')->get();
     }
+
+    public function fetchGalleryImageById($id)
+    {
+        return $this->db->query('SELECT * FROM gallery_images WHERE id=:id', compact('id'))->findOrFail();
+    }
 }
