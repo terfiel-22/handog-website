@@ -38,6 +38,7 @@
   $router->get('/admin/gallery/create', 'admin/gallery/create.controller.php')->only('guest');
   $router->post('/admin/gallery/store', 'admin/gallery/store.controller.php')->only('guest');
   $router->get('/admin/gallery/edit', 'admin/gallery/edit.controller.php')->only('guest');
+  $router->put('/admin/gallery/update', 'admin/gallery/update.controller.php')->only('guest');
 
   // Reservation 
   $router->get('/admin/reservations', 'admin/reservation/index.controller.php')->only('guest');

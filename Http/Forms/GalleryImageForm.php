@@ -22,7 +22,7 @@ class GalleryImageForm extends Form
         }
 
         if (!Validator::not_empty($image)) {
-            $this->errors["image"] = "Atleast one image is required.";
+            $this->errors["image"] = "An image is required.";
         }
     }
 }

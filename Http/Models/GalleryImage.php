@@ -22,6 +22,20 @@ class GalleryImage
         )->id();
     }
 
+    public function updateGalleryImage($id, $attributes)
+    {
+        $attributes['id'] = $id;
+
+        return $this->db->query(
+            "UPDATE gallery_images 
+            SET name = :name,
+                description = :description,
+                image = :image
+            WHERE id = :id",
+            $attributes
+        );
+    }
+
     public function fetchGalleryImages()
     {
         return $this->db->query('SELECT * FROM gallery_images')->get();
