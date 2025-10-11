@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2025 at 09:15 PM
+-- Generation Time: Oct 11, 2025 at 07:54 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -80,6 +80,7 @@ CREATE TABLE `facilities` (
   `id` int(11) NOT NULL,
   `name` varchar(150) NOT NULL,
   `type` enum('room','cottage','event_hall','exclusive') NOT NULL,
+  `available_unit` int(10) NOT NULL DEFAULT 1,
   `description` text NOT NULL,
   `capacity` int(11) NOT NULL,
   `rate_hourly` decimal(10,2) NOT NULL DEFAULT 0.00,
@@ -95,14 +96,13 @@ CREATE TABLE `facilities` (
 -- Dumping data for table `facilities`
 --
 
-INSERT INTO `facilities` (`id`, `name`, `type`, `description`, `capacity`, `rate_hourly`, `rate_8hrs`, `rate_12hrs`, `rate_1day`, `amenities`, `status`, `created_at`) VALUES
-(1, 'Honeymoon Suite', 'room', 'Experience pure romance in our Honeymoon Suite, featuring a plush king bed, private balcony with ocean views, and a marble bathroom with a soaking tub. Enjoy champagne on arrival and an intimate, elegant setting designed for unforgettable moments together.', 4, 0.00, 0.00, 1500.00, 0.00, 'TV, Shower', 'available', '2025-09-12 16:42:16'),
-(2, 'Romantic Oceanfront Villa', 'room', 'Escape to your private villa with breathtaking sea views, a sunlit terrace, and a spacious bathroom with a deep soaking tub. Perfect for couples seeking intimacy, elegance, and unforgettable sunsets.', 2, 0.00, 0.00, 2500.00, 0.00, 'TV, Shower, Ocean View', 'available', '2025-09-13 09:16:05'),
-(6, 'Whispering Pines Cottage', 'cottage', 'A cozy retreat surrounded by evergreens, perfect for relaxing by the fireplace, enjoying quiet mornings on the porch, or exploring nearby trails.', 6, 0.00, 0.00, 500.00, 0.00, '', 'available', '2025-09-23 15:57:00'),
-(7, 'Event Hall', 'event_hall', 'Planning a special event? Our spacious event hall is perfect for birthdays, reunions, weddings, and more. With a flexible setup, relaxing resort vibes, and access to our pool and amenities, it\'s the perfect place to celebrate. Book now and make your event easy, fun, and unforgettable!', 50, 3000.00, 0.00, 25000.00, 0.00, 'A Standard Room, Chairs and Tables', 'available', '2025-09-24 14:12:14'),
-(8, 'Studio Loft', 'room', 'This modern Studio Loft combines functionality with style. Ideal for solo travelers or couples, it offers a cozy space with everything you need at your fingertips.', 12, 0.00, 0.00, 1500.00, 0.00, 'Kitchen', 'available', '2025-09-25 16:23:08'),
-(9, 'Nature-Inspired', 'cottage', 'Nestled in a peaceful setting, this cottage combines rustic charm with modern convenience. Ideal for guests who love nature, privacy, and cozy living.', 10, 0.00, 250.00, 300.00, 0.00, '', 'available', '2025-09-26 04:11:19'),
-(10, 'Exclusive', 'exclusive', 'Make the entire resort your own private paradise! With our exclusive reservation package, you get full, private access to all our amenities. Perfect for reunions, celebrations, or peaceful getaways. No crowds, no interruptions just you and your loved ones enjoying the moment.', 300, 0.00, 0.00, 55000.00, 80000.00, 'Pool, Rooms, Cottages', 'available', '2025-09-29 09:14:42');
+INSERT INTO `facilities` (`id`, `name`, `type`, `available_unit`, `description`, `capacity`, `rate_hourly`, `rate_8hrs`, `rate_12hrs`, `rate_1day`, `amenities`, `status`, `created_at`) VALUES
+(1, 'Honeymoon Suite', 'room', 1, 'Experience pure romance in our Honeymoon Suite, featuring a plush king bed, private balcony with ocean views, and a marble bathroom with a soaking tub. Enjoy champagne on arrival and an intimate, elegant setting designed for unforgettable moments together.', 4, 0.00, 0.00, 1500.00, 0.00, 'TV, Shower', 'available', '2025-09-12 16:42:16'),
+(2, 'Romantic Oceanfront Villa', 'room', 1, 'Escape to your private villa with breathtaking sea views, a sunlit terrace, and a spacious bathroom with a deep soaking tub. Perfect for couples seeking intimacy, elegance, and unforgettable sunsets.', 2, 0.00, 0.00, 2500.00, 0.00, 'TV, Shower, Ocean View', 'available', '2025-09-13 09:16:05'),
+(6, 'Whispering Pines Cottage', 'cottage', 1, 'A cozy retreat surrounded by evergreens, perfect for relaxing by the fireplace, enjoying quiet mornings on the porch, or exploring nearby trails.', 6, 0.00, 0.00, 500.00, 0.00, '', 'available', '2025-09-23 15:57:00'),
+(7, 'Event Hall', 'event_hall', 1, 'Planning a special event? Our spacious event hall is perfect for birthdays, reunions, weddings, and more. With a flexible setup, relaxing resort vibes, and access to our pool and amenities, it\'s the perfect place to celebrate. Book now and make your event easy, fun, and unforgettable!', 50, 3000.00, 0.00, 25000.00, 0.00, 'A Standard Room, Chairs and Tables', 'available', '2025-09-24 14:12:14'),
+(8, 'Studio Loft', 'room', 1, 'This modern Studio Loft combines functionality with style. Ideal for solo travelers or couples, it offers a cozy space with everything you need at your fingertips.', 12, 0.00, 0.00, 1500.00, 0.00, 'Kitchen', 'available', '2025-09-25 16:23:08'),
+(9, 'Nature-Inspired', 'cottage', 2, 'Nestled in a peaceful setting, this cottage combines rustic charm with modern convenience. Ideal for guests who love nature, privacy, and cozy living.', 10, 0.00, 250.00, 300.00, 0.00, '', 'available', '2025-09-26 04:11:19');
 
 -- --------------------------------------------------------
 
@@ -128,9 +128,7 @@ INSERT INTO `facility_images` (`id`, `facility_id`, `image`) VALUES
 (6, 7, 'uploads/images/68d3fc3ea13e7_event_hall_2.jpg'),
 (7, 7, 'uploads/images/68d3fc3ea15e9_event_hall_1.jpg'),
 (11, 8, 'uploads/images/68d56c6c96732_room_1.jpg'),
-(13, 9, 'uploads/images/68d61268042ab_cottage_1.jpg'),
-(14, 10, 'uploads/images/68da4e022ef00_exclusive_2.jpg'),
-(15, 10, 'uploads/images/68da4e022f0cc_exclusive_1.jpg');
+(13, 9, 'uploads/images/68d61268042ab_cottage_1.jpg');
 
 -- --------------------------------------------------------
 
@@ -163,21 +161,20 @@ CREATE TABLE `payments` (
   `id` int(11) NOT NULL,
   `reservation_id` int(11) NOT NULL,
   `amount` decimal(10,2) NOT NULL,
-  `payment_method` enum('cash','card','gcash','grab_pay','paymaya','billease') NOT NULL,
-  `payment_status` enum('pending','paid','half_paid','failed','refunded','cancelled') NOT NULL DEFAULT 'pending',
-  `payment_intent_id` varchar(100) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `payment_method` varchar(100) DEFAULT NULL,
+  `payment_status` varchar(50) DEFAULT NULL,
+  `payment_link` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `payments`
 --
 
-INSERT INTO `payments` (`id`, `reservation_id`, `amount`, `payment_method`, `payment_status`, `payment_intent_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 420.00, 'cash', 'paid', NULL, '2025-09-30 11:08:57', '2025-09-30 11:08:57'),
-(2, 3, 420.00, 'cash', 'pending', NULL, '2025-10-05 16:34:18', '2025-10-05 16:34:18'),
-(3, 4, 200.00, 'card', 'half_paid', 'pi_cXDhXZa2XgNmUYX3BGdkZ369', '2025-10-05 19:13:52', '2025-10-05 19:13:52');
+INSERT INTO `payments` (`id`, `reservation_id`, `amount`, `payment_method`, `payment_status`, `payment_link`, `created_at`, `updated_at`) VALUES
+(2, 6, 450.00, 'gcash', 'half_paid', 'link_TLaQu94tBpzBYF9fLdzGLSmT', '2025-10-08 00:50:39', '2025-10-08 17:06:46'),
+(3, 7, 450.00, 'gcash', 'half_paid', 'link_YaEHxAfhM4hHHAEpjougB7iU', '2025-10-08 04:29:57', '2025-10-08 05:01:33');
 
 -- --------------------------------------------------------
 
@@ -209,7 +206,9 @@ CREATE TABLE `reservations` (
 INSERT INTO `reservations` (`id`, `facility_id`, `contact_person`, `contact_no`, `contact_email`, `contact_address`, `check_in`, `check_out`, `guest_count`, `rent_videoke`, `total_price`, `status`, `created_at`, `updated_at`) VALUES
 (1, 9, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-09-30 06:00:00', '2025-09-30 17:00:00', 1, 'no', 420.00, 'confirmed', '2025-09-30 11:08:57', '2025-10-03 10:17:19'),
 (3, 9, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-10-06 06:00:00', '2025-10-06 18:00:00', 1, 'no', 420.00, 'confirmed', '2025-10-05 16:34:18', '2025-10-05 16:34:18'),
-(4, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-03-29 00:00:00', '2025-03-29 08:00:00', 1, 'no', 200.00, 'pending', '2025-10-05 19:13:52', '2025-10-05 19:13:52');
+(4, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-03-29 00:00:00', '2025-03-29 08:00:00', 1, 'no', 200.00, 'pending', '2025-10-05 19:13:52', '2025-10-05 19:13:52'),
+(6, 9, 'Taki Fimito', '09384736281', 'badexek999@noidos.com', 'Manila, Philippines', '2025-10-11 00:00:00', '2025-10-11 08:00:00', 1, 'no', 450.00, 'pending', '2025-10-07 16:50:39', '2025-10-09 08:27:35'),
+(7, 9, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-10-11 05:00:00', '2025-10-11 13:00:00', 1, 'no', 450.00, 'pending', '2025-10-07 20:29:57', '2025-10-09 08:28:54');
 
 -- --------------------------------------------------------
 
@@ -235,7 +234,9 @@ CREATE TABLE `reservation_guests` (
 INSERT INTO `reservation_guests` (`id`, `reservation_id`, `guest_name`, `guest_age`, `guest_type`, `senior_pwd`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Taki Fimito', 22, 'adult', 'no', '2025-09-30 11:08:57', '2025-09-30 11:08:57'),
 (3, 3, 'Taki Fimito', 22, 'adult', 'no', '2025-10-05 16:34:18', '2025-10-05 16:34:18'),
-(4, 4, 'Taki Fimito', 22, 'adult', 'no', '2025-10-05 19:13:52', '2025-10-05 19:13:52');
+(4, 4, 'Taki Fimito', 22, 'adult', 'no', '2025-10-05 19:13:52', '2025-10-05 19:13:52'),
+(6, 6, 'Taki Fimito', 22, 'adult', 'no', '2025-10-07 16:50:39', '2025-10-07 16:50:39'),
+(7, 7, 'Taki Fimito', 22, 'adult', 'no', '2025-10-07 20:29:57', '2025-10-07 20:29:57');
 
 -- --------------------------------------------------------
 
@@ -275,7 +276,7 @@ ALTER TABLE `amenities`
 --
 ALTER TABLE `amenity_images`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `amenity_id` (`amenity_id`);
+  ADD KEY `amenity_images_ibfk_1` (`amenity_id`);
 
 --
 -- Indexes for table `facilities`
@@ -301,7 +302,7 @@ ALTER TABLE `gallery_images`
 --
 ALTER TABLE `payments`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_reservation_payment` (`reservation_id`);
+  ADD KEY `fk_payments_reservation` (`reservation_id`);
 
 --
 -- Indexes for table `reservations`
@@ -331,31 +332,31 @@ ALTER TABLE `st_rates`
 -- AUTO_INCREMENT for table `amenities`
 --
 ALTER TABLE `amenities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `amenity_images`
 --
 ALTER TABLE `amenity_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `facilities`
 --
 ALTER TABLE `facilities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `facility_images`
 --
 ALTER TABLE `facility_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `gallery_images`
 --
 ALTER TABLE `gallery_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -367,13 +368,13 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `reservation_guests`
 --
 ALTER TABLE `reservation_guests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `st_rates`
@@ -389,7 +390,7 @@ ALTER TABLE `st_rates`
 -- Constraints for table `amenity_images`
 --
 ALTER TABLE `amenity_images`
-  ADD CONSTRAINT `amenity_images_ibfk_1` FOREIGN KEY (`amenity_id`) REFERENCES `amenities` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `amenity_images_ibfk_1` FOREIGN KEY (`amenity_id`) REFERENCES `amenities` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `facility_images`
@@ -401,7 +402,7 @@ ALTER TABLE `facility_images`
 -- Constraints for table `payments`
 --
 ALTER TABLE `payments`
-  ADD CONSTRAINT `fk_reservation_payment` FOREIGN KEY (`reservation_id`) REFERENCES `reservations` (`id`);
+  ADD CONSTRAINT `fk_payments_reservation` FOREIGN KEY (`reservation_id`) REFERENCES `reservations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `reservations`

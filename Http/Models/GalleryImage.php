@@ -45,4 +45,13 @@ class GalleryImage
     {
         return $this->db->query('SELECT * FROM gallery_images WHERE id=:id', compact('id'))->findOrFail();
     }
+
+
+    public function deleteGalleryImage($id)
+    {
+        $this->db->query(
+            "DELETE FROM gallery_images WHERE id = :id",
+            compact('id')
+        );
+    }
 }

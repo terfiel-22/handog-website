@@ -89,9 +89,13 @@ $pageName = "Gallery"
 
     <!-- JS Plugins -->
     <?php view("admin/partials/plugins.partial.php") ?>
+
+    <?php view("admin/shared/delete-modal.php") ?>
+
     <script>
         let table = new DataTable('#dataTable');
     </script>
+
 
 </body>
 
