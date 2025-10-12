@@ -88,3 +88,10 @@ function convertToBookingsFormat(array $data): array
 
     return $bookings;
 }
+
+function formatDatetimeToReadable($datetime)
+{
+    $readableDatetime = new DateTime($datetime);
+
+    return $readableDatetime->format('h:i A | M. d, Y');
+}

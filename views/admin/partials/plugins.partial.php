@@ -17,5 +17,8 @@
     <script src="/assets/admin/js/lib/magnifc-popup.min.js"></script>
     <!-- Slick Slider js -->
     <script src="/assets/admin/js/lib/slick.min.js"></script>
+    <!-- Flatpickr -->
+    <script src="/assets/admin/js/flatpickr.js"></script>
+
     <!-- main js -->
     <script src="/assets/admin/js/app.js"></script>

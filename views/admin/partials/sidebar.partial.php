@@ -36,6 +36,12 @@
                 </a>
             </li>
             <li>
+                <a href="/admin/events">
+                    <iconify-icon icon="ic:outline-event" class="menu-icon"></iconify-icon>
+                    <span>Events</span>
+                </a>
+            </li>
+            <li>
                 <a href="/admin/reservations">
                     <iconify-icon icon="ic:outline-bookmarks" class="menu-icon"></iconify-icon>
                     <span>Reservations</span>
