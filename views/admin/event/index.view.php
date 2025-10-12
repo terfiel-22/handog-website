@@ -48,7 +48,7 @@ $pageName = "Gallery"
                             <tbody>
                                 <?php foreach ($events as $event): ?>
                                     <tr>
-                                        <td><a href="javascript:void(0)" class="text-primary-600">#<?= $event['id'] ?></a></td>
+                                        <td><a href="javascript:void(0)" class="text-primary-600"><?= $event['id'] ?></a></td>
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <img src="<?= handleImage($event['image'], "/assets/admin/images/user-list/user-list1.png")  ?> " alt="<?= $event['name'] ?>" class="flex-shrink-0 me-12 radius-8" style="width: 80px;">

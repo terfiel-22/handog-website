@@ -80,7 +80,7 @@ $pageName = "Add Event"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 g-5">
-                            <a href="/admin/event" class="btn btn-danger-600">Cancel</a>
+                            <a href="/admin/events" class="btn btn-danger-600">Cancel</a>
                             <button type="submit" class="btn btn-primary-600">Submit</button>
                         </div>
                     </form>

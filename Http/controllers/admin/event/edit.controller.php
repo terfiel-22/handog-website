@@ -2,15 +2,15 @@
 
 use Core\App;
 use Core\Session;
-use Http\Models\GalleryImage;
+use Http\Models\Event;
 
 $errors = Session::get('errors', []);
 
 $id = $_GET["id"] ?? 0;
-$galleryImage = App::resolve(GalleryImage::class)->fetchGalleryImageById($id);
-$readableImagePaths[] = handleImage($galleryImage["image"]);
+$event = App::resolve(Event::class)->fetchEventById($id);
+$readableImagePaths[] = handleImage($event["image"]);
 
 view(
-    "admin/gallery/edit.view.php",
-    compact('galleryImage', 'readableImagePaths', 'errors')
+    "admin/event/edit.view.php",
+    compact('event', 'readableImagePaths', 'errors')
 );

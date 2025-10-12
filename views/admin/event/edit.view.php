@@ -1,5 +1,5 @@
 <?php
-$pageName = "Edit Gallery"
+$pageName = "Edit Event"
 ?>
 
 <!-- meta tags and other links -->
@@ -34,9 +34,9 @@ $pageName = "Edit Gallery"
                 </div>
 
                 <div class="card-body">
-                    <form class="row gy-3" method="POST" action="/admin/gallery/update" enctype="multipart/form-data">
+                    <form class="row gy-3" method="POST" action="/admin/events/update" enctype="multipart/form-data">
                         <input type="hidden" name="_method" value="PUT">
-                        <input type="hidden" name="id" value="<?= $galleryImage["id"] ?>">
+                        <input type="hidden" name="id" value="<?= $event["id"] ?>">
                         <div class="col-12">
                             <label class="form-label" for="upload-file-multiple">Upload gallery image</label>
                             <div class="upload-image-wrapper d-flex align-items-center gap-3 flex-wrap">
@@ -54,18 +54,27 @@ $pageName = "Edit Gallery"
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 col-md-6">
                             <label class="form-label" for="name">Name</label>
-                            <input type="text" name="name" id="name" class="form-control" placeholder="Enter image name" value="<?= $galleryImage["name"] ?>">
+                            <input type="text" name="name" id="name" class="form-control" placeholder="Enter event name" value="<?= $event["name"] ?>">
                             <?php if (isset($errors["name"])) : ?>
                                 <div class="error-text">
                                     <?= $errors["name"] ?>
                                 </div>
                             <?php endif; ?>
                         </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="date">Event Date</label>
+                            <input type="text" name="date" id="date" class="form-control" placeholder="Enter event date" value="<?= $event["date"] ?>">
+                            <?php if (isset($errors["date"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["date"] ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
                         <div class="col-12">
                             <label class="form-label" for="description">Description</label>
-                            <textarea type="number" name="description" id="description" class="form-control" placeholder="Enter image description"><?= $galleryImage["description"] ?></textarea>
+                            <textarea type="number" name="description" id="description" class="form-control" placeholder="Enter event description"><?= $event["description"] ?></textarea>
                             <?php if (isset($errors["description"])) : ?>
                                 <div class="error-text">
                                     <?= $errors["description"] ?>
@@ -73,7 +82,7 @@ $pageName = "Edit Gallery"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 g-5">
-                            <a href="/admin/gallery" class="btn btn-danger-600">Cancel</a>
+                            <a href="/admin/events" class="btn btn-danger-600">Cancel</a>
                             <button type="submit" class="btn btn-primary-600">Submit</button>
                         </div>
                     </form>
@@ -147,6 +156,19 @@ $pageName = "Edit Gallery"
                 });
             });
         });
+    </script>
+
+    <script>
+        // Flat pickr or date picker js
+        function getDatePicker(receiveID) {
+            flatpickr(receiveID, {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+                minDate: "today",
+            });
+        }
+
+        getDatePicker("#date");
     </script>
 </body>
 
