@@ -31,20 +31,18 @@
                 <div class="row g-4">
                     <div class="col-12 col-lg-8">
                         <div class="gt-details-image">
-                            <img src="/assets/guest/img/home-1/news/details-1.jpg" alt="img">
+                            <img src="<?= handleImage($event["image"], "/assets/guest/img/home-1/news/details-1.jpg") ?>" alt="<?= $event["name"] ?>">
                         </div>
                         <div class="gt-news-details-content">
-                            <h3>Luxury Travel Trends for the Modern Explorer</h3>
-                            <p>
-                                Whether you're moving into a new house or updating your current space, smart design choices can elevate your everyday living experience. From clever use of natural light to the right balance of color, texture, and furniture, these ideas will help you create a home that feels both functional and beautiful.
-                            </p>
+                            <h3><?= $event["name"] ?></h3>
+                            <p><?= $event["description"] ?></p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-12">
                         <div class="gt-main-sideber sticky-style">
                             <div class="gt-single-sideber-widget">
                                 <div class="gt-widget-title">
-                                    <h3>Events</h3>
+                                    <h3>Upcoming Events</h3>
                                 </div>
                                 <div class="gt-recent-post-area">
                                     <div class="gt-recent-items">
