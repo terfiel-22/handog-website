@@ -2,13 +2,13 @@
 
 use Core\App;
 use Core\FileUploadHandler;
-use Http\Models\GalleryImage;
+use Http\Models\Event;
 
-$galleryImage = App::resolve(GalleryImage::class)->fetchGalleryImageById($_POST["item_id"]);
+$event = App::resolve(Event::class)->fetchEventById($_POST["item_id"]);
 
 // Delete Image Files 
-App::resolve(FileUploadHandler::class)->deleteFile($galleryImage["image"]);
+App::resolve(FileUploadHandler::class)->deleteFile($event["image"]);
 
-App::resolve(GalleryImage::class)->deleteGalleryImage($galleryImage["id"]);
+App::resolve(Event::class)->deleteEvent($event["id"]);
 
-redirect("/admin/gallery");
+redirect("/admin/events");
