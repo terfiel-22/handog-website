@@ -425,9 +425,9 @@
                                 <li>Hotel</li>
                             </ul>
                             <h3>
-                                <a href="news-details.html">Your Ultimate Guide to Relaxing at the Beach Hotel Arlux</a>
+                                <a href="/event">Your Ultimate Guide to Relaxing at the Beach Hotel Arlux</a>
                             </h3>
-                            <a href="news-details.html" class="gt-theme-btn">VIEW DETAILS</a>
+                            <a href="/event" class="gt-theme-btn">VIEW DETAILS</a>
                         </div>
                     </div>
                 </div>
@@ -448,9 +448,9 @@
                                 <li>Hotel</li>
                             </ul>
                             <h3>
-                                <a href="news-details.html">Life at Aro Where Ocean Breeze Meets Arlux Modern Luxury</a>
+                                <a href="/event">Life at Aro Where Ocean Breeze Meets Arlux Modern Luxury</a>
                             </h3>
-                            <a href="news-details.html" class="gt-theme-btn">VIEW DETAILS</a>
+                            <a href="/event" class="gt-theme-btn">VIEW DETAILS</a>
                         </div>
                     </div>
                 </div>
