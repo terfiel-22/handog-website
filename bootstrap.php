@@ -9,6 +9,7 @@ use Http\Helpers\PaymentHelper;
 use Http\Helpers\ReservationHelper;
 use Http\Models\Amenity;
 use Http\Models\AmenityImage;
+use Http\Models\Event;
 use Http\Models\Facility;
 use Http\Models\FacilityImage;
 use Http\Models\GalleryImage;
@@ -40,6 +41,9 @@ $container->bind(AmenityImage::class, function () {
 });
 $container->bind(GalleryImage::class, function () {
     return new GalleryImage();
+});
+$container->bind(Event::class, function () {
+    return new Event();
 });
 $container->bind(Reservation::class, function () {
     return new Reservation();
