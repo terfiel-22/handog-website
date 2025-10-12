@@ -408,52 +408,30 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay=".3s">
-                    <div class="gt-news-box-item-2">
-                        <div class="gt-thumb">
-                            <img src="/assets/guest/img/home-2/news/01.jpg" alt="img" />
-                            <img src="/assets/guest/img/home-2/news/01.jpg" alt="img" />
-                        </div>
-                        <div class="gt-content">
-                            <ul class="gt-list">
-                                <li>
-                                    <img
-                                        src="/assets/guest/img/home-1/news/arrow-icon.png"
-                                        alt="img" />
-                                    April 12, 2025
-                                </li>
-                                <li>Hotel</li>
-                            </ul>
-                            <h3>
-                                <a href="/event">Your Ultimate Guide to Relaxing at the Beach Hotel Arlux</a>
-                            </h3>
-                            <a href="/event" class="gt-theme-btn">VIEW DETAILS</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay=".5s">
-                    <div class="gt-news-box-item-2">
-                        <div class="gt-thumb">
-                            <img src="/assets/guest/img/home-2/news/02.jpg" alt="img" />
-                            <img src="/assets/guest/img/home-2/news/02.jpg" alt="img" />
-                        </div>
-                        <div class="gt-content">
-                            <ul class="gt-list">
-                                <li>
-                                    <img
-                                        src="/assets/guest/img/home-1/news/arrow-icon.png"
-                                        alt="img" />
-                                    April 12, 2025
-                                </li>
-                                <li>Hotel</li>
-                            </ul>
-                            <h3>
-                                <a href="/event">Life at Aro Where Ocean Breeze Meets Arlux Modern Luxury</a>
-                            </h3>
-                            <a href="/event" class="gt-theme-btn">VIEW DETAILS</a>
+                <?php foreach ($events as $event): ?>
+                    <div class="col-lg-6 wow fadeInUp" data-wow-delay=".3s">
+                        <div class="gt-news-box-item-2">
+                            <div class="gt-thumb">
+                                <img src="<?= handleImage($event["image"], "/assets/guest/img/home-2/news/01.jpg") ?>" alt="<?= $event["name"] ?>" />
+                                <img src="<?= handleImage($event["image"], "/assets/guest/img/home-2/news/01.jpg") ?>" alt="<?= $event["name"] ?>" />
+                            </div>
+                            <div class="gt-content">
+                                <ul class="gt-list">
+                                    <li>
+                                        <img
+                                            src="/assets/guest/img/home-1/news/arrow-icon.png"
+                                            alt="img" />
+                                        <?= formatDatetimeToReadable($event["date"]) ?>
+                                    </li>
+                                </ul>
+                                <h3>
+                                    <a href="/event?id=<?= $event["id"] ?>"><?= $event["name"] ?></a>
+                                </h3>
+                                <a href="/event?id=<?= $event["id"] ?>" class="gt-theme-btn">VIEW DETAILS</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
