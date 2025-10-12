@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2025 at 07:54 PM
+-- Generation Time: Oct 12, 2025 at 06:54 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -69,6 +69,29 @@ INSERT INTO `amenity_images` (`id`, `amenity_id`, `image`) VALUES
 (4, 5, 'uploads/images/68da4aeb12222_grillers_1.jpg'),
 (5, 6, 'uploads/images/68da4cb79e946_shower_room_2.jpg'),
 (6, 6, 'uploads/images/68da4cb79eaeb_shower_room_1.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `events`
+--
+
+CREATE TABLE `events` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `description` text NOT NULL,
+  `image` varchar(200) NOT NULL,
+  `date` datetime NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `name`, `description`, `image`, `date`, `created_at`) VALUES
+(1, 'Silent Sanctuary x Sunkissed Lola', 'Get Ready for an Evening of Great Music and Don’t miss this rare opportunity to see Silent Sanctuary and Sunkissed Lola share the stage. Whether you’re a longtime fan or discovering their music for the first time, this concert promises to be a night to remember. Secure your tickets now and experience the magic of these two incredible bands live!', 'uploads/images/68ebcad0826f8_event1.png', '2025-10-19 16:00:00', '2025-10-12 23:27:12'),
+(3, 'Live Jam', 'The Filipino rock band that brought us many of our favorite songs like “Lunes,” “Jeepney” and “Gemini” will be bringing all the early-2000s feels alive, and then some, as they play some of their more recent hits from their double EP, Sinag/Tala.', 'uploads/images/68ebda8bc507b_event2.png', '2025-10-19 12:00:00', '2025-10-13 00:42:51');
 
 -- --------------------------------------------------------
 
@@ -279,6 +302,12 @@ ALTER TABLE `amenity_images`
   ADD KEY `amenity_images_ibfk_1` (`amenity_id`);
 
 --
+-- Indexes for table `events`
+--
+ALTER TABLE `events`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `facilities`
 --
 ALTER TABLE `facilities`
@@ -339,6 +368,12 @@ ALTER TABLE `amenities`
 --
 ALTER TABLE `amenity_images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `events`
+--
+ALTER TABLE `events`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `facilities`

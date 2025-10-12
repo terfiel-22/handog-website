@@ -45,57 +45,31 @@
                                     <h3>Upcoming Events</h3>
                                 </div>
                                 <div class="gt-recent-post-area">
-                                    <div class="gt-recent-items">
-                                        <div class="gt-recent-thumb">
-                                            <img src="/assets/guest/img/home-1/news/post-1.jpg" alt="img">
-                                        </div>
-                                        <div class="gt-recent-content">
-                                            <h5>
-                                                <a href="news-details.html">
-                                                    VIP Services That Define Elite Hospitality
-                                                </a>
-                                            </h5>
-                                            <ul>
-                                                <li>
-                                                    March 26, 2025
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="gt-recent-items">
-                                        <div class="gt-recent-thumb">
-                                            <img src="/assets/guest/img/home-1/news/post-2.jpg" alt="img">
-                                        </div>
-                                        <div class="gt-recent-content">
-                                            <h5>
-                                                <a href="news-details.html">
-                                                    A Romantic Escape Luxury Getaways for Couples
-                                                </a>
-                                            </h5>
-                                            <ul>
-                                                <li>
-                                                    March 26, 2025
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="gt-recent-items">
-                                        <div class="gt-recent-thumb">
-                                            <img src="/assets/guest/img/home-1/news/post-3.jpg" alt="img">
-                                        </div>
-                                        <div class="gt-recent-content">
-                                            <h5>
-                                                <a href="news-details.html">
-                                                    How to Choose the Perfect Luxury Suite
-                                                </a>
-                                            </h5>
-                                            <ul>
-                                                <li>
-                                                    March 26, 2025
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    <?php if (!empty($upcomingEvents)): ?>
+                                        <?php foreach ($upcomingEvents as $upcomingEvent): ?>
+                                            <?php if ($upcomingEvent["id"] == $event["id"]) continue; ?>
+                                            <div class="gt-recent-items">
+                                                <div class="gt-recent-thumb upcoming-event">
+                                                    <img src="<?= handleImage($upcomingEvent["image"], "/assets/guest/img/home-1/news/post-1.jpg") ?>" alt="<?= $upcomingEvent["name"] ?>">
+                                                </div>
+                                                <div class="gt-recent-content">
+                                                    <h5>
+                                                        <a href="/event?id=<?= $upcomingEvent["id"] ?>">
+                                                            <?= $upcomingEvent["name"] ?>
+                                                        </a>
+                                                    </h5>
+                                                    <ul>
+                                                        <li>
+                                                            <?= formatDatetimeToReadable($upcomingEvent["date"]) ?>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <p>No upcoming events.</p>
+                                    <?php endif; ?>
+
                                 </div>
                             </div>
                         </div>

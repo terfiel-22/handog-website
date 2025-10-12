@@ -3,7 +3,7 @@
 use Core\App;
 use Http\Models\Event;
 
-$events = App::resolve(Event::class)->fetchEvents();
+$events = App::resolve(Event::class)->fetchUpcomingEvents();
 
 view(
     "guest/index.view.php",

@@ -7267,6 +7267,10 @@ span {
   height: 400px !important;
   cursor: pointer !important;
 } 
+.upcoming-event img { 
+  height: 100px !important;
+  width: 100px !important;
+}
 .overlay-image {
   width: 100% !important;
   max-height: 100vh;

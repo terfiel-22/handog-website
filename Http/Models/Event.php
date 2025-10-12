@@ -42,6 +42,11 @@ class Event
         return $this->db->query('SELECT * FROM events')->get();
     }
 
+    public function fetchUpcomingEvents()
+    {
+        return $this->db->query('SELECT * FROM events WHERE date >= CURDATE()')->get();
+    }
+
     public function fetchEventById($id)
     {
         return $this->db->query('SELECT * FROM events WHERE id=:id', compact('id'))->findOrFail();

@@ -411,7 +411,7 @@
                 <?php foreach ($events as $event): ?>
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay=".3s">
                         <div class="gt-news-box-item-2">
-                            <div class="gt-thumb">
+                            <div class="gt-thumb fixed-height-img">
                                 <img src="<?= handleImage($event["image"], "/assets/guest/img/home-2/news/01.jpg") ?>" alt="<?= $event["name"] ?>" />
                                 <img src="<?= handleImage($event["image"], "/assets/guest/img/home-2/news/01.jpg") ?>" alt="<?= $event["name"] ?>" />
                             </div>
