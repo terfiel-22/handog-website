@@ -1,5 +1,5 @@
 <?php
-$pageName = "Gallery"
+$pageName = "Events"
 ?>
 
 <!-- meta tags and other links -->
@@ -31,7 +31,7 @@ $pageName = "Gallery"
             <!-- Table -->
             <div class="card basic-data-table">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="card-title mb-0">List of Events</h6>
+                    <h6 class="card-title mb-0">List of <?= $pageName ?></h6>
                     <a href="/admin/events/create" class="btn btn-primary-600 radius-8 px-20 py-11">Add</a>
                 </div>
                 <div class="card-body">
