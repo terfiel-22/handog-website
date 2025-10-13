@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2025 at 04:48 PM
+-- Generation Time: Oct 13, 2025 at 06:21 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -326,7 +326,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `salt`, `session_token`) VALUES
-(1, 'Handog Resort', 'handog@gmail.com', '$2y$10$zfm9lu1LQRLNvikO5NaB6.1d/je.oZ4YMd76UBrO/jZxI5QcHWkbm', '653b46dc1e89f3ad9054', NULL);
+(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$9T3kwzIaMSE0f3ZkDaROEuDLRoN1c3qAtsyc6PuWlNmceR7UeAwl2');
 
 --
 -- Indexes for dumped tables
