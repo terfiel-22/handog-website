@@ -5,6 +5,6 @@ use Core\Session;
 $errors = Session::get('errors', []);
 
 view(
-    "admin/authentication/signin.view.php",
+    "admin/authentication/index.view.php",
     compact('errors')
 );

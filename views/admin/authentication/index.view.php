@@ -28,28 +28,29 @@ $pageName = "Sign In"
                     <h4 class="mb-12">Sign In to your Account</h4>
                     <p class="mb-32 text-secondary-light text-lg">Welcome back! please enter your detail</p>
                 </div>
-                <form action="#">
+                <form method="POST">
                     <div class="icon-field mb-16">
                         <span class="icon top-50 translate-middle-y">
-                            <iconify-icon icon="mage:email"></iconify-icon>
+                            <iconify-icon icon="mage:id-card"></iconify-icon>
                         </span>
-                        <input type="email" class="form-control h-56-px bg-neutral-50 radius-12" placeholder="Email">
+                        <input type="text" class="form-control h-56-px bg-neutral-50 radius-12" name="username" placeholder="Username">
                     </div>
                     <div class="position-relative mb-20">
                         <div class="icon-field">
                             <span class="icon top-50 translate-middle-y">
                                 <iconify-icon icon="solar:lock-password-outline"></iconify-icon>
                             </span>
-                            <input type="password" class="form-control h-56-px bg-neutral-50 radius-12" id="your-password" placeholder="Password">
+                            <input type="password" class="form-control h-56-px bg-neutral-50 radius-12" name="password" id="password" placeholder="Password">
                         </div>
-                        <span class="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light" data-toggle="#your-password"></span>
+                        <span class="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light" data-toggle="#password"></span>
                     </div>
                     <div class="">
                         <div class="d-flex justify-content-between gap-2">
                             <div class="form-check style-check d-flex align-items-center">
-                                <input class="form-check-input border border-neutral-300" type="checkbox" value="" id="remember">
+                                <input class="form-check-input border border-neutral-300" type="checkbox" value="" name="remember" id="remember">
                                 <label class="form-check-label" for="remember">Remember me </label>
                             </div>
+                            <a href="javascript:void(0)" class="text-primary-600 fw-medium">Forgot Password?</a>
                         </div>
                     </div>
 

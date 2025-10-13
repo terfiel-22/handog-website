@@ -16,7 +16,8 @@
 
 
    /** ACCESSIBLE TO ADMIN */
-   $router->get('/admin', 'admin/authentication/signin.controller.php')->only('guest');
+   $router->get('/admin', 'admin/authentication/index.controller.php')->only('guest');
+   $router->post('/admin', 'admin/authentication/store.controller.php')->only('guest');
 
    // Dashboard
    $router->get('/admin/dashboard', 'admin/dashboard/index.controller.php')->only('guest'); //TODO: Create new middleware for admin
