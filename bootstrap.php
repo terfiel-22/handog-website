@@ -18,6 +18,7 @@ use Http\Models\Payment;
 use Http\Models\Rates;
 use Http\Models\Reservation;
 use Http\Models\ReservationGuest;
+use Http\Models\User;
 
 $container = new Container();
 
@@ -63,6 +64,9 @@ $container->bind(Payment::class, function () {
 });
 $container->bind(Rates::class, function () {
     return new Rates();
+});
+$container->bind(User::class, function () {
+    return new User();
 });
 
 /** Handler */

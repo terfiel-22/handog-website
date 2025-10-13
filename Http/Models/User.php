@@ -1,0 +1,60 @@
+<?php
+
+namespace Http\Models;
+
+use Core\App;
+use Core\Database;
+
+class User
+{
+    protected $db;
+
+    public function __construct()
+    {
+        $this->db = App::resolve(Database::class);
+    }
+
+    public function fetchUserBySessionToken($session_token)
+    {
+        return $this->db->query(
+            "SELECT * FROM users WHERE session_token=:session_token",
+            compact('session_token')
+        )->findOrFail();
+    }
+
+    public function fetchUserByEmail($email)
+    {
+        return $this->db->query(
+            "SELECT * FROM users WHERE email=:email",
+            compact('email')
+        )->find();
+    }
+
+    public function createUser($attributes)
+    {
+        $this->db->query(
+            "INSERT INTO users(username,email,password,salt) VALUES(:username,:email,:password,:salt)",
+            $attributes
+        );
+        return true;
+    }
+
+    public function updateUser($attributes)
+    {
+        $this->db->query(
+            "UPDATE 
+                users 
+            SET 
+                usernname=:usernname,
+                email=:email,
+                password=:password,
+                salt=:salt,
+                session_token=:session_token
+            WHERE 
+                id=:id",
+            $attributes
+        );
+
+        return true;
+    }
+}

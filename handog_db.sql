@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2025 at 09:31 AM
+-- Generation Time: Oct 13, 2025 at 04:48 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -172,7 +172,8 @@ CREATE TABLE `faqs` (
 
 INSERT INTO `faqs` (`id`, `question`, `answer`, `created_at`) VALUES
 (1, 'Is breakfast included in the room rate?                         ', 'Check-in is from 2:00 PM, and check-out is by 12:00 PM. Early check-in and late check-out are subject to availability.', '2025-10-13 15:06:41'),
-(3, 'Do you offer free Wi-Fi?', 'Yes, complimentary high-speed Wi-Fi is available throughout the resort, including rooms, restaurants, and pool areas.', '2025-10-13 15:22:46');
+(3, 'Do you offer free Wi-Fi?', 'Yes, complimentary high-speed Wi-Fi is available throughout the resort, including rooms, restaurants, and pool areas.', '2025-10-13 15:22:46'),
+(4, 'Is a deposit required to confirm a booking?', 'Yes, a 50% down payment is required to confirm your reservation. The remaining balance can be settled upon check-in.', '2025-10-13 16:40:45');
 
 -- --------------------------------------------------------
 
@@ -305,6 +306,28 @@ CREATE TABLE `st_rates` (
 INSERT INTO `st_rates` (`id`, `adult_rate_day`, `kid_rate_day`, `adult_rate_night`, `kid_rate_night`, `senior_pwd_discount`, `videoke_rent`) VALUES
 (1, 120.00, 80.00, 200.00, 100.00, 20.00, 1500.00);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(200) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `salt` varchar(200) NOT NULL,
+  `session_token` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `salt`, `session_token`) VALUES
+(1, 'Handog Resort', 'handog@gmail.com', '$2y$10$zfm9lu1LQRLNvikO5NaB6.1d/je.oZ4YMd76UBrO/jZxI5QcHWkbm', '653b46dc1e89f3ad9054', NULL);
+
 --
 -- Indexes for dumped tables
 --
@@ -381,6 +404,12 @@ ALTER TABLE `st_rates`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -418,7 +447,7 @@ ALTER TABLE `facility_images`
 -- AUTO_INCREMENT for table `faqs`
 --
 ALTER TABLE `faqs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `gallery_images`
@@ -448,6 +477,12 @@ ALTER TABLE `reservation_guests`
 -- AUTO_INCREMENT for table `st_rates`
 --
 ALTER TABLE `st_rates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --

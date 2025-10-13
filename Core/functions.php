@@ -89,9 +89,19 @@ function convertToBookingsFormat(array $data): array
     return $bookings;
 }
 
+/** Function to format date time into readable date and time */
 function formatDatetimeToReadable($datetime)
 {
     $readableDatetime = new DateTime($datetime);
 
     return $readableDatetime->format('h:i A | M. d, Y');
+}
+
+/** Function to generate a session token given user id*/
+function generateSessionToken($uid)
+{
+    $dataToHash = $uid . time();
+    $token = password_hash($dataToHash, PASSWORD_BCRYPT);
+
+    return $token;
 }
