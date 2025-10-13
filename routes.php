@@ -16,8 +16,10 @@
 
 
    /** ACCESSIBLE TO ADMIN */
-   $router->get('/admin/authentication', 'admin/authentication/signin.controller.php')->only('guest'); //TODO: Create new middleware for admin
-   $router->get('/admin', 'admin/index.controller.php')->only('guest'); //TODO: Create new middleware for admin
+   $router->get('/admin', 'admin/authentication/signin.controller.php')->only('guest');
+
+   // Dashboard
+   $router->get('/admin/dashboard', 'admin/dashboard/index.controller.php')->only('guest'); //TODO: Create new middleware for admin
 
    // Facility
    $router->get('/admin/facilities', 'admin/facility/index.controller.php')->only('guest');
