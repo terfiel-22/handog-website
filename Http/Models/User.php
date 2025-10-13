@@ -19,7 +19,7 @@ class User
         return $this->db->query(
             "SELECT * FROM users WHERE session_token=:session_token",
             compact('session_token')
-        )->findOrFail();
+        )->find();
     }
 
     public function fetchUserByEmail($email)

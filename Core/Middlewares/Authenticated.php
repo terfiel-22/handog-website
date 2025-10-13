@@ -2,12 +2,12 @@
 
 namespace Core\Middlewares;
 
-class Guest
+class Authenticated
 {
     public function handle($user)
     {
-        if ($user) {
-            header('location: /admin/dashboard');
+        if (!$user) {
+            header('location: /admin');
             die();
         }
     }

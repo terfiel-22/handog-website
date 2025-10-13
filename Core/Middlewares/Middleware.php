@@ -2,9 +2,13 @@
 
 namespace Core\Middlewares;
 
+use Core\App;
+use Http\Models\User;
+
 class Middleware
 {
     public const MAP = [
+        "admin" => Authenticated::class,
         "guest" => Guest::class,
     ];
 
@@ -23,6 +27,9 @@ class Middleware
 
     private function getCurrentUser()
     {
-        return null; // TODO: Fetch current user
+        if (!isset($_COOKIE['session_token'])) return false;
+        $sessionToken = $_COOKIE['session_token'];
+
+        return App::resolve(User::class)->fetchUserBySessionToken($sessionToken);
     }
 }
