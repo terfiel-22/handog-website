@@ -42,6 +42,12 @@
                 </a>
             </li>
             <li>
+                <a href="/admin/faqs">
+                    <iconify-icon icon="ic:outline-question-mark" class="menu-icon"></iconify-icon>
+                    <span>FAQs</span>
+                </a>
+            </li>
+            <li>
                 <a href="/admin/reservations">
                     <iconify-icon icon="ic:outline-bookmarks" class="menu-icon"></iconify-icon>
                     <span>Reservations</span>

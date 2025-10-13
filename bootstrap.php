@@ -12,6 +12,7 @@ use Http\Models\AmenityImage;
 use Http\Models\Event;
 use Http\Models\Facility;
 use Http\Models\FacilityImage;
+use Http\Models\Faq;
 use Http\Models\GalleryImage;
 use Http\Models\Payment;
 use Http\Models\Rates;
@@ -44,6 +45,12 @@ $container->bind(GalleryImage::class, function () {
 });
 $container->bind(Event::class, function () {
     return new Event();
+});
+$container->bind(Event::class, function () {
+    return new Event();
+});
+$container->bind(Faq::class, function () {
+    return new Faq();
 });
 $container->bind(Reservation::class, function () {
     return new Reservation();
