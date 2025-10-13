@@ -31,8 +31,13 @@
                         </div>
                         <ul class="to-top-list">
                             <li>
-                                <a class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3" href="javascript:void(0)">
-                                    <iconify-icon icon="lucide:power" class="icon text-xl"></iconify-icon> Log Out</a>
+                                <form method="POST" action="/admin" id="logoutForm">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                </form>
+
+                                <button type="button" class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3" onclick="if (confirm('Are you sure you want to log out?')) { $('#logoutForm').trigger('submit'); }">
+                                    <iconify-icon icon="lucide:power" class="icon text-xl"></iconify-icon> Log Out
+                                </button>
                             </li>
                         </ul>
                     </div>

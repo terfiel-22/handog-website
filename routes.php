@@ -20,6 +20,7 @@
    /** START ACCESSIBLE TO GUEST ADMIN */
    $router->get('/admin', 'admin/authentication/index.controller.php')->only('guest');
    $router->post('/admin', 'admin/authentication/store.controller.php')->only('guest');
+   $router->delete('/admin', 'admin/authentication/destroy.controller.php')->only('admin');
    /** END ACCESSIBLE TO GUEST ADMIN */
 
    /** ACCESSIBLE TO ADMIN */
