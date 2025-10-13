@@ -408,30 +408,37 @@
                 </div>
             </div>
             <div class="row">
-                <?php foreach ($events as $event): ?>
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay=".3s">
-                        <div class="gt-news-box-item-2">
-                            <div class="gt-thumb fixed-height-img">
-                                <img src="<?= handleImage($event["image"], "/assets/guest/img/home-2/news/01.jpg") ?>" alt="<?= $event["name"] ?>" />
-                                <img src="<?= handleImage($event["image"], "/assets/guest/img/home-2/news/01.jpg") ?>" alt="<?= $event["name"] ?>" />
-                            </div>
-                            <div class="gt-content">
-                                <ul class="gt-list">
-                                    <li>
-                                        <img
-                                            src="/assets/guest/img/home-1/news/arrow-icon.png"
-                                            alt="img" />
-                                        <?= formatDatetimeToReadable($event["date"]) ?>
-                                    </li>
-                                </ul>
-                                <h3>
-                                    <a href="/event?id=<?= $event["id"] ?>"><?= $event["name"] ?></a>
-                                </h3>
-                                <a href="/event?id=<?= $event["id"] ?>" class="gt-theme-btn">VIEW DETAILS</a>
+
+                <?php if (!empty($events)): ?>
+                    <?php foreach ($events as $event): ?>
+                        <div class="col-lg-6 wow fadeInUp" data-wow-delay=".3s">
+                            <div class="gt-news-box-item-2">
+                                <div class="gt-thumb fixed-height-img">
+                                    <img src="<?= handleImage($event["image"], "/assets/guest/img/home-2/news/01.jpg") ?>" alt="<?= $event["name"] ?>" />
+                                    <img src="<?= handleImage($event["image"], "/assets/guest/img/home-2/news/01.jpg") ?>" alt="<?= $event["name"] ?>" />
+                                </div>
+                                <div class="gt-content">
+                                    <ul class="gt-list">
+                                        <li>
+                                            <img
+                                                src="/assets/guest/img/home-1/news/arrow-icon.png"
+                                                alt="img" />
+                                            <?= formatDatetimeToReadable($event["date"]) ?>
+                                        </li>
+                                    </ul>
+                                    <h3>
+                                        <a href="/event?id=<?= $event["id"] ?>"><?= $event["name"] ?></a>
+                                    </h3>
+                                    <a href="/event?id=<?= $event["id"] ?>" class="gt-theme-btn">VIEW DETAILS</a>
+                                </div>
                             </div>
                         </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="col-12">
+                        <p>No upcoming events.</p>
                     </div>
-                <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </div>
     </section>
@@ -473,112 +480,36 @@
                     <div class="col-lg-6 wow fadeInUp">
                         <div class="faq-items mt-0 ms-0">
                             <div class="accordion" id="accordionExample">
-                                <div class="accordion-item wow fadeInUp" data-wow-delay=".3s">
-                                    <h2 class="accordion-header" id="headingOne">
-                                        <button
-                                            class="accordion-button"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#collapseOne"
-                                            aria-expanded="true"
-                                            aria-controls="collapseOne">
-                                            Is breakfast included in the room rate?
-                                        </button>
-                                    </h2>
-                                    <div
-                                        id="collapseOne"
-                                        class="accordion-collapse collapse show"
-                                        aria-labelledby="headingOne"
-                                        data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <p>
-                                                Check-in is from 2:00 PM, and check-out is by 12:00
-                                                PM. Early check-in and late check-out are subject to
-                                                availability.
-                                            </p>
+                                <?php if (!empty($faqs)): ?>
+                                    <?php foreach ($faqs as $index => $faq): ?>
+                                        <div class="accordion-item wow fadeInUp" data-wow-delay=".<?= $index + $index + 1 ?>s">
+                                            <h2 class="accordion-header" id="headingOne">
+                                                <button
+                                                    class="accordion-button <?= $index == 0 ? "" : "collapsed" ?>"
+                                                    type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapse<?= $index ?>"
+                                                    aria-expanded="<?= $index == 0 ? "true" : "false" ?>"
+                                                    aria-controls="collapse<?= $index ?>">
+                                                    <?= $faq["question"] ?>
+                                                </button>
+                                            </h2>
+                                            <div
+                                                id="collapse<?= $index ?>"
+                                                class="accordion-collapse collapse <?= $index == 0 ? "show" : "" ?>"
+                                                aria-labelledby="heading<?= $index ?>"
+                                                data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <p>
+                                                        <?= $faq["answer"] ?>
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item wow fadeInUp" data-wow-delay=".5s">
-                                    <h2 class="accordion-header" id="headingTwo">
-                                        <button
-                                            class="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#collapseTwo"
-                                            aria-expanded="false"
-                                            aria-controls="collapseTwo">
-                                            1. What time is check-in and check-out?
-                                        </button>
-                                    </h2>
-                                    <div
-                                        id="collapseTwo"
-                                        class="accordion-collapse collapse"
-                                        aria-labelledby="headingTwo"
-                                        data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <p>
-                                                Check-in is from 2:00 PM, and check-out is by 12:00
-                                                PM. Early check-in and late check-out are subject to
-                                                availability.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item wow fadeInUp" data-wow-delay=".7s">
-                                    <h2 class="accordion-header" id="headingthree">
-                                        <button
-                                            class="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#collapsethree"
-                                            aria-expanded="false"
-                                            aria-controls="collapsethree">
-                                            What are the cancellation and refund policies?
-                                        </button>
-                                    </h2>
-                                    <div
-                                        id="collapsethree"
-                                        class="accordion-collapse collapse"
-                                        aria-labelledby="headingthree"
-                                        data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <p>
-                                                Check-in is from 2:00 PM, and check-out is by 12:00
-                                                PM. Early check-in and late check-out are subject to
-                                                availability.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="accordion-item mb-0 wow fadeInUp"
-                                    data-wow-delay=".3s">
-                                    <h2 class="accordion-header" id="headingfour">
-                                        <button
-                                            class="accordion-button collapsed"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#collapsefour"
-                                            aria-expanded="false"
-                                            aria-controls="collapsefour">
-                                            Are there family-friendly activities?
-                                        </button>
-                                    </h2>
-                                    <div
-                                        id="collapsefour"
-                                        class="accordion-collapse collapse"
-                                        aria-labelledby="headingfour"
-                                        data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <p>
-                                                Check-in is from 2:00 PM, and check-out is by 12:00
-                                                PM. Early check-in and late check-out are subject to
-                                                availability.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <p>No frequently asked question.</p>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

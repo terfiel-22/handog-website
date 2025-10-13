@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2025 at 06:54 PM
+-- Generation Time: Oct 13, 2025 at 09:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -152,6 +152,27 @@ INSERT INTO `facility_images` (`id`, `facility_id`, `image`) VALUES
 (7, 7, 'uploads/images/68d3fc3ea15e9_event_hall_1.jpg'),
 (11, 8, 'uploads/images/68d56c6c96732_room_1.jpg'),
 (13, 9, 'uploads/images/68d61268042ab_cottage_1.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faqs`
+--
+
+CREATE TABLE `faqs` (
+  `id` int(11) NOT NULL,
+  `question` text NOT NULL,
+  `answer` text NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `faqs`
+--
+
+INSERT INTO `faqs` (`id`, `question`, `answer`, `created_at`) VALUES
+(1, 'Is breakfast included in the room rate?                         ', 'Check-in is from 2:00 PM, and check-out is by 12:00 PM. Early check-in and late check-out are subject to availability.', '2025-10-13 15:06:41'),
+(3, 'Do you offer free Wi-Fi?', 'Yes, complimentary high-speed Wi-Fi is available throughout the resort, including rooms, restaurants, and pool areas.', '2025-10-13 15:22:46');
 
 -- --------------------------------------------------------
 
@@ -321,6 +342,12 @@ ALTER TABLE `facility_images`
   ADD KEY `facility_id` (`facility_id`);
 
 --
+-- Indexes for table `faqs`
+--
+ALTER TABLE `faqs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `gallery_images`
 --
 ALTER TABLE `gallery_images`
@@ -386,6 +413,12 @@ ALTER TABLE `facilities`
 --
 ALTER TABLE `facility_images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `faqs`
+--
+ALTER TABLE `faqs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `gallery_images`
