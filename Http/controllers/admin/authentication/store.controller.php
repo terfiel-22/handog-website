@@ -1,6 +1,7 @@
 <?php
 
 use Core\Authenticator;
+use Core\Session;
 use Http\Forms\LoginForm;
 
 $loginForm = LoginForm::validate($_POST);
@@ -13,3 +14,13 @@ if (!$signedIn) {
         "Please provide a valid credentials that matched your account."
     )->throw();
 }
+
+if (isset($_POST['remember'])) {
+    Session::put('email', $_POST['email']);
+    Session::put('password', $_POST['password']);
+} else {
+    Session::unsetByKey('email');
+    Session::unsetByKey('password');
+}
+
+return redirect('/admin/dashboard');

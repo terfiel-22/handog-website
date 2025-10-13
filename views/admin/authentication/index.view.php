@@ -33,21 +33,23 @@ $pageName = "Sign In"
                         <span class="icon top-50 translate-middle-y">
                             <iconify-icon icon="mage:email"></iconify-icon>
                         </span>
-                        <input type="email" class="form-control h-56-px bg-neutral-50 radius-12" name="email" placeholder="Email">
+                        <input type="email" class="form-control h-56-px bg-neutral-50 radius-12" name="email" placeholder="Email" value="<?= old("email", $credentials["email"]) ?>">
                     </div>
-                    <div class="position-relative mb-20">
-                        <div class="icon-field">
-                            <span class="icon top-50 translate-middle-y">
-                                <iconify-icon icon="solar:lock-password-outline"></iconify-icon>
-                            </span>
-                            <input type="password" class="form-control h-56-px bg-neutral-50 radius-12" name="password" id="password" placeholder="Password">
-                            <?php if (isset($errors["password"])) : ?>
-                                <div class="error-text">
-                                    <?= $errors["password"] ?>
-                                </div>
-                            <?php endif; ?>
+                    <div class="mb-20">
+                        <div class="position-relative">
+                            <div class="icon-field">
+                                <span class="icon top-50 translate-middle-y">
+                                    <iconify-icon icon="solar:lock-password-outline"></iconify-icon>
+                                </span>
+                                <input type="password" class="form-control h-56-px bg-neutral-50 radius-12" name="password" id="password" placeholder="Password" value="<?= $credentials["password"] ?>">
+                            </div>
+                            <span class="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light" data-toggle="#password"></span>
                         </div>
-                        <span class="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light" data-toggle="#password"></span>
+                        <?php if (isset($errors["password"])) : ?>
+                            <div class="error-text">
+                                <?= $errors["password"] ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                     <div class="">
                         <div class="d-flex justify-content-between gap-2">

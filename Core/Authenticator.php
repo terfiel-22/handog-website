@@ -28,7 +28,7 @@ class Authenticator
         $session_token = generateSessionToken($user["id"]);
         $updatedUser = [
             'id' => $user["id"],
-            'usernname' => $user["usernname"],
+            'username' => $user["username"],
             'email' => $user["email"],
             'password' => $user["password"],
             'salt' => $user["salt"],

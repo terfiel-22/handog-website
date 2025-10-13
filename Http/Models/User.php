@@ -45,7 +45,7 @@ class User
             "UPDATE 
                 users 
             SET 
-                usernname=:usernname,
+                username=:username,
                 email=:email,
                 password=:password,
                 salt=:salt,
