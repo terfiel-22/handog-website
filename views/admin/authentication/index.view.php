@@ -31,9 +31,9 @@ $pageName = "Sign In"
                 <form method="POST">
                     <div class="icon-field mb-16">
                         <span class="icon top-50 translate-middle-y">
-                            <iconify-icon icon="mage:id-card"></iconify-icon>
+                            <iconify-icon icon="mage:email"></iconify-icon>
                         </span>
-                        <input type="text" class="form-control h-56-px bg-neutral-50 radius-12" name="username" placeholder="Username">
+                        <input type="email" class="form-control h-56-px bg-neutral-50 radius-12" name="email" placeholder="Email">
                     </div>
                     <div class="position-relative mb-20">
                         <div class="icon-field">
