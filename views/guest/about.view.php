@@ -289,13 +289,23 @@
                                     <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
                                         <label for="name">Your Name</label>
                                         <div class="form-clt">
-                                            <input type="text" name="name" id="name" placeholder="Enter your name">
+                                            <input type="text" name="name" id="name" placeholder="Enter your name" value="<?= old("name") ?>" required>
+                                            <?php if (isset($errors["name"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["name"] ?>
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".5s">
                                         <label for="email">Your Email</label>
                                         <div class="form-clt">
-                                            <input type="email" name="email" id="email" placeholder="Enter your email">
+                                            <input type="email" name="email" id="email" placeholder="Enter your email" value="<?= old("email") ?>" required>
+                                            <?php if (isset($errors["email"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["email"] ?>
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 wow fadeInUp" data-wow-delay=".3s">
@@ -303,15 +313,25 @@
                                         <div class="form-clt">
                                             <select name="concern" id="concern" class="single-select w-100" required>
                                                 <?php foreach (\Http\Enums\ConcernType::toArray() as $concern): ?>
-                                                    <option value="<?= $concern ?>"><?= $concern ?></option>
+                                                    <option value="<?= $concern ?>" <?= old("concern") == $concern ? "selected" : "" ?>><?= $concern ?></option>
                                                 <?php endforeach; ?>
                                             </select>
+                                            <?php if (isset($errors["concern"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["concern"] ?>
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 wow fadeInUp" data-wow-delay=".3s">
                                         <label for="message">Your Message</label>
                                         <div class="form-clt">
-                                            <textarea name="message" id="message" placeholder="Type your message"></textarea>
+                                            <textarea name="message" id="message" placeholder="Type your message" required><?= old("message") ?></textarea>
+                                            <?php if (isset($errors["message"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["message"] ?>
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 wow fadeInUp" data-wow-delay=".5s">
