@@ -9,6 +9,7 @@ use Http\Helpers\PaymentHelper;
 use Http\Helpers\ReservationHelper;
 use Http\Models\Amenity;
 use Http\Models\AmenityImage;
+use Http\Models\Email;
 use Http\Models\Event;
 use Http\Models\Facility;
 use Http\Models\FacilityImage;
@@ -67,6 +68,9 @@ $container->bind(Rates::class, function () {
 });
 $container->bind(User::class, function () {
     return new User();
+});
+$container->bind(Email::class, function () {
+    return new Email();
 });
 
 /** Handler */
