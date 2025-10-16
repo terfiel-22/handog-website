@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="/assets/admin/css/lib/editor-katex.min.css">
     <link rel="stylesheet" href="/assets/admin/css/lib/editor.atom-one-dark.min.css">
     <link rel="stylesheet" href="/assets/admin/css/lib/editor.quill.snow.css">
+    <!-- Calendar -->
+    <link rel="stylesheet" href="/assets/admin/css/lib/full-calendar.css" />
     <!-- Date picker css -->
     <link rel="stylesheet" href="/assets/admin/css/lib/flatpickr.min.css">
     <!-- Calendar css -->

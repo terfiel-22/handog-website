@@ -28,185 +28,276 @@ $pageName = "Reservations"
             <!-- Breadcrumbs -->
             <?php view("admin/partials/breadcrumb.partial.php", compact('pageName')) ?>
 
-            <!-- Form -->
-            <div class="card basic-data-table">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="card-title mb-0">Add Reservation</h6>
+            <!-- Calendar -->
+            <div class="row g-4 justify-content-center">
+                <div class="col-12 col-md-8">
+                    <div class="card h-100 p-0">
+                        <div class="card-body p-24">
+                            <div id="wrap">
+                                <div id="calendar"></div>
+                                <div style="clear: both"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <form action="/admin/reservations/store" method="POST">
-                        <!-- Step 1 -->
-                        <div class="step active">
-                            <h6>Step 1: Reservation</h6>
-                            <div class="row gy-3">
-                                <div class="col-12 col-md-4">
-                                    <label class="form-label" for="time_slot">Time Slot</label>
-                                    <select name="time_slot" id="time_slot" class="form-control">
-                                        <?php foreach (\Http\Enums\TimeSlot::toArray() as $timeSlot): ?>
-                                            <option value="<?= $timeSlot ?>"><?= ucfirst($timeSlot) ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <?php if (isset($errors["time_slot"])) : ?>
-                                        <div class="error-text">
-                                            <?= $errors["time_slot"] ?>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <label class="form-label" for="guest_count">Guest Count</label>
-                                    <input type="number" id="guest_count" name="guest_count" class="form-control" min="0" max="99" value="<?= old("guest_count") || 1 ?>">
-                                    <?php if (isset($errors["guest_count"])) : ?>
-                                        <div class="error-text">
-                                            <?= $errors["guest_count"] ?>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <label for="rent_videoke">Rent Videoke?</label>
-                                    <select name="rent_videoke" id="rent_videoke" class="form-control">
-                                        <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
-                                            <option value="<?= $yesNo ?>"><?= ucfirst($yesNo) ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <?php if (isset($errors["rent_videoke"])) : ?>
-                                        <div class="error-text">
-                                            <?= $errors["rent_videoke"] ?>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <label class="form-label" for="facility">Facility</label>
-                                    <select name="facility" id="facility" class="form-control">
-                                        <?php foreach ($facilities as $facility): ?>
-                                            <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>"><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <?php if (isset($errors["facility"])) : ?>
-                                        <div class=" error-text">
-                                            <?= $errors["facility"] ?>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <label class="form-label" for="time_range">Time Range</label>
-                                    <select name="time_range" id="time_range" class="form-control">
-                                        <?php foreach (\Http\Enums\ReservationTimeRange::toArray() as $time_range): ?>
-                                            <option value="<?= $time_range ?>"><?= $time_range ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <?php if (isset($errors["time_range"])) : ?>
-                                        <div class="error-text">
-                                            <?= $errors["time_range"] ?>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="col-12">
-                                    <a href="/admin/reservations" class="btn btn-danger-600">Cancel</a>
-                                    <button type="button" class="btn btn-primary next">Next</button>
-                                </div>
-                            </div>
+                <div class="col-12">
+                    <!-- Form -->
+                    <div class="card basic-data-table">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h6 class="card-title mb-0">Add Reservation</h6>
                         </div>
-
-                        <!-- Step 2 -->
-                        <div class="step">
-                            <h6>Step 2: Contact Info</h6>
-                            <div class="row gy-3">
-                                <div class="col-12 col-md-12">
-                                    <label class="form-label" for="contact_person">Contact Person</label>
-                                    <input type="text" name="contact_person" id="contact_person" class="form-control" placeholder="Enter Name" value="<?= old("contact_person") ?>">
-                                    <?php if (isset($errors["contact_person"])) : ?>
-                                        <div class="error-text">
-                                            <?= $errors["contact_person"] ?>
+                        <div class="card-body">
+                            <form action="/admin/reservations/store" method="POST">
+                                <!-- Step 1 -->
+                                <div class="step active">
+                                    <h6>Step 1: Reservation</h6>
+                                    <div class="row gy-3">
+                                        <div class="col-12 col-md-4">
+                                            <label class="form-label" for="time_slot">Time Slot</label>
+                                            <select name="time_slot" id="time_slot" class="form-control">
+                                                <?php foreach (\Http\Enums\TimeSlot::toArray() as $timeSlot): ?>
+                                                    <option value="<?= $timeSlot ?>"><?= ucfirst($timeSlot) ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <?php if (isset($errors["time_slot"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["time_slot"] ?>
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <label class="form-label" for="contact_no">Phone Number</label>
-                                    <input type="tel" name="contact_no" id="contact_no" class="form-control" placeholder="Enter Phone No." value="<?= old("contact_no") ?>">
-                                    <?php if (isset($errors["contact_no"])) : ?>
-                                        <div class="error-text">
-                                            <?= $errors["contact_no"] ?>
+                                        <div class="col-12 col-md-4">
+                                            <label class="form-label" for="guest_count">Guest Count</label>
+                                            <input type="number" id="guest_count" name="guest_count" class="form-control" min="0" max="99" value="<?= old("guest_count") || 1 ?>">
+                                            <?php if (isset($errors["guest_count"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["guest_count"] ?>
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <label class="form-label" for="contact_email">Email</label>
-                                    <input type="text" name="contact_email" id="contact_email" class="form-control" placeholder="Enter Email" value="<?= old("contact_email") ?>">
-                                    <?php if (isset($errors["contact_email"])) : ?>
-                                        <div class="error-text">
-                                            <?= $errors["contact_email"] ?>
+                                        <div class="col-12 col-md-4">
+                                            <label for="rent_videoke">Rent Videoke?</label>
+                                            <select name="rent_videoke" id="rent_videoke" class="form-control">
+                                                <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
+                                                    <option value="<?= $yesNo ?>"><?= ucfirst($yesNo) ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <?php if (isset($errors["rent_videoke"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["rent_videoke"] ?>
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label" for="contact_address">Address</label>
-                                    <input type="text" name="contact_address" id="contact_address" class="form-control" placeholder="Enter Email" value="<?= old("contact_address") ?>">
-                                    <?php if (isset($errors["contact_address"])) : ?>
-                                        <div class="error-text">
-                                            <?= $errors["contact_address"] ?>
+                                        <div class="col-12 col-md-6">
+                                            <label class="form-label" for="facility">Facility</label>
+                                            <select name="facility" id="facility" class="form-control">
+                                                <?php foreach ($facilities as $facility): ?>
+                                                    <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>"><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <?php if (isset($errors["facility"])) : ?>
+                                                <div class=" error-text">
+                                                    <?= $errors["facility"] ?>
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="col-12">
-                                    <button type="button" class="btn btn-secondary prev">Previous</button>
-                                    <button type="button" class="btn btn-primary next">Next</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Step 3 -->
-                        <div class="step">
-                            <h6>Step 3: Guest Info</h6>
-                            <div class="row gy-3">
-                                <div id="guest-list" class="col-12 row gy-3"></div>
-                                <?php if (isset($errors["guests"])) : ?>
-                                    <div class="error-text">
-                                        <?= $errors["guests"] ?>
+                                        <div class="col-12 col-md-6">
+                                            <label class="form-label" for="time_range">Time Range</label>
+                                            <select name="time_range" id="time_range" class="form-control">
+                                                <?php foreach (\Http\Enums\ReservationTimeRange::toArray() as $time_range): ?>
+                                                    <option value="<?= $time_range ?>"><?= $time_range ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <?php if (isset($errors["time_range"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["time_range"] ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="col-12">
+                                            <a href="/admin/reservations" class="btn btn-danger-600">Cancel</a>
+                                            <button type="button" class="btn btn-primary next">Next</button>
+                                        </div>
                                     </div>
-                                <?php endif; ?>
-                                <div class="col-12">
-                                    <button type="button" class="btn btn-secondary prev">Previous</button>
-                                    <button type="button" class="btn btn-primary next">Next</button>
                                 </div>
-                            </div>
-                        </div>
 
-                        <!-- Step 4 -->
-                        <div class="step">
-                            <h6>Step 4: Completion</h6>
-                            <div class="row gy-3">
-                                <div class="col-12 col-md-6">
-                                    <label for="total_rate" class="form-label">Total Rate</label>
-                                    <input type="number" id="total_rate" class="form-control" disabled>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <label class="form-label" for="payment_status">Payment Status</label>
-                                    <select name="payment_status" id="payment_status" class="form-control">
-                                        <?php foreach (\Http\Enums\PaymentStatus::toArray() as $payment_status): ?>
-                                            <option value="<?= $payment_status ?>"><?= $payment_status ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <?php if (isset($errors["payment_status"])) : ?>
-                                        <div class="error-text">
-                                            <?= $errors["payment_status"] ?>
+                                <!-- Step 2 -->
+                                <div class="step">
+                                    <h6>Step 2: Contact Info</h6>
+                                    <div class="row gy-3">
+                                        <div class="col-12 col-md-12">
+                                            <label class="form-label" for="contact_person">Contact Person</label>
+                                            <input type="text" name="contact_person" id="contact_person" class="form-control" placeholder="Enter Name" value="<?= old("contact_person") ?>">
+                                            <?php if (isset($errors["contact_person"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["contact_person"] ?>
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
-                                    <?php endif; ?>
+                                        <div class="col-12 col-md-6">
+                                            <label class="form-label" for="contact_no">Phone Number</label>
+                                            <input type="tel" name="contact_no" id="contact_no" class="form-control" placeholder="Enter Phone No." value="<?= old("contact_no") ?>">
+                                            <?php if (isset($errors["contact_no"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["contact_no"] ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <label class="form-label" for="contact_email">Email</label>
+                                            <input type="text" name="contact_email" id="contact_email" class="form-control" placeholder="Enter Email" value="<?= old("contact_email") ?>">
+                                            <?php if (isset($errors["contact_email"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["contact_email"] ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label" for="contact_address">Address</label>
+                                            <input type="text" name="contact_address" id="contact_address" class="form-control" placeholder="Enter Email" value="<?= old("contact_address") ?>">
+                                            <?php if (isset($errors["contact_address"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["contact_address"] ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="button" class="btn btn-secondary prev">Previous</button>
+                                            <button type="button" class="btn btn-primary next">Next</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-12">
-                                    <button type="button" class="btn btn-secondary prev">Previous</button>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                                <!-- Step 3 -->
+                                <div class="step">
+                                    <h6>Step 3: Guest Info</h6>
+                                    <div class="row gy-3">
+                                        <div id="guest-list" class="col-12 row gy-3"></div>
+                                        <?php if (isset($errors["guests"])) : ?>
+                                            <div class="error-text">
+                                                <?= $errors["guests"] ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="col-12">
+                                            <button type="button" class="btn btn-secondary prev">Previous</button>
+                                            <button type="button" class="btn btn-primary next">Next</button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+
+                                <!-- Step 4 -->
+                                <div class="step">
+                                    <h6>Step 4: Completion</h6>
+                                    <div class="row gy-3">
+                                        <div class="col-12 col-md-6">
+                                            <label for="total_rate" class="form-label">Total Rate</label>
+                                            <input type="number" id="total_rate" class="form-control" disabled>
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <label class="form-label" for="payment_status">Payment Status</label>
+                                            <select name="payment_status" id="payment_status" class="form-control">
+                                                <?php foreach (\Http\Enums\PaymentStatus::toArray() as $payment_status): ?>
+                                                    <option value="<?= $payment_status ?>"><?= $payment_status ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <?php if (isset($errors["payment_status"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["payment_status"] ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="button" class="btn btn-secondary prev">Previous</button>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
+
 
         </div>
     </main>
 
     <!-- JS Plugins -->
     <?php view("admin/partials/plugins.partial.php") ?>
+
+    <!-- Calendar -->
+    <script>
+        $(document).ready(function() {
+            const bookingsData = <?= json_encode($bookings) ?>;
+
+            const calendar = $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                weekends: true,
+                businessHours: false,
+                defaultView: 'agendaWeek',
+                editable: false,
+                selectable: false,
+                allDaySlot: false,
+                minTime: "00:00:00",
+                maxTime: "24:00:00",
+                events: [] // Start empty
+            });
+
+            function updateCalendarEvents(facilityId) {
+                $('#calendar').fullCalendar('removeEvents');
+
+                if (!facilityId) return;
+
+                const facilityBookings = bookingsData.filter(b => String(b.facility_id) === String(facilityId));
+                if (facilityBookings.length === 0) return;
+
+                const availableUnits = facilityBookings[0].available_unit; // assume same for this facility
+                const fullyBookedSlots = [];
+
+                // Iterate through bookings to find overlapping fully booked ranges
+                for (let i = 0; i < facilityBookings.length; i++) {
+                    const current = facilityBookings[i];
+                    const start = new Date(current.check_in_date);
+                    const end = new Date(current.check_out_date);
+                    const endWithBuffer = new Date(end.getTime() + 60 * 60 * 1000); // +1 hr cleaning
+
+                    // Count overlapping bookings within this time range
+                    let overlapCount = 0;
+                    for (let j = 0; j < facilityBookings.length; j++) {
+                        const other = facilityBookings[j];
+                        const otherStart = new Date(other.check_in_date);
+                        const otherEnd = new Date(other.check_out_date);
+
+                        if (start < otherEnd && end > otherStart) {
+                            overlapCount++;
+                        }
+                    }
+
+                    // Only add to calendar if all units are booked at that time
+                    if (overlapCount >= availableUnits) {
+                        fullyBookedSlots.push({
+                            title: 'Not Available',
+                            start: start,
+                            end: endWithBuffer,
+                            allDay: false,
+                            backgroundColor: '#ff4d4d',
+                            textColor: '#ffffff'
+                        });
+                    }
+                }
+
+                $('#calendar').fullCalendar('addEventSource', fullyBookedSlots);
+            }
+
+            $('#facility').on('change', function() {
+                const facilityId = $(this).val();
+                updateCalendarEvents(facilityId);
+            });
+        });
+    </script>
 
     <!-- Generate Guest Fields -->
     <script>
