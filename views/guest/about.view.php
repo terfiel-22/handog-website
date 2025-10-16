@@ -284,28 +284,38 @@
                                 Send Us Message
                             </h2>
                             <p>There will be no publication of your email address. Required fields are indicated with a *.</p>
-                            <form action="#" id="contact-form" class="contact-form-box">
+                            <form action="/contact/store" id="contact-form" method="POST" class="contact-form-box">
                                 <div class="row g-4 align-items-center">
                                     <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
-                                        <h4>Your Name</h4>
+                                        <label for="name">Your Name</label>
                                         <div class="form-clt">
-                                            <input type="text" name="name" id="name" placeholder="Your Name">
+                                            <input type="text" name="name" id="name" placeholder="Enter your name">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".5s">
-                                        <h4>Your Email</h4>
+                                        <label for="email">Your Email</label>
                                         <div class="form-clt">
-                                            <input type="text" name="email" id="email2" placeholder="Your Email">
+                                            <input type="email" name="email" id="email" placeholder="Enter your email">
                                         </div>
                                     </div>
                                     <div class="col-lg-12 wow fadeInUp" data-wow-delay=".3s">
-                                        <h4>Your Message</h4>
+                                        <label for="concern">Your Concern</label>
+                                        <div class="form-clt">
+                                            <select name="concern" id="concern" class="single-select w-100" required>
+                                                <?php foreach (\Http\Enums\ConcernType::toArray() as $concern): ?>
+                                                    <option value="<?= $concern ?>"><?= $concern ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 wow fadeInUp" data-wow-delay=".3s">
+                                        <label for="message">Your Message</label>
                                         <div class="form-clt">
                                             <textarea name="message" id="message" placeholder="Type your message"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 wow fadeInUp" data-wow-delay=".5s">
-                                        <a href="contacts.html" class="gt-theme-btn">SEND MESSAGE</a>
+                                        <button type="submit" class="gt-theme-btn">SEND MESSAGE</button>
                                     </div>
                                 </div>
                             </form>
