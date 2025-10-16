@@ -18,13 +18,6 @@
                 </a>
             </li>
             <li>
-                <a href="/admin/messages">
-                    <iconify-icon icon="ic:outline-email" class="menu-icon"></iconify-icon>
-                    <span>Messages</span>
-
-                </a>
-            </li>
-            <li>
                 <a href="/admin/facilities">
                     <iconify-icon icon="ic:outline-home" class="menu-icon"></iconify-icon>
                     <span>Facilities</span>
