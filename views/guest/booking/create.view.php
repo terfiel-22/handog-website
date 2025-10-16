@@ -59,7 +59,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s">
-                                            <label for="facility">Hours Stay</label>
+                                            <label for="time_range">Hours Stay</label>
                                             <div class="form-clt">
                                                 <select name="time_range" id="time_range" class="single-select w-100" required>
                                                     <?php foreach (\Http\Enums\ReservationTimeRange::toArray() as $time_range): ?>
@@ -74,7 +74,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s">
-                                            <label for="check_in">Check Out</label>
+                                            <label for="check_out">Check Out</label>
                                             <div class="form-clt">
                                                 <input type="text" name="check_out" id="check_out" readonly>
                                             </div>
