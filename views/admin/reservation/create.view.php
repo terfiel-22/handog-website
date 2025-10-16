@@ -58,7 +58,7 @@ $pageName = "Reservations"
                                             <label class="form-label" for="facility">Facility</label>
                                             <select name="facility" id="facility" class="form-control">
                                                 <?php foreach ($facilities as $facility): ?>
-                                                    <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>"><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
+                                                    <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= old("facility") == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
                                                 <?php endforeach; ?>
                                             </select>
                                             <?php if (isset($errors["facility"])) : ?>
@@ -442,20 +442,22 @@ $pageName = "Reservations"
                 let $container = $("#guest-list");
                 $container.empty(); // clear old fields
 
+                let oldValues = <?= json_encode(old('guests', [])) ?>;
+
                 if (count > 0) {
                     for (let i = 1; i <= count; i++) {
                         let fieldGroup = `
                         <div class="col-12"> 
-                            <label>Guest ${i}</label>
-                            <input type="text" name="guests[${i}][guest_name]" class="form-control" placeholder="Enter name">
+                            <label for"guests[${i}][guest_name]">Guest ${i}</label>
+                            <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" class="form-control" placeholder="Enter name" value="${oldValues[i]?.guest_name ?? ''}">
                         </div> 
                         <div class="col-12">
-                            <label>Age</label>
-                            <input type="number" name="guests[${i}][guest_age]" class="form-control" placeholder="Enter age" min="0">
+                            <label for"guests[${i}][guest_age]">Age</label>
+                            <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" class="form-control" placeholder="Enter age" min="0" value="${oldValues[i]?.guest_age ?? ''}">
                         </div> 
                         <div class="col-12">
-                            <label>Senior/PWD</label>
-                            <select name="guests[${i}][senior_pwd]" class="form-control"> 
+                            <label for="guests[${i}][senior_pwd]">Senior/PWD</label>
+                            <select name="guests[${i}][senior_pwd]" id="guests[${i}][senior_pwd]" class="form-control"> 
                                 <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
                                     <option value="<?= $yesNo ?>"><?= ucfirst($yesNo) ?></option>
                                 <?php endforeach; ?>
