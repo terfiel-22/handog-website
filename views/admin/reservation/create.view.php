@@ -48,22 +48,50 @@ $pageName = "Reservations"
                         </div>
                         <div class="card-body">
                             <form action="/admin/reservations/store" method="POST">
+                                <input type="hidden" name="time_slot" id="time_slot">
                                 <!-- Step 1 -->
                                 <div class="step active">
                                     <h6>Step 1: Reservation</h6>
+                                    <div class="error-text" role="alert" id="check_in_msg"></div>
                                     <div class="row gy-3">
                                         <div class="col-12">
-                                            <label class="form-label" for="time_slot">Time Slot</label>
-                                            <select name="time_slot" id="time_slot" class="form-control">
-                                                <?php foreach (\Http\Enums\TimeSlot::toArray() as $timeSlot): ?>
-                                                    <option value="<?= $timeSlot ?>"><?= ucfirst($timeSlot) ?></option>
+                                            <label class="form-label" for="facility">Facility</label>
+                                            <select name="facility" id="facility" class="form-control">
+                                                <?php foreach ($facilities as $facility): ?>
+                                                    <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>"><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
                                                 <?php endforeach; ?>
                                             </select>
-                                            <?php if (isset($errors["time_slot"])) : ?>
-                                                <div class="error-text">
-                                                    <?= $errors["time_slot"] ?>
+                                            <?php if (isset($errors["facility"])) : ?>
+                                                <div class=" error-text">
+                                                    <?= $errors["facility"] ?>
                                                 </div>
                                             <?php endif; ?>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label" for="time_range">Hours Stay</label>
+                                            <select name="time_range" id="time_range" class="form-control">
+                                                <?php foreach (\Http\Enums\ReservationTimeRange::toArray() as $time_range): ?>
+                                                    <option value="<?= $time_range ?>"><?= $time_range ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <?php if (isset($errors["time_range"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["time_range"] ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label" for="check_in">Check In</label>
+                                            <input type="text" name="check_in" id="check_in" class="form-control" value="<?= old("check_in", ($_GET["check_in"] ?? date("d/m/Y H:i"))) ?>">
+                                            <?php if (isset($errors["check_in"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["check_in"] ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label" for="check_out">Check Out</label>
+                                            <input type="text" name="check_out" id="check_out" class="form-control" readonly>
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label" for="guest_count">Guest Count</label>
@@ -88,34 +116,8 @@ $pageName = "Reservations"
                                             <?php endif; ?>
                                         </div>
                                         <div class="col-12">
-                                            <label class="form-label" for="facility">Facility</label>
-                                            <select name="facility" id="facility" class="form-control">
-                                                <?php foreach ($facilities as $facility): ?>
-                                                    <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>"><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                            <?php if (isset($errors["facility"])) : ?>
-                                                <div class=" error-text">
-                                                    <?= $errors["facility"] ?>
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
-                                        <div class="col-12">
-                                            <label class="form-label" for="time_range">Time Range</label>
-                                            <select name="time_range" id="time_range" class="form-control">
-                                                <?php foreach (\Http\Enums\ReservationTimeRange::toArray() as $time_range): ?>
-                                                    <option value="<?= $time_range ?>"><?= $time_range ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                            <?php if (isset($errors["time_range"])) : ?>
-                                                <div class="error-text">
-                                                    <?= $errors["time_range"] ?>
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
-                                        <div class="col-12">
                                             <a href="/admin/reservations" class="btn btn-danger-600">Cancel</a>
-                                            <button type="button" class="btn btn-primary next">Next</button>
+                                            <button type="button" id="nextBtn" class="btn btn-primary next">Next</button>
                                         </div>
                                     </div>
                                 </div>
@@ -299,6 +301,140 @@ $pageName = "Reservations"
         });
     </script>
 
+    <!-- Date picker -->
+    <script>
+        $(function() {
+            const bookings = <?= json_encode($bookings) ?> || [];
+
+            function parseDateTime(str) {
+                if (!str) return null;
+                str = str.trim().replace(' ', 'T');
+                if (str.length === 16) str += ':00';
+                const d = new Date(str);
+                return isNaN(d.getTime()) ? null : d;
+            }
+
+            function formatDateTime(d) {
+                if (!d) return '';
+                const pad = n => (n < 10 ? '0' + n : n);
+                return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+            }
+
+            function formatReadableDateTime(d) {
+                if (!d) return '';
+                const options = {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true,
+                };
+                return d.toLocaleString('en-US', options);
+            }
+
+            function parseDurationEnum(val) {
+                switch (val) {
+                    case '8-Hours':
+                        return 8;
+                    case '12-Hours':
+                        return 12;
+                    case '1-Day':
+                        return 24;
+                    default:
+                        return 0;
+                }
+            }
+
+            function overlaps(aStart, aEnd, bStart, bEnd) {
+                return aStart < bEnd && aEnd > bStart;
+            }
+
+            $('#check_in').flatpickr({
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+                time_24hr: true,
+                minDate: "today",
+                onChange: function() {
+                    checkAvailability();
+                }
+            });
+
+            $('#check_in, #time_range, #facility').on('change blur', checkAvailability);
+
+            function checkAvailability() {
+                $('#check_in_msg').text('');
+                $('#submitBtn').prop('disabled', false);
+
+                const facilityId = $('#facility').val();
+                const checkInRaw = $('#check_in').val();
+                const durationVal = $('#time_range').val();
+
+                if (!checkInRaw) {
+                    $('#check_out').val('');
+                    return;
+                }
+
+                const selStart = parseDateTime(checkInRaw);
+                if (!selStart) {
+                    $('#submitBtn').prop('disabled', true);
+                    return;
+                }
+
+                const hours = parseDurationEnum(durationVal);
+                const selEnd = new Date(selStart.getTime() + hours * 60 * 60 * 1000);
+                $('#check_out').val(formatDateTime(selEnd));
+
+                if (!facilityId) return;
+
+                // Filter bookings by facility
+                const facilityBookings = bookings.filter(b => String(b.facility_id) === String(facilityId));
+                if (facilityBookings.length === 0) return;
+
+                const availableUnits = facilityBookings[0].available_unit || 1;
+
+                // Count overlapping bookings
+                let overlapCount = 0;
+                let conflictDetails = [];
+
+                for (let i = 0; i < facilityBookings.length; i++) {
+                    const b = facilityBookings[i];
+                    const bStart = parseDateTime(b.check_in_date);
+                    const bEnd = parseDateTime(b.check_out_date);
+                    if (!bStart || !bEnd) continue;
+
+                    // Add 1-hour cleaning buffer
+                    const bEndWithCleaning = new Date(bEnd.getTime() + 60 * 60 * 1000);
+
+                    if (overlaps(selStart, selEnd, bStart, bEndWithCleaning)) {
+                        overlapCount++;
+                        conflictDetails.push({
+                            start: bStart,
+                            end: bEndWithCleaning
+                        });
+                    }
+                }
+
+                // Disable only if all units are occupied
+                if (overlapCount >= availableUnits) {
+                    let conflictText = conflictDetails
+                        .map(c => `<strong>${formatReadableDateTime(c.start)}</strong> → <strong>${formatReadableDateTime(c.end)}</strong>`)
+                        .join('<br>');
+
+                    $('#check_in_msg').html(
+                        `<strong>Selected check-in time is unavailable.</strong><br>
+                 All ${availableUnits} unit(s) are booked during:<br>${conflictText}`
+                    );
+                    $('#nextBtn').prop('disabled', true);
+                    return;
+                }
+
+                $('#check_in_msg').text('');
+                $('#nextBtn').prop('disabled', false);
+            }
+        });
+    </script>
+
     <!-- Generate Guest Fields -->
     <script>
         $(document).ready(function() {
@@ -345,6 +481,14 @@ $pageName = "Reservations"
             // Inject PHP rates
             const rates = <?= json_encode($rates) ?>;
 
+            const isDaySlot = (checkIn) => {
+                let checkDate = new Date(checkIn);
+                if (isNaN(checkDate)) return null;
+
+                let hour = checkDate.getHours();
+                return hour >= 6 && hour < 18;
+            }
+
             function computeTotal() {
                 let total = 0;
 
@@ -367,7 +511,8 @@ $pageName = "Reservations"
                 const yesNo = <?= json_encode(\Http\Enums\YesNo::toArray()) ?>;
                 const guestType = <?= json_encode(\Http\Enums\GuestType::toArray()) ?>;
                 const timeSlots = <?= json_encode(\Http\Enums\TimeSlot::toArray()) ?>;
-                const timeSlot = $("#time_slot").val() || timeSlots.DAY;
+                const timeSlot = isDaySlot($("#check_in").val()) ? timeSlots.DAY : timeSlots.NIGHT;
+                $("#time_slot").val(timeSlot);
                 // --- Guest rates (adult/kid per day/night) ---
                 $("#guest-list").find("[name*='[guest_age]']").each(function() {
                     const guestIndex = $(this).attr("name").match(/\d+/)[0]; // extract index
@@ -403,10 +548,11 @@ $pageName = "Reservations"
 
                 // --- Display total ---
                 $("#total_rate").val(total.toFixed(2));
+                $("#booking_deposit").val((total / 2).toFixed(2));
             }
 
             // Recompute whenever form values change
-            $(document).on("change input", "#time_range, #time_slot, #rent_videoke, #facility, #guest-list select", computeTotal);
+            $(document).on("change input", "#time_range, #check_in, #rent_videoke, #facility, #guest-list input", computeTotal);
 
             // Initial compute
             computeTotal();
