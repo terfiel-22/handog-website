@@ -4,6 +4,7 @@ use Core\App;
 use Core\Container;
 use Core\Database;
 use Core\FileUploadHandler;
+use Http\Helpers\ContactHelper;
 use Http\Helpers\EmailHelper;
 use Http\Helpers\PaymentHelper;
 use Http\Helpers\ReservationHelper;
@@ -89,6 +90,10 @@ $container->bind(PaymentHelper::class, function () {
 $container->bind(EmailHelper::class, function () {
     $config = require base_path("config.php");
     return new EmailHelper($config["php_mailer"]);
+});
+$container->bind(ContactHelper::class, function () {
+    $config = require base_path("config.php");
+    return new ContactHelper($config["owner"]);
 });
 
 App::setContainer($container);

@@ -19,4 +19,8 @@ return [
         'from_email'  => 'despicablehaythamkenway@gmail.com',
         'from_name'   => 'Handog Resort'
     ],
+    "owner" => [
+        "email" => "despicablehaythamkenway@gmail.com",
+        "name" => "Handog Resort Team"
+    ]
 ];
