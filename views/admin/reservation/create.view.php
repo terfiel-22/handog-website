@@ -28,8 +28,8 @@ $pageName = "Reservations"
             <!-- Breadcrumbs -->
             <?php view("admin/partials/breadcrumb.partial.php", compact('pageName')) ?>
 
-            <!-- Calendar -->
             <div class="row g-4 justify-content-center">
+                <!-- Calendar -->
                 <div class="col-12 col-md-8">
                     <div class="card h-100 p-0">
                         <div class="card-body p-24">
@@ -40,8 +40,8 @@ $pageName = "Reservations"
                         </div>
                     </div>
                 </div>
-                <div class="col-12">
-                    <!-- Form -->
+                <!-- Form -->
+                <div class="col-12 col-md-4">
                     <div class="card basic-data-table">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h6 class="card-title mb-0">Add Reservation</h6>
@@ -52,7 +52,7 @@ $pageName = "Reservations"
                                 <div class="step active">
                                     <h6>Step 1: Reservation</h6>
                                     <div class="row gy-3">
-                                        <div class="col-12 col-md-4">
+                                        <div class="col-12">
                                             <label class="form-label" for="time_slot">Time Slot</label>
                                             <select name="time_slot" id="time_slot" class="form-control">
                                                 <?php foreach (\Http\Enums\TimeSlot::toArray() as $timeSlot): ?>
@@ -65,7 +65,7 @@ $pageName = "Reservations"
                                                 </div>
                                             <?php endif; ?>
                                         </div>
-                                        <div class="col-12 col-md-4">
+                                        <div class="col-12">
                                             <label class="form-label" for="guest_count">Guest Count</label>
                                             <input type="number" id="guest_count" name="guest_count" class="form-control" min="0" max="99" value="<?= old("guest_count") || 1 ?>">
                                             <?php if (isset($errors["guest_count"])) : ?>
@@ -74,7 +74,7 @@ $pageName = "Reservations"
                                                 </div>
                                             <?php endif; ?>
                                         </div>
-                                        <div class="col-12 col-md-4">
+                                        <div class="col-12">
                                             <label for="rent_videoke">Rent Videoke?</label>
                                             <select name="rent_videoke" id="rent_videoke" class="form-control">
                                                 <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
@@ -87,7 +87,7 @@ $pageName = "Reservations"
                                                 </div>
                                             <?php endif; ?>
                                         </div>
-                                        <div class="col-12 col-md-6">
+                                        <div class="col-12">
                                             <label class="form-label" for="facility">Facility</label>
                                             <select name="facility" id="facility" class="form-control">
                                                 <?php foreach ($facilities as $facility): ?>
@@ -100,7 +100,7 @@ $pageName = "Reservations"
                                                 </div>
                                             <?php endif; ?>
                                         </div>
-                                        <div class="col-12 col-md-6">
+                                        <div class="col-12">
                                             <label class="form-label" for="time_range">Time Range</label>
                                             <select name="time_range" id="time_range" class="form-control">
                                                 <?php foreach (\Http\Enums\ReservationTimeRange::toArray() as $time_range): ?>
@@ -124,7 +124,7 @@ $pageName = "Reservations"
                                 <div class="step">
                                     <h6>Step 2: Contact Info</h6>
                                     <div class="row gy-3">
-                                        <div class="col-12 col-md-12">
+                                        <div class="col-12">
                                             <label class="form-label" for="contact_person">Contact Person</label>
                                             <input type="text" name="contact_person" id="contact_person" class="form-control" placeholder="Enter Name" value="<?= old("contact_person") ?>">
                                             <?php if (isset($errors["contact_person"])) : ?>
@@ -133,7 +133,7 @@ $pageName = "Reservations"
                                                 </div>
                                             <?php endif; ?>
                                         </div>
-                                        <div class="col-12 col-md-6">
+                                        <div class="col-12">
                                             <label class="form-label" for="contact_no">Phone Number</label>
                                             <input type="tel" name="contact_no" id="contact_no" class="form-control" placeholder="Enter Phone No." value="<?= old("contact_no") ?>">
                                             <?php if (isset($errors["contact_no"])) : ?>
@@ -142,7 +142,7 @@ $pageName = "Reservations"
                                                 </div>
                                             <?php endif; ?>
                                         </div>
-                                        <div class="col-12 col-md-6">
+                                        <div class="col-12">
                                             <label class="form-label" for="contact_email">Email</label>
                                             <input type="text" name="contact_email" id="contact_email" class="form-control" placeholder="Enter Email" value="<?= old("contact_email") ?>">
                                             <?php if (isset($errors["contact_email"])) : ?>
@@ -188,11 +188,11 @@ $pageName = "Reservations"
                                 <div class="step">
                                     <h6>Step 4: Completion</h6>
                                     <div class="row gy-3">
-                                        <div class="col-12 col-md-6">
+                                        <div class="col-12">
                                             <label for="total_rate" class="form-label">Total Rate</label>
                                             <input type="number" id="total_rate" class="form-control" disabled>
                                         </div>
-                                        <div class="col-12 col-md-6">
+                                        <div class="col-12">
                                             <label class="form-label" for="payment_status">Payment Status</label>
                                             <select name="payment_status" id="payment_status" class="form-control">
                                                 <?php foreach (\Http\Enums\PaymentStatus::toArray() as $payment_status): ?>
@@ -309,15 +309,15 @@ $pageName = "Reservations"
                 if (count > 0) {
                     for (let i = 1; i <= count; i++) {
                         let fieldGroup = `
-                        <div class="col-12 col-md-4"> 
+                        <div class="col-12"> 
                             <label>Guest ${i}</label>
                             <input type="text" name="guests[${i}][guest_name]" class="form-control" placeholder="Enter name">
                         </div> 
-                        <div class="col-12 col-md-4">
+                        <div class="col-12">
                             <label>Age</label>
                             <input type="number" name="guests[${i}][guest_age]" class="form-control" placeholder="Enter age" min="0">
                         </div> 
-                        <div class="col-12 col-md-4">
+                        <div class="col-12">
                             <label>Senior/PWD</label>
                             <select name="guests[${i}][senior_pwd]" class="form-control"> 
                                 <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
