@@ -44,10 +44,12 @@ $pageName = "Reservations"
                 <div class="col-12 col-md-4">
                     <div class="card basic-data-table">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h6 class="card-title mb-0">Add Reservation</h6>
+                            <h6 class="card-title mb-0">Edit Reservation</h6>
                         </div>
                         <div class="card-body">
-                            <form action="/admin/reservations/store" method="POST">
+                            <form action="/admin/reservations/update" method="POST">
+                                <input type="hidden" name="_method" value="PUT">
+                                <input type="hidden" name="id" value="<?= $reservation["id"] ?>">
                                 <input type="hidden" name="time_slot" id="time_slot">
                                 <!-- Step 1 -->
                                 <div class="step active">
@@ -58,7 +60,7 @@ $pageName = "Reservations"
                                             <label class="form-label" for="facility">Facility</label>
                                             <select name="facility" id="facility" class="form-control">
                                                 <?php foreach ($facilities as $facility): ?>
-                                                    <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= old("facility") == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
+                                                    <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= old("facility", $reservation["id"]) == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
                                                 <?php endforeach; ?>
                                             </select>
                                             <?php if (isset($errors["facility"])) : ?>
@@ -71,7 +73,7 @@ $pageName = "Reservations"
                                             <label class="form-label" for="time_range">Hours Stay</label>
                                             <select name="time_range" id="time_range" class="form-control">
                                                 <?php foreach (\Http\Enums\ReservationTimeRange::toArray() as $time_range): ?>
-                                                    <option value="<?= $time_range ?>" <?= old('time_range', $reservation["time_range"]) == $time_range ? "selected" : "" ?>><?= $time_range ?></option>
+                                                    <option value="<?= $time_range ?>"><?= $time_range ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                             <?php if (isset($errors["time_range"])) : ?>
@@ -82,7 +84,7 @@ $pageName = "Reservations"
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label" for="check_in">Check In</label>
-                                            <input type="text" name="check_in" id="check_in" class="form-control" value="<?= old("check_in",  date("d/m/Y H:i")) ?>">
+                                            <input type="text" name="check_in" id="check_in" class="form-control" value="<?= old("check_in", $reservation["check_in"]) ?>">
                                             <?php if (isset($errors["check_in"])) : ?>
                                                 <div class="error-text">
                                                     <?= $errors["check_in"] ?>
@@ -91,11 +93,11 @@ $pageName = "Reservations"
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label" for="check_out">Check Out</label>
-                                            <input type="text" name="check_out" id="check_out" class="form-control" readonly>
+                                            <input type="text" name="check_out" id="check_out" class="form-control" value="<?= date('Y-m-d H:s', strtotime($reservation["check_out"])) ?>" readonly>
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label" for="guest_count">Guest Count</label>
-                                            <input type="number" id="guest_count" name="guest_count" class="form-control" min="0" max="99" value="<?= old("guest_count") || 1 ?>">
+                                            <input type="number" id="guest_count" name="guest_count" class="form-control" min="0" max="99" value="<?= old("guest_count", $reservation["guest_count"]) ?>">
                                             <?php if (isset($errors["guest_count"])) : ?>
                                                 <div class="error-text">
                                                     <?= $errors["guest_count"] ?>
@@ -106,7 +108,7 @@ $pageName = "Reservations"
                                             <label for="rent_videoke">Rent Videoke?</label>
                                             <select name="rent_videoke" id="rent_videoke" class="form-control">
                                                 <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
-                                                    <option value="<?= $yesNo ?>"><?= ucfirst($yesNo) ?></option>
+                                                    <option value="<?= $yesNo ?>" <?= old('rent_videoke', $reservation["rent_videoke"]) == $yesNo ? "selected" : "" ?>><?= ucfirst($yesNo) ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                             <?php if (isset($errors["rent_videoke"])) : ?>
@@ -128,7 +130,7 @@ $pageName = "Reservations"
                                     <div class="row gy-3">
                                         <div class="col-12">
                                             <label class="form-label" for="contact_person">Contact Person</label>
-                                            <input type="text" name="contact_person" id="contact_person" class="form-control" placeholder="Enter Name" value="<?= old("contact_person") ?>">
+                                            <input type="text" name="contact_person" id="contact_person" class="form-control" placeholder="Enter Name" value="<?= old("contact_person", $reservation["contact_person"]) ?>">
                                             <?php if (isset($errors["contact_person"])) : ?>
                                                 <div class="error-text">
                                                     <?= $errors["contact_person"] ?>
@@ -137,7 +139,7 @@ $pageName = "Reservations"
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label" for="contact_no">Phone Number</label>
-                                            <input type="tel" name="contact_no" id="contact_no" class="form-control" placeholder="Enter Phone No." value="<?= old("contact_no") ?>">
+                                            <input type="tel" name="contact_no" id="contact_no" class="form-control" placeholder="Enter Phone No." value="<?= old("contact_no", $reservation["contact_no"]) ?>">
                                             <?php if (isset($errors["contact_no"])) : ?>
                                                 <div class="error-text">
                                                     <?= $errors["contact_no"] ?>
@@ -146,7 +148,7 @@ $pageName = "Reservations"
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label" for="contact_email">Email</label>
-                                            <input type="text" name="contact_email" id="contact_email" class="form-control" placeholder="Enter Email" value="<?= old("contact_email") ?>">
+                                            <input type="text" name="contact_email" id="contact_email" class="form-control" placeholder="Enter Email" value="<?= old("contact_email", $reservation["contact_email"]) ?>">
                                             <?php if (isset($errors["contact_email"])) : ?>
                                                 <div class="error-text">
                                                     <?= $errors["contact_email"] ?>
@@ -155,7 +157,7 @@ $pageName = "Reservations"
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label" for="contact_address">Address</label>
-                                            <input type="text" name="contact_address" id="contact_address" class="form-control" placeholder="Enter Address" value="<?= old("contact_address") ?>">
+                                            <input type="text" name="contact_address" id="contact_address" class="form-control" placeholder="Enter Address" value="<?= old("contact_address", $reservation["contact_address"]) ?>">
                                             <?php if (isset($errors["contact_address"])) : ?>
                                                 <div class="error-text">
                                                     <?= $errors["contact_address"] ?>
@@ -192,7 +194,7 @@ $pageName = "Reservations"
                                     <div class="row gy-3">
                                         <div class="col-12">
                                             <label for="total_rate" class="form-label">Total Rate</label>
-                                            <input type="number" id="total_rate" class="form-control" disabled>
+                                            <input type="number" id="total_rate" class="form-control" value="<?= $reservation["total_price"] ?>" disabled>
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label" for="payment_status">Payment Status</label>
@@ -441,6 +443,7 @@ $pageName = "Reservations"
     <!-- Generate Guest Fields -->
     <script>
         $(document).ready(function() {
+            let guests = <?= json_encode($guests) ?>;
             const generateGuestFields = (count) => {
                 let $container = $("#guest-list");
                 $container.empty(); // clear old fields
@@ -448,21 +451,21 @@ $pageName = "Reservations"
                 let oldValues = <?= json_encode(old('guests', [])) ?>;
 
                 if (count > 0) {
-                    for (let i = 1; i <= count; i++) {
+                    for (let i = 0; i < count; i++) {
                         let fieldGroup = `
                         <div class="col-12"> 
-                            <label for"guests[${i}][guest_name]">Guest ${i}</label>
-                            <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" class="form-control" placeholder="Enter name" value="${oldValues[i]?.guest_name ?? ''}">
+                            <label for"guests[${i}][guest_name]">Guest ${i + 1}</label>
+                            <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" class="form-control" placeholder="Enter name" value="${oldValues[i]?.guest_name ?? guests[i]?.guest_name}">
                         </div> 
                         <div class="col-12">
                             <label for"guests[${i}][guest_age]">Age</label>
-                            <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" class="form-control" placeholder="Enter age" min="0" value="${oldValues[i]?.guest_age ?? ''}">
+                            <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" class="form-control" placeholder="Enter age" min="0" value="${oldValues[i]?.guest_age ?? guests[i]?.guest_age}">
                         </div> 
                         <div class="col-12">
                             <label for="guests[${i}][senior_pwd]">Senior/PWD</label>
                             <select name="guests[${i}][senior_pwd]" id="guests[${i}][senior_pwd]" class="form-control"> 
                                 <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
-                                    <option value="<?= $yesNo ?>"><?= ucfirst($yesNo) ?></option>
+                                    <option value="<?= $yesNo ?>" ${(oldValues[i]?.senior_pwd ?? guests[i]?.senior_pwd) == "<?= $yesNo ?>" ? "selected" : ""}><?= ucfirst($yesNo) ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -475,8 +478,9 @@ $pageName = "Reservations"
                 let guestCount = parseInt($(this).val()) || 1;
                 generateGuestFields(guestCount);
             });
-            // Generate atleast 1 guest field
-            generateGuestFields(1);
+
+            // Generate guests
+            generateGuestFields(guests.length);
         });
     </script>
 
@@ -558,9 +562,6 @@ $pageName = "Reservations"
 
             // Recompute whenever form values change
             $(document).on("change input", "#time_range, #check_in, #rent_videoke, #facility, #guest-list input", computeTotal);
-
-            // Initial compute
-            computeTotal();
         });
     </script>
 

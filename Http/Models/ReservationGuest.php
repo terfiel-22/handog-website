@@ -21,4 +21,19 @@ class ReservationGuest
             $attributes
         );
     }
+
+    public function fetchGuestsByReservationId($reservation_id)
+    {
+        return $this->db->query(
+            "
+        SELECT 
+            *
+        FROM 
+            reservation_guests  
+        WHERE
+            reservation_id=:reservation_id
+        ",
+            compact('reservation_id')
+        )->get();
+    }
 }

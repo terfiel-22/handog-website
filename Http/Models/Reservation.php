@@ -65,4 +65,23 @@ class Reservation
             "half_status" => PaymentStatus::HALF_PAID
         ])->get();
     }
+
+    public function fetchPaidReservationById($id)
+    {
+        return $this->db->query(
+            "
+            SELECT 
+                res.*, p.payment_status
+            FROM 
+                reservations res
+            INNER JOIN 
+                payments p 
+            ON 
+                res.id=p.reservation_id
+            WHERE
+                res.id=:id 
+        ",
+            compact('id')
+        )->findOrFail();
+    }
 }
