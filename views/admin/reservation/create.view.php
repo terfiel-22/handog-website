@@ -258,7 +258,6 @@ $pageName = "Reservations"
 
                 const availableUnits = facilityBookings[0].available_unit; // assume same for this facility
                 const fullyBookedSlots = [];
-                console.log(availableUnits);
 
                 // Iterate through bookings to find overlapping fully booked ranges
                 for (let i = 0; i < facilityBookings.length; i++) {
