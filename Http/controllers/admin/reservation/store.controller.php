@@ -38,8 +38,9 @@ $payment = [
     "amount" => $total_price,
     "payment_method" => PaymentMethod::CASH,
     "payment_status" => $_POST["payment_status"],
-    "payment_intent_id" => NULL,
+    "payment_link" => NULL,
 ];
+
 App::resolve(Payment::class)->createPayment($payment);
 
 redirect("/admin/reservations");
