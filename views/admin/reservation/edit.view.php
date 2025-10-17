@@ -455,17 +455,17 @@ $pageName = "Reservations"
                         let fieldGroup = `
                         <div class="col-12"> 
                             <label for"guests[${i}][guest_name]">Guest ${i + 1}</label>
-                            <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" class="form-control" placeholder="Enter name" value="${oldValues[i]?.guest_name ?? guests[i]?.guest_name}">
+                            <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" class="form-control" placeholder="Enter name" value="${oldValues[i]?.guest_name ?? guests[i]?.guest_name ?? ""}">
                         </div> 
                         <div class="col-12">
                             <label for"guests[${i}][guest_age]">Age</label>
-                            <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" class="form-control" placeholder="Enter age" min="0" value="${oldValues[i]?.guest_age ?? guests[i]?.guest_age}">
+                            <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" class="form-control" placeholder="Enter age" min="0" value="${oldValues[i]?.guest_age ?? guests[i]?.guest_age ?? ""}">
                         </div> 
                         <div class="col-12">
                             <label for="guests[${i}][senior_pwd]">Senior/PWD</label>
                             <select name="guests[${i}][senior_pwd]" id="guests[${i}][senior_pwd]" class="form-control"> 
                                 <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
-                                    <option value="<?= $yesNo ?>" ${(oldValues[i]?.senior_pwd ?? guests[i]?.senior_pwd) == "<?= $yesNo ?>" ? "selected" : ""}><?= ucfirst($yesNo) ?></option>
+                                    <option value="<?= $yesNo ?>" ${(oldValues[i]?.senior_pwd ?? guests[i]?.senior_pwd ?? "") == "<?= $yesNo ?>" ? "selected" : ""}><?= ucfirst($yesNo) ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
