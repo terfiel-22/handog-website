@@ -287,6 +287,9 @@
                 const facilityId = $(this).val();
                 updateCalendarEvents(facilityId);
             });
+
+            const facId = $("#facility").val();
+            updateCalendarEvents(facId);
         });
     </script>
 
