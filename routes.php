@@ -75,6 +75,7 @@
     $router->get('/admin/reservations/create', 'admin/reservation/create.controller.php')->only('admin');
     $router->post('/admin/reservations/store', 'admin/reservation/store.controller.php')->only('admin');
     $router->get('/admin/reservations/edit', 'admin/reservation/edit.controller.php')->only('admin');
+    $router->put('/admin/reservations/update', 'admin/reservation/update.controller.php')->only('admin');
 
     // Settings
     $router->get('/admin/settings/rates', 'admin/settings/rates/show.controller.php')->only('admin');
