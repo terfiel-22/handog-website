@@ -437,10 +437,10 @@
                 let oldValues = <?= json_encode(old('guests', [])) ?>;
 
                 if (count > 0) {
-                    for (let i = 1; i <= count; i++) {
+                    for (let i = 0; i < count; i++) {
                         let fieldGroup = `
                         <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s"> 
-                            <label for"guests[${i}][guest_name]">Guest ${i} Name</label>
+                            <label for"guests[${i}][guest_name]">Guest ${i + 1} Name</label>
                             <div class="form-clt">
                                 <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Guest Name" value="${oldValues[i]?.guest_name ?? ''}" required>
                             </div>
@@ -456,7 +456,7 @@
                             <div class="form-clt">
                                 <select name="guests[${i}][senior_pwd]" id="guests[${i}][senior_pwd]" class="single-select w-100"> 
                                     <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
-                                        <option value="<?= $yesNo ?>"><?= ucfirst($yesNo) ?></option>
+                                        <option value="<?= $yesNo ?>" ${(oldValues[i]?.senior_pwd ?? "") == "<?= $yesNo ?>" ? "selected" : ""}><?= ucfirst($yesNo) ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div> 

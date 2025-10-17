@@ -71,7 +71,7 @@ $pageName = "Reservations"
                                             <label class="form-label" for="time_range">Hours Stay</label>
                                             <select name="time_range" id="time_range" class="form-control">
                                                 <?php foreach (\Http\Enums\ReservationTimeRange::toArray() as $time_range): ?>
-                                                    <option value="<?= $time_range ?>" <?= old('time_range', $reservation["time_range"]) == $time_range ? "selected" : "" ?>><?= $time_range ?></option>
+                                                    <option value="<?= $time_range ?>" <?= old('time_range') == $time_range ? "selected" : "" ?>><?= $time_range ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                             <?php if (isset($errors["time_range"])) : ?>
@@ -198,7 +198,7 @@ $pageName = "Reservations"
                                             <label class="form-label" for="payment_status">Payment Status</label>
                                             <select name="payment_status" id="payment_status" class="form-control">
                                                 <?php foreach (\Http\Enums\PaymentStatus::toArray() as $payment_status): ?>
-                                                    <option value="<?= $payment_status ?>" <?= old('payment_status', $reservation["payment_status"]) == $payment_status ? "selected" : "" ?>><?= $payment_status ?></option>
+                                                    <option value="<?= $payment_status ?>" <?= old('payment_status') == $payment_status ? "selected" : "" ?>><?= $payment_status ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                             <?php if (isset($errors["payment_status"])) : ?>
@@ -448,10 +448,10 @@ $pageName = "Reservations"
                 let oldValues = <?= json_encode(old('guests', [])) ?>;
 
                 if (count > 0) {
-                    for (let i = 1; i <= count; i++) {
+                    for (let i = 0; i < count; i++) {
                         let fieldGroup = `
                         <div class="col-12"> 
-                            <label for"guests[${i}][guest_name]">Guest ${i}</label>
+                            <label for"guests[${i}][guest_name]">Guest ${i + 1}</label>
                             <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" class="form-control" placeholder="Enter name" value="${oldValues[i]?.guest_name ?? ''}">
                         </div> 
                         <div class="col-12">
@@ -462,7 +462,7 @@ $pageName = "Reservations"
                             <label for="guests[${i}][senior_pwd]">Senior/PWD</label>
                             <select name="guests[${i}][senior_pwd]" id="guests[${i}][senior_pwd]" class="form-control"> 
                                 <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
-                                    <option value="<?= $yesNo ?>"><?= ucfirst($yesNo) ?></option>
+                                    <option value="<?= $yesNo ?>" ${(oldValues[i]?.senior_pwd ?? "") == "<?= $yesNo ?>" ? "selected" : ""}><?= ucfirst($yesNo) ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
