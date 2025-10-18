@@ -60,7 +60,7 @@ $pageName = "Reservations"
                                             <label class="form-label" for="facility">Facility</label>
                                             <select name="facility" id="facility" class="form-control">
                                                 <?php foreach ($facilities as $facility): ?>
-                                                    <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= old("facility", $reservation["id"]) == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
+                                                    <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= old("facility", $reservation["facility_id"]) == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
                                                 <?php endforeach; ?>
                                             </select>
                                             <?php if (isset($errors["facility"])) : ?>

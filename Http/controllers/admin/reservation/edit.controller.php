@@ -16,7 +16,8 @@ $facilities = App::resolve(Facility::class)->fetchAvailableFacilities();
 $rates = App::resolve(Rates::class)->fetchRates();
 $errors = Session::get('errors', []);
 $confirmedReservations = App::resolve(Reservation::class)->fetchPaidReservations();
-$bookings = convertToBookingsFormat($confirmedReservations);
+$filtered = array_filter($confirmedReservations, fn($res) => $res['id'] != $id);
+$bookings = convertToBookingsFormat($filtered);
 
 view(
     "admin/reservation/edit.view.php",
