@@ -46,7 +46,7 @@ $pageName = "Reservations"
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h6 class="card-title mb-0">Edit Reservation</h6>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body step-container">
                             <form action="/admin/reservations/update" method="POST">
                                 <input type="hidden" name="_method" value="PUT">
                                 <input type="hidden" name="id" value="<?= $reservation["id"] ?>">

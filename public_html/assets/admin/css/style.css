@@ -13149,3 +13149,8 @@ td.fc-header-center {
 /* Form Wizard */
 .step { display: none; }
 .step.active { display: block; }
+.step-container {
+  max-height: 80vh;
+  max-height: 80svh;
+  overflow-y: auto;
+} 

@@ -46,7 +46,7 @@ $pageName = "Reservations"
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h6 class="card-title mb-0">Add Reservation</h6>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body step-container">
                             <form action="/admin/reservations/store" method="POST">
                                 <input type="hidden" name="time_slot" id="time_slot">
                                 <!-- Step 1 -->
