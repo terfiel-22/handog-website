@@ -210,6 +210,19 @@ $pageName = "Reservations"
                                             <?php endif; ?>
                                         </div>
                                         <div class="col-12">
+                                            <label class="form-label" for="status">Reservation Status</label>
+                                            <select name="status" id="status" class="form-control">
+                                                <?php foreach (\Http\Enums\ReservationStatus::toArray() as $status): ?>
+                                                    <option value="<?= $status ?>" <?= old('status', $reservation["status"]) == $status ? "selected" : "" ?>><?= ucfirst($status) ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <?php if (isset($errors["status"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["status"] ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="col-12">
                                             <button type="button" class="btn btn-secondary prev">Previous</button>
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
