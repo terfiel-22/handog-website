@@ -15,8 +15,8 @@ $guests = App::resolve(ReservationGuest::class)->fetchGuestsByReservationId($id)
 $facilities = App::resolve(Facility::class)->fetchAvailableFacilities();
 $rates = App::resolve(Rates::class)->fetchRates();
 $errors = Session::get('errors', []);
-$confirmedReservations = App::resolve(Reservation::class)->fetchPaidReservations();
-$filtered = array_filter($confirmedReservations, fn($res) => $res['id'] != $id);
+$uncompleteReservations = App::resolve(Reservation::class)->uncompleteReservations();
+$filtered = array_filter($uncompleteReservations, fn($res) => $res['id'] != $id);
 $bookings = convertToBookingsFormat($filtered);
 
 view(

@@ -4,7 +4,7 @@ namespace Http\Models;
 
 use Core\App;
 use Core\Database;
-use Http\Enums\PaymentStatus;
+use Http\Enums\ReservationStatus;
 
 class Reservation
 {
@@ -41,7 +41,7 @@ class Reservation
         ")->get();
     }
 
-    public function fetchPaidReservations()
+    public function uncompleteReservations()
     {
         return $this->db->query("
         SELECT 
@@ -56,13 +56,10 @@ class Reservation
             payments p 
         ON 
             res.id=p.reservation_id
-        WHERE
-            p.payment_status=:paid_status
-        OR
-            p.payment_status=:half_status
+        WHERE NOT
+            res.status=:status 
         ", [
-            "paid_status" => PaymentStatus::PAID,
-            "half_status" => PaymentStatus::HALF_PAID
+            "status" => ReservationStatus::COMPLETED,
         ])->get();
     }
 
