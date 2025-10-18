@@ -21,6 +21,7 @@ $reservation = [
     "contact_email" => $_POST["contact_email"],
     "contact_address" => $_POST["contact_address"],
     "check_in" => $_POST["check_in"],
+    "time_range" => $_POST["time_range"],
     "check_out" => $check_out,
     "rent_videoke" => $_POST["rent_videoke"],
     "guest_count" => count($_POST["guests"]),

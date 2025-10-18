@@ -22,6 +22,14 @@ class ReservationGuest
         );
     }
 
+    public function deleteReservationGuest($reservation_id)
+    {
+        return $this->db->query(
+            "DELETE FROM reservation_guests WHERE reservation_id = :reservation_id",
+            compact('reservation_id')
+        );
+    }
+
     public function fetchGuestsByReservationId($reservation_id)
     {
         return $this->db->query(

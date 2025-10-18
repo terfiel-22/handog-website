@@ -18,9 +18,34 @@ class Reservation
     public function createReservation($attributes)
     {
         return $this->db->query(
-            "INSERT INTO reservations(facility_id, contact_person, contact_no, contact_email, contact_address, check_in, check_out, rent_videoke, guest_count, total_price, status) VALUES(:facility_id, :contact_person, :contact_no, :contact_email, :contact_address, :check_in, :check_out, :rent_videoke, :guest_count, :total_price, :status)",
+            "INSERT INTO reservations(facility_id, contact_person, contact_no, contact_email, contact_address, check_in, time_range, check_out, rent_videoke, guest_count, total_price, status) VALUES(:facility_id, :contact_person, :contact_no, :contact_email, :contact_address, :check_in, :time_range, :check_out, :rent_videoke, :guest_count, :total_price, :status)",
             $attributes
         )->id();
+    }
+
+    public function updateReservation($id, $attributes)
+    {
+        $attributes['id'] = $id;
+
+        return $this->db->query(
+            "UPDATE reservations 
+            SET 
+                facility_id = :facility_id,
+                contact_person = :contact_person,
+                contact_no = :contact_no,
+                contact_email = :contact_email,
+                contact_address = :contact_address,
+                check_in = :check_in,
+                time_range = :time_range,
+                check_out = :check_out,
+                rent_videoke = :rent_videoke,
+                guest_count = :guest_count,
+                total_price = :total_price,
+                status = :status
+            WHERE id = :id;
+            ",
+            $attributes
+        );
     }
 
     public function fetchReservations()
@@ -63,7 +88,7 @@ class Reservation
         ])->get();
     }
 
-    public function fetchPaidReservationById($id)
+    public function fetchReservationById($id)
     {
         return $this->db->query(
             "

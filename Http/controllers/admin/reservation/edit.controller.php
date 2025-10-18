@@ -9,7 +9,7 @@ use Http\Models\ReservationGuest;
 
 $id = $_GET["id"] ?? 0;
 
-$reservation = App::resolve(Reservation::class)->fetchPaidReservationById($id);
+$reservation = App::resolve(Reservation::class)->fetchReservationById($id);
 $guests = App::resolve(ReservationGuest::class)->fetchGuestsByReservationId($id);
 
 $facilities = App::resolve(Facility::class)->fetchAvailableFacilities();

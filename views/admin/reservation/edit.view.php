@@ -73,7 +73,7 @@ $pageName = "Reservations"
                                             <label class="form-label" for="time_range">Hours Stay</label>
                                             <select name="time_range" id="time_range" class="form-control">
                                                 <?php foreach (\Http\Enums\ReservationTimeRange::toArray() as $time_range): ?>
-                                                    <option value="<?= $time_range ?>"><?= $time_range ?></option>
+                                                    <option value="<?= $time_range ?>" <?= old('time_range', $reservation["time_range"]) == $time_range ? "selected" : "" ?>><?= $time_range ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                             <?php if (isset($errors["time_range"])) : ?>
@@ -500,8 +500,9 @@ $pageName = "Reservations"
     <!-- Generate Total Rate -->
     <script>
         $(document).ready(function() {
-            // Inject PHP rates
+            // Inject PHP
             const rates = <?= json_encode($rates) ?>;
+            const timeSlots = <?= json_encode(\Http\Enums\TimeSlot::toArray()) ?>;
 
             const isDaySlot = (checkIn) => {
                 let checkDate = new Date(checkIn);
@@ -532,7 +533,6 @@ $pageName = "Reservations"
                 // --- Time slot (day/night) for per-guest computation ---
                 const yesNo = <?= json_encode(\Http\Enums\YesNo::toArray()) ?>;
                 const guestType = <?= json_encode(\Http\Enums\GuestType::toArray()) ?>;
-                const timeSlots = <?= json_encode(\Http\Enums\TimeSlot::toArray()) ?>;
                 const timeSlot = isDaySlot($("#check_in").val()) ? timeSlots.DAY : timeSlots.NIGHT;
                 $("#time_slot").val(timeSlot);
                 // --- Guest rates (adult/kid per day/night) ---
@@ -575,6 +575,12 @@ $pageName = "Reservations"
 
             // Recompute whenever form values change
             $(document).on("change input", "#time_range, #check_in, #rent_videoke, #facility, #guest-list input", computeTotal);
+
+            // Initialized timeslot value
+            (() => {
+                const timeSlot = isDaySlot($("#check_in").val()) ? timeSlots.DAY : timeSlots.NIGHT;
+                $("#time_slot").val(timeSlot);
+            })()
         });
     </script>
 

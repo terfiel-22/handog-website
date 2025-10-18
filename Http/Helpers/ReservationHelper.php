@@ -64,6 +64,10 @@ class ReservationHelper
 
     public function addGuestList($reservationId, $guests)
     {
+        // Delete all guests on this reservation
+        App::resolve(ReservationGuest::class)->deleteReservationGuest($reservationId);
+
+        // Create new
         foreach ($guests as $guest) {
             $guestType = guestType($guest["guest_age"]);
             $data = array_merge($guest, ["reservation_id" => $reservationId, "guest_type" => $guestType]);

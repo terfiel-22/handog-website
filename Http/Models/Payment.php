@@ -36,6 +36,17 @@ class Payment
         )->findOrFail();
     }
 
+    public function fetchPaymentByReservationId($reservation_id)
+    {
+        return $this->db->query(
+            "SELECT 
+                *
+            FROM payments  
+            WHERE reservation_id=:reservation_id",
+            compact('reservation_id')
+        )->findOrFail();
+    }
+
     public function updatePayment($attributes)
     {
         $this->db->query(

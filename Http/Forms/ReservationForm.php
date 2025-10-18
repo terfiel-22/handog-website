@@ -19,6 +19,9 @@ class ReservationForm extends Form
         if (!Validator::in_options($time_slot, TimeSlot::toArray())) {
             $this->errors["time_slot"] = "Please select a valid timeslot.";
         }
+        if (!Validator::in_options($time_range, ReservationTimeRange::toArray())) {
+            $this->errors["time_range"] = "Please select a valid time range.";
+        }
         if (!Validator::in_options($rent_videoke, YesNo::toArray())) {
             $this->errors["rent_videoke"] = "Please select a valid option.";
         }
