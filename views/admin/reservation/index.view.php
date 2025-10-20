@@ -45,7 +45,7 @@ $pageName = "Reservations"
                                     <th scope="col">Facility</th>
                                     <th scope="col">With Videoke</th>
                                     <th scope="col">Total Amount</th>
-                                    <th scope="col">Total Payment</th>
+                                    <th scope="col">Paid Amount</th>
                                     <th scope="col">Balance</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
@@ -65,8 +65,8 @@ $pageName = "Reservations"
                                         <td><?= $reservation['facility'] ?></td>
                                         <td><?= ucfirst($reservation['rent_videoke']) ?></td>
                                         <td><?= moneyFormat($reservation['total_price']) ?></td>
-                                        <td><?= moneyFormat($reservation['total_paid']) ?></td>
-                                        <td><?= moneyFormat($reservation['total_price'] - $reservation['total_paid']) ?></td>
+                                        <td><?= moneyFormat($reservation['paid_amount']) ?></td>
+                                        <td><?= moneyFormat($reservation['total_price'] - $reservation['paid_amount']) ?></td>
                                         <td><?= ucfirst($reservation['status']) ?></td>
                                         <td>
                                             <a href="javascript:void(0)" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
