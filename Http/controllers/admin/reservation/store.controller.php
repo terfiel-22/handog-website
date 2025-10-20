@@ -2,6 +2,7 @@
 
 use Core\App;
 use Http\Enums\PaymentMethod;
+use Http\Enums\PaymentType;
 use Http\Enums\ReservationStatus;
 use Http\Forms\ReservationForm;
 use Http\Helpers\ReservationHelper;
@@ -38,6 +39,7 @@ $payment = [
     "reservation_id" => $reservationId,
     "amount" => $total_price,
     "payment_method" => PaymentMethod::CASH,
+    "payment_type" => PaymentType::FULL,
     "payment_status" => $_POST["payment_status"],
     "payment_link" => NULL,
 ];
