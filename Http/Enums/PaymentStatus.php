@@ -6,6 +6,7 @@ class PaymentStatus extends Enums
 {
     const UNPAID = "unpaid";
     const PAID = "paid";
-    const HALF_PAID = "half_paid";
+    const FAILED = "failed";
+    const REFUNDED = "refunded";
     const CANCELLED = "cancelled";
 }

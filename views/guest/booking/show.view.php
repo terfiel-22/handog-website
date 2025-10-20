@@ -25,31 +25,42 @@
             <div class="gt-contact-wrapper">
                 <div class="row g-4">
                     <div class="col-12">
-                        <?php if ($payment["payment_status"] == \Http\Enums\PaymentStatus::UNPAID): ?>
+                        <?php if ($payment["success"] == \Http\Enums\YesNo::NO): ?>
                             <div class="gt-contact-right-items text-center">
                                 <h2>
-                                    Your Reservation is Saved!
+                                    There&apos;s an error occur on the system.
                                 </h2>
-                                <div class="py-4">
-                                    <h1><?= moneyFormat($payment["amount"]) ?></h1>
-                                    <h4>Booking Deposit</h4>
+                                <p>
+                                    Please wait till we fix the problem. Thank you!
+                                </p>
+                            </div>
+                        <?php else: ?>
+                            <?php if ($payment["payment_status"] == \Http\Enums\PaymentStatus::UNPAID): ?>
+                                <div class="gt-contact-right-items text-center">
+                                    <h2>
+                                        Your Reservation is Saved!
+                                    </h2>
+                                    <div class="py-4">
+                                        <h1><?= moneyFormat($payment["amount"]) ?></h1>
+                                        <h4>Booking Deposit</h4>
+                                    </div>
+                                    <p>
+                                        Complete your booking by making the payment for booking deposit. Click below to continue.
+                                    </p>
+                                    <a href="<?= $payment["payment_link"] ?>" id="checkPayment" target="_blank" rel="noopener noreferrer" class="gt-theme-btn mt-5">Go to Payment</a>
                                 </div>
-                                <p>
-                                    Complete your booking by making the payment for booking deposit. Click below to continue.
-                                </p>
-                                <a href="<?= $payment["payment_link"] ?>" id="checkPayment" target="_blank" rel="noopener noreferrer" class="gt-theme-btn mt-5">Go to Payment</a>
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($payment["payment_status"] == \Http\Enums\PaymentStatus::PAID): ?>
-                            <div class="gt-contact-right-items text-center">
-                                <h2>
-                                    Payment Successful!
-                                </h2>
-                                <p>
-                                    Thank you for completing your payment. Your booking is now confirmed — we can&apos;t wait to welcome you!
-                                </p>
-                                <a href="/" class="gt-theme-btn mt-5">Back to Home</a>
-                            </div>
+                            <?php endif; ?>
+                            <?php if ($payment["payment_status"] == \Http\Enums\PaymentStatus::PAID): ?>
+                                <div class="gt-contact-right-items text-center">
+                                    <h2>
+                                        Payment Successful!
+                                    </h2>
+                                    <p>
+                                        Thank you for completing your payment. Your booking is now confirmed — we can&apos;t wait to welcome you!
+                                    </p>
+                                    <a href="/" class="gt-theme-btn mt-5">Back to Home</a>
+                                </div>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 </div>

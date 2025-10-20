@@ -2,6 +2,7 @@
 
 use Core\App;
 use Http\Enums\PaymentStatus;
+use Http\Enums\PaymentType;
 use Http\Enums\ReservationStatus;
 use Http\Enums\YesNo;
 use Http\Forms\BookingForm;
@@ -45,11 +46,12 @@ App::resolve(ReservationHelper::class)->addGuestList($reservationId, $_POST["gue
 
 $payment = [
     "reservation_id" => $reservationId,
-    "amount" => $total_price,
-    "payment_method" => $paymentMethod,
+    "amount" => $bookingDeposit,
+    "payment_method" => NULL,
     "payment_status" => PaymentStatus::UNPAID,
+    "payment_type" => PaymentType::DEPOSIT,
     "payment_link" => $paymentLink["id"],
 ];
 App::resolve(Payment::class)->createPayment($payment);
 
-redirect("/booking/show?payment_id=" . $paymentLink["id"]);
+redirect("/booking/show?payment_link=" . $paymentLink["id"]);

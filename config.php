@@ -8,8 +8,8 @@ return [
         "charset" => "utf8mb4",
     ],
     "paymongo" => [
-        "public" => "pk_test_QcMhsD83ZdfETSFGyTgo1daX",
-        "secret" => "sk_test_ukQgbMRvcxabA2uCCpNjRYDh",
+        "public" => "pk_test_7JS94Zg9KVCTaVLhLcoGPY5x",
+        "secret" => "sk_test_AsowjLQBv5UaeTSjJcphGWdJ",
     ],
     "php_mailer" => [
         'host'        => 'smtp.gmail.com',
