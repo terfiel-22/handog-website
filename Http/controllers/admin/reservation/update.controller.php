@@ -5,9 +5,10 @@ use Http\Forms\ReservationForm;
 use Http\Helpers\ReservationHelper;
 use Http\Models\Payment;
 use Http\Models\Reservation;
+use Http\Services\PaymentService;
 
 $origRes = App::resolve(Reservation::class)->fetchReservationById($_POST["id"]);
-
+dd($origRes);
 ReservationForm::validate($_POST);
 
 $facilityRate = App::resolve(ReservationHelper::class)->getFacilityRate($_POST["time_range"], $_POST['facility']);
@@ -35,12 +36,18 @@ App::resolve(ReservationHelper::class)->addGuestList($origRes["id"], $_POST["gue
 
 /** Set payment */
 $origPayment = App::resolve(Payment::class)->fetchPaymentByReservationId($origRes["id"]);
-$updatedPayment = [
-    "id" => $origPayment["id"],
-    "payment_method" => $origPayment["payment_method"],
-    "payment_status" => $_POST["payment_status"],
-];
 
-App::resolve(Payment::class)->updatePayment($updatedPayment);
+if ($origPayment["payment_status"] != $_POST["payment_status"]) {
+    $newPayment = [
+        "reservation_id" => $origRes["id"],
+        "amount" => PaymentService::amount($origRes["total_price"], $origRes["paid_amount"], $_POST["payment_status"]),
+        "payment_method" => NULL,
+        "payment_type" => PaymentService::paymentType($_POST["payment_status"]),
+        "payment_status" => $_POST["payment_status"],
+        "payment_link" => NULL,
+    ];
+
+    App::resolve(Payment::class)->createPayment($newPayment);
+}
 
 redirect("/admin/reservations");
