@@ -208,7 +208,7 @@ $pageName = "Reservations"
                                             <label class="form-label" for="payment_status">Payment Status</label>
                                             <select name="payment_status" id="payment_status" class="form-control">
                                                 <?php foreach (\Http\Enums\PaymentStatus::toArray() as $payment_status): ?>
-                                                    <option value="<?= $payment_status ?>" <?= old('payment_status', $reservation["payment_status"]) == $payment_status ? "selected" : "" ?>><?= $payment_status ?></option>
+                                                    <option value="<?= $payment_status ?>" <?= old('payment_status', $reservation["payment_status"]) == $payment_status ? "selected" : "" ?>><?= ucfirst($payment_status) ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                             <?php if (isset($errors["payment_status"])) : ?>
