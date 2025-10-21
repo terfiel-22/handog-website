@@ -50,7 +50,7 @@ class Payment
     public function updatePayment($attributes)
     {
         $this->db->query(
-            "UPDATE payments SET payment_method=:payment_method, payment_status=:payment_status WHERE id=:id",
+            "UPDATE payments SET amount=:amount, payment_method=:payment_method, payment_status=:payment_status WHERE id=:id",
             $attributes
         );
     }

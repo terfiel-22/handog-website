@@ -22,6 +22,7 @@ if ($payment["success"] == YesNo::YES) {
         if ($savedPayment["payment_status"] != PaymentStatus::UNPAID) {
             $updatedPayment = [
                 "id" => $savedPayment["id"],
+                "amount" => $payment["amount"],
                 "payment_method" => $payment["payment_method"],
                 "payment_status" => PaymentStatus::DEPOSITED,
             ];
