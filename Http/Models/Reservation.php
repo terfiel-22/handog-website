@@ -95,7 +95,7 @@ class Reservation
         return $this->db->query(
             "
             SELECT 
-                res.*, p.payment_status
+                res.*, p.payment_status, SUM(p.amount) as paid_amount
             FROM 
                 reservations res
             INNER JOIN 

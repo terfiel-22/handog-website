@@ -197,6 +197,14 @@ $pageName = "Reservations"
                                             <input type="number" id="total_rate" class="form-control" value="<?= $reservation["total_price"] ?>" disabled>
                                         </div>
                                         <div class="col-12">
+                                            <label for="paid_amount" class="form-label">Paid Amount</label>
+                                            <input type="number" id="paid_amount" class="form-control" value="<?= $reservation["paid_amount"] ?>" disabled>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="balance" class="form-label">Balance</label>
+                                            <input type="number" id="balance" class="form-control" value="<?= number_format($reservation["total_price"] - $reservation["paid_amount"], 2) ?>" disabled>
+                                        </div>
+                                        <div class="col-12">
                                             <label class="form-label" for="payment_status">Payment Status</label>
                                             <select name="payment_status" id="payment_status" class="form-control">
                                                 <?php foreach (\Http\Enums\PaymentStatus::toArray() as $payment_status): ?>
@@ -570,7 +578,10 @@ $pageName = "Reservations"
 
                 // --- Display total ---
                 $("#total_rate").val(total.toFixed(2));
-                $("#booking_deposit").val((total / 2).toFixed(2));
+
+                // Display Balance
+                const paidAmount = <?= $reservation["paid_amount"] ?>;
+                $("#balance").val((total - paidAmount).toFixed(2));
             }
 
             // Recompute whenever form values change
@@ -583,7 +594,6 @@ $pageName = "Reservations"
             })()
         });
     </script>
-
 </body>
 
 </html>
