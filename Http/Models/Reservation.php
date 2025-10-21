@@ -114,4 +114,12 @@ class Reservation
             compact('id')
         )->findOrFail();
     }
+
+    public function deleteReservation($id)
+    {
+        $this->db->query(
+            "DELETE FROM reservations WHERE id = :id",
+            compact('id')
+        );
+    }
 }
