@@ -186,7 +186,7 @@
                                     <h4 class="fw-bold">Payment Information</h4>
                                     <div class="row g-4">
                                         <div class="col-12 col-md-6 wow fadeInUp" data-wow-delay=".3s">
-                                            <label for="total_rate">Total Amount</label>
+                                            <label for="total_rate">Total Rate</label>
                                             <div class="form-clt">
                                                 <input type="number" name="total_rate" id="total_rate" disabled>
                                             </div>
