@@ -63,6 +63,8 @@ class Reservation
             payments p 
         ON 
             res.id=p.reservation_id
+        GROUP BY
+            res.id
         ")->get();
     }
 
