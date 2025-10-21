@@ -23,7 +23,7 @@ if ($payment["success"] == YesNo::YES) {
             $updatedPayment = [
                 "id" => $savedPayment["id"],
                 "payment_method" => $payment["payment_method"],
-                "payment_status" => $payment["payment_status"],
+                "payment_status" => PaymentStatus::DEPOSITED,
             ];
             App::resolve(Payment::class)->updatePayment($updatedPayment);
 
