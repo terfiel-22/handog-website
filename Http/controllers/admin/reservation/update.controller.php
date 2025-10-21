@@ -8,7 +8,7 @@ use Http\Models\Reservation;
 use Http\Services\PaymentService;
 
 $origRes = App::resolve(Reservation::class)->fetchReservationById($_POST["id"]);
-dd($origRes);
+
 ReservationForm::validate($_POST);
 
 $facilityRate = App::resolve(ReservationHelper::class)->getFacilityRate($_POST["time_range"], $_POST['facility']);
