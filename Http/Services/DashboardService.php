@@ -165,6 +165,18 @@ class DashboardService
         return $data;
     }
 
+    public static function totalVisits(): int
+    {
+        $db = self::db();
+
+        $visit = $db->query("
+            SELECT COUNT(*) as total
+            FROM reservation_guests
+            ")->find();
+
+        return $visit["total"];
+    }
+
 
     public static function summary(): array
     {
@@ -174,6 +186,7 @@ class DashboardService
             'occupancy_rate' => self::occupancyRate(),
             'available_facilities' => self::availableFacilities(),
             'unavailable_facilities' => self::unavailableFacilities(),
+            'total_visits' => self::totalVisits(),
         ];
     }
 }
