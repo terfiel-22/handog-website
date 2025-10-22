@@ -29,12 +29,7 @@ class DashboardService
             FROM facilities
         ")->get();
 
-        $result = [
-            FacilityType::ROOM => 0,
-            FacilityType::COTTAGE => 0,
-            FacilityType::EVENT_HALL => 0,
-            FacilityType::EXCLUSIVE => 0,
-        ];
+        $result = [];
 
         foreach ($facilities as $facility) {
             // Count active reservations for this facility (today between check_in & check_out)
@@ -50,7 +45,10 @@ class DashboardService
             $remainingUnits = max(0, (int)$facility['available_unit'] - $reservedCount);
 
             // Add to the grouped type result
-            $result[$facility['type']] += $remainingUnits;
+            $result[] = [
+                "name" => $facility['name'],
+                "unit" => $remainingUnits
+            ];
         }
 
         return $result;
@@ -69,12 +67,7 @@ class DashboardService
             FROM facilities
         ")->get();
 
-        $result = [
-            FacilityType::ROOM => 0,
-            FacilityType::COTTAGE => 0,
-            FacilityType::EVENT_HALL => 0,
-            FacilityType::EXCLUSIVE => 0,
-        ];
+        $result = [];
 
         foreach ($facilities as $facility) {
             $reserved = $db->query("
@@ -86,10 +79,11 @@ class DashboardService
 
             $reservedCount = (int)($reserved['total'] ?? 0);
 
-            // If all units are booked, mark as unavailable
-            if ($reservedCount >= (int)$facility['available_unit']) {
-                $result[$facility['type']]++;
-            }
+            // If all units are booked, mark as unavailable 
+            $result[] = [
+                "name" => $facility['name'],
+                "unit" => $reservedCount
+            ];
         }
 
         return $result;
