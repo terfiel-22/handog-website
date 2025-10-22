@@ -6,6 +6,7 @@ use Http\Enums\FacilityType;
 use Core\Database;
 use Core\App;
 use DateTime;
+use Http\Enums\PaymentStatus;
 
 class DashboardService
 {
@@ -105,8 +106,9 @@ class DashboardService
         $result = $db->query("
             SELECT SUM(amount) as total 
             FROM payments 
-            WHERE DATE(created_at) = ?
-        ", [$today])->find();
+            WHERE DATE(created_at) = ? 
+            AND payment_status = ?
+        ", [$today, PaymentStatus::PAID])->find();
 
         return (float) ($result['total'] ?? 0);
     }
