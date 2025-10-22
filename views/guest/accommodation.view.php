@@ -130,121 +130,125 @@
     </section>
 
     <!-- GT Event Hall Section Start -->
-    <section class="gt-service-section fix section-padding">
-        <div class="left-shape">
-            <img src="/assets/guest/img/home-3/service/left-shape.png" alt="img">
-        </div>
-        <div class="container">
-            <div class="gt-service-wrapper-3">
-                <div class="row g-4">
-                    <div class="col-lg-6">
-                        <div class="service-content">
-                            <div class="gt-section-title mb-0">
-                                <h6 class="wow fadeInUp">
-                                    <img src="/assets/guest/img/sub-left.svg" alt="img">
-                                    A Space for Every Occasion
-                                </h6>
-                                <h2 class="wow fadeInUp" data-wow-delay=".2s">
-                                    <?= $eventHall["name"] ?>
-                                </h2>
+    <?php if ($eventHall): ?>
+        <section class="gt-service-section fix section-padding">
+            <div class="left-shape">
+                <img src="/assets/guest/img/home-3/service/left-shape.png" alt="img">
+            </div>
+            <div class="container">
+                <div class="gt-service-wrapper-3">
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="service-content">
+                                <div class="gt-section-title mb-0">
+                                    <h6 class="wow fadeInUp">
+                                        <img src="/assets/guest/img/sub-left.svg" alt="img">
+                                        A Space for Every Occasion
+                                    </h6>
+                                    <h2 class="wow fadeInUp" data-wow-delay=".2s">
+                                        <?= $eventHall["name"] ?>
+                                    </h2>
+                                </div>
+                                <p class="service-text wow fadeInUp" data-wow-delay=".4s">
+                                    <?= $eventHall["description"] ?>
+                                </p>
+                                <a href="/facility?id=<?= $eventHall["id"] ?>" class="gt-theme-btn wow fadeInUp" data-wow-delay=".9s">BOOK NOW</a>
                             </div>
-                            <p class="service-text wow fadeInUp" data-wow-delay=".4s">
-                                <?= $eventHall["description"] ?>
-                            </p>
-                            <a href="/facility?id=<?= $eventHall["id"] ?>" class="gt-theme-btn wow fadeInUp" data-wow-delay=".9s">BOOK NOW</a>
                         </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="swiper service-image-slider">
-                            <div class="swiper-wrapper">
-                                <?php
-                                $eventHallImages = explode(",", $eventHall["images"]);
-                                foreach ($eventHallImages as $eventHallImage):
-                                ?>
-                                    <div class="swiper-slide">
-                                        <div class="service-image">
-                                            <img src="<?= handleImage($eventHallImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $eventHall["name"] ?>">
+                        <div class="col-lg-6">
+                            <div class="swiper service-image-slider">
+                                <div class="swiper-wrapper">
+                                    <?php
+                                    $eventHallImages = explode(",", $eventHall["images"]);
+                                    foreach ($eventHallImages as $eventHallImage):
+                                    ?>
+                                        <div class="swiper-slide">
+                                            <div class="service-image">
+                                                <img src="<?= handleImage($eventHallImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $eventHall["name"] ?>">
+                                            </div>
                                         </div>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                            <div class="array-button-2 justify-content-center">
-                                <button class="array-next"><i class="fa-solid fa-chevron-left"></i></button>
+                                    <?php endforeach; ?>
+                                </div>
+                                <div class="array-button-2 justify-content-center">
+                                    <button class="array-next"><i class="fa-solid fa-chevron-left"></i></button>
 
-                                <button class="array-prev"><i class="fa-solid fa-chevron-right"></i></button>
+                                    <button class="array-prev"><i class="fa-solid fa-chevron-right"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    <?php endif; ?>
 
     <!-- GT Exclusive Section Start -->
-    <section class="gt-service-section fix section-padding section-bg-3">
-        <div class="left-shape">
-            <img src="/assets/guest/img/home-3/service/left-shape.png" alt="img">
-        </div>
-        <div class="container">
-            <div class="gt-service-wrapper-3">
-                <div class="row g-4">
-                    <div class="col-lg-6">
-                        <div class="swiper service-image-slider">
-                            <div class="swiper-wrapper">
-                                <?php
-                                $exclusiveImages = explode(",", $exclusive["images"]);
-                                foreach ($exclusiveImages as $exclusiveImage):
-                                ?>
-                                    <div class="swiper-slide">
-                                        <div class="service-image">
-                                            <img src="<?= handleImage($exclusiveImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $exclusive["name"] ?>">
+    <?php if ($exclusive): ?>
+        <section class="gt-service-section fix section-padding section-bg-3">
+            <div class="left-shape">
+                <img src="/assets/guest/img/home-3/service/left-shape.png" alt="img">
+            </div>
+            <div class="container">
+                <div class="gt-service-wrapper-3">
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="swiper service-image-slider">
+                                <div class="swiper-wrapper">
+                                    <?php
+                                    $exclusiveImages = explode(",", $exclusive["images"]);
+                                    foreach ($exclusiveImages as $exclusiveImage):
+                                    ?>
+                                        <div class="swiper-slide">
+                                            <div class="service-image">
+                                                <img src="<?= handleImage($exclusiveImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $exclusive["name"] ?>">
+                                            </div>
                                         </div>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                            <div class="array-button-2 justify-content-center">
-                                <button class="array-next"><i class="fa-solid fa-chevron-left"></i></button>
+                                    <?php endforeach; ?>
+                                </div>
+                                <div class="array-button-2 justify-content-center">
+                                    <button class="array-next"><i class="fa-solid fa-chevron-left"></i></button>
 
-                                <button class="array-prev"><i class="fa-solid fa-chevron-right"></i></button>
+                                    <button class="array-prev"><i class="fa-solid fa-chevron-right"></i></button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="service-content">
-                            <div class="gt-section-title mb-0">
-                                <h6 class="wow fadeInUp">
-                                    <img src="/assets/guest/img/sub-left.svg" alt="img">
-                                    Privacy Beyond Compare
-                                </h6>
-                                <h2 class="wow fadeInUp" data-wow-delay=".2s">
-                                    <?= $exclusive["name"] ?>
-                                </h2>
+                        <div class="col-lg-6">
+                            <div class="service-content">
+                                <div class="gt-section-title mb-0">
+                                    <h6 class="wow fadeInUp">
+                                        <img src="/assets/guest/img/sub-left.svg" alt="img">
+                                        Privacy Beyond Compare
+                                    </h6>
+                                    <h2 class="wow fadeInUp" data-wow-delay=".2s">
+                                        <?= $exclusive["name"] ?>
+                                    </h2>
+                                </div>
+                                <p class="service-text wow fadeInUp" data-wow-delay=".4s">
+                                    <?= $exclusive["description"] ?>
+                                </p>
+                                <div class="wow fadeInUp my-2" data-wow-delay=".6s">
+                                    <h3>
+                                        How much does it cost to rent the entire resort?
+                                    </h3>
+                                    <ul class="check-list">
+                                        <li>
+                                            <i class="fa-solid fa-circle-check"></i>
+                                            <?= moneyFormat($exclusive["rate_12hrs"]) ?> for 12 hrs
+                                        </li>
+                                        <li>
+                                            <i class="fa-solid fa-circle-check"></i>
+                                            <?= moneyFormat($exclusive["rate_1day"]) ?> for 24 hrs
+                                        </li>
+                                    </ul>
+                                </div>
+                                <a href="/facility?id=<?= $exclusive["id"] ?>" class="gt-theme-btn wow fadeInUp" data-wow-delay=".9s">BOOK NOW</a>
                             </div>
-                            <p class="service-text wow fadeInUp" data-wow-delay=".4s">
-                                <?= $exclusive["description"] ?>
-                            </p>
-                            <div class="wow fadeInUp my-2" data-wow-delay=".6s">
-                                <h3>
-                                    How much does it cost to rent the entire resort?
-                                </h3>
-                                <ul class="check-list">
-                                    <li>
-                                        <i class="fa-solid fa-circle-check"></i>
-                                        <?= moneyFormat($exclusive["rate_12hrs"]) ?> for 12 hrs
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-circle-check"></i>
-                                        <?= moneyFormat($exclusive["rate_1day"]) ?> for 24 hrs
-                                    </li>
-                                </ul>
-                            </div>
-                            <a href="/facility?id=<?= $exclusive["id"] ?>" class="gt-theme-btn wow fadeInUp" data-wow-delay=".9s">BOOK NOW</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    <?php endif; ?>
 
     <!-- GT Footer Section Start -->
     <?php view("guest/partials/footer.partial.php") ?>
