@@ -48,6 +48,12 @@
                 </a>
             </li>
             <li>
+                <a href="/admin/promos">
+                    <iconify-icon icon="ic:outline-card-giftcard" class="menu-icon"></iconify-icon>
+                    <span>Promos</span>
+                </a>
+            </li>
+            <li>
                 <a href="/admin/reservations">
                     <iconify-icon icon="ic:outline-bookmarks" class="menu-icon"></iconify-icon>
                     <span>Reservations</span>
