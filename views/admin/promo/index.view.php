@@ -45,6 +45,7 @@ $pageName = "Promos"
                                     <th scope="col">Start Date</th>
                                     <th scope="col">End Date</th>
                                     <th scope="col">Is Active</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
