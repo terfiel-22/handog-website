@@ -1,5 +1,5 @@
 <?php
-$pageName = "Add Amenity"
+$pageName = "Add Promo"
 ?>
 
 <!-- meta tags and other links -->
@@ -35,56 +35,54 @@ $pageName = "Add Amenity"
                 </div>
 
                 <div class="card-body">
-                    <form class="row gy-3" method="POST" action="/admin/amenities/store" enctype="multipart/form-data">
-                        <div class="col-12">
-                            <label class="form-label" for="upload-file-multiple">Upload amenity images</label>
-                            <div class="upload-image-wrapper d-flex align-items-center gap-3 flex-wrap">
-                                <div class="uploaded-imgs-container d-flex gap-3 flex-wrap"></div>
-                                <label class="upload-file-multiple h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50 bg-hover-neutral-200 d-flex align-items-center flex-column justify-content-center gap-1">
-                                    <iconify-icon icon="solar:camera-outline" class="text-xl text-secondary-light"></iconify-icon>
-                                    <span class="fw-semibold text-secondary-light">Upload</span>
-                                    <input id="upload-file-multiple" name="images[]" type="file" accept="image/*" hidden multiple>
-                                </label>
-                            </div>
-                            <?php if (isset($errors["image"])) : ?>
+                    <form class="row gy-3" method="POST" action="/admin/promos/store">
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="title">Title</label>
+                            <input type="text" name="title" id="title" class="form-control" placeholder="Enter promo title" value="<?= old('title') ?>">
+                            <?php if (isset($errors["title"])) : ?>
                                 <div class="error-text">
-                                    <?= $errors["image"] ?>
+                                    <?= $errors["title"] ?>
                                 </div>
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-6">
-                            <label class="form-label" for="name">Name</label>
-                            <input type="text" name="name" id="name" class="form-control" placeholder="Enter amenity name" value="<?= old('name') ?>">
-                            <?php if (isset($errors["name"])) : ?>
+                            <label class="form-label" for="discount_value">Discount Value</label>
+                            <input type="number" name="discount_value" id="discount_value" class="form-control" placeholder="Enter promo discount_value" value="<?= old('discount_value') ?>">
+                            <?php if (isset($errors["discount_value"])) : ?>
                                 <div class="error-text">
-                                    <?= $errors["name"] ?>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="type">Type</label>
-                            <select name="type" id="type" class="form-control">
-                                <?php foreach (\Http\Enums\AmenityType::toArray() as $type): ?>
-                                    <option value="<?= $type ?>"> <?= ucfirst($type) ?> </option>
-                                <?php endforeach; ?>
-                            </select>
-                            <?php if (isset($errors["type"])) : ?>
-                                <div class="error-text">
-                                    <?= $errors["type"] ?>
+                                    <?= $errors["discount_value"] ?>
                                 </div>
                             <?php endif; ?>
                         </div>
                         <div class="col-12">
                             <label class="form-label" for="description">Description</label>
-                            <textarea type="number" name="description" id="description" class="form-control" placeholder="Enter amenity description"><?= old('description') ?></textarea>
+                            <textarea name="description" id="description" class="form-control" placeholder="Enter promo description"><?= old('description') ?></textarea>
                             <?php if (isset($errors["description"])) : ?>
                                 <div class="error-text">
                                     <?= $errors["description"] ?>
                                 </div>
                             <?php endif; ?>
                         </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="start_date">Start Date</label>
+                            <input type="text" name="start_date" id="start_date" class="form-control" placeholder="Enter promo start date" value="<?= old('start_date') ?>">
+                            <?php if (isset($errors["start_date"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["start_date"] ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="end_date">End Date</label>
+                            <input type="text" name="end_date" id="end_date" class="form-control" placeholder="Enter promo end date" value="<?= old('end_date') ?>">
+                            <?php if (isset($errors["end_date"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["end_date"] ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
                         <div class="col-12 g-5">
-                            <a href="/admin/amenities" class="btn btn-danger-600">Cancel</a>
+                            <a href="/admin/promos" class="btn btn-danger-600">Cancel</a>
                             <button type="submit" class="btn btn-primary-600">Submit</button>
                         </div>
                     </form>
@@ -95,37 +93,14 @@ $pageName = "Add Amenity"
 
     <!-- JS Plugins -->
     <?php view("admin/partials/plugins.partial.php") ?>
+
+    <!-- Date Picker -->
     <script>
-        const fileInputMultiple = document.getElementById("upload-file-multiple");
-        const uploadedImgsContainer = document.querySelector(".uploaded-imgs-container");
-
-        fileInputMultiple.addEventListener("change", (e) => {
-            uploadedImgsContainer.innerHTML = '';
-            const files = e.target.files;
-
-            Array.from(files).forEach(file => {
-                const src = URL.createObjectURL(file);
-
-                const imgContainer = document.createElement('div');
-                imgContainer.classList.add('position-relative', 'h-120-px', 'w-120-px', 'border', 'input-form-light', 'radius-8', 'overflow-hidden', 'border-dashed', 'bg-neutral-50');
-
-                const removeButton = document.createElement('button');
-                removeButton.type = 'button';
-                removeButton.classList.add('uploaded-img__remove', 'position-absolute', 'top-0', 'end-0', 'z-1', 'text-2xxl', 'line-height-1', 'me-8', 'mt-8', 'd-flex');
-                removeButton.innerHTML = '<iconify-icon icon="radix-icons:cross-2" class="text-xl text-danger-600"></iconify-icon>';
-
-                const imagePreview = document.createElement('img');
-                imagePreview.classList.add('w-100', 'h-100', 'object-fit-cover');
-                imagePreview.src = src;
-
-                imgContainer.appendChild(removeButton);
-                imgContainer.appendChild(imagePreview);
-                uploadedImgsContainer.appendChild(imgContainer);
-
-                removeButton.addEventListener('click', () => {
-                    URL.revokeObjectURL(src);
-                    imgContainer.remove();
-                });
+        $(function() {
+            $('#start_date, #end_date').flatpickr({
+                enableTime: false,
+                dateFormat: "Y-m-d",
+                minDate: "today"
             });
         });
     </script>

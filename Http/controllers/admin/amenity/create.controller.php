@@ -5,6 +5,6 @@ use Core\Session;
 $errors = Session::get('errors', []);
 
 view(
-    "admin/amenity/create.view.php",
+    "admin/promo/create.view.php",
     compact('errors')
 );
