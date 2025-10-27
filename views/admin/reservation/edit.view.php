@@ -520,6 +520,26 @@ $pageName = "Reservations"
                 return hour >= 6 && hour < 18;
             }
 
+
+            const applyPromo = (facilityRate) => {
+                const promos = <?= json_encode($promos) ?>;
+                const facilityId = parseInt($('#facility').val(), 10);
+
+                for (let index = 0; index < promos.length; index++) {
+                    const promo = promos[index];
+                    const promoFacilities = promo.facilities.split(',').map(Number);
+                    const hasFacility = promoFacilities.includes(facilityId);
+
+                    if (hasFacility && promo.is_active === 'yes') {
+                        const discountValue = parseFloat(promo.discount_value);
+                        const discountedRate = facilityRate - (facilityRate * (discountValue / 100));
+                        return discountedRate;
+                    }
+                }
+
+                return facilityRate;
+            };
+
             function computeTotal() {
                 let total = 0;
 
@@ -535,8 +555,10 @@ $pageName = "Reservations"
                 } else if (timeRange === reservationTimeRanges.RESERVE_1DAY) {
                     facilityRate = parseFloat($("#facility option:selected").data("rate-1day")) || 0;
                 }
-                total += facilityRate;
 
+                // -- Promos 
+                const promoRate = applyPromo(facilityRate);
+                total += promoRate;
 
                 // --- Time slot (day/night) for per-guest computation ---
                 const yesNo = <?= json_encode(\Http\Enums\YesNo::toArray()) ?>;

@@ -3,6 +3,7 @@
 use Core\App;
 use Core\Session;
 use Http\Models\Facility;
+use Http\Models\Promo;
 use Http\Models\Rates;
 use Http\Models\Reservation;
 use Http\Models\ReservationGuest;
@@ -19,8 +20,9 @@ $errors = Session::get('errors', []);
 $uncompleteReservations = App::resolve(Reservation::class)->uncompleteReservations();
 $filtered = array_filter($uncompleteReservations, fn($res) => $res['id'] != $id);
 $bookings = convertToBookingsFormat($filtered);
+$promos = App::resolve(Promo::class)->fetchOngoingPromos();
 
 view(
     "admin/reservation/edit.view.php",
-    compact('reservation', 'guests', 'facilities', 'bookings', 'rates', 'errors')
+    compact('reservation', 'guests', 'facilities', 'bookings', 'rates', 'promos', 'errors')
 );
