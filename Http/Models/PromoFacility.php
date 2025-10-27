@@ -23,4 +23,13 @@ class PromoFacility
             $attributes
         )->id();
     }
+
+
+    public function deletePromoFacility($promo_id)
+    {
+        $this->db->query(
+            "DELETE FROM promo_facilities WHERE promo_id = :promo_id",
+            compact('promo_id')
+        );
+    }
 }

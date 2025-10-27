@@ -58,7 +58,7 @@ class Promo
         $attributes['id'] = $id;
 
         return $this->db->query(
-            "UPDATE events 
+            "UPDATE promos 
             SET title = :title,
                 description = :description,
                 discount_value = :discount_value,
