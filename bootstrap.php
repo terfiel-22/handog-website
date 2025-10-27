@@ -17,6 +17,7 @@ use Http\Models\Faq;
 use Http\Models\GalleryImage;
 use Http\Models\Payment;
 use Http\Models\Promo;
+use Http\Models\PromoFacility;
 use Http\Models\Rates;
 use Http\Models\Reservation;
 use Http\Models\ReservationGuest;
@@ -63,6 +64,9 @@ $container->bind(ReservationGuest::class, function () {
 });
 $container->bind(Promo::class, function () {
     return new Promo();
+});
+$container->bind(PromoFacility::class, function () {
+    return new PromoFacility();
 });
 $container->bind(Payment::class, function () {
     return new Payment();

@@ -35,7 +35,7 @@ class Database
             $this->statement->execute($params);
             return $this;
         } catch (\PDOException $e) {
-            error_log($e->getMessage());
+            dd($e->getMessage());
             return $this;
         }
     }
