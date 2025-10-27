@@ -48,6 +48,12 @@
                 </a>
             </li>
             <li>
+                <a href="/admin/users">
+                    <iconify-icon icon="ic:outline-people" class="menu-icon"></iconify-icon>
+                    <span>Users</span>
+                </a>
+            </li>
+            <li>
                 <a href="/admin/promos">
                     <iconify-icon icon="ic:outline-card-giftcard" class="menu-icon"></iconify-icon>
                     <span>Promos</span>
