@@ -81,7 +81,7 @@ $pageName = "Add Promo"
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 col-md-6">
                             <label class="form-label" for="facility_type">Applicable To</label>
                             <select name="facility_types[]" id="facility_type" class="multi-select form-select" multiple="multiple">
                                 <?php foreach ($facilities as $facility): ?>
@@ -91,6 +91,19 @@ $pageName = "Add Promo"
                             <?php if (isset($errors["facility_type"])) : ?>
                                 <div class="error-text">
                                     <?= $errors["facility_type"] ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="is_active">Is Active</label>
+                            <select name="is_active" id="is_active" class="form-select">
+                                <?php foreach (\Http\Enums\YesNo::toArray() as $is_active): ?>
+                                    <option value="<?= $is_active ?>" <?= old('is_active') == $is_active ? "selected" : "" ?>><?= ucfirst($is_active) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <?php if (isset($errors["is_active"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["is_active"] ?>
                                 </div>
                             <?php endif; ?>
                         </div>

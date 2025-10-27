@@ -13158,4 +13158,8 @@ td.fc-header-center {
 /* Select2 */
 .selection { 
   width: 100%;  
-} 
+}
+.select2-selection { 
+  height: 2.75rem;  
+  border-radius: 0.375rem !important;
+}
