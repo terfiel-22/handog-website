@@ -26,9 +26,21 @@
     $router->delete('/admin', 'admin/authentication/destroy.controller.php')->only('admin');
     /** END ACCESSIBLE TO GUEST ADMIN */
 
-    /** ACCESSIBLE TO ADMIN */
+
+    /** ACCESSIBLE TO ADMIN & STAFF */
     // Dashboard
-    $router->get('/admin/dashboard', 'admin/dashboard/index.controller.php')->only('admin');
+    $router->get('/admin/dashboard', 'admin/dashboard/index.controller.php')->only('authenticated');
+
+    // Reservation 
+    $router->get('/admin/reservations', 'admin/reservation/index.controller.php')->only('authenticated');
+    $router->get('/admin/reservations/create', 'admin/reservation/create.controller.php')->only('authenticated');
+    $router->post('/admin/reservations/store', 'admin/reservation/store.controller.php')->only('authenticated');
+    $router->get('/admin/reservations/edit', 'admin/reservation/edit.controller.php')->only('authenticated');
+    $router->put('/admin/reservations/update', 'admin/reservation/update.controller.php')->only('authenticated');
+    $router->delete('/admin/reservations/destroy', 'admin/reservation/destroy.controller.php')->only('authenticated');
+
+
+    /** ACCESSIBLE TO ADMIN ONLY */
 
     // Facility
     $router->get('/admin/facilities', 'admin/facility/index.controller.php')->only('admin');
@@ -69,14 +81,6 @@
     $router->get('/admin/faqs/edit', 'admin/faq/edit.controller.php')->only('admin');
     $router->put('/admin/faqs/update', 'admin/faq/update.controller.php')->only('admin');
     $router->delete('/admin/faqs/destroy', 'admin/faq/destroy.controller.php')->only('admin');
-
-    // Reservation 
-    $router->get('/admin/reservations', 'admin/reservation/index.controller.php')->only('admin');
-    $router->get('/admin/reservations/create', 'admin/reservation/create.controller.php')->only('admin');
-    $router->post('/admin/reservations/store', 'admin/reservation/store.controller.php')->only('admin');
-    $router->get('/admin/reservations/edit', 'admin/reservation/edit.controller.php')->only('admin');
-    $router->put('/admin/reservations/update', 'admin/reservation/update.controller.php')->only('admin');
-    $router->delete('/admin/reservations/destroy', 'admin/reservation/destroy.controller.php')->only('admin');
 
     // User
     $router->get('/admin/users', 'admin/user/index.controller.php')->only('admin');

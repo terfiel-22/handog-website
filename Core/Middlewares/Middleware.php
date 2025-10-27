@@ -7,7 +7,8 @@ use Http\Services\UserService;
 class Middleware
 {
     public const MAP = [
-        "admin" => Authenticated::class,
+        "admin" => Admin::class,
+        "authenticated" => Authenticated::class,
         "guest" => Guest::class,
     ];
 
