@@ -82,15 +82,18 @@ $pageName = "Add Promo"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-6">
-                            <label class="form-label" for="facility_type">Applicable To</label>
-                            <select name="facility_types[]" id="facility_type" class="multi-select form-select" multiple="multiple">
+                            <label class="form-label" for="facilities">Applicable To</label>
+                            <select name="facilities[]" id="facilities" class="multi-select form-select" multiple="multiple">
                                 <?php foreach ($facilities as $facility): ?>
-                                    <option value="<?= $facility["id"] ?>" <?= old('facility_type') == $facility ? "selected" : "" ?>><?= ucfirst($facility["name"]) ?></option>
+                                    <option value="<?= $facility['id'] ?>"
+                                        <?= (is_array(old('facilities')) && in_array($facility['id'], old('facilities'))) ? 'selected' : '' ?>>
+                                        <?= ucfirst($facility['name']) ?>
+                                    </option>
                                 <?php endforeach; ?>
                             </select>
-                            <?php if (isset($errors["facility_type"])) : ?>
+                            <?php if (isset($errors["facilities"])) : ?>
                                 <div class="error-text">
-                                    <?= $errors["facility_type"] ?>
+                                    <?= $errors["facilities"] ?>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -135,7 +138,7 @@ $pageName = "Add Promo"
     <script>
         $(document).ready(function() {
             $('.multi-select').select2({
-                placeholder: 'Select facility type/s',
+                placeholder: 'Select facility',
                 theme: 'bootstrap-5',
                 width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             });
