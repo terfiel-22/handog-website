@@ -2,8 +2,7 @@
 
 namespace Core\Middlewares;
 
-use Core\App;
-use Http\Models\User;
+use Http\Services\UserService;
 
 class Middleware
 {
@@ -21,15 +20,7 @@ class Middleware
         $middleware = static::MAP[$key];
 
         (new $middleware)->handle(
-            $this->getCurrentUser()
+            UserService::getCurrentUser()
         );
-    }
-
-    private function getCurrentUser()
-    {
-        if (!isset($_COOKIE['session_token'])) return false;
-        $sessionToken = $_COOKIE['session_token'];
-
-        return App::resolve(User::class)->fetchUserBySessionToken($sessionToken);
     }
 }
