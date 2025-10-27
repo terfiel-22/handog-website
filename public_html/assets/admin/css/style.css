@@ -13154,3 +13154,16 @@ td.fc-header-center {
   max-height: 80svh;
   overflow-y: auto;
 } 
+
+/* Select2 */
+.selection { 
+  width: 100%;  
+}
+.select2-selection { 
+  height: 2.75rem;
+  padding: 0.5625rem 1.875rem 0.5625rem 0.9375rem;     
+  border-top-left-radius: 0.375rem !important;
+  border-top-right-radius: 0.375rem !important;
+  border-bottom-right-radius: 0.375rem !important;
+  border-bottom-left-radius: 0.375rem !important;
+}
