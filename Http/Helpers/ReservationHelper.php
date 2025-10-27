@@ -10,6 +10,7 @@ use Http\Enums\TimeSlot;
 use Http\Enums\YesNo;
 use Http\Helpers\EmailHelper;
 use Http\Models\Facility;
+use Http\Models\Promo;
 use Http\Models\Rates;
 use Http\Models\ReservationGuest;
 
@@ -17,17 +18,38 @@ class ReservationHelper
 {
     public function getFacilityRate($timeRange, $facilityId)
     {
-        // Get selected facility
         $facility = App::resolve(Facility::class)->fetchFacilityById($facilityId);
+        $initialRate = 0;
+
         switch ($timeRange) {
             case ReservationTimeRange::RESERVE_8HRS:
-                return $facility["rate_8hrs"];
+                $initialRate = $facility["rate_8hrs"];
+                break;
             case ReservationTimeRange::RESERVE_12HRS:
-                return $facility["rate_12hrs"];
+                $initialRate = $facility["rate_12hrs"];
+                break;
             case ReservationTimeRange::RESERVE_1DAY:
-                return $facility["rate_1day"];
+                $initialRate = $facility["rate_1day"];
+                break;
         }
+
+        $promos = App::resolve(Promo::class)->fetchOngoingPromos();
+
+        $discountedRate = $initialRate;
+
+        foreach ($promos as $promo) {
+            $promoFacilities = array_map('intval', explode(',', $promo['facilities']));
+
+            if (in_array((int) $facilityId, $promoFacilities)) {
+                $discountValue = (float) $promo['discount_value'];
+                $discountedRate = $initialRate - ($initialRate * ($discountValue / 100));
+                break;
+            }
+        }
+
+        return round($discountedRate, 2);
     }
+
 
     public function getReservationTotalPrice($facilityRate, $data)
     {
