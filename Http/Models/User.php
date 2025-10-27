@@ -14,6 +14,13 @@ class User
         $this->db = App::resolve(Database::class);
     }
 
+    public function fetchUsers()
+    {
+        return $this->db->query(
+            "SELECT * FROM users"
+        )->get();
+    }
+
     public function fetchUserBySessionToken($session_token)
     {
         return $this->db->query(
@@ -33,7 +40,7 @@ class User
     public function createUser($attributes)
     {
         $this->db->query(
-            "INSERT INTO users(username,email,password,salt) VALUES(:username,:email,:password,:salt)",
+            "INSERT INTO users(username,email,password,salt,type) VALUES(:username,:email,:password,:salt,:type)",
             $attributes
         );
         return true;

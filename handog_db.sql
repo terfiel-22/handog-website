@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2025 at 06:35 PM
+-- Generation Time: Oct 27, 2025 at 06:12 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -228,6 +228,51 @@ INSERT INTO `payments` (`id`, `reservation_id`, `amount`, `payment_method`, `pay
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `promos`
+--
+
+CREATE TABLE `promos` (
+  `id` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` text DEFAULT NULL,
+  `discount_value` decimal(10,2) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `is_active` enum('yes','no') NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `promos`
+--
+
+INSERT INTO `promos` (`id`, `title`, `description`, `discount_value`, `start_date`, `end_date`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, '20% OFF Halloween Promo', 'Enjoy 20% off all rooms this halloween', 20.00, '2025-10-26', '2025-11-02', 'yes', '2025-10-27 05:23:28', '2025-10-27 06:42:25');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `promo_facilities`
+--
+
+CREATE TABLE `promo_facilities` (
+  `id` int(11) NOT NULL,
+  `promo_id` int(11) NOT NULL,
+  `facility_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `promo_facilities`
+--
+
+INSERT INTO `promo_facilities` (`id`, `promo_id`, `facility_id`) VALUES
+(8, 1, 1),
+(9, 1, 9);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `reservations`
 --
 
@@ -315,15 +360,17 @@ CREATE TABLE `users` (
   `email` varchar(200) NOT NULL,
   `password` varchar(200) NOT NULL,
   `salt` varchar(200) NOT NULL,
-  `session_token` varchar(200) DEFAULT NULL
+  `session_token` varchar(200) DEFAULT NULL,
+  `type` enum('admin','staff') NOT NULL DEFAULT 'staff'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `salt`, `session_token`) VALUES
-(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$7/en3dyXXF8AswxUFuyEoe5UA8Omt4pkovT3Dq8s2OU1y.HAiSuJm');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `salt`, `session_token`, `type`) VALUES
+(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$Lvf/15u95QNKbEWqemIke.07zr6PbKtnPSFyNh0mXLf72CF2vQ35S', 'admin'),
+(2, 'Taki Fimito', 'taki@gmail.com', '$2y$10$aHJDAVisBHDDlEW5ZToaK.onxdukJcFUKTefh/BWXxLCtnr.1rh1C', 'f64c43c32b3f5bbe9816', NULL, 'admin');
 
 --
 -- Indexes for dumped tables
@@ -379,6 +426,20 @@ ALTER TABLE `gallery_images`
 ALTER TABLE `payments`
   ADD PRIMARY KEY (`id`),
   ADD KEY `payments_ibfk_1` (`reservation_id`);
+
+--
+-- Indexes for table `promos`
+--
+ALTER TABLE `promos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `promo_facilities`
+--
+ALTER TABLE `promo_facilities`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `promo_id` (`promo_id`),
+  ADD KEY `facility_id` (`facility_id`);
 
 --
 -- Indexes for table `reservations`
@@ -459,6 +520,18 @@ ALTER TABLE `payments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `promos`
+--
+ALTER TABLE `promos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `promo_facilities`
+--
+ALTER TABLE `promo_facilities`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
@@ -480,7 +553,7 @@ ALTER TABLE `st_rates`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -503,6 +576,13 @@ ALTER TABLE `facility_images`
 --
 ALTER TABLE `payments`
   ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservations` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `promo_facilities`
+--
+ALTER TABLE `promo_facilities`
+  ADD CONSTRAINT `promo_facilities_ibfk_1` FOREIGN KEY (`promo_id`) REFERENCES `promos` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `promo_facilities_ibfk_2` FOREIGN KEY (`facility_id`) REFERENCES `facilities` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `reservations`

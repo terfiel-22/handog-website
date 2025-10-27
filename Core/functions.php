@@ -105,3 +105,11 @@ function generateSessionToken($uid)
 
     return $token;
 }
+
+/**Function for generating salt */
+function generateSalt(int $length = 10): string
+{
+    $randomBytes = random_bytes($length);
+    $randomString = bin2hex($randomBytes);
+    return $randomString;
+}
