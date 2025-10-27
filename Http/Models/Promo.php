@@ -35,6 +35,41 @@ class Promo
         )->get();
     }
 
+
+    public function fetchPromoById($id)
+    {
+        return $this->db->query(
+            "
+            SELECT 
+                pr.*, 
+                GROUP_CONCAT(pf.facility_id) AS facilities
+            FROM promos pr
+            LEFT JOIN promo_facilities pf ON pr.id = pf.promo_id
+            WHERE pr.id = :id
+            GROUP BY pr.id
+            LIMIT 1
+            ",
+            compact('id')
+        )->findOrFail();
+    }
+
+    public function updatePromo($id, $attributes)
+    {
+        $attributes['id'] = $id;
+
+        return $this->db->query(
+            "UPDATE events 
+            SET title = :title,
+                description = :description,
+                discount_value = :discount_value,
+                start_date = :start_date,
+                end_date = :end_date,
+                is_active = :is_active
+            WHERE id = :id",
+            $attributes
+        );
+    }
+
     public function deletePromo($id)
     {
         $result = $this->db->query(

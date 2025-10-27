@@ -1,5 +1,5 @@
 <?php
-$pageName = "Edit Amenity"
+$pageName = "Edit Promo"
 ?>
 
 <!-- meta tags and other links -->
@@ -35,59 +35,85 @@ $pageName = "Edit Amenity"
                 </div>
 
                 <div class="card-body">
-                    <form class="row gy-3" method="POST" action="/admin/amenities/update" enctype="multipart/form-data">
+                    <form class="row gy-3" method="POST" action="/admin/promos/update">
                         <input type="hidden" name="_method" value="PUT">
-                        <input type="hidden" name="id" value="<?= $amenity["id"] ?>">
-                        <div class="col-12">
-                            <label class="form-label" for="upload-file-multiple">Upload amenity images</label>
-                            <div class="upload-image-wrapper d-flex align-items-center gap-3 flex-wrap">
-                                <div class="uploaded-imgs-container d-flex gap-3 flex-wrap"></div>
-                                <label class="upload-file-multiple h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50 bg-hover-neutral-200 d-flex align-items-center flex-column justify-content-center gap-1">
-                                    <iconify-icon icon="solar:camera-outline" class="text-xl text-secondary-light"></iconify-icon>
-                                    <span class="fw-semibold text-secondary-light">Upload</span>
-                                    <input id="upload-file-multiple" name="images[]" type="file" accept="image/*" hidden multiple>
-                                </label>
-                            </div>
-                            <input type="hidden" name="existing_images" id="existing_images">
-                            <?php if (isset($errors["image"])) : ?>
+                        <input type="hidden" name="id" value="<?= $promo["id"] ?>">
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="title">Title</label>
+                            <input type="text" name="title" id="title" class="form-control" placeholder="Enter promo title" value="<?= $promo['title'] ?>">
+                            <?php if (isset($errors["title"])) : ?>
                                 <div class="error-text">
-                                    <?= $errors["image"] ?>
+                                    <?= $errors["title"] ?>
                                 </div>
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-6">
-                            <label class="form-label" for="name">Name</label>
-                            <input type="text" name="name" id="name" class="form-control" placeholder="Enter amenity name" value="<?= $amenity["name"] ?>">
-                            <?php if (isset($errors["name"])) : ?>
+                            <label class="form-label" for="discount_value">Discount Value</label>
+                            <input type="number" name="discount_value" id="discount_value" class="form-control" placeholder="Enter promo discount_value" value="<?= $promo['discount_value'] ?>">
+                            <?php if (isset($errors["discount_value"])) : ?>
                                 <div class="error-text">
-                                    <?= $errors["name"] ?>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="type">Type</label>
-                            <select name="type" id="type" class="form-control">
-                                <?php foreach (\Http\Enums\AmenityType::toArray() as $type): ?>
-                                    <option value="<?= $type ?>" <?= $amenity["type"] == $type ?  "selected" : "" ?>> <?= ucfirst($type) ?> </option>
-                                <?php endforeach; ?>
-                            </select>
-                            <?php if (isset($errors["type"])) : ?>
-                                <div class="error-text">
-                                    <?= $errors["type"] ?>
+                                    <?= $errors["discount_value"] ?>
                                 </div>
                             <?php endif; ?>
                         </div>
                         <div class="col-12">
                             <label class="form-label" for="description">Description</label>
-                            <textarea type="number" name="description" id="description" class="form-control" placeholder="Enter amenity description"><?= $amenity["description"] ?></textarea>
+                            <textarea name="description" id="description" class="form-control" placeholder="Enter promo description"><?= $promo['description'] ?></textarea>
                             <?php if (isset($errors["description"])) : ?>
                                 <div class="error-text">
                                     <?= $errors["description"] ?>
                                 </div>
                             <?php endif; ?>
                         </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="start_date">Start Date</label>
+                            <input type="text" name="start_date" id="start_date" class="form-control" placeholder="Enter promo start date" value="<?= $promo['start_date'] ?>">
+                            <?php if (isset($errors["start_date"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["start_date"] ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="end_date">End Date</label>
+                            <input type="text" name="end_date" id="end_date" class="form-control" placeholder="Enter promo end date" value="<?= $promo['end_date'] ?>">
+                            <?php if (isset($errors["end_date"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["end_date"] ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="facilities">Applicable To</label>
+                            <select name="facilities[]" id="facilities" class="multi-select form-select" multiple="multiple">
+                                <?php foreach ($facilities as $facility): ?>
+                                    <option value="<?= $facility['id'] ?>"
+                                        <?= (is_array($promo['facilities']) && in_array($facility['id'], $promo['facilities'])) ? 'selected' : '' ?>>
+                                        <?= ucfirst($facility['name']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                            <?php if (isset($errors["facilities"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["facilities"] ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="is_active">Is Active</label>
+                            <select name="is_active" id="is_active" class="form-select">
+                                <?php foreach (\Http\Enums\YesNo::toArray() as $is_active): ?>
+                                    <option value="<?= $is_active ?>" <?= $promo['is_active'] == $is_active ? "selected" : "" ?>><?= ucfirst($is_active) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <?php if (isset($errors["is_active"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["is_active"] ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
                         <div class="col-12 g-5">
-                            <a href="/admin/amenities" class="btn btn-danger-600">Cancel</a>
+                            <a href="/admin/promos" class="btn btn-danger-600">Cancel</a>
                             <button type="submit" class="btn btn-primary-600">Submit</button>
                         </div>
                     </form>
@@ -98,67 +124,25 @@ $pageName = "Edit Amenity"
 
     <!-- JS Plugins -->
     <?php view("admin/partials/plugins.partial.php") ?>
+
+    <!-- Date Picker -->
     <script>
         $(function() {
-            const imagesPath = <?= json_encode($readableImagePaths) ?>;
-            const $fileInputMultiple = $("#upload-file-multiple");
-            const $uploadedImgsContainer = $(".uploaded-imgs-container");
-            const $existingImagesInput = $("#existing_images");
-            let existingImages = Array.isArray(imagesPath) ? imagesPath.filter(p => p.trim() !== '') : [];
+            $('#start_date, #end_date').flatpickr({
+                enableTime: false,
+                dateFormat: "Y-m-d",
+                minDate: "today"
+            });
+        });
+    </script>
 
-            function updateHiddenInput() {
-                $existingImagesInput.val(JSON.stringify(existingImages));
-            }
-
-            function createImagePreview(src, isExisting = false) {
-                const $imgContainer = $("<div>").addClass(
-                    "position-relative h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50"
-                );
-
-                const $removeButton = $("<button>", {
-                    type: "button",
-                    class: "uploaded-img__remove position-absolute top-0 end-0 z-1 text-2xxl line-height-1 me-8 mt-8 d-flex",
-                    html: '<iconify-icon icon="radix-icons:cross-2" class="text-xl text-danger-600"></iconify-icon>'
-                });
-
-                const $imagePreview = $("<img>", {
-                    class: "w-100 h-100 object-fit-cover",
-                    src: src
-                });
-
-                $imgContainer.append($removeButton, $imagePreview);
-                $uploadedImgsContainer.append($imgContainer);
-
-                // Remove handler
-                $removeButton.on("click", function() {
-                    if (isExisting) {
-                        // Remove from existing list
-                        existingImages = existingImages.filter(img => img !== src);
-                        updateHiddenInput();
-                    } else {
-                        URL.revokeObjectURL(src);
-                    }
-                    $imgContainer.remove();
-                });
-            }
-
-            // ✅ Load existing images
-            if (existingImages.length > 0) {
-                existingImages.forEach(path => createImagePreview(path, true));
-                updateHiddenInput();
-            }
-
-            // ✅ Handle new uploads
-            $fileInputMultiple.on("change", function(e) {
-                $uploadedImgsContainer.empty();
-                existingImages = []; // Means user replaced all images
-                updateHiddenInput();
-
-                const files = e.target.files;
-                $.each(files, function(_, file) {
-                    const src = URL.createObjectURL(file);
-                    createImagePreview(src);
-                });
+    <!-- Multiple Select -->
+    <script>
+        $(document).ready(function() {
+            $('.multi-select').select2({
+                placeholder: 'Select facility',
+                theme: 'bootstrap-5',
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             });
         });
     </script>
