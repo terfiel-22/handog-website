@@ -193,6 +193,7 @@ $pageName = "Reservations"
                                         <div class="col-12">
                                             <label for="total_rate" class="form-label">Total Rate</label>
                                             <input type="number" id="total_rate" class="form-control" disabled>
+                                            <div class="discount-container"></div>
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label" for="payment_status">Payment Status</label>
@@ -495,6 +496,7 @@ $pageName = "Reservations"
             }
 
             const applyPromo = (facilityRate) => {
+                $('.discount-container').html('');
                 const promos = <?= json_encode($promos) ?>;
                 const facilityId = parseInt($('#facility').val(), 10);
 
@@ -503,9 +505,14 @@ $pageName = "Reservations"
                     const promoFacilities = promo.facilities.split(',').map(Number);
                     const hasFacility = promoFacilities.includes(facilityId);
 
-                    if (hasFacility && promo.is_active === 'yes') {
+                    if (hasFacility) {
                         const discountValue = parseFloat(promo.discount_value);
                         const discountedRate = facilityRate - (facilityRate * (discountValue / 100));
+                        $('.discount-container').html(`
+                        <span class="badge bg-primary">
+                            ${promo.title}
+                        </span>
+                        `);
                         return discountedRate;
                     }
                 }

@@ -190,6 +190,7 @@
                                             <div class="form-clt">
                                                 <input type="number" name="total_rate" id="total_rate" disabled>
                                             </div>
+                                            <div class="discount-container"></div>
                                         </div>
                                         <div class="col-12 col-md-6 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="booking_deposit">Booking Deposit</label>
@@ -491,6 +492,7 @@
             }
 
             const applyPromo = (facilityRate) => {
+                $('.discount-container').html('');
                 const promos = <?= json_encode($promos) ?>;
                 const facilityId = parseInt($('#facility').val(), 10);
 
@@ -499,9 +501,14 @@
                     const promoFacilities = promo.facilities.split(',').map(Number);
                     const hasFacility = promoFacilities.includes(facilityId);
 
-                    if (hasFacility && promo.is_active === 'yes') {
+                    if (hasFacility) {
                         const discountValue = parseFloat(promo.discount_value);
                         const discountedRate = facilityRate - (facilityRate * (discountValue / 100));
+                        $('.discount-container').html(`
+                        <span class="badge bg-primary">
+                            ${promo.title}
+                        </span>
+                        `);
                         return discountedRate;
                     }
                 }
