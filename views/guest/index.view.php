@@ -20,76 +20,24 @@
     <?php view("guest/partials/header.partial.php") ?>
 
     <!-- Promo Section Start -->
-    <div class="marquee-section fix">
-        <div class="marquee">
-            <div class="marquee-group">
-                <div class="text">Limited-Time Offer</div>
-                <div class="text">
-                    <img src="/assets/guest/img/home-1/star.png" alt="img">
-                </div>
-                <div class="text">Book Now & Save 20%</div>
-                <div class="text">
-                    <img src="/assets/guest/img/home-1/star.png" alt="img">
-                </div>
-                <div class="text">Best Luxury Resort</div>
-                <div class="text">
-                    <img src="/assets/guest/img/home-1/star.png" alt="img">
-                </div>
-                <div class="text">Early Bird Special</div>
-                <div class="text">
-                    <img src="/assets/guest/img/home-1/star.png" alt="img">
-                </div>
-                <div class="text">All-Inclusive Promo</div>
-                <div class="text">
-                    <img src="/assets/guest/img/home-1/star.png" alt="img">
-                </div>
-            </div>
-            <div class="marquee-group">
-                <div class="text">Limited-Time Offer</div>
-                <div class="text">
-                    <img src="/assets/guest/img/home-1/star.png" alt="img">
-                </div>
-                <div class="text">Book Now & Save 20%</div>
-                <div class="text">
-                    <img src="/assets/guest/img/home-1/star.png" alt="img">
-                </div>
-                <div class="text">Best Luxury Resort</div>
-                <div class="text">
-                    <img src="/assets/guest/img/home-1/star.png" alt="img">
-                </div>
-                <div class="text">Early Bird Special</div>
-                <div class="text">
-                    <img src="/assets/guest/img/home-1/star.png" alt="img">
-                </div>
-                <div class="text">All-Inclusive Promo</div>
-                <div class="text">
-                    <img src="/assets/guest/img/home-1/star.png" alt="img">
-                </div>
-            </div>
-            <div class="marquee-group">
-                <div class="text">Limited-Time Offer</div>
-                <div class="text">
-                    <img src="/assets/guest/img/home-1/star.png" alt="img">
-                </div>
-                <div class="text">Book Now & Save 20%</div>
-                <div class="text">
-                    <img src="/assets/guest/img/home-1/star.png" alt="img">
-                </div>
-                <div class="text">Best Luxury Resort</div>
-                <div class="text">
-                    <img src="/assets/guest/img/home-1/star.png" alt="img">
-                </div>
-                <div class="text">Early Bird Special</div>
-                <div class="text">
-                    <img src="/assets/guest/img/home-1/star.png" alt="img">
-                </div>
-                <div class="text">All-Inclusive Promo</div>
-                <div class="text">
-                    <img src="/assets/guest/img/home-1/star.png" alt="img">
-                </div>
+    <?php if (!empty($promos)): ?>
+        <div class="marquee-section fix">
+            <div class="marquee">
+                <?php foreach (range(0, 3) as $_): ?>
+                    <div class="marquee-group">
+                        <?php foreach ($promos as $i => $promo): ?>
+                            <div class="text"><?= $promo["description"] ?></div>
+                            <?php if ($i % 2 == 1): ?>
+                                <div class="text">
+                                    <img src="/assets/guest/img/home-1/star.png" alt="img">
+                                </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
-    </div>
+    <?php endif; ?>
 
     <!-- GT Hero Section Start -->
     <section
