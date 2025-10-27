@@ -18,65 +18,66 @@
                 </a>
             </li>
             <li>
-                <a href="/admin/facilities">
-                    <iconify-icon icon="ic:outline-home" class="menu-icon"></iconify-icon>
-                    <span>Facilities</span>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/amenities">
-                    <iconify-icon icon="ic:outline-pool" class="menu-icon"></iconify-icon>
-                    <span>Amenities</span>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/gallery">
-                    <iconify-icon icon="ic:outline-image" class="menu-icon"></iconify-icon>
-                    <span>Gallery</span>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/events">
-                    <iconify-icon icon="ic:outline-event" class="menu-icon"></iconify-icon>
-                    <span>Events</span>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/faqs">
-                    <iconify-icon icon="ic:outline-question-mark" class="menu-icon"></iconify-icon>
-                    <span>FAQs</span>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/users">
-                    <iconify-icon icon="ic:outline-people" class="menu-icon"></iconify-icon>
-                    <span>Users</span>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/promos">
-                    <iconify-icon icon="ic:outline-card-giftcard" class="menu-icon"></iconify-icon>
-                    <span>Promos</span>
-                </a>
-            </li>
-            <li>
                 <a href="/admin/reservations">
                     <iconify-icon icon="ic:outline-bookmarks" class="menu-icon"></iconify-icon>
                     <span>Reservations</span>
                 </a>
             </li>
-
-            <li class="dropdown">
-                <a href="javascript:void(0)">
-                    <iconify-icon icon="ic:outline-settings" class="menu-icon"></iconify-icon>
-                    <span>Settings</span>
-                </a>
-                <ul class="sidebar-submenu">
-                    <li>
-                        <a href="/admin/settings/rates"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Rates</a>
-                    </li>
-                </ul>
-            </li>
+            <?php if (\Http\Services\UserService::getCurrentUser()["type"] == \Http\Enums\UserType::ADMIN): ?>
+                <li>
+                    <a href="/admin/facilities">
+                        <iconify-icon icon="ic:outline-home" class="menu-icon"></iconify-icon>
+                        <span>Facilities</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/amenities">
+                        <iconify-icon icon="ic:outline-pool" class="menu-icon"></iconify-icon>
+                        <span>Amenities</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/gallery">
+                        <iconify-icon icon="ic:outline-image" class="menu-icon"></iconify-icon>
+                        <span>Gallery</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/events">
+                        <iconify-icon icon="ic:outline-event" class="menu-icon"></iconify-icon>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/faqs">
+                        <iconify-icon icon="ic:outline-question-mark" class="menu-icon"></iconify-icon>
+                        <span>FAQs</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/users">
+                        <iconify-icon icon="ic:outline-people" class="menu-icon"></iconify-icon>
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/promos">
+                        <iconify-icon icon="ic:outline-card-giftcard" class="menu-icon"></iconify-icon>
+                        <span>Promos</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)">
+                        <iconify-icon icon="ic:outline-settings" class="menu-icon"></iconify-icon>
+                        <span>Settings</span>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li>
+                            <a href="/admin/settings/rates"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Rates</a>
+                        </li>
+                    </ul>
+                </li>
+            <?php endif; ?>
 
             <!-- <li class="sidebar-menu-group-title">Reservations</li>
             <li>
