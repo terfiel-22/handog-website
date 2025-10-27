@@ -3,10 +3,10 @@
         <div class="mega-menu-wrapper">
             <div class="header-main">
                 <div class="logo">
-                    <a href="index.html" class="header-logo">
+                    <a href="/" class="header-logo">
                         <img src="/assets/guest/img/logo/white-logo.svg" alt="logo-img" />
                     </a>
-                    <a href="index.html" class="header-logo-2">
+                    <a href="/" class="header-logo-2">
                         <img src="/assets/guest/img/logo/black-logo.svg" alt="logo-img" />
                     </a>
                 </div>
