@@ -107,4 +107,12 @@ class User
 
         return true;
     }
+
+    public function deleteUser($id)
+    {
+        $this->db->query(
+            "DELETE FROM users WHERE id = :id",
+            compact('id')
+        );
+    }
 }
