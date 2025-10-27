@@ -1,18 +1,30 @@
 <?php
 
 use Core\App;
-use Http\Forms\FaqForm;
-use Http\Models\Faq;
+use Http\Forms\PasswordForm;
+use Http\Forms\UpdateUserForm;
+use Http\Models\User;
 
 // Check if gallery image exists
-$origFaq = App::resolve(Faq::class)->fetchFaqById($_POST["id"]);
+$origUser = App::resolve(User::class)->fetchUserById($_POST["id"]);
 
 // Validate Form
-FaqForm::validate($_POST);
+UpdateUserForm::validate($_POST);
+if (!empty($_POST["password"]) && !empty($_POST['cpassword'])) {
+    PasswordForm::validate($_POST);
 
-/** START Update Faq Data on Database **/
+    $salt = generateSalt();
+    $password = password_hash($salt . $_POST['password'], PASSWORD_BCRYPT);
+    $session_token = null;
+    App::resolve(User::class)->updateUserPassword($origUser["id"], compact('password', 'salt', 'session_token'));
+}
+
+/** START Update User Data on Database **/
 unset($_POST["_method"]);
-App::resolve(Faq::class)->updateFaq($origFaq["id"], $_POST);
-/** END Update Faq Data on Database **/
+unset($_POST["password"]);
+unset($_POST["cpassword"]);
+
+App::resolve(User::class)->updateUser($origUser["id"], $_POST);
+/** END Update User Data on Database **/
 
 redirect("/admin/users");

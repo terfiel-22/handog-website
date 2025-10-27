@@ -1,10 +1,10 @@
 <?php
 
 use Core\App;
-use Http\Forms\UserForm;
+use Http\Forms\AddUserForm;
 use Http\Models\User;
 
-$userForm = UserForm::validate($_POST);
+$userForm = AddUserForm::validate($_POST);
 
 $user = App::resolve(User::class)->fetchUserByEmail($_POST['email']);
 if ($user) {

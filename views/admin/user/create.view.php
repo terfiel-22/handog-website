@@ -58,7 +58,7 @@ $pageName = "Add User"
                             <label class="form-label" for="type">Account Type</label>
                             <select name="type" id="type" class="form-control">
                                 <?php foreach (\Http\Enums\UserType::toArray() as $type): ?>
-                                    <option value="<?= $type ?>"> <?= ucfirst($type) ?> </option>
+                                    <option value="<?= $type ?>" <?= old('type') == $type ? "selected" : "" ?>> <?= ucfirst($type) ?> </option>
                                 <?php endforeach; ?>
                             </select>
                             <?php if (isset($errors["type"])) : ?>

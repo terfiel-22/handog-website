@@ -5,7 +5,7 @@ namespace Http\Forms;
 use Core\Validator;
 use Http\Enums\UserType;
 
-class UserForm extends Form
+class AddUserForm extends Form
 {
     public function __construct(array $attributes)
     {

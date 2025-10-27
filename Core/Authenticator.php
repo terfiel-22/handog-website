@@ -28,13 +28,9 @@ class Authenticator
         $session_token = generateSessionToken($user["id"]);
         $updatedUser = [
             'id' => $user["id"],
-            'username' => $user["username"],
-            'email' => $user["email"],
-            'password' => $user["password"],
-            'salt' => $user["salt"],
             'session_token' => $session_token,
         ];
-        App::resolve(User::class)->updateUser($updatedUser);
+        App::resolve(User::class)->updateUserSessionToken($updatedUser);
 
         $expiration = 60 * 60 * 24; // 1 day
 

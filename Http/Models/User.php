@@ -37,6 +37,15 @@ class User
         )->find();
     }
 
+
+    public function fetchUserById($id)
+    {
+        return $this->db->query(
+            "SELECT * FROM users WHERE id=:id",
+            compact('id')
+        )->findOrFail();
+    }
+
     public function createUser($attributes)
     {
         $this->db->query(
@@ -46,16 +55,50 @@ class User
         return true;
     }
 
-    public function updateUser($attributes)
+    public function updateUser($id, $attributes)
     {
+        $attributes["id"] = $id;
+
         $this->db->query(
             "UPDATE 
                 users 
             SET 
                 username=:username,
                 email=:email,
+                type=:type
+            WHERE 
+                id=:id",
+            $attributes
+        );
+
+        return true;
+    }
+
+    public function updateUserPassword($id, $attributes)
+    {
+        $attributes["id"] = $id;
+
+        $this->db->query(
+            "UPDATE 
+                users 
+            SET 
                 password=:password,
                 salt=:salt,
+                session_token=:session_token
+            WHERE 
+                id=:id",
+            $attributes
+        );
+
+        return true;
+    }
+
+    public function updateUserSessionToken($attributes)
+    {
+        $this->db->query(
+            "UPDATE 
+                users 
+            SET  
                 session_token=:session_token
             WHERE 
                 id=:id",
