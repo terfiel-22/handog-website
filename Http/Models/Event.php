@@ -44,7 +44,7 @@ class Event
 
     public function fetchUpcomingEvents()
     {
-        return $this->db->query('SELECT * FROM events WHERE date >= CURDATE()')->get();
+        return $this->db->query('SELECT * FROM events WHERE date >= CURDATE() ORDER BY date ASC LIMIT 5')->get();
     }
 
     public function fetchEventById($id)
