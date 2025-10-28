@@ -358,7 +358,7 @@
             <div class="row">
 
                 <?php if (!empty($events)): ?>
-                    <?php foreach ($events as $event): ?>
+                    <?php foreach ($events as $index => $event): ?>
                         <div class="col-lg-6 wow fadeInUp" data-wow-delay=".3s">
                             <div class="gt-news-box-item-2">
                                 <div class="gt-thumb fixed-height-img">
@@ -375,9 +375,13 @@
                                         </li>
                                     </ul>
                                     <h3>
-                                        <a href="/event?id=<?= $event["id"] ?>"><?= $event["name"] ?></a>
+                                        <h3><?= htmlspecialchars($event["name"]) ?></h3>
                                     </h3>
-                                    <a href="/event?id=<?= $event["id"] ?>" class="gt-theme-btn">VIEW DETAILS</a>
+                                    <button
+                                        class="gt-theme-btn view-details-btn"
+                                        data-index="<?= $index ?>">
+                                        VIEW DETAILS
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -466,11 +470,134 @@
         </div>
     </section>
 
+
+    <!-- Event Modal -->
+    <div class="modal fade" id="eventModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="eventCarousel" class="carousel slide" data-bs-ride="false">
+                        <div class="carousel-inner" id="carouselContent"></div>
+                    </div>
+                </div>
+
+                <div class="modal-footer d-flex justify-content-between">
+                    <div>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-secondary" id="prevEventBtn">Previous Event</button>
+                        <button type="button" class="btn btn-primary" id="nextEventBtn">Next Event </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- GT Footer Section Start -->
     <?php view("guest/partials/footer.partial.php") ?>
 
     <!--<< All JS Plugins >>-->
     <?php view("guest/partials/plugins.partial.php") ?>
+
+    <!-- Event Modal Script -->
+    <script>
+        $(function() {
+            // events from PHP
+            const events = <?= json_encode($events) ?> || [];
+
+            let initialIndex = 0;
+            let carouselInstance = null;
+
+            function buildCarousel(selectedIndex) {
+                const $carousel = $("#carouselContent");
+                $carousel.empty();
+
+                if (!events.length) {
+                    $carousel.append(
+                        `<div class="carousel-item active">
+                            <div class="p-4">No events available.</div>
+                        </div>`
+                    );
+                    return;
+                }
+
+                events.forEach((event, i) => {
+                    const imgSrc = event.image ?? "/assets/guest/img/home-2/news/01.jpg";
+                    const name = $('<div>').text(event.name ?? '').html();
+                    const date = $('<div>').text(event.date ?? '').html();
+                    const desc = $('<div>').text(event.description ?? 'No description available.').html();
+
+                    const activeClass = i === selectedIndex ? "active" : "";
+                    const item = `
+                        <div class="carousel-item ${activeClass}">
+                            <div class="row g-3">
+                                <div class="col-md-5">
+                                    <img src="${imgSrc}" class="d-block w-100 rounded fixed-height-img" alt="${name}">
+                                </div>
+                                <div class="col-md-7"> 
+                                    <div class="gt-news-details-content">
+                                        <h2>${name}</h2>
+                                        <hr/>
+                                        <p><strong>Date:</strong> ${date}</p> 
+                                        <p>${desc}</p>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    $carousel.append(item);
+                });
+            }
+
+            $(".view-details-btn").on("click", function() {
+                initialIndex = parseInt($(this).data("index")) || 0;
+                buildCarousel(initialIndex);
+
+                const modalEl = document.getElementById('eventModal');
+                const modal = new bootstrap.Modal(modalEl);
+                modal.show();
+            });
+
+            $('#eventModal').on('shown.bs.modal', function() {
+                carouselInstance = bootstrap.Carousel.getOrCreateInstance('#eventCarousel', {
+                    ride: false,
+                    interval: false
+                });
+
+                if (typeof initialIndex === 'number' && !Number.isNaN(initialIndex)) {
+                    try {
+                        carouselInstance.to(initialIndex);
+                    } catch (e) {
+                        // fallback: do nothing
+                    }
+                }
+            });
+
+            $("#prevEventBtn").on("click", function() {
+                if (carouselInstance) carouselInstance.prev();
+            });
+            $("#nextEventBtn").on("click", function() {
+                if (carouselInstance) carouselInstance.next();
+            });
+
+            $('#eventModal').on('hidden.bs.modal', function() {
+                $("#carouselContent").empty();
+                carouselInstance = null;
+            });
+
+            $(document).on('keydown', function(e) {
+                const modalVisible = $('#eventModal').hasClass('show');
+                if (!modalVisible) return;
+
+                if (e.key === "ArrowLeft") {
+                    if (carouselInstance) carouselInstance.prev();
+                } else if (e.key === "ArrowRight") {
+                    if (carouselInstance) carouselInstance.next();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

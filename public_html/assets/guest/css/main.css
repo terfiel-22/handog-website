@@ -7267,6 +7267,11 @@ span {
   height: 400px !important;
   cursor: pointer !important;
 } 
+@media (max-width: 767px) {
+  .fixed-height-img {
+    height: 300px !important; 
+  } 
+}
 .upcoming-event img { 
   height: 100px !important;
   width: 100px !important;
@@ -7300,4 +7305,16 @@ span {
         display: block;
         text-align: center;
     }
+}
+
+/* Event */
+#carouselContent  {
+  max-height: 70vh;
+  max-height: 70svh;
+  overflow-y: auto;
+}
+@media (max-width: 767px) {
+  #eventModal {
+    padding-top: 2rem;
+  } 
 }
