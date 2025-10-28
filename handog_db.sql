@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2025 at 06:12 PM
+-- Generation Time: Oct 28, 2025 at 11:02 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -90,8 +90,8 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `name`, `description`, `image`, `date`, `created_at`) VALUES
-(1, 'Silent Sanctuary x Sunkissed Lola', 'Get Ready for an Evening of Great Music and Don’t miss this rare opportunity to see Silent Sanctuary and Sunkissed Lola share the stage. Whether you’re a longtime fan or discovering their music for the first time, this concert promises to be a night to remember. Secure your tickets now and experience the magic of these two incredible bands live!', 'uploads/images/68ebcad0826f8_event1.png', '2025-10-19 16:00:00', '2025-10-12 23:27:12'),
-(3, 'Live Jam', 'The Filipino rock band that brought us many of our favorite songs like “Lunes,” “Jeepney” and “Gemini” will be bringing all the early-2000s feels alive, and then some, as they play some of their more recent hits from their double EP, Sinag/Tala.', 'uploads/images/68ebda8bc507b_event2.png', '2025-10-19 12:00:00', '2025-10-13 00:42:51');
+(1, 'Silent Sanctuary x Sunkissed Lola', 'Get Ready for an Evening of Great Music and Don’t miss this rare opportunity to see Silent Sanctuary and Sunkissed Lola share the stage. Whether you’re a longtime fan or discovering their music for the first time, this concert promises to be a night to remember. Secure your tickets now and experience the magic of these two incredible bands live!', 'uploads/images/68ebcad0826f8_event1.png', '2025-10-31 16:00:00', '2025-10-12 23:27:12'),
+(3, 'Live Jam', 'The Filipino rock band that brought us many of our favorite songs like “Lunes,” “Jeepney” and “Gemini” will be bringing all the early-2000s feels alive, and then some, as they play some of their more recent hits from their double EP, Sinag/Tala.', 'uploads/images/68ebda8bc507b_event2.png', '2025-11-01 12:00:00', '2025-10-13 00:42:51');
 
 -- --------------------------------------------------------
 
@@ -223,7 +223,8 @@ CREATE TABLE `payments` (
 
 INSERT INTO `payments` (`id`, `reservation_id`, `amount`, `payment_method`, `payment_status`, `payment_type`, `payment_link`, `created_at`, `updated_at`) VALUES
 (2, 2, 250.00, 'gcash', 'paid', 'deposit', 'link_wK4meH9QbE1eHWZoS2WUSfE6', '2025-10-22 15:37:51', '2025-10-22 23:09:57'),
-(6, 2, 250.00, NULL, 'paid', 'deposit', NULL, '2025-10-22 20:25:58', '2025-10-22 17:07:13');
+(6, 2, 250.00, NULL, 'paid', 'deposit', NULL, '2025-10-22 20:25:58', '2025-10-22 17:07:13'),
+(8, 4, 1620.00, 'cash', 'paid', 'full', NULL, '2025-10-29 02:48:32', '2025-10-29 02:48:32');
 
 -- --------------------------------------------------------
 
@@ -299,7 +300,8 @@ CREATE TABLE `reservations` (
 --
 
 INSERT INTO `reservations` (`id`, `facility_id`, `contact_person`, `contact_no`, `contact_email`, `contact_address`, `check_in`, `time_range`, `check_out`, `guest_count`, `rent_videoke`, `total_price`, `status`, `created_at`, `updated_at`) VALUES
-(2, 9, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-10-23 00:00:00', '12-Hours', '2025-10-24 12:00:00', 1, 'no', 500.00, 'completed', '2025-10-21 07:37:51', '2025-10-22 16:29:13');
+(2, 9, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-07 00:00:00', '12-Hours', '2025-11-07 12:00:00', 1, 'no', 500.00, 'confirmed', '2025-10-21 07:37:51', '2025-10-28 18:09:22'),
+(4, 8, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-10-30 12:00:00', '12-Hours', '2025-10-31 00:00:00', 1, 'no', 1620.00, 'confirmed', '2025-10-28 18:48:32', '2025-10-28 18:48:32');
 
 -- --------------------------------------------------------
 
@@ -323,7 +325,27 @@ CREATE TABLE `reservation_guests` (
 --
 
 INSERT INTO `reservation_guests` (`id`, `reservation_id`, `guest_name`, `guest_age`, `guest_type`, `senior_pwd`, `created_at`, `updated_at`) VALUES
-(11, 2, 'Taki Fimito', 22, 'adult', 'no', '2025-10-21 12:25:58', '2025-10-21 12:25:58');
+(11, 2, 'Taki Fimito', 22, 'adult', 'no', '2025-10-21 12:25:58', '2025-10-21 12:25:58'),
+(13, 4, 'Taki Fimito', 22, 'adult', 'no', '2025-10-28 18:48:32', '2025-10-28 18:48:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `st_logos`
+--
+
+CREATE TABLE `st_logos` (
+  `id` int(11) NOT NULL,
+  `image` varchar(200) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `st_logos`
+--
+
+INSERT INTO `st_logos` (`id`, `image`, `created_at`) VALUES
+(1, 'uploads/images/69013a4013db5_handog-logo.png', '2025-10-29 05:48:30');
 
 -- --------------------------------------------------------
 
@@ -369,8 +391,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `salt`, `session_token`, `type`) VALUES
-(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$Lvf/15u95QNKbEWqemIke.07zr6PbKtnPSFyNh0mXLf72CF2vQ35S', 'admin'),
-(2, 'Taki Fimito', 'taki@gmail.com', '$2y$10$aHJDAVisBHDDlEW5ZToaK.onxdukJcFUKTefh/BWXxLCtnr.1rh1C', 'f64c43c32b3f5bbe9816', NULL, 'admin');
+(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$ixf/yeSAjDZT2A3mLLZ8E.IWsUd4L.gBPwvPb3tVXAhUQEXvIw0Ee', 'admin'),
+(3, 'Taki Fimito', 'taki@gmail.com', '$2y$10$zGG28ZLNG7uPR.xVtUJs5uxBWgkImEDl3bXIrB8frT1rBz7AMj5n2', '63d245335938eec0136d', NULL, 'staff');
 
 --
 -- Indexes for dumped tables
@@ -456,6 +478,12 @@ ALTER TABLE `reservation_guests`
   ADD KEY `reservation_id` (`reservation_id`);
 
 --
+-- Indexes for table `st_logos`
+--
+ALTER TABLE `st_logos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `st_rates`
 --
 ALTER TABLE `st_rates`
@@ -517,7 +545,7 @@ ALTER TABLE `gallery_images`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `promos`
@@ -535,13 +563,19 @@ ALTER TABLE `promo_facilities`
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `reservation_guests`
 --
 ALTER TABLE `reservation_guests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `st_logos`
+--
+ALTER TABLE `st_logos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `st_rates`
@@ -553,7 +587,7 @@ ALTER TABLE `st_rates`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

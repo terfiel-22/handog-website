@@ -1,13 +1,9 @@
 <?php
 
-use Core\App;
 use Core\Session;
-use Http\Models\Logo;
+use Http\Services\SettingService;
 
-$logo = App::resolve(Logo::class)->fetchLogo();
-if (!$logo) {
-    $logo = ['id' => 1, 'image' => 'assets/guest/img/logo/black-logo.svg'];
-}
+$logo = SettingService::getLogo();
 
 $readableImagePaths[] = handleImage($logo["image"]);
 
