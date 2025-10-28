@@ -84,7 +84,7 @@
                                             <div class="form-clt">
                                                 <select name="facility" id="facility" class="single-select w-100">
                                                     <?php foreach ($facilities as $facility): ?>
-                                                        <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= (old("facility", $_GET["facility_id"] ?? 0)) == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
+                                                        <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" data-type="<?= $facility["type"] ?>" <?= (old("facility", $_GET["facility_id"] ?? 0)) == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <?php if (isset($errors["facility"])) : ?>
@@ -343,6 +343,12 @@
                 return aStart < bEnd && aEnd > bStart;
             }
 
+            const isExclusive = () => {
+                const facilityTypes = <?= json_encode(\Http\Enums\FacilityType::toArray()) ?> || [];
+                const facilityType = $("#facility option:selected").data("type");
+                return facilityType == facilityTypes.EXCLUSIVE;
+            }
+
             $('#check_in').flatpickr({
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
@@ -380,16 +386,51 @@
 
                 if (!facilityId) return;
 
+                // Count overlapping bookings
+                let overlapCount = 0;
+                let conflictDetails = [];
+
+                // Check overlaps on exclusive
+                if (isExclusive()) {
+                    for (let i = 0; i < bookings.length; i++) {
+                        const b = bookings[i];
+                        const bStart = parseDateTime(b.check_in_date);
+                        const bEnd = parseDateTime(b.check_out_date);
+                        if (!bStart || !bEnd) continue;
+
+                        // Add 1-hour cleaning buffer
+                        const bEndWithCleaning = new Date(bEnd.getTime() + 60 * 60 * 1000);
+
+                        if (overlaps(selStart, selEnd, bStart, bEndWithCleaning)) {
+                            overlapCount++;
+                            conflictDetails.push({
+                                start: bStart,
+                                end: bEndWithCleaning
+                            });
+                        }
+                    }
+
+                    if (overlapCount > 0) {
+                        let conflictText = conflictDetails
+                            .map(c => `<strong>${formatReadableDateTime(c.start)}</strong> → <strong>${formatReadableDateTime(c.end)}</strong>`)
+                            .join('<br>');
+
+                        $('#check_in_msg').html(
+                            `<strong>Selected check-in time is unavailable.</strong><br>
+                        Unit(s) are booked during:<br>${conflictText}`
+                        );
+                        $('#submitBtn').prop('disabled', true);
+                        return;
+                    }
+                }
+
                 // Filter bookings by facility
                 const facilityBookings = bookings.filter(b => String(b.facility_id) === String(facilityId));
                 if (facilityBookings.length === 0) return;
 
                 const availableUnits = facilityBookings[0].available_unit || 1;
 
-                // Count overlapping bookings
-                let overlapCount = 0;
-                let conflictDetails = [];
-
+                // Check overlaps on same facility
                 for (let i = 0; i < facilityBookings.length; i++) {
                     const b = facilityBookings[i];
                     const bStart = parseDateTime(b.check_in_date);

@@ -79,10 +79,6 @@ class Reservation
             facilities fac 
         ON 
             fac.id=res.facility_id
-        INNER JOIN 
-            payments p 
-        ON 
-            res.id=p.reservation_id
         WHERE NOT
             res.status=:status 
         ", [
