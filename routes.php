@@ -100,5 +100,6 @@
    // Settings
    $router->get('/admin/settings/rates', 'admin/settings/rates/show.controller.php')->only('admin');
    $router->put('/admin/settings/rates', 'admin/settings/rates/update.controller.php')->only('admin');
-
+   $router->get('/admin/settings/logo', 'admin/settings/logo/show.controller.php')->only('admin');
+   $router->put('/admin/settings/logo', 'admin/settings/logo/update.controller.php')->only('admin');
    /** END ACCESSIBLE TO ADMIN */

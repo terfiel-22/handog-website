@@ -75,6 +75,9 @@
                         <li>
                             <a href="/admin/settings/rates"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Rates</a>
                         </li>
+                        <li>
+                            <a href="/admin/settings/logo"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Logo</a>
+                        </li>
                     </ul>
                 </li>
             <?php endif; ?>
