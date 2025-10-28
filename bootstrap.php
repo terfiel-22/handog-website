@@ -15,6 +15,7 @@ use Http\Models\Facility;
 use Http\Models\FacilityImage;
 use Http\Models\Faq;
 use Http\Models\GalleryImage;
+use Http\Models\Logo;
 use Http\Models\Payment;
 use Http\Models\Promo;
 use Http\Models\PromoFacility;
@@ -71,11 +72,14 @@ $container->bind(PromoFacility::class, function () {
 $container->bind(Payment::class, function () {
     return new Payment();
 });
+$container->bind(User::class, function () {
+    return new User();
+});
 $container->bind(Rates::class, function () {
     return new Rates();
 });
-$container->bind(User::class, function () {
-    return new User();
+$container->bind(Logo::class, function () {
+    return new Logo();
 });
 
 /** Handler */
