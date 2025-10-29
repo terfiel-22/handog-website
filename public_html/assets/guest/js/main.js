@@ -304,6 +304,37 @@
     }
 
     /* ================================
+       Event Slider Js Start
+    ================================ */
+
+    if ($(".event-image-slider").length > 0) {
+      const eventImageSlider = new Swiper(".event-image-slider", {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        speed: 1300,
+        loop: true,
+        navigation: {
+          nextEl: ".array-prev",
+          prevEl: ".array-next",
+        },
+        autoplay: {
+          delay: 2000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".dot",
+          clickable: true,
+        },
+        breakpoints: {
+          992: {
+            slidesPerView: 2,
+            spaceBetween: 30,
+          },
+        },
+      });
+    }
+
+    /* ================================
        GT Special Offer Slider Js Start
     ================================ */
 

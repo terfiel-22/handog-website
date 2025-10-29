@@ -356,43 +356,46 @@
                     </h2>
                 </div>
             </div>
-            <div class="row">
-
-                <?php if (!empty($events)): ?>
-                    <?php foreach ($events as $index => $event): ?>
-                        <div class="col-lg-6 wow fadeInUp" data-wow-delay=".3s">
-                            <div class="gt-news-box-item-2">
-                                <div class="gt-thumb fixed-height-img">
-                                    <img src="<?= handleImage($event["image"], "/assets/guest/img/home-2/news/01.jpg") ?>" alt="<?= $event["name"] ?>" />
-                                    <img src="<?= handleImage($event["image"], "/assets/guest/img/home-2/news/01.jpg") ?>" alt="<?= $event["name"] ?>" />
-                                </div>
-                                <div class="gt-content">
-                                    <ul class="gt-list">
-                                        <li>
-                                            <img
-                                                src="/assets/guest/img/home-1/news/arrow-icon.png"
-                                                alt="img" />
-                                            <?= formatDatetimeToReadable($event["date"]) ?>
-                                        </li>
-                                    </ul>
-                                    <h3>
+            <?php if (!empty($events)): ?>
+                <div class="swiper event-image-slider gt-service-wrapper-3">
+                    <div class="swiper-wrapper">
+                        <?php foreach ($events as $index => $event): ?>
+                            <div class="swiper-slide">
+                                <div class="gt-news-box-item-2">
+                                    <div class="gt-thumb fixed-height-img">
+                                        <img src="<?= handleImage($event["image"], "/assets/guest/img/home-2/news/01.jpg") ?>" alt="<?= $event["name"] ?>" />
+                                        <img src="<?= handleImage($event["image"], "/assets/guest/img/home-2/news/01.jpg") ?>" alt="<?= $event["name"] ?>" />
+                                    </div>
+                                    <div class="gt-content">
+                                        <ul class="gt-list">
+                                            <li>
+                                                <img src="/assets/guest/img/home-1/news/arrow-icon.png" alt="img" />
+                                                <?= formatDatetimeToReadable($event["date"]) ?>
+                                            </li>
+                                        </ul>
                                         <h3><?= htmlspecialchars($event["name"]) ?></h3>
-                                    </h3>
-                                    <button
-                                        class="gt-theme-btn view-details-btn"
-                                        data-index="<?= $index ?>">
-                                        VIEW DETAILS
-                                    </button>
+                                        <button
+                                            class="gt-theme-btn view-details-btn"
+                                            data-index="<?= $index ?>">
+                                            VIEW DETAILS
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <div class="col-12">
-                        <p>No upcoming events.</p>
+                        <?php endforeach; ?>
                     </div>
-                <?php endif; ?>
-            </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="array-button-2 justify-content-center mt-3">
+                        <button class="array-prev"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="array-next"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div class="col-12">
+                    <p>No upcoming events.</p>
+                </div>
+            <?php endif; ?>
         </div>
     </section>
 
@@ -510,6 +513,21 @@
             let initialIndex = 0;
             let carouselInstance = null;
 
+            function formatDateStr(dateStr) {
+                const date = new Date(dateStr);
+
+                const options = {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                    month: "short",
+                    day: "2-digit",
+                    year: "numeric",
+                };
+
+                return new Intl.DateTimeFormat("en-US", options).format(date);
+            }
+
             function buildCarousel(selectedIndex) {
                 const $carousel = $("#carouselContent");
                 $carousel.empty();
@@ -526,7 +544,9 @@
                 events.forEach((event, i) => {
                     const imgSrc = event.image ?? "/assets/guest/img/home-2/news/01.jpg";
                     const name = $('<div>').text(event.name ?? '').html();
-                    const date = $('<div>').text(event.date ?? '').html();
+                    const dateStr = $('<div>').text(event.date ?? '').html();
+                    const date = formatDateStr(dateStr);
+
                     const desc = $('<div>').text(event.description ?? 'No description available.').html();
 
                     const activeClass = i === selectedIndex ? "active" : "";
