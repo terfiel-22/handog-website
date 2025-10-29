@@ -26,12 +26,13 @@
                 <?php foreach (range(0, 3) as $_): ?>
                     <div class="marquee-group">
                         <?php foreach ($promos as $i => $promo): ?>
+                            <div class="text">
+                                <img src="/assets/guest/img/home-1/star.png" alt="img">
+                            </div>
                             <div class="text"><?= $promo["description"] ?></div>
-                            <?php if ($i % 2 == 1): ?>
-                                <div class="text">
-                                    <img src="/assets/guest/img/home-1/star.png" alt="img">
-                                </div>
-                            <?php endif; ?>
+                            <div class="text">
+                                <img src="/assets/guest/img/home-1/star.png" alt="img">
+                            </div>
                         <?php endforeach; ?>
                     </div>
                 <?php endforeach; ?>

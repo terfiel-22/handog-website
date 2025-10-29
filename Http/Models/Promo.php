@@ -39,7 +39,6 @@ class Promo
 
     public function fetchOngoingPromos()
     {
-        $today = (new DateTime())->format('Y-m-d');
         $is_active = YesNo::YES;
 
         return $this->db->query(
@@ -49,12 +48,11 @@ class Promo
                 GROUP_CONCAT(pf.facility_id) AS facilities
             FROM promos pr
             LEFT JOIN promo_facilities pf ON pr.id = pf.promo_id
-            WHERE pr.is_active=:is_active 
-            AND :today BETWEEN pr.start_date AND pr.end_date
-            GROUP BY pr.id
-            LIMIT 1
+            WHERE pr.is_active = :is_active
+            AND CURDATE() BETWEEN pr.start_date AND pr.end_date
+            GROUP BY pr.id 
             ",
-            compact('is_active', 'today')
+            compact('is_active')
         )->get();
     }
 
