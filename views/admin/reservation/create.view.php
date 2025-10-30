@@ -58,7 +58,7 @@ $pageName = "Reservations"
                                             <label class="form-label" for="facility">Facility</label>
                                             <select name="facility" id="facility" class="form-control">
                                                 <?php foreach ($facilities as $facility): ?>
-                                                    <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" data-type="<?= $facility["type"] ?>" <?= old("facility") == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
+                                                    <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" data-type="<?= $facility["type"] ?>" data-pax="<?= $facility["capacity"] ?>" <?= old("facility") == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
                                                 <?php endforeach; ?>
                                             </select>
                                             <?php if (isset($errors["facility"])) : ?>
@@ -101,6 +101,7 @@ $pageName = "Reservations"
                                                     <?= $errors["guest_count"] ?>
                                                 </div>
                                             <?php endif; ?>
+                                            <div class="error-text" id="guest_count_msg"></div>
                                         </div>
                                         <div class="col-12">
                                             <label for="rent_videoke">Rent Videoke?</label>
@@ -210,7 +211,7 @@ $pageName = "Reservations"
                                         </div>
                                         <div class="col-12">
                                             <button type="button" class="btn btn-secondary prev">Previous</button>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -483,6 +484,13 @@ $pageName = "Reservations"
     <!-- Generate Guest Fields -->
     <script>
         $(document).ready(function() {
+            const capacity = () => parseInt($("#facility option:selected").data("pax"));
+            const changeMax = (cap) => $('#guest_count').attr('max', cap);
+            const changeFacPax = () => {
+                changeMax(capacity());
+                $("#guest_count").val(capacity());
+                generateGuestFields(capacity());
+            };
             const generateGuestFields = (count) => {
                 let $container = $("#guest-list");
                 $container.empty(); // clear old fields
@@ -492,33 +500,51 @@ $pageName = "Reservations"
                 if (count > 0) {
                     for (let i = 0; i < count; i++) {
                         let fieldGroup = `
-                        <div class="col-12"> 
-                            <label for"guests[${i}][guest_name]">Guest ${i + 1}</label>
-                            <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" class="form-control" placeholder="Enter name" value="${oldValues[i]?.guest_name ?? ''}">
+                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s"> 
+                            <label for"guests[${i}][guest_name]">Guest ${i + 1} Name</label>
+                            <div class="form-clt">
+                                <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Guest Name" value="${oldValues[i]?.guest_name ?? ''}" required>
+                            </div>
                         </div> 
-                        <div class="col-12">
+                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s"> 
                             <label for"guests[${i}][guest_age]">Age</label>
-                            <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" class="form-control" placeholder="Enter age" min="0" value="${oldValues[i]?.guest_age ?? ''}">
-                        </div> 
-                        <div class="col-12">
-                            <label for="guests[${i}][senior_pwd]">Senior/PWD</label>
-                            <select name="guests[${i}][senior_pwd]" id="guests[${i}][senior_pwd]" class="form-control"> 
-                                <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
-                                    <option value="<?= $yesNo ?>" ${(oldValues[i]?.senior_pwd ?? "") == "<?= $yesNo ?>" ? "selected" : ""}><?= ucfirst($yesNo) ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                            <div class="form-clt">
+                                <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" placeholder="Guest Age" value="${oldValues[i]?.guest_age ?? ''}" required>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s"> 
+                            <label for="guests[${i}][senior_pwd]">Senior/PWD</label> 
+                            <div class="form-clt">
+                                <select name="guests[${i}][senior_pwd]" id="guests[${i}][senior_pwd]" class="single-select w-100"> 
+                                    <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
+                                        <option value="<?= $yesNo ?>" ${(oldValues[i]?.senior_pwd ?? "") == "<?= $yesNo ?>" ? "selected" : ""}><?= ucfirst($yesNo) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div> 
                         </div>
                         `;
                         $container.append(fieldGroup);
                     }
                 }
             }
-            $("#guest_count").on("input", function() {
-                let guestCount = parseInt($(this).val()) || 1;
-                generateGuestFields(guestCount);
+
+            $("#facility").on('change', changeFacPax);
+            $("#guest_count, #facility").on('change blur', () => {
+                $('#guest_count_msg').text('');
+                $('#submitBtn').prop('disabled', false);
+
+                const count = $('#guest_count').val();
+
+                if (count > capacity()) {
+                    $('#guest_count_msg').text(`Guest count exceeds facility capacity: ${capacity()}`);
+                    $('#submitBtn').prop('disabled', true);
+                    return;
+                }
+
+                generateGuestFields(count);
             });
-            // Generate atleast 1 guest field
-            generateGuestFields(1);
+
+            changeFacPax();
         });
     </script>
 

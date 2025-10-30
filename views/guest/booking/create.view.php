@@ -518,7 +518,7 @@
             }
 
             $("#facility").on('change', changeFacPax);
-            $("#guest_count").on('change blur', () => {
+            $("#guest_count, #facility").on('change blur', () => {
                 $('#guest_count_msg').text('');
                 $('#submitBtn').prop('disabled', false);
 
