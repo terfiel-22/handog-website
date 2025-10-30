@@ -103,6 +103,7 @@
                                                         <?= $errors["guest_count"] ?>
                                                     </div>
                                                 <?php endif; ?>
+                                                <div class="error-text" id="guest_count_msg"></div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s">
@@ -518,13 +519,13 @@
 
             $("#facility").on('change', changeFacPax);
             $("#guest_count").on('change blur', () => {
-                $('#check_in_msg').text('');
+                $('#guest_count_msg').text('');
                 $('#submitBtn').prop('disabled', false);
 
                 const count = $('#guest_count').val();
 
                 if (count > capacity()) {
-                    $('#check_in_msg').text(`Guest count exceeds facility capacity: ${capacity()}`);
+                    $('#guest_count_msg').text(`Guest count exceeds facility capacity: ${capacity()}`);
                     $('#submitBtn').prop('disabled', true);
                     return;
                 }
