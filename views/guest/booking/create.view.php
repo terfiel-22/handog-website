@@ -84,7 +84,7 @@
                                             <div class="form-clt">
                                                 <select name="facility" id="facility" class="single-select w-100">
                                                     <?php foreach ($facilities as $facility): ?>
-                                                        <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" data-type="<?= $facility["type"] ?>" <?= (old("facility", $_GET["facility_id"] ?? 0)) == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
+                                                        <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" data-type="<?= $facility["type"] ?>" data-pax="<?= $facility["capacity"] ?>" <?= (old("facility", $_GET["facility_id"] ?? 0)) == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <?php if (isset($errors["facility"])) : ?>
@@ -472,6 +472,13 @@
     <!-- Generate Guest Fields -->
     <script>
         $(document).ready(function() {
+            const capacity = () => parseInt($("#facility option:selected").data("pax"));
+            const changeMax = (cap) => $('#guest_count').attr('max', cap);
+            const changeFacPax = () => {
+                changeMax(capacity());
+                $("#guest_count").val(capacity());
+                generateGuestFields(capacity());
+            };
             const generateGuestFields = (count) => {
                 let $container = $("#guest-list");
                 $container.empty(); // clear old fields
@@ -508,13 +515,24 @@
                     }
                 }
             }
-            $("#guest_count").on("input", function() {
-                let guestCount = parseInt($(this).val()) || 1;
-                generateGuestFields(guestCount);
+
+            $("#facility").on('change', changeFacPax);
+            $("#guest_count").on('change blur', () => {
+                $('#check_in_msg').text('');
+                $('#submitBtn').prop('disabled', false);
+
+                const count = $('#guest_count').val();
+
+                if (count > capacity()) {
+                    $('#check_in_msg').text(`Guest count exceeds facility capacity: ${capacity()}`);
+                    $('#submitBtn').prop('disabled', true);
+                    return;
+                }
+
+                generateGuestFields(count);
             });
-            // Generate atleast 1 guest field
-            const guestCount = <?= $_GET["guest_count"] ?? 1 ?>;
-            generateGuestFields(guestCount);
+
+            changeFacPax();
         });
     </script>
 
