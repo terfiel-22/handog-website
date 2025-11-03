@@ -683,7 +683,7 @@
             $('#submitBtn').prop('disabled', true);
 
             $('#viewTermsBtn').on('click', function() {
-                const pdfUrl = "/uploads/pdf/Broc.pdf";
+                const pdfUrl = "<?= $terms ?>";
                 $('#pdfViewer').attr('src', pdfUrl);
                 $('#termsModal').modal('show');
             });

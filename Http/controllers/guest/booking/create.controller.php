@@ -13,8 +13,8 @@ $errors = Session::get('errors', []);
 $uncompleteReservations = App::resolve(Reservation::class)->uncompleteReservations();
 $bookings = convertToBookingsFormat($uncompleteReservations);
 $promos = App::resolve(Promo::class)->fetchOngoingPromos();
-
+$terms = "/uploads/pdf/Broc.pdf";
 view(
     "guest/booking/create.view.php",
-    compact('facilities', 'bookings', 'rates', 'promos', 'errors')
+    compact('facilities', 'bookings', 'rates', 'promos', 'terms', 'errors')
 );
