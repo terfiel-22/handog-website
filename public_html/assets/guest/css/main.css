@@ -7372,3 +7372,20 @@ span {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+/* Modal */
+.modal {
+  z-index: 10001 !important;
+}
+.modal-backdrop {
+  z-index: 10000 !important;
+}
+.modal-dialog {
+  max-width: 90%;  
+} 
+.modal-content {
+  height: 95vh;          
+} 
+.modal-body iframe {
+  height: 70vh;          
+}

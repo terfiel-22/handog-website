@@ -41,7 +41,7 @@
                             </h2>
                             <p>Complete filling up the form to continue.</p>
                             <div class="error-text" role="alert" id="check_in_msg"></div>
-                            <form action="/booking/store" method="POST" class="booking">
+                            <form action="/booking/store" method="POST" class="booking" id="bookingForm">
                                 <input type="hidden" name="time_slot" id="time_slot">
                                 <!-- Booking Information -->
                                 <div class="form-block">
@@ -199,16 +199,10 @@
                                                 <input type="number" name="booking_deposit" id="booking_deposit" disabled>
                                             </div>
                                         </div>
-                                        <div class="col-12" data-wow-delay=".3s">
-                                            <label for="terms" class="checkbox-container"> I have read and agree to the Terms and Conditions
-                                                <input type="checkbox" id="terms">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
                                     </div>
                                     <div class="row g-4 mt-2" id="card-fields"></div>
                                 </div>
-                                <button type="submit" id="submitBtn" class="gt-theme-btn mt-2">PROCEED</button>
+                                <button type="button" id="viewTermsBtn" class="gt-theme-btn mt-2">PROCEED</button>
                             </form>
                         </div>
                     </div>
@@ -216,6 +210,34 @@
             </div>
         </div>
     </section>
+
+    <!-- PDF Modal -->
+    <div class="modal fade h-100" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="termsModalLabel">Terms & Conditions</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- PDF Viewer -->
+                <div class="modal-body p-0">
+                    <iframe id="pdfViewer" src="" frameborder="0" width="100%" height="500px"></iframe>
+                </div>
+
+                <!-- Checkbox & Submit -->
+                <div class="modal-footer d-flex flex-column align-items-start">
+                    <div>
+                        <label for="terms" class="checkbox-container"> I have read and agree to the Terms and Conditions
+                            <input type="checkbox" id="terms">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <button type="button" id="submitBtn" class="gt-theme-btn mt-2">SUBMIT</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- GT Footer Section Start -->
     <?php view("guest/partials/footer.partial.php") ?>
@@ -370,7 +392,7 @@
 
             function checkAvailability() {
                 $('#check_in_msg').text('');
-                $('#submitBtn').prop('disabled', false);
+                $('#viewTermsBtn').prop('disabled', false);
 
                 const facilityId = $('#facility').val();
                 const checkInRaw = $('#check_in').val();
@@ -383,7 +405,7 @@
 
                 const selStart = parseDateTime(checkInRaw);
                 if (!selStart) {
-                    $('#submitBtn').prop('disabled', true);
+                    $('#viewTermsBtn').prop('disabled', true);
                     return;
                 }
 
@@ -426,7 +448,7 @@
                             `<strong>Selected check-in time is unavailable.</strong><br>
                         Unit(s) are booked during:<br>${conflictText}`
                         );
-                        $('#submitBtn').prop('disabled', true);
+                        $('#viewTermsBtn').prop('disabled', true);
                         return;
                     }
                 }
@@ -466,12 +488,12 @@
                         `<strong>Selected check-in time is unavailable.</strong><br>
                  All ${availableUnits} unit(s) are booked during:<br>${conflictText}`
                     );
-                    $('#submitBtn').prop('disabled', true);
+                    $('#viewTermsBtn').prop('disabled', true);
                     return;
                 }
 
                 $('#check_in_msg').text('');
-                $('#submitBtn').prop('disabled', false);
+                $('#viewTermsBtn').prop('disabled', false);
             }
         });
     </script>
@@ -526,13 +548,13 @@
             $("#facility").on('change', changeFacPax);
             $("#guest_count, #facility").on('change blur', () => {
                 $('#guest_count_msg').text('');
-                $('#submitBtn').prop('disabled', false);
+                $('#viewTermsBtn').prop('disabled', false);
 
                 const count = $('#guest_count').val();
 
                 if (count > capacity()) {
                     $('#guest_count_msg').text(`Guest count exceeds facility capacity: ${capacity()}`);
-                    $('#submitBtn').prop('disabled', true);
+                    $('#viewTermsBtn').prop('disabled', true);
                     return;
                 }
 
@@ -655,17 +677,30 @@
         });
     </script>
 
-    <!-- Checkbox -->
+    <!-- PDF Modal -->
     <script>
         $(document).ready(function() {
             $('#submitBtn').prop('disabled', true);
 
-            $('#terms').change(function() {
-                if ($(this).is(':checked')) {
-                    $('#submitBtn').prop('disabled', false);
-                } else {
-                    $('#submitBtn').prop('disabled', true);
-                }
+            $('#viewTermsBtn').on('click', function() {
+                const pdfUrl = "/uploads/pdf/Broc.pdf";
+                $('#pdfViewer').attr('src', pdfUrl);
+                $('#termsModal').modal('show');
+            });
+
+            $('#termsModal').on('hidden.bs.modal', function() {
+                $('#pdfViewer').attr('src', '');
+                $('#terms').prop('checked', false);
+                $('#submitBtn').prop('disabled', true);
+            });
+
+            $('#terms').on('change', function() {
+                $('#submitBtn').prop('disabled', !this.checked);
+            });
+
+            $('#submitBtn').on('click', function() {
+                $("#bookingForm").submit();
+                $('#termsModal').modal('hide');
             });
         });
     </script>
