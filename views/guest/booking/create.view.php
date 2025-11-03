@@ -199,6 +199,12 @@
                                                 <input type="number" name="booking_deposit" id="booking_deposit" disabled>
                                             </div>
                                         </div>
+                                        <div class="col-12" data-wow-delay=".3s">
+                                            <label for="terms" class="checkbox-container"> I have read and agree to the Terms and Conditions
+                                                <input type="checkbox" id="terms">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
                                     </div>
                                     <div class="row g-4 mt-2" id="card-fields"></div>
                                 </div>
@@ -646,6 +652,21 @@
 
             // Initial compute
             computeTotal();
+        });
+    </script>
+
+    <!-- Checkbox -->
+    <script>
+        $(document).ready(function() {
+            $('#submitBtn').prop('disabled', true);
+
+            $('#terms').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#submitBtn').prop('disabled', false);
+                } else {
+                    $('#submitBtn').prop('disabled', true);
+                }
+            });
         });
     </script>
 </body>
