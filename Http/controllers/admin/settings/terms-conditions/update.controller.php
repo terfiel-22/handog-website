@@ -1,3 +1,3 @@
 <?php
 
-dd($_FILES);
+dd($_POST);

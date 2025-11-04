@@ -1,10 +1,14 @@
 <?php
 
+use Core\App;
 use Core\Session;
+use Http\Models\TermsConditions;
 
-$terms = [];
-$terms['file'] = handleFilePath(TERMS_CONDITIONS_PATH);
-$terms['id'] = 1;
+$terms = App::resolve(TermsConditions::class)->fetchTermsConditions();
+if (!$terms) {
+    $terms['filepath'] = handleFilePath(TERMS_CONDITIONS_PATH);
+    $terms['id'] = null;
+}
 
 $errors = Session::get('errors', []);
 

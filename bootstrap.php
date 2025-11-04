@@ -22,6 +22,7 @@ use Http\Models\PromoFacility;
 use Http\Models\Rates;
 use Http\Models\Reservation;
 use Http\Models\ReservationGuest;
+use Http\Models\TermsConditions;
 use Http\Models\User;
 
 $container = new Container();
@@ -80,6 +81,9 @@ $container->bind(Rates::class, function () {
 });
 $container->bind(Logo::class, function () {
     return new Logo();
+});
+$container->bind(TermsConditions::class, function () {
+    return new TermsConditions();
 });
 
 /** Handler */

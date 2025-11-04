@@ -42,11 +42,11 @@ $pageName = "Terms & Conditions"
                             <iframe id="pdfViewer" frameborder="0" width="100%" height="600px"></iframe>
                         </div>
                         <div class="col-12">
-                            <label class="form-label" for="file">Upload New</label>
-                            <input type="file" name="file" id="file" class="form-control" accept="application/pdf">
-                            <?php if (isset($errors["file"])) : ?>
+                            <label class="form-label" for="filepath">Upload New</label>
+                            <input type="file" name="filepath" id="filepath" class="form-control" accept="application/pdf">
+                            <?php if (isset($errors["filepath"])) : ?>
                                 <div class="error-text">
-                                    <?= $errors["file"] ?>
+                                    <?= $errors["filepath"] ?>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -66,11 +66,11 @@ $pageName = "Terms & Conditions"
     <script>
         $(document).ready(function() {
             // Load initial PDF from PHP path
-            const pdfUrl = "<?= $terms['file'] ?>";
+            const pdfUrl = "<?= $terms['filepath'] ?>";
             $('#pdfViewer').attr('src', pdfUrl);
 
             // When a file is selected
-            $("#file").change(function(event) {
+            $("#filepath").change(function(event) {
                 const file = event.target.files[0];
                 if (file && file.type === "application/pdf") {
                     const fileURL = URL.createObjectURL(file);

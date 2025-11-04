@@ -683,7 +683,7 @@
             $('#submitBtn').prop('disabled', true);
 
             $('#viewTermsBtn').on('click', function() {
-                const pdfUrl = "<?= $terms['file'] ?>";
+                const pdfUrl = "<?= $terms['filepath'] ?>";
                 $('#pdfViewer').attr('src', pdfUrl);
                 $('#termsModal').modal('show');
             });
