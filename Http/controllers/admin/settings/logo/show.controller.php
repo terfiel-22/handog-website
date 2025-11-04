@@ -5,7 +5,7 @@ use Http\Services\SettingService;
 
 $logo = SettingService::getLogo();
 
-$readableImagePaths[] = handleImage($logo["image"]);
+$readableImagePaths[] = handleFilePath($logo["image"]);
 
 $errors = Session::get('errors', []);
 

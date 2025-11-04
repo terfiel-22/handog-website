@@ -53,7 +53,7 @@
                         <div class="gt-why-choose-us-images">
                             <div class="gt-choose-us-image">
                                 <img
-                                    src="<?= handleImage($cottage["image"], "/assets/guest/img/home-2/choose-us/choose-us-01.jpg") ?>"
+                                    src="<?= handleFilePath($cottage["image"], "/assets/guest/img/home-2/choose-us/choose-us-01.jpg") ?>"
                                     alt="<?= $cottage["name"] ?>"
                                     class="fixed-height-img clickable-img" />
                                 <div class="gt-content">
@@ -95,7 +95,7 @@
                             <div class="swiper-slide">
                                 <div
                                     class="gt-room-explore-items bg-cover h-40"
-                                    style=" background-image: url('<?= handleImage($room['image'], "/assets/guest/img/home-2/room-explore/01.jpg") ?>');">
+                                    style=" background-image: url('<?= handleFilePath($room['image'], "/assets/guest/img/home-2/room-explore/01.jpg") ?>');">
                                     <div class="row justify-content-end">
                                         <div class="col-xl-5 col-lg-6">
                                             <div class="gt-room-exlore-box-items">
@@ -164,7 +164,7 @@
                                     ?>
                                         <div class="swiper-slide">
                                             <div class="service-image">
-                                                <img src="<?= handleImage($eventHallImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $eventHall["name"] ?>">
+                                                <img src="<?= handleFilePath($eventHallImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $eventHall["name"] ?>">
                                             </div>
                                         </div>
                                     <?php endforeach; ?>
@@ -200,7 +200,7 @@
                                     ?>
                                         <div class="swiper-slide">
                                             <div class="service-image">
-                                                <img src="<?= handleImage($exclusiveImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $exclusive["name"] ?>">
+                                                <img src="<?= handleFilePath($exclusiveImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $exclusive["name"] ?>">
                                             </div>
                                         </div>
                                     <?php endforeach; ?>

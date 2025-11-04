@@ -44,7 +44,7 @@
             <div class="row g-3 wow fadeInUp">
                 <?php foreach ($images as $image): ?>
                     <div class="col-6 col-md-4 col-lg-3">
-                        <img src="<?= handleImage($image["image"], "/assets/guest/img/home-2/choose-us/choose-us-01.jpg") ?>" class="img-fluid gallery-img clickable-img" alt="<?= $image["name"] ?>">
+                        <img src="<?= handleFilePath($image["image"], "/assets/guest/img/home-2/choose-us/choose-us-01.jpg") ?>" class="img-fluid gallery-img clickable-img" alt="<?= $image["name"] ?>">
                         <h5 class="mt-2"><?= $image["name"] ?></h5>
                         <p class="text-muted small"><?= $image["description"] ?></p>
                     </div>

@@ -49,7 +49,7 @@
                         <div class="gt-why-choose-us-images">
                             <div class="gt-choose-us-image">
                                 <img
-                                    src="<?= handleImage($pool["image"], "/assets/guest/img/home-2/choose-us/choose-us-01.jpg")  ?>"
+                                    src="<?= handleFilePath($pool["image"], "/assets/guest/img/home-2/choose-us/choose-us-01.jpg")  ?>"
                                     alt="<?= $pool["name"] ?>"
                                     class="fixed-height-img clickable-img" />
                                 <div class="gt-content">
@@ -99,7 +99,7 @@
                                 ?>
                                     <div class="swiper-slide">
                                         <div class="service-image">
-                                            <img src="<?= handleImage($grillerImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $griller["name"] ?>">
+                                            <img src="<?= handleFilePath($grillerImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $griller["name"] ?>">
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
@@ -133,7 +133,7 @@
                                 ?>
                                     <div class="swiper-slide">
                                         <div class="service-image">
-                                            <img src="<?= handleImage($showerImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $shower["name"] ?>">
+                                            <img src="<?= handleFilePath($showerImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $shower["name"] ?>">
                                         </div>
                                     </div>
                                 <?php endforeach; ?>

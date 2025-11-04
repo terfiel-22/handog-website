@@ -11,7 +11,7 @@ $amenity = App::resolve(Amenity::class)->fetchSingleAmenityWithImagesById($id);
 $images = explode(',', $amenity["images"]);
 $readableImagePaths = [];
 foreach ($images as $image) {
-    $readableImagePaths[] = handleImage($image);
+    $readableImagePaths[] = handleFilePath($image);
 }
 
 view(

@@ -363,8 +363,8 @@
                             <div class="swiper-slide">
                                 <div class="gt-news-box-item-2">
                                     <div class="gt-thumb fixed-height-img">
-                                        <img src="<?= handleImage($event["image"], "/assets/guest/img/home-2/news/01.jpg") ?>" alt="<?= $event["name"] ?>" />
-                                        <img src="<?= handleImage($event["image"], "/assets/guest/img/home-2/news/01.jpg") ?>" alt="<?= $event["name"] ?>" />
+                                        <img src="<?= handleFilePath($event["image"], "/assets/guest/img/home-2/news/01.jpg") ?>" alt="<?= $event["name"] ?>" />
+                                        <img src="<?= handleFilePath($event["image"], "/assets/guest/img/home-2/news/01.jpg") ?>" alt="<?= $event["name"] ?>" />
                                     </div>
                                     <div class="gt-content">
                                         <ul class="gt-list">

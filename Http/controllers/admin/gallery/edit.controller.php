@@ -8,7 +8,7 @@ $errors = Session::get('errors', []);
 
 $id = $_GET["id"] ?? 0;
 $galleryImage = App::resolve(GalleryImage::class)->fetchGalleryImageById($id);
-$readableImagePaths[] = handleImage($galleryImage["image"]);
+$readableImagePaths[] = handleFilePath($galleryImage["image"]);
 
 view(
     "admin/gallery/edit.view.php",

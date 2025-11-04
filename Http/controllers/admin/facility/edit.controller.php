@@ -12,7 +12,7 @@ $facility = App::resolve(Facility::class)->fetchSingleFacilityWithImagesById($id
 $images = explode(',', $facility["images"]);
 $readableImagePaths = [];
 foreach ($images as $image) {
-    $readableImagePaths[] = handleImage($image);
+    $readableImagePaths[] = handleFilePath($image);
 }
 
 view(

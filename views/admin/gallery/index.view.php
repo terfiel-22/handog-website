@@ -51,7 +51,7 @@ $pageName = "Gallery"
                                         <td><a href="javascript:void(0)" class="text-primary-600">#<?= $image['id'] ?></a></td>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <img src="<?= handleImage($image['image'], "/assets/admin/images/user-list/user-list1.png")  ?> " alt="<?= $image['name'] ?>" class="flex-shrink-0 me-12 radius-8" style="width: 80px;">
+                                                <img src="<?= handleFilePath($image['image'], "/assets/admin/images/user-list/user-list1.png")  ?> " alt="<?= $image['name'] ?>" class="flex-shrink-0 me-12 radius-8" style="width: 80px;">
                                                 <h6 class="text-md mb-0 fw-medium flex-grow-1"><?= $image['name'] ?></h6>
                                             </div>
                                         </td>

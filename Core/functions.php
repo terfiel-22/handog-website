@@ -50,12 +50,6 @@ function old($key,  $default = '')
     return Core\Session::get('old')[$key] ?? $default;
 }
 
-/** Function for handling image path */
-function handleImage($image, $default = "/assets/admin/images/unavailable-image.jpg")
-{
-    return !empty($image) ? "/" . $image : $default;
-}
-
 /** Function for handling file path */
 function handleFilePath($filepath, $default = "/assets/admin/images/unavailable-image.jpg")
 {
