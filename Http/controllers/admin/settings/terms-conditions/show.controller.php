@@ -2,9 +2,8 @@
 
 use Core\Session;
 
-$filepath = "assets/default/sample-terms-conditions-agreement.pdf";
 $terms = [];
-$terms['file'] = handleFilePath($filepath);
+$terms['file'] = handleFilePath(TERMS_CONDITIONS_PATH);
 $terms['id'] = 1;
 
 $errors = Session::get('errors', []);

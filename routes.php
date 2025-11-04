@@ -103,4 +103,5 @@
   $router->get('/admin/settings/logo', 'admin/settings/logo/show.controller.php')->only('admin');
   $router->put('/admin/settings/logo', 'admin/settings/logo/update.controller.php')->only('admin');
   $router->get('/admin/settings/terms-conditions', 'admin/settings/terms-conditions/show.controller.php')->only('admin');
+  $router->put('/admin/settings/terms-conditions', 'admin/settings/terms-conditions/update.controller.php')->only('admin');
   /** END ACCESSIBLE TO ADMIN */

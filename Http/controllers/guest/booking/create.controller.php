@@ -13,8 +13,7 @@ $errors = Session::get('errors', []);
 $uncompleteReservations = App::resolve(Reservation::class)->uncompleteReservations();
 $bookings = convertToBookingsFormat($uncompleteReservations);
 $promos = App::resolve(Promo::class)->fetchOngoingPromos();
-$filepath = "assets/default/sample-terms-conditions-agreement.pdf";
-$terms['file'] = handleFilePath($filepath);
+$terms['file'] = handleFilePath(TERMS_CONDITIONS_PATH);
 
 view(
     "guest/booking/create.view.php",
