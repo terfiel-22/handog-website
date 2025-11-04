@@ -78,6 +78,9 @@
                         <li>
                             <a href="/admin/settings/logo"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Logo</a>
                         </li>
+                        <li>
+                            <a href="/admin/settings/terms-conditions"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Terms & Conditions</a>
+                        </li>
                     </ul>
                 </li>
             <?php endif; ?>

@@ -56,6 +56,12 @@ function handleImage($image, $default = "/assets/admin/images/unavailable-image.
     return !empty($image) ? "/" . $image : $default;
 }
 
+/** Function for handling file path */
+function handleFilePath($filepath, $default = "/assets/admin/images/unavailable-image.jpg")
+{
+    return !empty($filepath) ? "/" . $filepath : $default;
+}
+
 /** Function to return guest type */
 function guestType($age)
 {
