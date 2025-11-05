@@ -1,36 +1,31 @@
 <?php
 
 use Core\App;
-use Http\Forms\PasswordForm;
+use Core\FileUploadHandler;
 use Http\Forms\TestimonialForm;
-use Http\Forms\UpdateUserForm;
-use Http\Models\User;
+use Http\Models\Testimonial;
 
-$existing = json_decode($_POST['existing_images'], true);
-$_POST["image"] = $existing[0] ?? $_FILES["images"]["name"][0];
+$origTestimonial = App::resolve(Testimonial::class)->fetchTestimonialById($_POST["id"]);
+
+$existingImage = json_decode($_POST['existing_images'], true);
+$_POST["image"] = $existingImage[0] ?? $_FILES["images"]["name"][0];
 
 TestimonialForm::validate($_POST);
-dd($_POST);
-// Check if gallery image exists
-$origUser = App::resolve(User::class)->fetchUserById($_POST["id"]);
 
-// Validate Form
-UpdateUserForm::validate($_POST);
-if (!empty($_POST["password"]) && !empty($_POST['cpassword'])) {
-    PasswordForm::validate($_POST);
+if (reset($existingImage) != $_POST["image"]) {
+    $fileuploadResult = App::resolve(FileUploadHandler::class)->upload()->multipleFiles($_FILES['images'])["success"];
+    $_POST["image"] = reset($fileuploadResult);
 
-    $salt = generateSalt();
-    $password = password_hash($salt . $_POST['password'], PASSWORD_BCRYPT);
-    $session_token = null;
-    App::resolve(User::class)->updateUserPassword($origUser["id"], compact('password', 'salt', 'session_token'));
+    // Delete old image
+    App::resolve(FileUploadHandler::class)->deleteFile($origTestimonial["image"]);
+} else {
+    $_POST["image"] = $origTestimonial["image"];
 }
 
-/** START Update User Data on Database **/
+/** START Update Testimonial Data on Database **/
 unset($_POST["_method"]);
-unset($_POST["password"]);
-unset($_POST["cpassword"]);
+unset($_POST["existing_images"]);
+App::resolve(Testimonial::class)->updateTestimonial($origTestimonial["id"], $_POST);
+/** END Update Testimonial Data on Database **/
 
-App::resolve(User::class)->updateUser($origUser["id"], $_POST);
-/** END Update User Data on Database **/
-
-redirect("/admin/users");
+redirect("/admin/testimonials");

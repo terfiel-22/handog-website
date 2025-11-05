@@ -17,7 +17,7 @@ class Testimonial
     public function createTestimonial($attributes)
     {
         return $this->db->query(
-            "INSERT INTO testimonials(name, description, date, image) VALUES(:name, :description, :date, :image)",
+            "INSERT INTO testimonials(name, work, rating, feedback, image) VALUES(:name, :work, :rating, :feedback, :image)",
             $attributes
         )->id();
     }
@@ -29,8 +29,9 @@ class Testimonial
         return $this->db->query(
             "UPDATE testimonials 
             SET name = :name,
-                description = :description,
-                date = :date,
+                work = :work,
+                rating = :rating,
+                feedback = :feedback,
                 image = :image
             WHERE id = :id",
             $attributes
