@@ -65,6 +65,7 @@ class User
             SET 
                 username=:username,
                 email=:email,
+                image=:image,
                 type=:type
             WHERE 
                 id=:id",
