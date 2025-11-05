@@ -8,8 +8,9 @@ $errors = Session::get('errors', []);
 
 $id = $_GET["id"] ?? 0;
 $user = App::resolve(User::class)->fetchUserById($id);
+$readableImagePaths[] = handleFilePath($user["image"] ?? USER_AVATAR_PATH);
 
 view(
     "admin/user/edit.view.php",
-    compact('user', 'errors')
+    compact('user', 'readableImagePaths', 'errors')
 );
