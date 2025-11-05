@@ -19,6 +19,9 @@ class AddUserForm extends Form
         if (!Validator::not_empty($email)) {
             $this->errors["email"] = "User's email is required.";
         }
+        if (!Validator::not_empty($image)) {
+            $this->errors["image"] = "Atleast one image is required.";
+        }
         if (!Validator::in_options($type, UserType::toArray())) {
             $this->errors["type"] = "Please provide a valid option";
         }

@@ -49,7 +49,7 @@ class User
     public function createUser($attributes)
     {
         $this->db->query(
-            "INSERT INTO users(username,email,password,salt,type) VALUES(:username,:email,:password,:salt,:type)",
+            "INSERT INTO users(username,email,image,password,salt,type) VALUES(:username,:email,:image,:password,:salt,:type)",
             $attributes
         );
         return true;
