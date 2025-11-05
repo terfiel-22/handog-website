@@ -1,10 +1,12 @@
 <?php
 
 use Core\App;
-use Http\Models\User;
+use Core\FileUploadHandler;
+use Http\Models\Testimonial;
 
-$user = App::resolve(User::class)->fetchUserById($_POST["item_id"]);
+$testimonial = App::resolve(Testimonial::class)->fetchTestimonialById($_POST["item_id"]);
 
-App::resolve(User::class)->deleteUser($user["id"]);
+App::resolve(FileUploadHandler::class)->deleteFile($testimonial["image"]);
+App::resolve(Testimonial::class)->deleteTestimonial($testimonial["id"]);
 
-redirect("/admin/users");
+redirect("/admin/testimonials");
