@@ -5,6 +5,7 @@ use Http\Forms\PasswordForm;
 use Http\Forms\UpdateUserForm;
 use Http\Models\User;
 
+dd($_POST);
 // Check if gallery image exists
 $origUser = App::resolve(User::class)->fetchUserById($_POST["id"]);
 
