@@ -2,9 +2,14 @@
 
 use Core\App;
 use Http\Forms\PasswordForm;
+use Http\Forms\TestimonialForm;
 use Http\Forms\UpdateUserForm;
 use Http\Models\User;
 
+$existing = json_decode($_POST['existing_images'], true);
+$_POST["image"] = $existing[0] ?? $_FILES["images"]["name"][0];
+
+TestimonialForm::validate($_POST);
 dd($_POST);
 // Check if gallery image exists
 $origUser = App::resolve(User::class)->fetchUserById($_POST["id"]);

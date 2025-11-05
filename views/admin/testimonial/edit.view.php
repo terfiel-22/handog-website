@@ -35,7 +35,7 @@ $pageName = "Edit Testimonial"
                 </div>
 
                 <div class="card-body">
-                    <form class="row gy-3" method="POST" action="/admin/testimonials/update">
+                    <form class="row gy-3" method="POST" action="/admin/testimonials/update" enctype="multipart/form-data">
                         <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="id" value="<?= $testimonial["id"] ?>">
                         <div class="col-12">
