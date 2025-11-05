@@ -93,130 +93,78 @@
     </section>
 
     <!-- GT Testimonial Section Start -->
-    <section class="gt-testimonial-section section-padding fix section-bg-3">
-        <div class="gt-shape">
-            <img src="/assets/guest/img/home-1/testimonial/Vector-01.png" alt="img">
-        </div>
-        <div class="container">
-            <div class="gt-testimonial-wrapper">
-                <div class="row g-4">
-                    <div class="col-lg-6">
-                        <div class="gt-testimonial-left-content">
-                            <div class="gt-section-title mb-0">
-                                <h6 class="wow fadeInUp">
-                                    <img src="/assets/guest/img/arrow-left.svg" alt="img">
-                                    TESTIMONIAL
-                                </h6>
-                                <h2 class="wow fadeInUp" data-wow-delay=".2s">
-                                    What Our Guests Say
-                                </h2>
-                            </div>
-                            <p class="gt-testimonial-text wow fadeInUp" data-wow-delay=".4s">
-                                We pride ourselves on delivering unforgettable experiences — but don’t just take our word for it. Our guests return time and again for the impeccable service, exquisite surroundings, and the feeling of true indulgence.
-                            </p>
-                            <div class="gt-client-info wow fadeInUp" data-wow-delay=".6s">
-                                <div class="gt-client-image">
-                                    <img src="/assets/guest/img/home-1/testimonial/client-info.png" alt="img">
+    <?php if (!empty($testimonials)): ?>
+        <section class="gt-testimonial-section section-padding fix section-bg-3">
+            <div class="gt-shape">
+                <img src="/assets/guest/img/home-1/testimonial/Vector-01.png" alt="img">
+            </div>
+            <div class="container">
+                <div class="gt-testimonial-wrapper">
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="gt-testimonial-left-content">
+                                <div class="gt-section-title mb-0">
+                                    <h6 class="wow fadeInUp">
+                                        <img src="/assets/guest/img/arrow-left.svg" alt="img">
+                                        TESTIMONIAL
+                                    </h6>
+                                    <h2 class="wow fadeInUp" data-wow-delay=".2s">
+                                        What Our Guests Say
+                                    </h2>
                                 </div>
-                                <h3>More then <span>25K</span> clients Reviews</h3>
+                                <p class="gt-testimonial-text wow fadeInUp" data-wow-delay=".4s">
+                                    We pride ourselves on delivering unforgettable experiences — but don’t just take our word for it. Our guests return time and again for the impeccable service, exquisite surroundings, and the feeling of true indulgence.
+                                </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="swiper gt-testimonial-slider">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="gt-testimonial-box">
-                                        <div class="quote-icon">
-                                            <img src="/assets/guest/img/home-1/testimonial/quote-01.png" alt="img">
-                                        </div>
-                                        <div class="star">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star color-2"></i>
-                                        </div>
-                                        <p class="gt-testi-text">
-                                            From the moment we arrived, every detail was flawless. The staff anticipated our every need, and the suite was pure perfection. We’ll be back soon!"
-                                        </p>
-                                        <div class="gt-client-info">
-                                            <div class="gt-client-image">
-                                                <img src="/assets/guest/img/home-1/testimonial/client-info-right-img.png" alt="img">
-                                            </div>
-                                            <div class="gt-client-content">
-                                                <h4>Marvin McKinney</h4>
-                                                <p>Product Manager</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="gt-testimonial-box">
-                                        <div class="quote-icon">
-                                            <img src="/assets/guest/img/home-1/testimonial/quote-01.png" alt="img">
-                                        </div>
-                                        <div class="star">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star color-2"></i>
-                                        </div>
-                                        <p class="gt-testi-text">
-                                            From the moment we arrived, every detail was flawless. The staff anticipated our every need, and the suite was pure perfection. We’ll be back soon!"
-                                        </p>
-                                        <div class="gt-client-info">
-                                            <div class="gt-client-image">
-                                                <img src="/assets/guest/img/home-1/testimonial/client-info-right-img.png" alt="img">
-                                            </div>
-                                            <div class="gt-client-content">
-                                                <h4>Marvin McKinney</h4>
-                                                <p>Product Manager</p>
+                        <div class="col-lg-6">
+                            <div class="swiper gt-testimonial-slider">
+                                <div class="swiper-wrapper">
+                                    <?php foreach ($testimonials as $testimonial): ?>
+                                        <div class="swiper-slide">
+                                            <div class="gt-testimonial-box">
+                                                <div class="quote-icon">
+                                                    <img src="/assets/guest/img/home-1/testimonial/quote-01.png" alt="img">
+                                                </div>
+                                                <div class="star">
+                                                    <?php foreach (range(1, 5) as $starCount): ?>
+                                                        <?php if ($starCount <= $testimonial['rating']): ?>
+                                                            <i class="fa-solid fa-star"></i>
+                                                        <?php else: ?>
+                                                            <i class="fa-solid fa-star color-2"></i>
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                </div>
+                                                <p class="gt-testi-text">
+                                                    <?= $testimonial['feedback'] ?>"
+                                                </p>
+                                                <div class="gt-client-info">
+                                                    <div class="gt-client-image">
+                                                        <img src="<?= handleFilePath($testimonial['image'], "/assets/guest/img/home-1/testimonial/client-info-right-img.png") ?>" alt="img">
+                                                    </div>
+                                                    <div class="gt-client-content">
+                                                        <h4><?= $testimonial['name'] ?></h4>
+                                                        <p><?= $testimonial['work'] ?></p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="gt-testimonial-box">
-                                        <div class="quote-icon">
-                                            <img src="/assets/guest/img/home-1/testimonial/quote-01.png" alt="img">
-                                        </div>
-                                        <div class="star">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star color-2"></i>
-                                        </div>
-                                        <p class="gt-testi-text">
-                                            From the moment we arrived, every detail was flawless. The staff anticipated our every need, and the suite was pure perfection. We’ll be back soon!"
-                                        </p>
-                                        <div class="gt-client-info">
-                                            <div class="gt-client-image">
-                                                <img src="/assets/guest/img/home-1/testimonial/client-info-right-img.png" alt="img">
-                                            </div>
-                                            <div class="gt-client-content">
-                                                <h4>Marvin McKinney</h4>
-                                                <p>Product Manager</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
-                        </div>
-                        <div class="array-button-2 justify-content-center">
-                            <button class="array-prev"><i class="fa-solid fa-chevron-left"></i></button>
-                            <div class="swiper-dot1">
-                                <div class="dot"></div>
+                            <div class="array-button-2 justify-content-center">
+                                <button class="array-prev"><i class="fa-solid fa-chevron-left"></i></button>
+                                <div class="swiper-dot1">
+                                    <div class="dot"></div>
+                                </div>
+                                <button class="array-next"><i class="fa-solid fa-chevron-right"></i></button>
                             </div>
-                            <button class="array-next"><i class="fa-solid fa-chevron-right"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    <?php endif; ?>
 
     <!-- GT Location Section Start -->
     <div class="googpemap-2">

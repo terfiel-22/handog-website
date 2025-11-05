@@ -23,6 +23,7 @@ use Http\Models\Rates;
 use Http\Models\Reservation;
 use Http\Models\ReservationGuest;
 use Http\Models\TermsConditions;
+use Http\Models\Testimonial;
 use Http\Models\User;
 
 $container = new Container();
@@ -84,6 +85,9 @@ $container->bind(Logo::class, function () {
 });
 $container->bind(TermsConditions::class, function () {
     return new TermsConditions();
+});
+$container->bind(Testimonial::class, function () {
+    return new Testimonial();
 });
 
 /** Handler */
