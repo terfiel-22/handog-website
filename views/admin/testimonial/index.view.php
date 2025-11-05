@@ -52,7 +52,7 @@ $pageName = "Testimonial"
                                         <td><a href="javascript:void(0)" class="text-primary-600"><?= $testimonial['id'] ?></a></td>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <img src="<?= handleFilePath($testimonial['image'], "/assets/guest/img/home-1/testimonial/client-info-right-img.png") ?>" alt="<?= $testimonial['name'] ?>" class="flex-shrink-0 me-12 radius-8" style="width: 80px;">
+                                                <img src="<?= handleFilePath($testimonial['image'] ?? USER_AVATAR_PATH, "/assets/guest/img/home-1/testimonial/client-info-right-img.png") ?>" alt="<?= $testimonial['name'] ?>" class="flex-shrink-0 me-12 radius-8" style="width: 80px;">
                                                 <div class="flex-grow-1">
                                                     <h6 class="text-md mb-0 fw-medium"><?= $testimonial['name'] ?></h6>
                                                     <p class="text-md mb-0 fw-small"><?= $testimonial['work'] ?></p>
