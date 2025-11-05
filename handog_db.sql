@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2025 at 07:07 PM
+-- Generation Time: Nov 05, 2025 at 07:11 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -431,7 +431,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
-  `image` varchar(255) NOT NULL DEFAULT 'assets/default/user.jpg',
+  `image` varchar(255) DEFAULT NULL,
   `password` varchar(200) NOT NULL,
   `salt` varchar(200) NOT NULL,
   `session_token` varchar(200) DEFAULT NULL,
@@ -443,8 +443,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `image`, `password`, `salt`, `session_token`, `type`) VALUES
-(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', 'assets/default/user.jpg', '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$41yqHXJ7OX0.ORHDaanTeebrG0jUVIuY1pZi/FEjoujEo.ktk7p8.', 'admin'),
-(3, 'Taki Fimito', 'taki@gmail.com', 'assets/default/user.jpg', '$2y$10$zGG28ZLNG7uPR.xVtUJs5uxBWgkImEDl3bXIrB8frT1rBz7AMj5n2', '63d245335938eec0136d', NULL, 'staff');
+(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$41yqHXJ7OX0.ORHDaanTeebrG0jUVIuY1pZi/FEjoujEo.ktk7p8.', 'admin'),
+(3, 'Taki Fimito', 'taki@gmail.com', NULL, '$2y$10$zGG28ZLNG7uPR.xVtUJs5uxBWgkImEDl3bXIrB8frT1rBz7AMj5n2', '63d245335938eec0136d', NULL, 'staff');
 
 --
 -- Indexes for dumped tables
