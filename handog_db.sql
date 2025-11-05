@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 28, 2025 at 11:02 PM
+-- Generation Time: Nov 05, 2025 at 07:07 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -249,7 +249,8 @@ CREATE TABLE `promos` (
 --
 
 INSERT INTO `promos` (`id`, `title`, `description`, `discount_value`, `start_date`, `end_date`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, '20% OFF Halloween Promo', 'Enjoy 20% off all rooms this halloween', 20.00, '2025-10-26', '2025-11-02', 'yes', '2025-10-27 05:23:28', '2025-10-27 06:42:25');
+(1, '20% OFF Halloween Promo', 'Enjoy 20% off all rooms this halloween', 20.00, '2025-10-26', '2025-11-02', 'yes', '2025-10-27 05:23:28', '2025-10-27 06:42:25'),
+(3, '“Escape to Paradise” Getaway', 'Enjoy 25% off your stay and experience', 25.00, '2025-10-30', '2025-11-30', 'yes', '2025-10-29 17:25:31', '2025-10-29 17:32:00');
 
 -- --------------------------------------------------------
 
@@ -269,7 +270,9 @@ CREATE TABLE `promo_facilities` (
 
 INSERT INTO `promo_facilities` (`id`, `promo_id`, `facility_id`) VALUES
 (8, 1, 1),
-(9, 1, 9);
+(9, 1, 9),
+(10, 3, 1),
+(11, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -373,6 +376,54 @@ INSERT INTO `st_rates` (`id`, `adult_rate_day`, `kid_rate_day`, `adult_rate_nigh
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `st_terms_conditions`
+--
+
+CREATE TABLE `st_terms_conditions` (
+  `id` int(11) NOT NULL,
+  `filepath` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `st_terms_conditions`
+--
+
+INSERT INTO `st_terms_conditions` (`id`, `filepath`, `created_at`, `updated_at`) VALUES
+(1, 'uploads/files/690a3ce170abd_sample-terms-conditions-agreement.pdf', '2025-11-04 17:50:25', '2025-11-04 17:50:25');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `testimonials`
+--
+
+CREATE TABLE `testimonials` (
+  `id` int(11) NOT NULL,
+  `rating` tinyint(4) NOT NULL CHECK (`rating` between 1 and 5),
+  `name` varchar(100) NOT NULL,
+  `work` varchar(150) DEFAULT NULL,
+  `feedback` text NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `testimonials`
+--
+
+INSERT INTO `testimonials` (`id`, `rating`, `name`, `work`, `feedback`, `image`, `created_at`, `updated_at`) VALUES
+(1, 5, 'John Doe', 'Software Engineer', 'This platform exceeded my expectations. Excellent support and user experience!', 'uploads/images/user-1.jpg', '2025-11-05 09:16:19', '2025-11-05 09:16:19'),
+(2, 1, 'Jane Smith', 'Marketing Specialist', 'Really easy to use and efficient. Saved me a lot of time!', 'uploads/images/690b88443f355_user-10.jpg', '2025-11-05 09:16:19', '2025-11-05 17:24:30'),
+(3, 5, 'Michael Brown', 'Project Manager', 'Outstanding results and top-notch customer service!', 'uploads/images/user-3.jpg', '2025-11-05 09:16:19', '2025-11-05 12:12:21'),
+(4, 3, 'Emily Johnson', 'Freelance Writer', 'Good overall experience, though there’s room for improvement.', 'uploads/images/user-4.jpg', '2025-11-05 09:16:19', '2025-11-05 12:12:25'),
+(6, 5, 'Taki Fimito', 'Web Developer', 'This resort is the best!', 'uploads/images/690b8c8fb3492_user-7.jpg', '2025-11-05 17:42:39', '2025-11-05 17:42:39');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -380,6 +431,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
+  `image` varchar(255) NOT NULL DEFAULT 'assets/default/user.jpg',
   `password` varchar(200) NOT NULL,
   `salt` varchar(200) NOT NULL,
   `session_token` varchar(200) DEFAULT NULL,
@@ -390,9 +442,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `salt`, `session_token`, `type`) VALUES
-(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$ixf/yeSAjDZT2A3mLLZ8E.IWsUd4L.gBPwvPb3tVXAhUQEXvIw0Ee', 'admin'),
-(3, 'Taki Fimito', 'taki@gmail.com', '$2y$10$zGG28ZLNG7uPR.xVtUJs5uxBWgkImEDl3bXIrB8frT1rBz7AMj5n2', '63d245335938eec0136d', NULL, 'staff');
+INSERT INTO `users` (`id`, `username`, `email`, `image`, `password`, `salt`, `session_token`, `type`) VALUES
+(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', 'assets/default/user.jpg', '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$41yqHXJ7OX0.ORHDaanTeebrG0jUVIuY1pZi/FEjoujEo.ktk7p8.', 'admin'),
+(3, 'Taki Fimito', 'taki@gmail.com', 'assets/default/user.jpg', '$2y$10$zGG28ZLNG7uPR.xVtUJs5uxBWgkImEDl3bXIrB8frT1rBz7AMj5n2', '63d245335938eec0136d', NULL, 'staff');
 
 --
 -- Indexes for dumped tables
@@ -490,6 +542,18 @@ ALTER TABLE `st_rates`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `st_terms_conditions`
+--
+ALTER TABLE `st_terms_conditions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `testimonials`
+--
+ALTER TABLE `testimonials`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -551,13 +615,13 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `promos`
 --
 ALTER TABLE `promos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `promo_facilities`
 --
 ALTER TABLE `promo_facilities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `reservations`
@@ -582,6 +646,18 @@ ALTER TABLE `st_logos`
 --
 ALTER TABLE `st_rates`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `st_terms_conditions`
+--
+ALTER TABLE `st_terms_conditions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `testimonials`
+--
+ALTER TABLE `testimonials`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
