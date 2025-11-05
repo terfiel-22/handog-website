@@ -9,14 +9,13 @@ use Http\Models\Event;
 $origEvent = App::resolve(Event::class)->fetchEventById($_POST["id"]);
 
 // Add image
-$existing = json_decode($_POST['existing_images'], true);
-$_POST["image"] = $existing[0] ?? $_FILES["images"]["name"][0];
+$existingImage = json_decode($_POST['existing_images'], true);
+$_POST["image"] = $existingImage[0] ?? $_FILES["images"]["name"][0];
 
 // Validate Form
 EventForm::validate($_POST);
 
-// Handle new upload image
-$existingImage = json_decode($_POST["existing_images"]);
+// Handle new upload image 
 if (reset($existingImage) != $_POST["image"]) {
     $fileuploadResult = App::resolve(FileUploadHandler::class)->upload()->multipleFiles($_FILES['images'])["success"];
     $_POST["image"] = reset($fileuploadResult);
