@@ -66,6 +66,12 @@
                         <span>Promos</span>
                     </a>
                 </li>
+                <li>
+                    <a href="/admin/testimonials">
+                        <iconify-icon icon="ic:outline-message" class="menu-icon"></iconify-icon>
+                        <span>Testimonials</span>
+                    </a>
+                </li>
                 <li class="dropdown">
                     <a href="javascript:void(0)">
                         <iconify-icon icon="ic:outline-settings" class="menu-icon"></iconify-icon>
