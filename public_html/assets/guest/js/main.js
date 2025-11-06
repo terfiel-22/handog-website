@@ -492,15 +492,6 @@
       $("html, body").animate({ scrollTop: 0 }, 800);
       return false;
     });
-
-    /* ================================
-       Open image dialog
-    ================================ */
-    $(".clickable-img").on("click", function () {
-      const src = $(this).attr("src");
-      $("#imageModal img").attr("src", src);
-      $("#imageModal").modal("show");
-    });
   }); // End Document Ready Function
 
   function loader() {
