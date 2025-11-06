@@ -13,7 +13,7 @@ class SettingService
     }
 
     /**
-     * Get current user details
+     * Get current logo
      */
     public static function getLogo()
     {
@@ -22,7 +22,7 @@ class SettingService
         $logo = $logoModel->fetchLogo();
 
         if (!$logo) {
-            return ['id' => 1, 'image' => 'assets/guest/img/logo/black-logo.svg'];
+            return ['id' => 1, 'image' => 'assets/guest/img/logo/black-logo.svg', 'icon' => 'assets/admin/images/logo-icon.png'];
         }
 
         return $logo;

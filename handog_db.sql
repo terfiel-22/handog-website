@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2025 at 07:11 PM
+-- Generation Time: Nov 06, 2025 at 08:57 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -340,6 +340,7 @@ INSERT INTO `reservation_guests` (`id`, `reservation_id`, `guest_name`, `guest_a
 CREATE TABLE `st_logos` (
   `id` int(11) NOT NULL,
   `image` varchar(200) NOT NULL,
+  `icon` varchar(200) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -347,8 +348,8 @@ CREATE TABLE `st_logos` (
 -- Dumping data for table `st_logos`
 --
 
-INSERT INTO `st_logos` (`id`, `image`, `created_at`) VALUES
-(1, 'uploads/images/69013a4013db5_handog-logo.png', '2025-10-29 05:48:30');
+INSERT INTO `st_logos` (`id`, `image`, `icon`, `created_at`) VALUES
+(1, 'uploads/images/69013a4013db5_handog-logo.png', 'uploads/images/handog-icon.png', '2025-10-29 05:48:30');
 
 -- --------------------------------------------------------
 
@@ -444,7 +445,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `image`, `password`, `salt`, `session_token`, `type`) VALUES
 (1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$41yqHXJ7OX0.ORHDaanTeebrG0jUVIuY1pZi/FEjoujEo.ktk7p8.', 'admin'),
-(3, 'Taki Fimito', 'taki@gmail.com', NULL, '$2y$10$zGG28ZLNG7uPR.xVtUJs5uxBWgkImEDl3bXIrB8frT1rBz7AMj5n2', '63d245335938eec0136d', NULL, 'staff');
+(3, 'Taki Fimito', 'taki@gmail.com', 'uploads/images/690b97f142ae6_user-6.jpg', '$2y$10$zGG28ZLNG7uPR.xVtUJs5uxBWgkImEDl3bXIrB8frT1rBz7AMj5n2', '63d245335938eec0136d', NULL, 'staff'),
+(4, 'Tafi Fimito', 'tafi@gmail.com', 'uploads/images/690b9812ea878_user-4.jpg', '$2y$10$/IvWULzTu3XYrw4TU0UYbeTvKF24zKqOipe61PKgxC0HwbHXfaweu', '16d1de68659904d42b1d', NULL, 'admin');
 
 --
 -- Indexes for dumped tables
@@ -663,7 +665,7 @@ ALTER TABLE `testimonials`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

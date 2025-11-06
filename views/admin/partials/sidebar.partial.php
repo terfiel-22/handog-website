@@ -6,7 +6,7 @@
         <a href="/admin" class="sidebar-logo">
             <img src="<?= handleFilePath(\Http\Services\SettingService::getLogo()["image"], "/assets/admin/images/logo.png") ?>" alt="site logo" class="light-logo">
             <img src="<?= handleFilePath(\Http\Services\SettingService::getLogo()["image"], "/assets/admin/images/logo-light.png") ?>" alt="site logo" class="dark-logo">
-            <img src="/assets/admin/images/logo-icon.png" alt="site logo" class="logo-icon">
+            <img src="<?= handleFilePath(\Http\Services\SettingService::getLogo()["icon"], "/assets/admin/images/logo-icon.png") ?>" alt="site logo" class="logo-icon">
         </a>
     </div>
     <div class="sidebar-menu-area">
