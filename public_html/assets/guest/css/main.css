@@ -7316,10 +7316,17 @@ span {
 }
 
 /* Event */
-#carouselContent  {
-  max-height: 70vh;
-  max-height: 70svh;
+#carouselContent { 
+  height: 400px;
+}
+#carouselContent .event-content { 
+  padding-right: 1rem;
+  max-height: 400px ;
   overflow-y: auto;
+}
+#carouselContent .event-content h3 { 
+  margin-top: 12px;
+  font-size: 2rem; 
 }
 #eventCarousel {
   width: 70vw;
@@ -7331,9 +7338,9 @@ span {
     width: 100%; 
     padding: 1rem;
   } 
-  #carouselContent  {
-    max-height: 90vh;
-    max-height: 90svh; 
+  #carouselContent {
+    height: 90vh;
+    max-height: 90vh; 
   }
 }
 

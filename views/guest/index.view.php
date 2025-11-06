@@ -552,13 +552,13 @@
                     const activeClass = i === selectedIndex ? "active" : "";
                     const item = `
                 <div class="carousel-item ${activeClass}">
-                    <div class="row g-3 align-items-center justify-content-center">
+                    <div class="row g-3 align-items-start justify-content-center">
                         <div class="col-md-5 text-center">
                             <img src="${imgSrc}" class="d-block w-100 rounded fixed-height-img" alt="${name}">
                         </div>
-                        <div class="col-md-7 text-start">
+                        <div class="col-md-7 text-start event-content">
                             <div class="gt-news-details-content">
-                                <h2>${name}</h2>
+                                <h3>${name}</h3>
                                 <hr/>
                                 <p><strong>Date:</strong> ${date}</p>
                                 <p>${desc}</p>
