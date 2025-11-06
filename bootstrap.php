@@ -14,6 +14,7 @@ use Http\Models\Event;
 use Http\Models\Facility;
 use Http\Models\FacilityImage;
 use Http\Models\Faq;
+use Http\Models\Folder;
 use Http\Models\GalleryImage;
 use Http\Models\Logo;
 use Http\Models\Payment;
@@ -46,6 +47,9 @@ $container->bind(Amenity::class, function () {
 });
 $container->bind(AmenityImage::class, function () {
     return new AmenityImage();
+});
+$container->bind(Folder::class, function () {
+    return new Folder();
 });
 $container->bind(GalleryImage::class, function () {
     return new GalleryImage();

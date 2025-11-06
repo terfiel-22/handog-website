@@ -2,7 +2,7 @@
 
 use Core\App;
 use Core\FileUploadHandler;
-use Http\Forms\GalleryImageForm;
+use Http\Forms\FolderForm;
 use Http\Models\GalleryImage;
 
 // Check if gallery image exists
@@ -13,7 +13,7 @@ $existing = json_decode($_POST['existing_images'], true);
 $_POST["image"] = $existing[0] ?? $_FILES["images"]["name"][0];
 
 // Validate Form
-GalleryImageForm::validate($_POST);
+FolderForm::validate($_POST);
 
 // Handle new upload image
 $existingImage = json_decode($_POST["existing_images"]);

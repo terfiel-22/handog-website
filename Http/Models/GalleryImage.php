@@ -17,7 +17,7 @@ class GalleryImage
     public function createGalleryImage($attributes)
     {
         return $this->db->query(
-            "INSERT INTO gallery_images(name, description, image) VALUES(:name, :description, :image)",
+            "INSERT INTO gallery_images(folder_id, image) VALUES(:folder_id, :image)",
             $attributes
         )->id();
     }
@@ -28,8 +28,7 @@ class GalleryImage
 
         return $this->db->query(
             "UPDATE gallery_images 
-            SET name = :name,
-                description = :description,
+            SET folder_id = :folder_id, 
                 image = :image
             WHERE id = :id",
             $attributes

@@ -43,7 +43,7 @@ $pageName = "Add Gallery"
                                 <label class="upload-file-multiple h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50 bg-hover-neutral-200 d-flex align-items-center flex-column justify-content-center gap-1">
                                     <iconify-icon icon="solar:camera-outline" class="text-xl text-secondary-light"></iconify-icon>
                                     <span class="fw-semibold text-secondary-light">Upload</span>
-                                    <input id="upload-file-multiple" name="images[]" type="file" accept="image/*" hidden>
+                                    <input id="upload-file-multiple" name="images[]" type="file" accept="image/*" hidden multiple>
                                 </label>
                             </div>
                             <?php if (isset($errors["image"])) : ?>
@@ -53,7 +53,7 @@ $pageName = "Add Gallery"
                             <?php endif; ?>
                         </div>
                         <div class="col-12">
-                            <label class="form-label" for="name">Name</label>
+                            <label class="form-label" for="name">Folder Name</label>
                             <input type="text" name="name" id="name" class="form-control" placeholder="Enter image name" value="<?= old('name') ?>">
                             <?php if (isset($errors["name"])) : ?>
                                 <div class="error-text">
@@ -62,7 +62,7 @@ $pageName = "Add Gallery"
                             <?php endif; ?>
                         </div>
                         <div class="col-12">
-                            <label class="form-label" for="description">Description</label>
+                            <label class="form-label" for="description">Folder Description</label>
                             <textarea type="number" name="description" id="description" class="form-control" placeholder="Enter image description"><?= old('description') ?></textarea>
                             <?php if (isset($errors["description"])) : ?>
                                 <div class="error-text">
