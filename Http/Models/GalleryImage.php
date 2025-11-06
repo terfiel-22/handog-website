@@ -53,4 +53,12 @@ class GalleryImage
             compact('id')
         );
     }
+
+    public function deleteGalleryImageByPath($image)
+    {
+        $this->db->query(
+            "DELETE FROM gallery_images WHERE image = :image",
+            compact('image')
+        );
+    }
 }

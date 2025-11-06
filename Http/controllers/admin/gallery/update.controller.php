@@ -3,34 +3,51 @@
 use Core\App;
 use Core\FileUploadHandler;
 use Http\Forms\FolderForm;
+use Http\Models\Folder;
 use Http\Models\GalleryImage;
 
-// Check if gallery image exists
-$origGalleryImage = App::resolve(GalleryImage::class)->fetchGalleryImageById($_POST["id"]);
+// Check if facility exists
+$origFolder = App::resolve(Folder::class)->fetchFolderById($_POST["id"]);
+$origFolderImages = explode(',', $origFolder["images"]);
 
 // Add image
-$existing = json_decode($_POST['existing_images'], true);
-$_POST["image"] = $existing[0] ?? $_FILES["images"]["name"][0];
+$existingImage = json_decode($_POST['existing_images'], true);
+$_POST["image"] = $existingImage[0] ?? $_FILES["images"]["name"][0];
 
 // Validate Form
 FolderForm::validate($_POST);
 
-// Handle new upload image
-$existingImage = json_decode($_POST["existing_images"]);
-if (reset($existingImage) != $_POST["image"]) {
-    $fileuploadResult = App::resolve(FileUploadHandler::class)->upload()->multipleFiles($_FILES['images'])["success"];
-    $_POST["image"] = reset($fileuploadResult);
-
-    // Delete old image
-    App::resolve(FileUploadHandler::class)->deleteFile($origGalleryImage["image"]);
-} else {
-    $_POST["image"] = $origGalleryImage["image"];
-}
-
-/** START Update GalleryImage Data on Database **/
+/** START Update Folder Data on Database **/
 unset($_POST["_method"]);
 unset($_POST["existing_images"]);
-App::resolve(GalleryImage::class)->updateGalleryImage($origGalleryImage["id"], $_POST);
-/** END Update GalleryImage Data on Database **/
+unset($_POST["image"]);
+App::resolve(Folder::class)->updateFolder($origFolder["id"], $_POST);
+/** END Update Folder Data on Database **/
+
+/** START Handle Uploaded New Images */
+$isAddedNewImage = !empty($_FILES['images']['name'][0]);
+
+if ($isAddedNewImage && empty($existingImage)) {
+    // Add new uploaded images
+    $fileuploadResult = App::resolve(FileUploadHandler::class)->upload()->multipleFiles($_FILES['images']);
+    if (!empty($fileuploadResult["success"])) {
+        foreach ($fileuploadResult["success"] as $image) {
+            $galleryImage = [
+                "folder_id" => $origFolder["id"],
+                "image" => $image
+            ];
+
+            App::resolve(GalleryImage::class)->createGalleryImage($galleryImage);
+        }
+
+        // Remove old images
+        foreach ($origFolderImages as $oldImage) {
+            App::resolve(FileUploadHandler::class)->deleteFile($oldImage);
+            App::resolve(GalleryImage::class)->deleteGalleryImageByPath($oldImage);
+        }
+    }
+}
+/** END Handle Uploaded New Images */
+
 
 redirect("/admin/gallery");
