@@ -23,7 +23,8 @@ $pageName = "Sign In"
             <div class="max-w-464-px mx-auto w-100">
                 <div>
                     <a href="/admin" class="mb-40 max-w-290-px">
-                        <img src="/assets/admin/images/logo.png" alt="">
+
+                        <img src="<?= handleFilePath(\Http\Services\SettingService::getLogo()["logo"], "/assets/admin/images/logo.png") ?>" alt="site logo">
                     </a>
                     <h4 class="mb-12">Sign In to your Account</h4>
                     <p class="mb-32 text-secondary-light text-lg">Welcome back! please enter your detail</p>
