@@ -58,7 +58,17 @@ class Folder
 
     public function fetchFolderById($id)
     {
-        return $this->db->query('SELECT * FROM folders WHERE id=:id', compact('id'))->findOrFail();
+        return $this->db->query("
+            SELECT 
+                f.id,
+                f.name,
+                f.description,
+                GROUP_CONCAT(gi.image) AS images
+            FROM folders f
+            LEFT JOIN gallery_images gi ON f.id = gi.folder_id 
+            WHERE f.id=:id
+            GROUP BY f.id 
+        ", compact('id'))->findOrFail();
     }
 
 

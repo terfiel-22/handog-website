@@ -36,7 +36,7 @@ $pageName = "Edit Gallery"
                 <div class="card-body">
                     <form class="row gy-3" method="POST" action="/admin/gallery/update" enctype="multipart/form-data">
                         <input type="hidden" name="_method" value="PUT">
-                        <input type="hidden" name="id" value="<?= $galleryImage["id"] ?>">
+                        <input type="hidden" name="id" value="<?= $folder["id"] ?>">
                         <div class="col-12">
                             <label class="form-label" for="upload-file-multiple">Upload gallery image</label>
                             <div class="upload-image-wrapper d-flex align-items-center gap-3 flex-wrap">
@@ -44,7 +44,7 @@ $pageName = "Edit Gallery"
                                 <label class="upload-file-multiple h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50 bg-hover-neutral-200 d-flex align-items-center flex-column justify-content-center gap-1">
                                     <iconify-icon icon="solar:camera-outline" class="text-xl text-secondary-light"></iconify-icon>
                                     <span class="fw-semibold text-secondary-light">Upload</span>
-                                    <input id="upload-file-multiple" name="images[]" type="file" accept="image/*" hidden>
+                                    <input id="upload-file-multiple" name="images[]" type="file" accept="image/*" hidden multiple>
                                 </label>
                             </div>
                             <input type="hidden" name="existing_images" id="existing_images">
@@ -56,7 +56,7 @@ $pageName = "Edit Gallery"
                         </div>
                         <div class="col-12">
                             <label class="form-label" for="name">Name</label>
-                            <input type="text" name="name" id="name" class="form-control" placeholder="Enter image name" value="<?= $galleryImage["name"] ?>">
+                            <input type="text" name="name" id="name" class="form-control" placeholder="Enter image name" value="<?= $folder["name"] ?>">
                             <?php if (isset($errors["name"])) : ?>
                                 <div class="error-text">
                                     <?= $errors["name"] ?>
@@ -65,7 +65,7 @@ $pageName = "Edit Gallery"
                         </div>
                         <div class="col-12">
                             <label class="form-label" for="description">Description</label>
-                            <textarea type="number" name="description" id="description" class="form-control" placeholder="Enter image description"><?= $galleryImage["description"] ?></textarea>
+                            <textarea type="number" name="description" id="description" class="form-control" placeholder="Enter image description"><?= $folder["description"] ?></textarea>
                             <?php if (isset($errors["description"])) : ?>
                                 <div class="error-text">
                                     <?= $errors["description"] ?>
