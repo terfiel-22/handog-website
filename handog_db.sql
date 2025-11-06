@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2025 at 09:26 AM
+-- Generation Time: Nov 06, 2025 at 05:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -90,8 +90,8 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `name`, `description`, `image`, `date`, `created_at`) VALUES
-(1, 'Silent Sanctuary x Sunkissed Lola', 'Get Ready for an Evening of Great Music and Don’t miss this rare opportunity to see Silent Sanctuary and Sunkissed Lola share the stage. Whether you’re a longtime fan or discovering their music for the first time, this concert promises to be a night to remember. Secure your tickets now and experience the magic of these two incredible bands live!', 'uploads/images/68ebcad0826f8_event1.png', '2025-10-31 16:00:00', '2025-10-12 23:27:12'),
-(3, 'Live Jam', 'The Filipino rock band that brought us many of our favorite songs like “Lunes,” “Jeepney” and “Gemini” will be bringing all the early-2000s feels alive, and then some, as they play some of their more recent hits from their double EP, Sinag/Tala.', 'uploads/images/68ebda8bc507b_event2.png', '2025-11-01 12:00:00', '2025-10-13 00:42:51');
+(1, 'Silent Sanctuary x Sunkissed Lola', 'Get Ready for an Evening of Great Music and Don’t miss this rare opportunity to see Silent Sanctuary and Sunkissed Lola share the stage. Whether you’re a longtime fan or discovering their music for the first time, this concert promises to be a night to remember. Secure your tickets now and experience the magic of these two incredible bands live!', 'uploads/images/68ebcad0826f8_event1.png', '2025-11-30 16:00:00', '2025-10-12 23:27:12'),
+(3, 'Live Jam', 'The Filipino rock band that brought us many of our favorite songs like “Lunes,” “Jeepney” and “Gemini” will be bringing all the early-2000s feels alive, and then some, as they play some of their more recent hits from their double EP, Sinag/Tala.', 'uploads/images/68ebda8bc507b_event2.png', '2025-12-01 12:00:00', '2025-10-13 00:42:51');
 
 -- --------------------------------------------------------
 
@@ -181,23 +181,49 @@ INSERT INTO `faqs` (`id`, `question`, `answer`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `folders`
+--
+
+CREATE TABLE `folders` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `folders`
+--
+
+INSERT INTO `folders` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'Beauty of Nature', 'Check the beauty of Handog Resort.', '2025-11-06 21:56:27', '2025-11-06 22:48:09'),
+(2, 'Rustic Romance at Willow Creek', 'Capturing every heartfelt moment from the vows to the first dance — a perfect blend of elegance and joy.', '2025-11-06 22:06:02', '2025-11-06 22:06:02');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `gallery_images`
 --
 
 CREATE TABLE `gallery_images` (
   `id` int(11) NOT NULL,
-  `name` varchar(200) NOT NULL,
-  `description` text NOT NULL,
-  `image` varchar(200) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `folder_id` int(11) NOT NULL,
+  `image` varchar(500) NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `gallery_images`
 --
 
-INSERT INTO `gallery_images` (`id`, `name`, `description`, `image`, `created_at`) VALUES
-(1, 'Oceanfront Paradise', 'An inviting view of turquoise waters and soft white sand — the perfect escape for beach lovers.', 'uploads/images/68dad0e97c575_gallery_1.jpg', '2025-09-29 18:33:13');
+INSERT INTO `gallery_images` (`id`, `folder_id`, `image`, `created_at`, `updated_at`) VALUES
+(3, 2, 'uploads/images/690cab4a51e0b_gallery_5.jpg', '2025-11-06 22:06:02', '2025-11-06 22:06:02'),
+(4, 2, 'uploads/images/690cab4a5206e_gallery_4.jpg', '2025-11-06 22:06:02', '2025-11-06 22:06:02'),
+(5, 2, 'uploads/images/690cab4a522ef_gallery_3.jpg', '2025-11-06 22:06:02', '2025-11-06 22:06:02'),
+(6, 1, 'uploads/images/690cb52918b2d_gallery_2.jpg', '2025-11-06 22:48:09', '2025-11-06 22:48:09'),
+(7, 1, 'uploads/images/690cb52918d5c_gallery_1.jpg', '2025-11-06 22:48:09', '2025-11-06 22:48:09');
 
 -- --------------------------------------------------------
 
@@ -349,7 +375,7 @@ CREATE TABLE `st_logos` (
 --
 
 INSERT INTO `st_logos` (`id`, `logo`, `icon`, `created_at`) VALUES
-(1, 'uploads/images/690c5b783a846_handog-logo.png', 'uploads/images/690c5b783ab7a_handog-icon.png', '2025-10-29 05:48:30');
+(1, 'uploads/images/690c5b783a846_handog-logo.png', 'uploads/images/690c5c61b92cf_handog-icon.png', '2025-10-29 05:48:30');
 
 -- --------------------------------------------------------
 
@@ -444,7 +470,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `image`, `password`, `salt`, `session_token`, `type`) VALUES
-(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$41yqHXJ7OX0.ORHDaanTeebrG0jUVIuY1pZi/FEjoujEo.ktk7p8.', 'admin'),
+(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$c6s3TkL1WXMvdSEsR.lv0ex8sUVrqgP4BjXIxsYzoDVHZsRQUy9gi', 'admin'),
 (3, 'Taki Fimito', 'taki@gmail.com', 'uploads/images/690b97f142ae6_user-6.jpg', '$2y$10$zGG28ZLNG7uPR.xVtUJs5uxBWgkImEDl3bXIrB8frT1rBz7AMj5n2', '63d245335938eec0136d', NULL, 'staff'),
 (4, 'Tafi Fimito', 'tafi@gmail.com', 'uploads/images/690b9812ea878_user-4.jpg', '$2y$10$/IvWULzTu3XYrw4TU0UYbeTvKF24zKqOipe61PKgxC0HwbHXfaweu', '16d1de68659904d42b1d', NULL, 'admin');
 
@@ -491,10 +517,17 @@ ALTER TABLE `faqs`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `folders`
+--
+ALTER TABLE `folders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `gallery_images`
 --
 ALTER TABLE `gallery_images`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `folder_id` (`folder_id`);
 
 --
 -- Indexes for table `payments`
@@ -602,10 +635,16 @@ ALTER TABLE `faqs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `folders`
+--
+ALTER TABLE `folders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `gallery_images`
 --
 ALTER TABLE `gallery_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -682,6 +721,12 @@ ALTER TABLE `amenity_images`
 --
 ALTER TABLE `facility_images`
   ADD CONSTRAINT `facility_images_ibfk_1` FOREIGN KEY (`facility_id`) REFERENCES `facilities` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `gallery_images`
+--
+ALTER TABLE `gallery_images`
+  ADD CONSTRAINT `gallery_images_ibfk_1` FOREIGN KEY (`folder_id`) REFERENCES `folders` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `payments`
