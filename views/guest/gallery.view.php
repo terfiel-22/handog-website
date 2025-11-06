@@ -42,11 +42,13 @@
                 </div>
             </div>
             <div class="row g-3 wow fadeInUp">
-                <?php foreach ($images as $image): ?>
+                <?php foreach ($folders as $folder):
+                    $images = explode(',', $folder['images']);
+                ?>
                     <div class="col-6 col-md-4 col-lg-3">
-                        <img src="<?= handleFilePath($image["image"], "/assets/guest/img/home-2/choose-us/choose-us-01.jpg") ?>" class="img-fluid gallery-img clickable-img" alt="<?= $image["name"] ?>">
-                        <h5 class="mt-2"><?= $image["name"] ?></h5>
-                        <p class="text-muted small"><?= $image["description"] ?></p>
+                        <img src="<?= handleFilePath($images[0], "/assets/guest/img/home-2/choose-us/choose-us-01.jpg") ?>" class="img-fluid gallery-img clickable-img" alt="<?= $folder["name"] ?>">
+                        <h5 class="mt-2"><?= $folder["name"] ?></h5>
+                        <p class="text-muted small"><?= $folder["description"] ?></p>
                     </div>
                 <?php endforeach; ?>
             </div>

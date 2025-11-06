@@ -7290,6 +7290,7 @@ span {
 
 /* Gallery */
 .gallery-img {
+  height: 200px;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
