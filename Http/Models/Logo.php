@@ -27,11 +27,11 @@ class Logo
 
     public function createLogo($attributes)
     {
-        $this->db->query("INSERT INTO st_logos(image) VALUES(:image)", $attributes);
+        $this->db->query("INSERT INTO st_logos(logo,icon) VALUES(:logo,:icon)", $attributes);
     }
 
     public function updateLogo($attributes)
     {
-        $this->db->query("UPDATE st_logos SET image=:image WHERE id = :id", $attributes);
+        $this->db->query("UPDATE st_logos SET logo=:logo, icon=:icon WHERE id = :id", $attributes);
     }
 }

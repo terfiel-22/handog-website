@@ -12,8 +12,12 @@ class LogoForm extends Form
 
         extract($this->attributes);
 
-        if (!Validator::not_empty($image)) {
-            $this->errors["image"] = "An image is required.";
+        if (!Validator::not_empty($logo)) {
+            $this->errors["logo"] = "A logo is required.";
+        }
+
+        if (!Validator::not_empty($icon)) {
+            $this->errors["icon"] = "An icon is required.";
         }
     }
 }

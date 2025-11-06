@@ -4,10 +4,10 @@
             <div class="header-main">
                 <div class="logo">
                     <a href="/" class="header-logo">
-                        <img src="<?= handleFilePath(\Http\Services\SettingService::getLogo()["image"], "/assets/guest/img/logo/white-logo.svg") ?>" alt="logo-img" />
+                        <img src="<?= handleFilePath(\Http\Services\SettingService::getLogo()["logo"], "/assets/guest/img/logo/white-logo.svg") ?>" alt="logo-img" />
                     </a>
                     <a href="/" class="header-logo-2">
-                        <img src="<?= handleFilePath(\Http\Services\SettingService::getLogo()["image"], "/assets/guest/img/logo/black-logo.svg") ?>" alt="logo-img" />
+                        <img src="<?= handleFilePath(\Http\Services\SettingService::getLogo()["logo"], "/assets/guest/img/logo/black-logo.svg") ?>" alt="logo-img" />
                     </a>
                 </div>
                 <div class="mean__menu-wrapper">

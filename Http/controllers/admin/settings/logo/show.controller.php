@@ -5,11 +5,12 @@ use Http\Services\SettingService;
 
 $logo = SettingService::getLogo();
 
-$readableImagePaths[] = handleFilePath($logo["image"]);
+$readableLogo[] = handleFilePath($logo["logo"]);
+$readableIcon[] = handleFilePath($logo["icon"]);
 
 $errors = Session::get('errors', []);
 
 view(
     "admin/settings/logo/show.view.php",
-    compact('logo', 'readableImagePaths', 'errors')
+    compact('logo', 'readableLogo', 'readableIcon', 'errors')
 );

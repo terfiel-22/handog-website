@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2025 at 08:57 AM
+-- Generation Time: Nov 06, 2025 at 09:26 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -339,7 +339,7 @@ INSERT INTO `reservation_guests` (`id`, `reservation_id`, `guest_name`, `guest_a
 
 CREATE TABLE `st_logos` (
   `id` int(11) NOT NULL,
-  `image` varchar(200) NOT NULL,
+  `logo` varchar(200) NOT NULL,
   `icon` varchar(200) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -348,8 +348,8 @@ CREATE TABLE `st_logos` (
 -- Dumping data for table `st_logos`
 --
 
-INSERT INTO `st_logos` (`id`, `image`, `icon`, `created_at`) VALUES
-(1, 'uploads/images/69013a4013db5_handog-logo.png', 'uploads/images/handog-icon.png', '2025-10-29 05:48:30');
+INSERT INTO `st_logos` (`id`, `logo`, `icon`, `created_at`) VALUES
+(1, 'uploads/images/690c5b783a846_handog-logo.png', 'uploads/images/690c5b783ab7a_handog-icon.png', '2025-10-29 05:48:30');
 
 -- --------------------------------------------------------
 
