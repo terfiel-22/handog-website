@@ -1,11 +1,11 @@
 <?php
 
 use Core\App;
-use Http\Models\GalleryImage;
+use Http\Models\Folder;
 
-$images = App::resolve(GalleryImage::class)->fetchGalleryImages();
+$folders = App::resolve(Folder::class)->fetchFoldersWithImages();
 
 view(
     "admin/gallery/index.view.php",
-    compact('images')
+    compact('folders')
 );
