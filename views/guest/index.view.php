@@ -476,23 +476,24 @@
 
 
     <!-- Event Modal -->
-    <div class="modal fade" id="eventModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-body">
+    <div class="modal fade" id="modalSlider" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-transparent border-0 text-center position-relative" id="modalSliderContent">
+                <!-- Close button -->
+                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" id="closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                <div class="d-flex justify-content-center align-items-center position-relative" style="min-height: 60vh;">
                     <div id="eventCarousel" class="carousel slide" data-bs-ride="false">
                         <div class="carousel-inner" id="carouselContent"></div>
                     </div>
-                </div>
 
-                <div class="modal-footer d-flex justify-content-between">
-                    <div>
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-secondary" id="prevEventBtn">Previous Event</button>
-                        <button type="button" class="btn btn-primary" id="nextEventBtn">Next Event </button>
-                    </div>
+                    <!-- Navigation Buttons -->
+                    <button id="prevBtn" class="btn btn-dark position-absolute top-50 start-0 translate-middle-y px-3 py-2 opacity-75">
+                        <i class="fa fa-chevron-left fa-lg"></i>
+                    </button>
+                    <button id="nextBtn" class="btn btn-dark position-absolute top-50 end-0 translate-middle-y px-3 py-2 opacity-75">
+                        <i class="fa fa-chevron-right fa-lg"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -535,8 +536,8 @@
                 if (!events.length) {
                     $carousel.append(
                         `<div class="carousel-item active">
-                            <div class="p-4">No events available.</div>
-                        </div>`
+                    <div class="p-4">No events available.</div>
+                </div>`
                     );
                     return;
                 }
@@ -546,27 +547,26 @@
                     const name = $('<div>').text(event.name ?? '').html();
                     const dateStr = $('<div>').text(event.date ?? '').html();
                     const date = formatDateStr(dateStr);
-
                     const desc = $('<div>').text(event.description ?? 'No description available.').html();
 
                     const activeClass = i === selectedIndex ? "active" : "";
                     const item = `
-                        <div class="carousel-item ${activeClass}">
-                            <div class="row g-3">
-                                <div class="col-md-5">
-                                    <img src="${imgSrc}" class="d-block w-100 rounded fixed-height-img" alt="${name}">
-                                </div>
-                                <div class="col-md-7"> 
-                                    <div class="gt-news-details-content">
-                                        <h2>${name}</h2>
-                                        <hr/>
-                                        <p><strong>Date:</strong> ${date}</p> 
-                                        <p>${desc}</p>
-                                    </div> 
-                                </div>
+                <div class="carousel-item ${activeClass}">
+                    <div class="row g-3 align-items-center justify-content-center">
+                        <div class="col-md-5 text-center">
+                            <img src="${imgSrc}" class="d-block w-100 rounded fixed-height-img" alt="${name}">
+                        </div>
+                        <div class="col-md-7 text-start">
+                            <div class="gt-news-details-content">
+                                <h2>${name}</h2>
+                                <hr/>
+                                <p><strong>Date:</strong> ${date}</p>
+                                <p>${desc}</p>
                             </div>
                         </div>
-                    `;
+                    </div>
+                </div>
+            `;
                     $carousel.append(item);
                 });
             }
@@ -575,12 +575,12 @@
                 initialIndex = parseInt($(this).data("index")) || 0;
                 buildCarousel(initialIndex);
 
-                const modalEl = document.getElementById('eventModal');
+                const modalEl = document.getElementById('modalSlider');
                 const modal = new bootstrap.Modal(modalEl);
                 modal.show();
             });
 
-            $('#eventModal').on('shown.bs.modal', function() {
+            $('#modalSlider').on('shown.bs.modal', function() {
                 carouselInstance = bootstrap.Carousel.getOrCreateInstance('#eventCarousel', {
                     ride: false,
                     interval: false
@@ -590,25 +590,25 @@
                     try {
                         carouselInstance.to(initialIndex);
                     } catch (e) {
-                        // fallback: do nothing
+                        // fallback
                     }
                 }
             });
 
-            $("#prevEventBtn").on("click", function() {
+            $("#prevBtn").on("click", function() {
                 if (carouselInstance) carouselInstance.prev();
             });
-            $("#nextEventBtn").on("click", function() {
+            $("#nextBtn").on("click", function() {
                 if (carouselInstance) carouselInstance.next();
             });
 
-            $('#eventModal').on('hidden.bs.modal', function() {
+            $('#modalSlider').on('hidden.bs.modal', function() {
                 $("#carouselContent").empty();
                 carouselInstance = null;
             });
 
             $(document).on('keydown', function(e) {
-                const modalVisible = $('#eventModal').hasClass('show');
+                const modalVisible = $('#modalSlider').hasClass('show');
                 if (!modalVisible) return;
 
                 if (e.key === "ArrowLeft") {

@@ -7321,10 +7321,20 @@ span {
   max-height: 70svh;
   overflow-y: auto;
 }
-@media (max-width: 767px) {
-  #eventModal {
-    padding-top: 2rem;
+#eventCarousel {
+  width: 70vw;
+  background: var(--gt-white);
+  border-radius: 12px;
+} 
+@media (max-width: 767px) { 
+  #eventCarousel {
+    width: 100%; 
+    padding: 1rem;
   } 
+  #carouselContent  {
+    max-height: 90vh;
+    max-height: 90svh; 
+  }
 }
 
 /* Checkbox */ 
@@ -7417,4 +7427,4 @@ span {
 } 
 #prevBtn, #nextBtn, #closeBtn {
   z-index: 10002;
-}
+} 

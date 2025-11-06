@@ -122,6 +122,17 @@
                 $modalImage.attr('src', '');
                 currentImages = [];
             });
+
+            $(document).on('keydown', function(e) {
+                if (!currentImages.length) return;
+
+                if (e.key === "ArrowLeft") {
+                    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+                } else if (e.key === "ArrowRight") {
+                    currentIndex = (currentIndex + 1) % currentImages.length;
+                }
+                $modalImage.attr('src', currentImages[currentIndex]);
+            });
         });
     </script>
 </body>
