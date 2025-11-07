@@ -84,14 +84,23 @@
                                 <div class="booking-item">
                                     <form action="/booking" method="GET">
                                         <div class="row g-4">
+                                            <div class="col-12">
+                                                <div class="error-text" id="error_message"></div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-clt">
+                                                    <div class="form">
+                                                        <select name="facility_id" id="facility_id" class="single-select w-100" required>
+                                                            <?php foreach ($facilities as $facility): ?>
+                                                                <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= $_GET["id"] == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-lg-12">
                                                 <div class="form-clt">
                                                     <input type="text" id="check_in" name="check_in" placeholder="Check In" required>
-                                                    <?php if (isset($errors["check_in"])) : ?>
-                                                        <div class=" error-text">
-                                                            <?= $errors["check_in"] ?>
-                                                        </div>
-                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
@@ -105,18 +114,7 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-clt">
-                                                    <div class="form">
-                                                        <select name="facility_id" id="facility_id" class="single-select w-100" required>
-                                                            <?php foreach ($facilities as $facility): ?>
-                                                                <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= $_GET["id"] == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?></option>
-                                                            <?php endforeach; ?>
-                                                        </select>
-                                                        <?php if (isset($errors["facility"])) : ?>
-                                                            <div class=" error-text">
-                                                                <?= $errors["facility"] ?>
-                                                            </div>
-                                                        <?php endif; ?>
-                                                    </div>
+                                                    <input type="text" id="check_out" name="check_out" placeholder="Check Out" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
@@ -127,7 +125,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
-                                                <button class="gt-theme-btn w-100" type="submit">
+                                                <button class="gt-theme-btn w-100" type="submit" id="submitBtn">
                                                     BOOK
                                                 </button>
                                             </div>
@@ -149,15 +147,186 @@
     <!--<< All JS Plugins >>-->
     <?php view("guest/partials/plugins.partial.php") ?>
 
+    <!-- Date Picker -->
     <script>
-        // Flat pickr or date picker js
-        function getDatePicker(receiveID) {
-            flatpickr(receiveID, {
+        $(function() {
+            const bookings = <?= json_encode($bookings) ?> || [];
+
+            function parseDateTime(str) {
+                if (!str) return null;
+                str = str.trim().replace(' ', 'T');
+                if (str.length === 16) str += ':00';
+                const d = new Date(str);
+                return isNaN(d.getTime()) ? null : d;
+            }
+
+            function formatDateTime(d) {
+                if (!d) return '';
+                const pad = n => (n < 10 ? '0' + n : n);
+                return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+            }
+
+            function formatReadableDateTime(d) {
+                if (!d) return '';
+                const options = {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true,
+                };
+                return d.toLocaleString('en-US', options);
+            }
+
+            function parseDurationEnum(val) {
+                switch (val) {
+                    case '8-Hours':
+                        return 8;
+                    case '12-Hours':
+                        return 12;
+                    case '1-Day':
+                        return 24;
+                    default:
+                        return 0;
+                }
+            }
+
+            function overlaps(aStart, aEnd, bStart, bEnd) {
+                return aStart < bEnd && aEnd > bStart;
+            }
+
+            const isExclusive = () => {
+                const facilityTypes = <?= json_encode(\Http\Enums\FacilityType::toArray()) ?> || [];
+                const facilityType = $("#facility_id option:selected").data("type");
+                return facilityType == facilityTypes.EXCLUSIVE;
+            }
+
+            $('#check_in').flatpickr({
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
+                time_24hr: true,
+                minDate: "today",
+                onChange: function() {
+                    checkAvailability();
+                }
             });
-        }
-        getDatePicker("#check_in");
+
+            $('#check_in, #time_range, #facility_id').on('change blur', checkAvailability);
+
+            function checkAvailability() {
+                $('#error_message').text('');
+                $('#submitBtn').prop('disabled', false);
+
+                const facilityId = $('#facility_id').val();
+                const checkInRaw = $('#check_in').val();
+                const durationVal = $('#time_range').val();
+
+                if (!checkInRaw) {
+                    $('#check_out').val('');
+                    return;
+                }
+
+                const selStart = parseDateTime(checkInRaw);
+                if (!selStart) {
+                    $('#submitBtn').prop('disabled', true);
+                    return;
+                }
+
+                const hours = parseDurationEnum(durationVal);
+                const selEnd = new Date(selStart.getTime() + hours * 60 * 60 * 1000);
+                $('#check_out').val(formatDateTime(selEnd));
+
+                if (!facilityId) return;
+
+                // Count overlapping bookings
+                let overlapCount = 0;
+                let conflictDetails = [];
+
+                // Check overlaps on exclusive
+                if (isExclusive()) {
+                    for (let i = 0; i < bookings.length; i++) {
+                        const b = bookings[i];
+                        const bStart = parseDateTime(b.check_in_date);
+                        const bEnd = parseDateTime(b.check_out_date);
+                        if (!bStart || !bEnd) continue;
+
+                        // Add 1-hour cleaning buffer
+                        const bEndWithCleaning = new Date(bEnd.getTime() + 60 * 60 * 1000);
+
+                        if (overlaps(selStart, selEnd, bStart, bEndWithCleaning)) {
+                            overlapCount++;
+                            conflictDetails.push({
+                                start: bStart,
+                                end: bEndWithCleaning
+                            });
+                        }
+                    }
+
+                    if (overlapCount > 0) {
+                        let conflictText = conflictDetails
+                            .map(c => `<strong>${formatReadableDateTime(c.start)}</strong> → <strong>${formatReadableDateTime(c.end)}</strong>`)
+                            .join('<br>');
+
+                        $('#error_message').html(
+                            `<strong>Selected check-in time is unavailable.</strong><br>
+                        Unit(s) are booked during:<br>${conflictText}`
+                        );
+                        $('#submitBtn').prop('disabled', true);
+                        return;
+                    }
+                }
+
+                // Filter bookings by facility
+                const facilityBookings = bookings.filter(b => String(b.facility_id) === String(facilityId));
+                if (facilityBookings.length === 0) return;
+
+                const availableUnits = facilityBookings[0].available_unit || 1;
+
+                // Check overlaps on same facility
+                for (let i = 0; i < facilityBookings.length; i++) {
+                    const b = facilityBookings[i];
+                    const bStart = parseDateTime(b.check_in_date);
+                    const bEnd = parseDateTime(b.check_out_date);
+                    if (!bStart || !bEnd) continue;
+
+                    // Add 1-hour cleaning buffer
+                    const bEndWithCleaning = new Date(bEnd.getTime() + 60 * 60 * 1000);
+
+                    if (overlaps(selStart, selEnd, bStart, bEndWithCleaning)) {
+                        overlapCount++;
+                        conflictDetails.push({
+                            start: bStart,
+                            end: bEndWithCleaning
+                        });
+                    }
+                }
+
+                // Disable only if all units are occupied
+                if (overlapCount >= availableUnits) {
+                    let conflictText = conflictDetails
+                        .map(c => `<strong>${formatReadableDateTime(c.start)}</strong> → <strong>${formatReadableDateTime(c.end)}</strong>`)
+                        .join('<br>');
+
+                    $('#error_message').html(
+                        `<strong>Selected check-in time is unavailable.</strong><br>
+                 All ${availableUnits} unit(s) are booked during:<br>${conflictText}`
+                    );
+                    $('#submitBtn').prop('disabled', true);
+                    return;
+                }
+
+                $('#error_message').text('');
+                $('#submitBtn').prop('disabled', false);
+            }
+        });
+    </script>
+
+    <!-- Guest Count -->
+    <script>
+        $(function() {
+
+        });
     </script>
 </body>
 
