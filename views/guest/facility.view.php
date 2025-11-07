@@ -92,7 +92,7 @@
                                                     <div class="form">
                                                         <select name="facility_id" id="facility_id" class="single-select w-100" required>
                                                             <?php foreach ($facilities as $facility): ?>
-                                                                <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" <?= $_GET["id"] == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?></option>
+                                                                <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" data-pax="<?= $facility["capacity"] ?>" <?= $_GET["id"] == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?></option>
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </div>
@@ -325,7 +325,30 @@
     <!-- Guest Count -->
     <script>
         $(function() {
+            const capacity = () => parseInt($("#facility_id option:selected").data("pax"));
+            const changeMax = (cap) => $('#guest_count').attr('max', cap);
 
+            const changeFacPax = () => {
+                changeMax(capacity());
+                $("#guest_count").val(capacity());
+            };
+
+            $("#facility_id").on('change', changeFacPax);
+
+            $("#guest_count, #facility_id").on('change blur', () => {
+                $('#error_message').text('');
+                $('#submitBtn').prop('disabled', false);
+
+                const count = $('#guest_count').val();
+
+                if (count > capacity()) {
+                    $('#error_message').text(`Guest count exceeds facility capacity: ${capacity()}`);
+                    $('#submitBtn').prop('disabled', true);
+                    return;
+                }
+            });
+
+            changeFacPax();
         });
     </script>
 </body>
