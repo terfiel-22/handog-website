@@ -188,7 +188,7 @@
                                             ?>
                                                 <div class="swiper-slide">
                                                     <div class="service-image">
-                                                        <img src="<?= handleFilePath($exclusiveImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $exclusive["name"] ?>">
+                                                        <img src="<?= handleFilePath($exclusiveImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $exclusive["name"] ?>" class="fixed-height-img">
                                                     </div>
                                                 </div>
                                             <?php endforeach; ?>
