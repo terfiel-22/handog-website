@@ -31,6 +31,9 @@ class PromoForm extends Form
         if (!isset($facilities) || !Validator::not_empty_array($facilities)) {
             $this->errors["facilities"] = "Atleast one facility is required.";
         }
+        if (!isset($discount_type)) {
+            $this->errors["discount_type"] = "Discount type is required.";
+        }
         if (!Validator::in_options($is_active, YesNo::toArray())) {
             $this->errors["is_active"] = "Please select a valid option.";
         }

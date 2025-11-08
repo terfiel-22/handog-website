@@ -6,6 +6,7 @@ use Http\Models\Promo;
 use Http\Models\PromoFacility;
 
 PromoForm::validate($_POST);
+
 $facilities = $_POST["facilities"];
 unset($_POST["facilities"]);
 $promo_id = App::resolve(Promo::class)->createPromo($_POST);

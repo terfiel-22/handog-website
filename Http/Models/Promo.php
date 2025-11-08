@@ -20,8 +20,8 @@ class Promo
     {
         return $this->db->query(
             "INSERT INTO 
-                promos(title,description,discount_value,start_date,end_date,is_active) 
-            VALUES (:title,:description,:discount_value,:start_date,:end_date,:is_active)",
+                promos(title,description,discount_value,start_date,end_date,discount_type,is_active) 
+            VALUES (:title,:description,:discount_value,:start_date,:end_date,:discount_type,:is_active)",
             $attributes
         )->id();
     }
@@ -84,6 +84,7 @@ class Promo
                 discount_value = :discount_value,
                 start_date = :start_date,
                 end_date = :end_date,
+                discount_type = :discount_type,
                 is_active = :is_active
             WHERE id = :id",
             $attributes

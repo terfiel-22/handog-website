@@ -81,7 +81,7 @@ $pageName = "Add Promo"
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-4">
                             <label class="form-label" for="facilities">Applicable To</label>
                             <select name="facilities[]" id="facilities" class="multi-select form-select" multiple="multiple">
                                 <?php foreach ($facilities as $facility): ?>
@@ -97,7 +97,35 @@ $pageName = "Add Promo"
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-4">
+                            <label class="form-label">
+                                Discount Type
+                            </label>
+                            <div class="d-flex align-items-center flex-wrap gap-28">
+                                <?php foreach (\Http\Enums\DiscountType::toArray() as $discount_type): ?>
+                                    <div class="form-check checked-primary d-flex align-items-center gap-2">
+                                        <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="discount_type"
+                                            id="discount_type_<?= $discount_type ?>"
+                                            value="<?= $discount_type ?>"
+                                            <?= old('discount_type') == $discount_type ? "checked" : "" ?>>
+                                        <label
+                                            class="form-check-label line-height-1 fw-medium text-secondary-light"
+                                            for="discount_type_<?= $discount_type ?>">
+                                            <?= ucfirst($discount_type) ?>
+                                        </label>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <?php if (isset($errors["discount_type"])) : ?>
+                                <div class="error-text">
+                                    <?= $errors["discount_type"] ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="col-12 col-md-4">
                             <label class="form-label" for="is_active">Is Active</label>
                             <select name="is_active" id="is_active" class="form-select">
                                 <?php foreach (\Http\Enums\YesNo::toArray() as $is_active): ?>

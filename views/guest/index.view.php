@@ -29,7 +29,7 @@
                             <div class="text">
                                 <img src="/assets/guest/img/home-1/star.png" alt="img">
                             </div>
-                            <div class="text"><?= $promo["description"] ?></div>
+                            <div class="text"><?= $promo["title"] ?></div>
                             <div class="text">
                                 <img src="/assets/guest/img/home-1/star.png" alt="img">
                             </div>
