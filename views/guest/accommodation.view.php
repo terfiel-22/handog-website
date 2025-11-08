@@ -24,6 +24,65 @@
         'pageName' => "Accommodation"
     ]) ?>
 
+    <!-- Facilities' Tabs -->
+    <section class="gt-why-choose-us-section-2 section-padding fix">
+        <div class="gt-choose-us-shape">
+            <img src="/assets/guest/img/home-2/choose-us/Vector-01.png" alt="img">
+        </div>
+        <div class="container">
+            <div class="gt-section-title-area">
+                <div class="gt-section-title">
+                    <h6 class="wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                        <img src="/assets/guest/img/sub-left.svg" alt="img">
+                        Tropical vibes, world-class facilities
+                    </h6>
+                    <h2 class="wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                        Facilities
+                    </h2>
+                </div>
+            </div>
+            <!-- Tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link tab-title active" data-bs-toggle="tab" data-bs-target="#cottage" type="button" role="tab">
+                        Cottages
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link tab-title" data-bs-toggle="tab" data-bs-target="#room" type="button" role="tab">
+                        Rooms
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link tab-title" data-bs-toggle="tab" data-bs-target="#event_hall" type="button" role="tab">
+                        Event Hall
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link tab-title" data-bs-toggle="tab" data-bs-target="#exclusive" type="button" role="tab">
+                        Exclusive
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content pt-4">
+                <div class="tab-pane fade show active" id="cottage" role="tabpanel">
+                    <p>Relax by our crystal-clear infinity pool with scenic views.</p>
+                </div>
+                <div class="tab-pane fade" id="room" role="tabpanel">
+                    <p>Enjoy fresh dining options crafted by top chefs.</p>
+                </div>
+                <div class="tab-pane fade" id="event_hall" role="tabpanel">
+                    <p>Experience pure rejuvenation at our full-service spa.</p>
+                </div>
+                <div class="tab-pane fade" id="exclusive" role="tabpanel">
+                    <p>Stay in modern, cozy rooms designed for comfort and style.</p>
+                </div>
+            </div>
+            <!-- End Tabs -->
+        </div>
+    </section>
+
     <!-- GT Cottages Section Start -->
     <section class="gt-why-choose-us-section-2 section-padding fix">
         <div class="gt-choose-us-shape">

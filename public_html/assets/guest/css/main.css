@@ -7435,3 +7435,17 @@ span {
 #prevBtn, #nextBtn, #closeBtn {
   z-index: 10002;
 }
+
+/* Tabs */ 
+.tab-title {
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  color: var(--gt-theme);
+  font-family: "Gilda Display", sans-serif;
+  position: relative;
+  display: flex;
+  margin-bottom: 25px;
+  gap: 10px;
+}
