@@ -4,6 +4,7 @@ namespace Http\Helpers;
 
 use Core\App;
 use DateTime;
+use Http\Enums\DiscountType;
 use Http\Enums\GuestType;
 use Http\Enums\ReservationTimeRange;
 use Http\Enums\TimeSlot;
@@ -42,7 +43,8 @@ class ReservationHelper
 
             if (in_array((int) $facilityId, $promoFacilities)) {
                 $discountValue = (float) $promo['discount_value'];
-                $discountedRate = $initialRate - ($initialRate * ($discountValue / 100));
+                $discountedValue = $promo['discount_type'] == DiscountType::PERCENTAGE_OFF ? ($initialRate * ($discountValue / 100)) : $discountValue;
+                $discountedRate = max(0, $initialRate - $discountedValue);
                 break;
             }
         }
