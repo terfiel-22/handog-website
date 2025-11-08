@@ -495,33 +495,38 @@ $pageName = "Reservations"
                 let $container = $("#guest-list");
                 $container.empty(); // clear old fields
 
+                // Inject PHP
                 let oldValues = <?= json_encode(old('guests', [])) ?>;
 
                 if (count > 0) {
                     for (let i = 0; i < count; i++) {
                         let fieldGroup = `
-                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s"> 
-                            <label for"guests[${i}][guest_name]">Guest ${i + 1} Name</label>
-                            <div class="form-clt">
-                                <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Guest Name" value="${oldValues[i]?.guest_name ?? ''}" required>
-                            </div>
-                        </div> 
-                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s"> 
-                            <label for"guests[${i}][guest_age]">Age</label>
-                            <div class="form-clt">
-                                <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" placeholder="Guest Age" value="${oldValues[i]?.guest_age ?? ''}" required>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s"> 
-                            <label for="guests[${i}][senior_pwd]">Senior/PWD</label> 
-                            <div class="form-clt">
-                                <select name="guests[${i}][senior_pwd]" id="guests[${i}][senior_pwd]" class="single-select w-100"> 
-                                    <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
-                                        <option value="<?= $yesNo ?>" ${(oldValues[i]?.senior_pwd ?? "") == "<?= $yesNo ?>" ? "selected" : ""}><?= ucfirst($yesNo) ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                        <p class="lead">Guest ${i + 1}</p>
+                        <div class="col-12 row py-2 gap-1"> 
+                            <div class="col-12 wow fadeInUp" data-wow-delay=".3s"> 
+                                <label for"guests[${i}][guest_name]">Name</label>
+                                <div class="form-clt">
+                                    <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Name" value="${oldValues[i]?.guest_name ?? ''}" class="form-control" required>
+                                </div>
                             </div> 
+                            <div class="col-12 wow fadeInUp" data-wow-delay=".3s"> 
+                                <label for"guests[${i}][guest_age]">Age</label>
+                                <div class="form-clt">
+                                    <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" placeholder="Age" value="${oldValues[i]?.guest_age ?? ''}" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-12 wow fadeInUp" data-wow-delay=".3s"> 
+                                <label for="guests[${i}][senior_pwd]">Senior/PWD</label> 
+                                <div class="form-clt">
+                                    <select name="guests[${i}][senior_pwd]" id="guests[${i}][senior_pwd]" class="single-select form-select w-100"> 
+                                        <?php foreach (\Http\Enums\YesNo::toArray() as $yesNo): ?>
+                                            <option value="<?= $yesNo ?>" ${(oldValues[i]?.senior_pwd ?? "") == "<?= $yesNo ?>" ? "selected" : ""}><?= ucfirst($yesNo) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div> 
+                            </div>
                         </div>
+                        <hr/>
                         `;
                         $container.append(fieldGroup);
                     }
@@ -550,112 +555,127 @@ $pageName = "Reservations"
 
     <!-- Generate Total Rate -->
     <script>
-        $(document).ready(function() {
-            // Inject PHP rates
+        $(function() {
+            // --- Injected from PHP ---
             const rates = <?= json_encode($rates) ?>;
+            const promos = <?= json_encode($promos) ?>;
+            const discountTypes = <?= json_encode(\Http\Enums\DiscountType::toArray()) ?>;
+            const reservationTimeRanges = <?= json_encode(\Http\Enums\ReservationTimeRange::toArray()) ?>;
+            const yesNo = <?= json_encode(\Http\Enums\YesNo::toArray()) ?>;
+            const guestType = <?= json_encode(\Http\Enums\GuestType::toArray()) ?>;
+            const timeSlots = <?= json_encode(\Http\Enums\TimeSlot::toArray()) ?>;
+
+            // ---------------------------------------------------------
+            // Helpers
+            // ---------------------------------------------------------
 
             const isDaySlot = (checkIn) => {
-                let checkDate = new Date(checkIn);
-                if (isNaN(checkDate)) return null;
-
-                let hour = checkDate.getHours();
+                const d = new Date(checkIn);
+                if (isNaN(d)) return null;
+                const hour = d.getHours();
                 return hour >= 6 && hour < 18;
-            }
+            };
+
+            const getFacilityRateByTimeRange = () => {
+                const facilityEl = $("#facility option:selected");
+                const timeRange = $("#time_range").val() || reservationTimeRanges.RESERVE_8HRS;
+
+                const rateMap = {
+                    [reservationTimeRanges.RESERVE_8HRS]: "rate-8hrs",
+                    [reservationTimeRanges.RESERVE_12HRS]: "rate-12hrs",
+                    [reservationTimeRanges.RESERVE_1DAY]: "rate-1day",
+                };
+
+                const rateKey = rateMap[timeRange];
+                return parseFloat(facilityEl.data(rateKey)) || 0;
+            };
 
             const applyPromo = (facilityRate) => {
-                $('.discount-container').html('');
-                const promos = <?= json_encode($promos) ?>;
-                const facilityId = parseInt($('#facility').val(), 10);
+                $(".discount-container").empty();
 
-                for (let index = 0; index < promos.length; index++) {
-                    const promo = promos[index];
-                    const promoFacilities = promo.facilities.split(',').map(Number);
-                    const hasFacility = promoFacilities.includes(facilityId);
+                const facilityId = Number($("#facility").val());
 
-                    if (hasFacility) {
-                        const discountValue = parseFloat(promo.discount_value);
-                        const discountedRate = facilityRate - (facilityRate * (discountValue / 100));
-                        $('.discount-container').html(`
-                        <span class="badge bg-primary">
-                            ${promo.title}
-                        </span>
-                        `);
-                        return discountedRate;
-                    }
+                for (const promo of promos) {
+                    const promoFacilities = promo.facilities.split(",").map(Number);
+                    if (!promoFacilities.includes(facilityId)) continue;
+
+                    const discountValue = parseFloat(promo.discount_value);
+                    const isPercent = promo.discount_type == discountTypes.PERCENTAGE_OFF;
+
+                    const discountedValue = isPercent ?
+                        facilityRate * (discountValue / 100) :
+                        discountValue;
+
+                    const discountedRate = Math.max(0, facilityRate - discountedValue);
+
+                    $(".discount-container").html(`
+                        <span class="badge bg-primary">${promo.title}</span>
+                    `);
+
+                    return discountedRate;
                 }
 
                 return facilityRate;
             };
 
-            function computeTotal() {
-                let total = 0;
+            const computeGuestRate = (guestIndex, timeSlot) => {
+                const age = Number($(`[name='guests[${guestIndex}][guest_age]']`).val());
+                const isAdult = age >= 10;
+                const isSenior = $(`[name='guests[${guestIndex}][senior_pwd]']`).val() === yesNo.YES;
 
-                // --- Time range (8hrs/12hrs/1day) for getting facility rate ---
-                const reservationTimeRanges = <?= json_encode(\Http\Enums\ReservationTimeRange::toArray()) ?>;
-                const timeRange = $("#time_range").val() || reservationTimeRanges.RESERVE_8HRS;
-                // --- Facility rate based on time_range ---
-                let facilityRate = 0;
-                if (timeRange === reservationTimeRanges.RESERVE_8HRS) {
-                    facilityRate = parseFloat($("#facility option:selected").data("rate-8hrs")) || 0;
-                } else if (timeRange === reservationTimeRanges.RESERVE_12HRS) {
-                    facilityRate = parseFloat($("#facility option:selected").data("rate-12hrs")) || 0;
-                } else if (timeRange === reservationTimeRanges.RESERVE_1DAY) {
-                    facilityRate = parseFloat($("#facility option:selected").data("rate-1day")) || 0;
+                const rateKey = isAdult ? `adult_rate_${timeSlot}` : `kid_rate_${timeSlot}`;
+                let rate = parseFloat(rates[rateKey]) || 0;
+
+                if (isSenior) {
+                    const discountPercent = parseFloat(rates.senior_pwd_discount) || 0;
+                    rate -= rate * (discountPercent / 100);
+                    rate = Math.max(0, rate);
                 }
 
-                // -- Promos 
-                const promoRate = applyPromo(facilityRate);
-                total += promoRate;
+                return rate;
+            };
 
-                // --- Time slot (day/night) for per-guest computation ---
-                const yesNo = <?= json_encode(\Http\Enums\YesNo::toArray()) ?>;
-                const guestType = <?= json_encode(\Http\Enums\GuestType::toArray()) ?>;
-                const timeSlots = <?= json_encode(\Http\Enums\TimeSlot::toArray()) ?>;
-                const timeSlot = isDaySlot($("#check_in").val()) ? timeSlots.DAY : timeSlots.NIGHT;
+            // ---------------------------------------------------------
+            // Main calculator
+            // ---------------------------------------------------------
+
+            const computeTotal = () => {
+                let total = 0;
+
+                // Facility Rate
+                const rawFacilityRate = getFacilityRateByTimeRange();
+                const facilityRate = applyPromo(rawFacilityRate);
+                total += facilityRate;
+
+                // Time slot (day/night)
+                const checkIn = $("#check_in").val();
+                const timeSlot = isDaySlot(checkIn) ? timeSlots.DAY : timeSlots.NIGHT;
                 $("#time_slot").val(timeSlot);
-                // --- Guest rates (adult/kid per day/night) ---
-                $("#guest-list").find("[name*='[guest_age]']").each(function() {
-                    const guestIndex = $(this).attr("name").match(/\d+/)[0]; // extract index
-                    const age = $(`[name='guests[${guestIndex}][guest_age]']`).val();
-                    const type = age >= 10 ? guestType.ADULT : guestType.KID;
-                    const seniorPwd = $(`[name='guests[${guestIndex}][senior_pwd]']`).val();
 
-                    let rate = 0;
-                    if (type === guestType.ADULT) {
-                        rate = parseFloat(rates[`adult_rate_${timeSlot}`]) || 0;
-                    } else if (type === guestType.KID) {
-                        rate = parseFloat(rates[`kid_rate_${timeSlot}`]) || 0;
-                    }
-
-                    if (seniorPwd === yesNo.YES) {
-                        const discountPercent = parseFloat(rates.senior_pwd_discount) || 0;
-                        const discount = rate * (discountPercent / 100);
-                        rate -= discount;
-
-                        // Prevent negative rate
-                        if (rate < 0) {
-                            rate = 0;
-                        }
-                    }
-
-                    total += rate;
+                // Guests
+                $("#guest-list [name*='[guest_age]']").each(function() {
+                    const guestIndex = this.name.match(/\d+/)[0];
+                    total += computeGuestRate(guestIndex, timeSlot);
                 });
 
-                // --- Videoke rent ---
+                // Videoke
                 if ($("#rent_videoke").val() === yesNo.YES) {
                     total += parseFloat(rates.videoke_rent) || 0;
                 }
 
-                // --- Display total ---
+                // Output
                 $("#total_rate").val(total.toFixed(2));
-                $("#booking_deposit").val((total / 2).toFixed(2));
-            }
+            };
 
-            // Recompute whenever form values change
-            $(document).on("change input", "#time_range, #check_in, #rent_videoke, #facility, #guest-list input", computeTotal);
+            // ---------------------------------------------------------
+            // Events
+            // ---------------------------------------------------------
 
-            // Initial compute
-            computeTotal();
+            $(document).on(
+                "change input",
+                "#time_range, #check_in, #rent_videoke, #facility, #guest-list input",
+                computeTotal
+            );
         });
     </script>
 
