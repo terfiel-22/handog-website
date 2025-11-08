@@ -44,6 +44,7 @@ $pageName = "Promos"
                                     <th scope="col">Discount Value</th>
                                     <th scope="col">Start Date</th>
                                     <th scope="col">End Date</th>
+                                    <th scope="col">Discount Type</th>
                                     <th scope="col">Is Active</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -60,6 +61,7 @@ $pageName = "Promos"
                                         <td><?= $promo['discount_value'] ?></td>
                                         <td><?= $promo['start_date'] ?></td>
                                         <td><?= $promo['end_date'] ?></td>
+                                        <td><?= ucfirst($promo['discount_type']) ?></td>
                                         <td><?= ucfirst($promo['is_active']) ?></td>
                                         <td>
                                             <div class="d-flex align-items-center gap-2">
