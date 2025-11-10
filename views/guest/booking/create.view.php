@@ -504,9 +504,11 @@
             const capacity = () => parseInt($("#facility option:selected").data("pax"));
             const changeMax = (cap) => $('#guest_count').attr('max', cap);
             const changeFacPax = () => {
-                changeMax(capacity());
-                $("#guest_count").val(capacity());
-                generateGuestFields(capacity());
+                const currentCap = <?= $_GET["guest_count"] ?? 0 ?>;
+                let count = currentCap > 0 ? currentCap : capacity();
+                changeMax(count);
+                $("#guest_count").val(count);
+                generateGuestFields(count);
             };
             const generateGuestFields = (count) => {
                 let $container = $("#guest-list");
