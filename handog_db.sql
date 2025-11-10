@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2025 at 06:37 PM
+-- Generation Time: Nov 10, 2025 at 08:07 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -251,7 +251,8 @@ INSERT INTO `payments` (`id`, `reservation_id`, `amount`, `payment_method`, `pay
 (2, 2, 250.00, 'gcash', 'paid', 'deposit', 'link_wK4meH9QbE1eHWZoS2WUSfE6', '2025-10-22 15:37:51', '2025-10-22 23:09:57'),
 (6, 2, 250.00, NULL, 'paid', 'deposit', NULL, '2025-10-22 20:25:58', '2025-10-22 17:07:13'),
 (8, 4, 1620.00, 'cash', 'paid', 'full', NULL, '2025-10-29 02:48:32', '2025-10-29 02:48:32'),
-(9, 5, 620.00, 'gcash', 'paid', 'deposit', 'link_6FtM7bTBVCBsf5UTwATmjvHv', '2025-11-09 02:05:01', '2025-11-09 02:05:38');
+(9, 5, 620.00, 'gcash', 'paid', 'deposit', 'link_6FtM7bTBVCBsf5UTwATmjvHv', '2025-11-09 02:05:01', '2025-11-09 02:05:38'),
+(10, 6, 1050.00, 'gcash', 'paid', 'deposit', 'link_dW7aFf1BUvSf8WVDio2fa7J9', '2025-11-11 03:01:02', '2025-11-11 03:01:51');
 
 -- --------------------------------------------------------
 
@@ -318,6 +319,7 @@ CREATE TABLE `reservations` (
   `check_out` datetime DEFAULT NULL,
   `guest_count` int(11) NOT NULL DEFAULT 1,
   `rent_videoke` enum('yes','no') NOT NULL DEFAULT 'no',
+  `additional_bed_count` int(11) NOT NULL DEFAULT 0,
   `total_price` decimal(10,2) DEFAULT NULL,
   `status` enum('pending','confirmed','canceled','completed') DEFAULT 'pending',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -328,10 +330,11 @@ CREATE TABLE `reservations` (
 -- Dumping data for table `reservations`
 --
 
-INSERT INTO `reservations` (`id`, `facility_id`, `contact_person`, `contact_no`, `contact_email`, `contact_address`, `check_in`, `time_range`, `check_out`, `guest_count`, `rent_videoke`, `total_price`, `status`, `created_at`, `updated_at`) VALUES
-(2, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-20 12:00:00', '12-Hours', '2025-11-21 00:00:00', 2, 'no', 1240.00, 'confirmed', '2025-10-21 07:37:51', '2025-11-08 18:03:03'),
-(4, 8, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-25 12:00:00', '12-Hours', '2025-11-26 00:00:00', 1, 'no', 1620.00, 'confirmed', '2025-10-28 18:48:32', '2025-11-07 16:48:16'),
-(5, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-09 12:00:00', '12-Hours', '2025-11-10 00:00:00', 2, 'no', 1240.00, 'pending', '2025-11-08 18:05:01', '2025-11-08 18:05:01');
+INSERT INTO `reservations` (`id`, `facility_id`, `contact_person`, `contact_no`, `contact_email`, `contact_address`, `check_in`, `time_range`, `check_out`, `guest_count`, `rent_videoke`, `additional_bed_count`, `total_price`, `status`, `created_at`, `updated_at`) VALUES
+(2, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-20 12:00:00', '12-Hours', '2025-11-21 00:00:00', 2, 'no', 0, 1240.00, 'confirmed', '2025-10-21 07:37:51', '2025-11-08 18:03:03'),
+(4, 8, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-25 12:00:00', '12-Hours', '2025-11-26 00:00:00', 1, 'no', 0, 1620.00, 'confirmed', '2025-10-28 18:48:32', '2025-11-07 16:48:16'),
+(5, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-09 12:00:00', '12-Hours', '2025-11-10 00:00:00', 2, 'no', 0, 1240.00, 'pending', '2025-11-08 18:05:01', '2025-11-08 18:05:01'),
+(6, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-11 00:00:00', '12-Hours', '2025-11-11 12:00:00', 2, 'no', 2, 2300.00, 'pending', '2025-11-10 19:01:02', '2025-11-10 19:02:45');
 
 -- --------------------------------------------------------
 
@@ -359,7 +362,9 @@ INSERT INTO `reservation_guests` (`id`, `reservation_id`, `guest_name`, `guest_a
 (16, 2, 'Taki Fimito', 22, 'adult', 'no', '2025-11-08 18:03:03', '2025-11-08 18:03:03'),
 (17, 2, 'Tafi Fimito', 22, 'adult', 'no', '2025-11-08 18:03:03', '2025-11-08 18:03:03'),
 (18, 5, 'Taki Fimito', 22, 'adult', 'no', '2025-11-08 18:05:01', '2025-11-08 18:05:01'),
-(19, 5, 'Tafi Fimito', 22, 'adult', 'no', '2025-11-08 18:05:01', '2025-11-08 18:05:01');
+(19, 5, 'Tafi Fimito', 22, 'adult', 'no', '2025-11-08 18:05:01', '2025-11-08 18:05:01'),
+(22, 6, 'Taki Fimito', 22, 'adult', 'no', '2025-11-10 19:02:45', '2025-11-10 19:02:45'),
+(23, 6, 'Tafi Fimito', 22, 'adult', 'no', '2025-11-10 19:02:46', '2025-11-10 19:02:46');
 
 -- --------------------------------------------------------
 
@@ -403,7 +408,7 @@ CREATE TABLE `st_rates` (
 --
 
 INSERT INTO `st_rates` (`id`, `adult_rate_day`, `kid_rate_day`, `adult_rate_night`, `kid_rate_night`, `senior_pwd_discount`, `videoke_rent`, `additional_bed_rate`) VALUES
-(1, 120.00, 80.00, 200.00, 100.00, 0.20, 1500.00, 20.00);
+(1, 120.00, 80.00, 200.00, 100.00, 0.20, 1500.00, 200.00);
 
 -- --------------------------------------------------------
 
@@ -655,7 +660,7 @@ ALTER TABLE `gallery_images`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `promos`
@@ -673,13 +678,13 @@ ALTER TABLE `promo_facilities`
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `reservation_guests`
 --
 ALTER TABLE `reservation_guests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `st_logos`

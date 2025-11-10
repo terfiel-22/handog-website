@@ -66,6 +66,8 @@ class Reservation
             res.id=p.reservation_id
         GROUP BY
             res.id
+        ORDER BY 
+            created_at DESC
         ")->get();
     }
 

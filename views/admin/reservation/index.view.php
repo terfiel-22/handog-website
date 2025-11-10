@@ -101,7 +101,9 @@ $pageName = "Reservations"
     <?php view("admin/shared/delete-modal.php") ?>
 
     <script>
-        let table = new DataTable('#dataTable');
+        let table = new DataTable('#dataTable', {
+            ordering: false
+        });
     </script>
 
 </body>
