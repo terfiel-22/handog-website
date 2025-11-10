@@ -45,7 +45,7 @@
                 <?php foreach ($folders as $folder):
                     $images = explode(',', $folder['images']);
                 ?>
-                    <div class="col-12 col-md-4 col-lg-3">
+                    <div class="col-12 col-md-4">
                         <div class="gallery-folder"
                             data-images='<?= json_encode(array_map(fn($img) => handleFilePath($img, '/assets/guest/img/home-2/choose-us/choose-us-01.jpg'), $images)) ?>'>
                             <img
