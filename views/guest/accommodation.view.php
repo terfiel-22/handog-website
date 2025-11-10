@@ -34,9 +34,6 @@
                         <img src="/assets/guest/img/sub-left.svg" alt="img" />
                         Explore
                     </h6>
-                    <h2 class="wow fadeInUp" data-wow-delay=".2s">
-                        Facilities
-                    </h2>
                 </div>
             </div>
 
@@ -68,32 +65,47 @@
                 <div class="tab-content pt-4">
                     <!-- Cottages -->
                     <div class="tab-pane fade show active" id="cottage" role="tabpanel">
-                        <div class="row">
-                            <?php foreach ($cottages as $cottage):
-                                $cottageImages = explode(',', $cottage['images']);
-                            ?>
-                                <div
-                                    class="col wow fadeInUp"
-                                    data-wow-delay=".3s">
-                                    <div class="gt-why-choose-us-images">
-                                        <div class="gt-choose-us-image">
-                                            <div class="img-container"
-                                                data-images='<?= json_encode(array_map(fn($img) => handleFilePath($img, '/assets/guest/img/home-2/choose-us/choose-us-01.jpg'), $cottageImages)) ?>'>
-                                                <img
-                                                    src="<?= handleFilePath($cottageImages[0], "/assets/guest/img/home-2/choose-us/choose-us-01.jpg") ?>"
-                                                    alt="<?= $cottage["name"] ?>"
-                                                    class="fixed-height-img" />
-                                            </div>
-                                            <div class="gt-content">
-                                                <h3><?= $cottage["name"] ?></h3>
-                                                <p>
-                                                    <?= $cottage["description"] ?>
-                                                </p>
+                        <div class="gt-room-explore-wrapper">
+                            <div class="swiper gt-cottage-explore-slider">
+                                <div class="swiper-wrapper">
+                                    <?php foreach ($cottages as $cottage):
+                                        $cottageImages = explode(',', $cottage['images']); ?>
+                                        <div class="swiper-slide">
+                                            <div
+                                                data-images='<?= json_encode(array_map(fn($img) => handleFilePath($img, '/assets/guest/img/home-2/choose-us/choose-us-01.jpg'), $cottageImages)) ?>'
+                                                class="gt-room-explore-items bg-cover h-40 img-container"
+                                                style=" background-image: url('<?= handleFilePath($cottageImages[0], "/assets/guest/img/home-2/room-explore/01.jpg") ?>');">
+                                                <div class="row justify-content-end">
+                                                    <div class="col-xl-5 col-lg-6">
+                                                        <div class="gt-room-exlore-box-items">
+                                                            <span class="gt-rate-title"> Rates From <?= moneyFormat($cottage['rate_12hrs']) ?> </span>
+                                                            <h3>
+                                                                <a href="/facility?id=<?= $cottage['id'] ?>"><?= $cottage['name'] ?></a>
+                                                            </h3>
+                                                            <p>
+                                                                <?= $cottage['description'] ?>
+                                                            </p>
+                                                            <ul>
+                                                                <li>
+                                                                    <span>Capacity</span>
+                                                                    : <?= $cottage['capacity'] ?> Persons
+                                                                </li>
+                                                                <?php if (!empty($cottage['amenities'])): ?>
+                                                                    <li>
+                                                                        <span>Amenities</span>
+                                                                        : <?= $cottage['amenities'] ?>
+                                                                    </li>
+                                                                <?php endif; ?>
+                                                            </ul>
+                                                            <a href="/facility?id=<?= $cottage['id'] ?>" class="gt-theme-btn">VIEW DETAILS</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    <?php endforeach; ?>
                                 </div>
-                            <?php endforeach; ?>
+                            </div>
                         </div>
                     </div>
 
@@ -124,12 +136,14 @@
                                                                     <span>Capacity</span>
                                                                     : <?= $room['capacity'] ?> Persons
                                                                 </li>
-                                                                <li>
-                                                                    <span>Amenities</span>
-                                                                    : <?= $room['amenities'] ?>
-                                                                </li>
+                                                                <?php if (!empty($room['amenities'])): ?>
+                                                                    <li>
+                                                                        <span>Amenities</span>
+                                                                        : <?= $room['amenities'] ?>
+                                                                    </li>
+                                                                <?php endif; ?>
                                                             </ul>
-                                                            <a href="/facility?id=<?= $room['id'] ?>" class="gt-theme-btn">ROOM DETAILS</a>
+                                                            <a href="/facility?id=<?= $room['id'] ?>" class="gt-theme-btn">VIEW DETAILS</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -168,10 +182,12 @@
                                                                     <span>Capacity</span>
                                                                     : <?= $eventHall['capacity'] ?> Persons
                                                                 </li>
-                                                                <li>
-                                                                    <span>Amenities</span>
-                                                                    : <?= $eventHall['amenities'] ?>
-                                                                </li>
+                                                                <?php if (!empty($eventHall['amenities'])): ?>
+                                                                    <li>
+                                                                        <span>Amenities</span>
+                                                                        : <?= $eventHall['amenities'] ?>
+                                                                    </li>
+                                                                <?php endif; ?>
                                                             </ul>
                                                             <a href="/facility?id=<?= $eventHall['id'] ?>" class="gt-theme-btn">VIEW DETAILS</a>
                                                         </div>
@@ -212,10 +228,12 @@
                                                                     <span>Capacity</span>
                                                                     : <?= $exclusive['capacity'] ?> Persons
                                                                 </li>
-                                                                <li>
-                                                                    <span>Amenities</span>
-                                                                    : <?= $exclusive['amenities'] ?>
-                                                                </li>
+                                                                <?php if (!empty($exclusive['amenities'])): ?>
+                                                                    <li>
+                                                                        <span>Amenities</span>
+                                                                        : <?= $exclusive['amenities'] ?>
+                                                                    </li>
+                                                                <?php endif; ?>
                                                             </ul>
                                                             <a href="/facility?id=<?= $exclusive['id'] ?>" class="gt-theme-btn">VIEW DETAILS</a>
                                                         </div>

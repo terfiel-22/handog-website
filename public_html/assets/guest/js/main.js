@@ -133,6 +133,39 @@
       });
     }
 
+    if ($(".gt-cottage-explore-slider").length > 0) {
+      const gtCottageExploreSlider = new Swiper(".gt-cottage-explore-slider", {
+        spaceBetween: 30,
+        speed: 1300,
+        loop: true,
+        autoplay: {
+          delay: 2000,
+          disableOnInteraction: false,
+        },
+        navigation: {
+          nextEl: ".array-next",
+          prevEl: ".array-prev",
+        },
+        breakpoints: {
+          1199: {
+            slidesPerView: 2,
+          },
+          991: {
+            slidesPerView: 1,
+          },
+          767: {
+            slidesPerView: 1,
+          },
+          575: {
+            slidesPerView: 1,
+          },
+          0: {
+            slidesPerView: 1,
+          },
+        },
+      });
+    }
+
     if ($(".gt-room-explore-slider").length > 0) {
       const gtRoomExploreSlider = new Swiper(".gt-room-explore-slider", {
         spaceBetween: 30,
@@ -200,36 +233,39 @@
     }
 
     if ($(".gt-exclusive-explore-slider").length > 0) {
-      const gtHallExploreSlider = new Swiper(".gt-exclusive-explore-slider", {
-        spaceBetween: 30,
-        speed: 1300,
-        loop: true,
-        autoplay: {
-          delay: 2000,
-          disableOnInteraction: false,
-        },
-        navigation: {
-          nextEl: ".array-next",
-          prevEl: ".array-prev",
-        },
-        breakpoints: {
-          1199: {
-            slidesPerView: 2,
+      const gtExclusiveExploreSlider = new Swiper(
+        ".gt-exclusive-explore-slider",
+        {
+          spaceBetween: 30,
+          speed: 1300,
+          loop: true,
+          autoplay: {
+            delay: 2000,
+            disableOnInteraction: false,
           },
-          991: {
-            slidesPerView: 1,
+          navigation: {
+            nextEl: ".array-next",
+            prevEl: ".array-prev",
           },
-          767: {
-            slidesPerView: 1,
+          breakpoints: {
+            1199: {
+              slidesPerView: 2,
+            },
+            991: {
+              slidesPerView: 1,
+            },
+            767: {
+              slidesPerView: 1,
+            },
+            575: {
+              slidesPerView: 1,
+            },
+            0: {
+              slidesPerView: 1,
+            },
           },
-          575: {
-            slidesPerView: 1,
-          },
-          0: {
-            slidesPerView: 1,
-          },
-        },
-      });
+        }
+      );
     }
 
     if ($(".room-slider-3").length > 0) {

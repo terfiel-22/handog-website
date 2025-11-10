@@ -1627,9 +1627,9 @@ span {
     height: 600px;
   }
 }
-.gt-room-explore-wrapper .gt-room-exlore-box-items {
+.gt-room-explore-wrapper .gt-room-exlore-box-items { 
   max-width: 410px;
-  max-height: 550px;
+  max-height: 530px;
   overflow-y: auto;
   background-color: var(--gt-white);
   padding: 32px;
@@ -7440,14 +7440,22 @@ span {
 
 /* Tabs */ 
 .tab-title {
-  font-size: 1.4rem;
+  font-size: 30px;
   font-weight: 400;
-  letter-spacing: 0.5px;
-  line-height: 1;
-  color: var(--gt-theme);
+  line-height: 134%;
+  letter-spacing: 0.5px; 
+  color: var(--gt-header);
   font-family: "Gilda Display", sans-serif;
   position: relative;
   display: flex;
   margin-bottom: 25px;
   gap: 10px;
+} 
+.tab-title.active { 
+  color: var(--gt-theme) !important;
+}
+@media (max-width: 575px) {
+  .tab-title {
+    font-size: 20px;
+  }
 }
