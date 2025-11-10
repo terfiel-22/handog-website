@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2025 at 05:47 PM
+-- Generation Time: Nov 10, 2025 at 11:12 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -90,7 +90,7 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `name`, `description`, `image`, `date`, `created_at`) VALUES
-(1, 'Silent Sanctuary x Sunkissed Lola', 'Get Ready for an Evening of Great Music and Don’t miss this rare opportunity to see Silent Sanctuary and Sunkissed Lola share the stage. Whether you’re a longtime fan or discovering their music for the first time, this concert promises to be a night to remember. Secure your tickets now and experience the magic of these two incredible bands live!', 'uploads/images/68ebcad0826f8_event1.png', '2025-11-30 16:00:00', '2025-10-12 23:27:12'),
+(1, 'Silent Sanctuary x Sunkissed Lola', 'Get Ready for an Evening of Great Music and Don’t miss this rare opportunity to see Silent Sanctuary and Sunkissed Lola share the stage. Whether you’re a longtime fan or discovering their music for the first time, this concert promises to be a night to remember. Secure your tickets now and experience the magic of these two incredible bands live!\n\nGet Ready for an Evening of Great Music and Don’t miss this rare opportunity to see Silent Sanctuary and Sunkissed Lola share the stage. Whether you’re a longtime fan or discovering their music for the first time, this concert promises to be a night to remember. Secure your tickets now and experience the magic of these two incredible bands live!\n\nGet Ready for an Evening of Great Music and Don’t miss this rare opportunity to see Silent Sanctuary and Sunkissed Lola share the stage. Whether you’re a longtime fan or discovering their music for the first time, this concert promises to be a night to remember. Secure your tickets now and experience the magic of these two incredible bands live!\n\nGet Ready for an Evening of Great Music and Don’t miss this rare opportunity to see Silent Sanctuary and Sunkissed Lola share the stage. Whether you’re a longtime fan or discovering their music for the first time, this concert promises to be a night to remember. Secure your tickets now and experience the magic of these two incredible bands live!', 'uploads/images/68ebcad0826f8_event1.png', '2025-11-30 16:00:00', '2025-10-12 23:27:12'),
 (3, 'Live Jam', 'The Filipino rock band that brought us many of our favorite songs like “Lunes,” “Jeepney” and “Gemini” will be bringing all the early-2000s feels alive, and then some, as they play some of their more recent hits from their double EP, Sinag/Tala.', 'uploads/images/68ebda8bc507b_event2.png', '2025-12-01 12:00:00', '2025-10-13 00:42:51');
 
 -- --------------------------------------------------------
@@ -250,7 +250,8 @@ CREATE TABLE `payments` (
 INSERT INTO `payments` (`id`, `reservation_id`, `amount`, `payment_method`, `payment_status`, `payment_type`, `payment_link`, `created_at`, `updated_at`) VALUES
 (2, 2, 250.00, 'gcash', 'paid', 'deposit', 'link_wK4meH9QbE1eHWZoS2WUSfE6', '2025-10-22 15:37:51', '2025-10-22 23:09:57'),
 (6, 2, 250.00, NULL, 'paid', 'deposit', NULL, '2025-10-22 20:25:58', '2025-10-22 17:07:13'),
-(8, 4, 1620.00, 'cash', 'paid', 'full', NULL, '2025-10-29 02:48:32', '2025-10-29 02:48:32');
+(8, 4, 1620.00, 'cash', 'paid', 'full', NULL, '2025-10-29 02:48:32', '2025-10-29 02:48:32'),
+(9, 5, 620.00, 'gcash', 'paid', 'deposit', 'link_6FtM7bTBVCBsf5UTwATmjvHv', '2025-11-09 02:05:01', '2025-11-09 02:05:38');
 
 -- --------------------------------------------------------
 
@@ -265,6 +266,7 @@ CREATE TABLE `promos` (
   `discount_value` decimal(10,2) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
+  `discount_type` enum('Percentage Off','Fixed Price') NOT NULL DEFAULT 'Percentage Off',
   `is_active` enum('yes','no') NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -274,9 +276,9 @@ CREATE TABLE `promos` (
 -- Dumping data for table `promos`
 --
 
-INSERT INTO `promos` (`id`, `title`, `description`, `discount_value`, `start_date`, `end_date`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, '20% OFF Halloween Promo', 'Enjoy 20% off all rooms this halloween', 20.00, '2025-10-26', '2025-11-02', 'yes', '2025-10-27 05:23:28', '2025-10-27 06:42:25'),
-(3, '“Escape to Paradise” Getaway', 'Enjoy 25% off your stay and experience', 25.00, '2025-10-30', '2025-11-30', 'yes', '2025-10-29 17:25:31', '2025-10-29 17:32:00');
+INSERT INTO `promos` (`id`, `title`, `description`, `discount_value`, `start_date`, `end_date`, `discount_type`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, '500 Pesos Off Family Weekend Escape', 'Treat the whole family to a relaxing weekend with complimentary breakfast and late checkout. Perfect for bonding and unwinding in a peaceful resort environment.', 500.00, '2025-11-08', '2025-11-09', 'Fixed Price', 'yes', '2025-11-08 07:49:59', '2025-11-08 07:59:04'),
+(2, 'November Splash Getaway', 'Enjoy the ultimate haloween escape with free access to all water amenities, including pools, slides, and kayaks. Book a minimum of 2 nights and receive a special discount on your entire stay.', 15.00, '2025-11-09', '2025-11-14', 'Percentage Off', 'yes', '2025-11-08 07:53:02', '2025-11-08 16:09:30');
 
 -- --------------------------------------------------------
 
@@ -295,10 +297,8 @@ CREATE TABLE `promo_facilities` (
 --
 
 INSERT INTO `promo_facilities` (`id`, `promo_id`, `facility_id`) VALUES
-(8, 1, 1),
-(9, 1, 9),
-(10, 3, 1),
-(11, 3, 2);
+(3, 1, 1),
+(5, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -329,8 +329,9 @@ CREATE TABLE `reservations` (
 --
 
 INSERT INTO `reservations` (`id`, `facility_id`, `contact_person`, `contact_no`, `contact_email`, `contact_address`, `check_in`, `time_range`, `check_out`, `guest_count`, `rent_videoke`, `total_price`, `status`, `created_at`, `updated_at`) VALUES
-(2, 9, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-07 00:00:00', '12-Hours', '2025-11-07 12:00:00', 1, 'no', 500.00, 'confirmed', '2025-10-21 07:37:51', '2025-10-28 18:09:22'),
-(4, 8, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-10-30 12:00:00', '12-Hours', '2025-10-31 00:00:00', 1, 'no', 1620.00, 'confirmed', '2025-10-28 18:48:32', '2025-10-28 18:48:32');
+(2, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-20 12:00:00', '12-Hours', '2025-11-21 00:00:00', 2, 'no', 1240.00, 'confirmed', '2025-10-21 07:37:51', '2025-11-08 18:03:03'),
+(4, 8, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-25 12:00:00', '12-Hours', '2025-11-26 00:00:00', 1, 'no', 1620.00, 'confirmed', '2025-10-28 18:48:32', '2025-11-07 16:48:16'),
+(5, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-09 12:00:00', '12-Hours', '2025-11-10 00:00:00', 2, 'no', 1240.00, 'pending', '2025-11-08 18:05:01', '2025-11-08 18:05:01');
 
 -- --------------------------------------------------------
 
@@ -354,8 +355,11 @@ CREATE TABLE `reservation_guests` (
 --
 
 INSERT INTO `reservation_guests` (`id`, `reservation_id`, `guest_name`, `guest_age`, `guest_type`, `senior_pwd`, `created_at`, `updated_at`) VALUES
-(11, 2, 'Taki Fimito', 22, 'adult', 'no', '2025-10-21 12:25:58', '2025-10-21 12:25:58'),
-(13, 4, 'Taki Fimito', 22, 'adult', 'no', '2025-10-28 18:48:32', '2025-10-28 18:48:32');
+(13, 4, 'Taki Fimito', 22, 'adult', 'no', '2025-10-28 18:48:32', '2025-10-28 18:48:32'),
+(16, 2, 'Taki Fimito', 22, 'adult', 'no', '2025-11-08 18:03:03', '2025-11-08 18:03:03'),
+(17, 2, 'Tafi Fimito', 22, 'adult', 'no', '2025-11-08 18:03:03', '2025-11-08 18:03:03'),
+(18, 5, 'Taki Fimito', 22, 'adult', 'no', '2025-11-08 18:05:01', '2025-11-08 18:05:01'),
+(19, 5, 'Tafi Fimito', 22, 'adult', 'no', '2025-11-08 18:05:01', '2025-11-08 18:05:01');
 
 -- --------------------------------------------------------
 
@@ -470,7 +474,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `image`, `password`, `salt`, `session_token`, `type`) VALUES
-(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$c6s3TkL1WXMvdSEsR.lv0ex8sUVrqgP4BjXIxsYzoDVHZsRQUy9gi', 'admin'),
+(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$1oSkeNqgwnUBdqLtHzKda.XISHqJJS.JpCfdGWmOwKrqqbKuMXTRm', 'admin'),
 (3, 'Taki Fimito', 'taki@gmail.com', 'uploads/images/690b97f142ae6_user-6.jpg', '$2y$10$zGG28ZLNG7uPR.xVtUJs5uxBWgkImEDl3bXIrB8frT1rBz7AMj5n2', '63d245335938eec0136d', NULL, 'staff'),
 (4, 'Tafi Fimito', 'tafi@gmail.com', 'uploads/images/690b9812ea878_user-4.jpg', '$2y$10$/IvWULzTu3XYrw4TU0UYbeTvKF24zKqOipe61PKgxC0HwbHXfaweu', '16d1de68659904d42b1d', NULL, 'admin');
 
@@ -650,31 +654,31 @@ ALTER TABLE `gallery_images`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `promos`
 --
 ALTER TABLE `promos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `promo_facilities`
 --
 ALTER TABLE `promo_facilities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `reservation_guests`
 --
 ALTER TABLE `reservation_guests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `st_logos`
