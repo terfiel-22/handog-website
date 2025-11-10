@@ -53,16 +53,19 @@ class Validator
             return false;
         }
 
-        if (!is_int($value + 0)) {
+        $num = $value + 0;
+
+        if (filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
             return false;
         }
 
-        if ($value < $min || $value > $max) {
+        if ($num < $min || $num > $max) {
             return false;
         }
 
         return true;
     }
+
 
 
     public static function money($value, int $min = 1, $max = INF): bool

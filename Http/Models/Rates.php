@@ -21,6 +21,6 @@ class Rates
 
     public function updateRates($attributes)
     {
-        $this->db->query("UPDATE st_rates SET adult_rate_day = :adult_rate_day, adult_rate_night = :adult_rate_night, kid_rate_day = :kid_rate_day, kid_rate_night = :kid_rate_night, senior_pwd_discount = :senior_pwd_discount, videoke_rent = :videoke_rent WHERE id = :id", $attributes);
+        $this->db->query("UPDATE st_rates SET adult_rate_day = :adult_rate_day, adult_rate_night = :adult_rate_night, kid_rate_day = :kid_rate_day, kid_rate_night = :kid_rate_night, senior_pwd_discount = :senior_pwd_discount, videoke_rent = :videoke_rent, additional_bed_rate=:additional_bed_rate WHERE id = :id", $attributes);
     }
 }

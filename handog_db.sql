@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2025 at 11:12 AM
+-- Generation Time: Nov 10, 2025 at 06:37 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -394,15 +394,16 @@ CREATE TABLE `st_rates` (
   `adult_rate_night` decimal(10,2) NOT NULL,
   `kid_rate_night` decimal(10,2) NOT NULL,
   `senior_pwd_discount` decimal(10,2) NOT NULL,
-  `videoke_rent` decimal(10,2) NOT NULL
+  `videoke_rent` decimal(10,2) NOT NULL,
+  `additional_bed_rate` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `st_rates`
 --
 
-INSERT INTO `st_rates` (`id`, `adult_rate_day`, `kid_rate_day`, `adult_rate_night`, `kid_rate_night`, `senior_pwd_discount`, `videoke_rent`) VALUES
-(1, 120.00, 80.00, 200.00, 100.00, 20.00, 1500.00);
+INSERT INTO `st_rates` (`id`, `adult_rate_day`, `kid_rate_day`, `adult_rate_night`, `kid_rate_night`, `senior_pwd_discount`, `videoke_rent`, `additional_bed_rate`) VALUES
+(1, 120.00, 80.00, 200.00, 100.00, 0.20, 1500.00, 20.00);
 
 -- --------------------------------------------------------
 
@@ -474,7 +475,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `image`, `password`, `salt`, `session_token`, `type`) VALUES
-(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$1oSkeNqgwnUBdqLtHzKda.XISHqJJS.JpCfdGWmOwKrqqbKuMXTRm', 'admin'),
+(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$DUajgO9wEGhHp.yKD/Ae2eNWnP7CE41z9azcL84kwHwnk3PCZmRE2', 'admin'),
 (3, 'Taki Fimito', 'taki@gmail.com', 'uploads/images/690b97f142ae6_user-6.jpg', '$2y$10$zGG28ZLNG7uPR.xVtUJs5uxBWgkImEDl3bXIrB8frT1rBz7AMj5n2', '63d245335938eec0136d', NULL, 'staff'),
 (4, 'Tafi Fimito', 'tafi@gmail.com', 'uploads/images/690b9812ea878_user-4.jpg', '$2y$10$/IvWULzTu3XYrw4TU0UYbeTvKF24zKqOipe61PKgxC0HwbHXfaweu', '16d1de68659904d42b1d', NULL, 'admin');
 
