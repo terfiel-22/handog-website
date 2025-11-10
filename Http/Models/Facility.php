@@ -92,15 +92,11 @@ class Facility
         return $this->db->query(
             "
             SELECT
-                fac.*,
-                fi.image
+                fac.*, 
+                GROUP_CONCAT(fi.image) AS images
             FROM facilities fac
             LEFT JOIN facility_images fi 
-                ON fi.id = (
-                    SELECT MIN(id) 
-                    FROM facility_images 
-                    WHERE facility_id = fac.id
-                )
+            ON fac.id =  fi.facility_id
             WHERE fac.type=:type
             GROUP BY fac.id;
             ",

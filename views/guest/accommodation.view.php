@@ -69,16 +69,21 @@
                     <!-- Cottages -->
                     <div class="tab-pane fade show active" id="cottage" role="tabpanel">
                         <div class="row">
-                            <?php foreach ($cottages as $cottage): ?>
+                            <?php foreach ($cottages as $cottage):
+                                $cottageImages = explode(',', $cottage['images']);
+                            ?>
                                 <div
                                     class="col wow fadeInUp"
                                     data-wow-delay=".3s">
                                     <div class="gt-why-choose-us-images">
                                         <div class="gt-choose-us-image">
-                                            <img
-                                                src="<?= handleFilePath($cottage["image"], "/assets/guest/img/home-2/choose-us/choose-us-01.jpg") ?>"
-                                                alt="<?= $cottage["name"] ?>"
-                                                class="fixed-height-img clickable-img" />
+                                            <div class="img-container"
+                                                data-images='<?= json_encode(array_map(fn($img) => handleFilePath($img, '/assets/guest/img/home-2/choose-us/choose-us-01.jpg'), $cottageImages)) ?>'>
+                                                <img
+                                                    src="<?= handleFilePath($cottageImages[0], "/assets/guest/img/home-2/choose-us/choose-us-01.jpg") ?>"
+                                                    alt="<?= $cottage["name"] ?>"
+                                                    class="fixed-height-img" />
+                                            </div>
                                             <div class="gt-content">
                                                 <h3><?= $cottage["name"] ?></h3>
                                                 <p>
@@ -97,11 +102,13 @@
                         <div class="gt-room-explore-wrapper">
                             <div class="swiper gt-room-explore-slider">
                                 <div class="swiper-wrapper">
-                                    <?php foreach ($rooms as $room): ?>
+                                    <?php foreach ($rooms as $room):
+                                        $roomImages = explode(',', $room['images']); ?>
                                         <div class="swiper-slide">
                                             <div
-                                                class="gt-room-explore-items bg-cover h-40"
-                                                style=" background-image: url('<?= handleFilePath($room['image'], "/assets/guest/img/home-2/room-explore/01.jpg") ?>');">
+                                                data-images='<?= json_encode(array_map(fn($img) => handleFilePath($img, '/assets/guest/img/home-2/choose-us/choose-us-01.jpg'), $roomImages)) ?>'
+                                                class="gt-room-explore-items bg-cover h-40 img-container"
+                                                style=" background-image: url('<?= handleFilePath($roomImages[0], "/assets/guest/img/home-2/room-explore/01.jpg") ?>');">
                                                 <div class="row justify-content-end">
                                                     <div class="col-xl-5 col-lg-6">
                                                         <div class="gt-room-exlore-box-items">
@@ -139,11 +146,13 @@
                         <div class="gt-room-explore-wrapper">
                             <div class="swiper gt-hall-explore-slider">
                                 <div class="swiper-wrapper">
-                                    <?php foreach ($eventHalls as $eventHall): ?>
+                                    <?php foreach ($eventHalls as $eventHall):
+                                        $eventHallImages = explode(',', $eventHall['images']); ?>
                                         <div class="swiper-slide">
                                             <div
-                                                class="gt-room-explore-items bg-cover h-40"
-                                                style=" background-image: url('<?= handleFilePath($eventHall['image'], "/assets/guest/img/home-2/room-explore/01.jpg") ?>');">
+                                                data-images='<?= json_encode(array_map(fn($img) => handleFilePath($img, '/assets/guest/img/home-2/choose-us/choose-us-01.jpg'), $eventHallImages)) ?>'
+                                                class="gt-room-explore-items bg-cover h-40 img-container"
+                                                style=" background-image: url('<?= handleFilePath($eventHallImages[0], "/assets/guest/img/home-2/room-explore/01.jpg") ?>');">
                                                 <div class="row justify-content-end">
                                                     <div class="col-xl-5 col-lg-6">
                                                         <div class="gt-room-exlore-box-items">
@@ -164,7 +173,7 @@
                                                                     : <?= $eventHall['amenities'] ?>
                                                                 </li>
                                                             </ul>
-                                                            <a href="/facility?id=<?= $eventHall['id'] ?>" class="gt-theme-btn">ROOM DETAILS</a>
+                                                            <a href="/facility?id=<?= $eventHall['id'] ?>" class="gt-theme-btn">VIEW DETAILS</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -176,57 +185,45 @@
                         </div>
                     </div>
 
+                    <!-- Exclusive -->
                     <div class="tab-pane fade" id="exclusive" role="tabpanel">
-                        <div class="gt-service-wrapper-3">
-                            <div class="row g-4">
-                                <div class="col-lg-6">
-                                    <div class="swiper service-image-slider">
-                                        <div class="swiper-wrapper">
-                                            <?php
-                                            $exclusiveImages = explode(",", $exclusive["images"]);
-                                            foreach ($exclusiveImages as $exclusiveImage):
-                                            ?>
-                                                <div class="swiper-slide">
-                                                    <div class="service-image">
-                                                        <img src="<?= handleFilePath($exclusiveImage, "/assets/guest/img/home-3/service/service-01.jpg") ?>" alt="<?= $exclusive["name"] ?>" class="fixed-height-img">
+                        <div class="gt-room-explore-wrapper">
+                            <div class="swiper gt-exclusive-explore-slider">
+                                <div class="swiper-wrapper">
+                                    <?php foreach ($exclusives as $exclusive):
+                                        $exclusiveImages = explode(',', $exclusive['images']); ?>
+                                        <div class="swiper-slide">
+                                            <div
+                                                data-images='<?= json_encode(array_map(fn($img) => handleFilePath($img, '/assets/guest/img/home-2/choose-us/choose-us-01.jpg'), $exclusiveImages)) ?>'
+                                                class="gt-room-explore-items bg-cover h-40 img-container"
+                                                style=" background-image: url('<?= handleFilePath($exclusiveImages[0], "/assets/guest/img/home-2/room-explore/01.jpg") ?>');">
+                                                <div class="row justify-content-end">
+                                                    <div class="col-xl-5 col-lg-6">
+                                                        <div class="gt-room-exlore-box-items">
+                                                            <span class="gt-rate-title"> Rates From <?= moneyFormat($exclusive['rate_12hrs']) ?> </span>
+                                                            <h3>
+                                                                <a href="/facility?id=<?= $exclusive['id'] ?>"><?= $exclusive['name'] ?></a>
+                                                            </h3>
+                                                            <p>
+                                                                <?= $exclusive['description'] ?>
+                                                            </p>
+                                                            <ul>
+                                                                <li>
+                                                                    <span>Capacity</span>
+                                                                    : <?= $exclusive['capacity'] ?> Persons
+                                                                </li>
+                                                                <li>
+                                                                    <span>Amenities</span>
+                                                                    : <?= $exclusive['amenities'] ?>
+                                                                </li>
+                                                            </ul>
+                                                            <a href="/facility?id=<?= $exclusive['id'] ?>" class="gt-theme-btn">VIEW DETAILS</a>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            <?php endforeach; ?>
+                                            </div>
                                         </div>
-                                        <div class="array-button-2 justify-content-center">
-                                            <button class="array-next"><i class="fa-solid fa-chevron-left"></i></button>
-
-                                            <button class="array-prev"><i class="fa-solid fa-chevron-right"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="service-content">
-                                        <div class="gt-section-title mb-0">
-                                            <h2>
-                                                <?= $exclusive["name"] ?>
-                                            </h2>
-                                        </div>
-                                        <p class="service-text">
-                                            <?= $exclusive["description"] ?>
-                                        </p>
-                                        <div class=" my-2">
-                                            <h3>
-                                                How much does it cost to rent the entire resort?
-                                            </h3>
-                                            <ul class="check-list">
-                                                <li>
-                                                    <i class="fa-solid fa-circle-check"></i>
-                                                    <?= moneyFormat($exclusive["rate_12hrs"]) ?> for 12 hrs
-                                                </li>
-                                                <li>
-                                                    <i class="fa-solid fa-circle-check"></i>
-                                                    <?= moneyFormat($exclusive["rate_1day"]) ?> for 24 hrs
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <a href="/facility?id=<?= $exclusive["id"] ?>" class="gt-theme-btn">BOOK NOW</a>
-                                    </div>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
@@ -237,11 +234,81 @@
         </div>
     </section>
 
+    <!-- Modal -->
+    <div class="modal fade" id="modalSlider" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered d-flex justify-content-center align-items-center">
+            <div class="modal-content bg-transparent border-0 text-center position-relative" id="modalSliderContent">
+                <!-- Close button -->
+                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" id="closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                <div class="d-flex justify-content-center align-items-center position-relative" style="min-height: 60vh;">
+                    <img id="modalImage" src="" class="modal-img rounded shadow-lg" alt="Gallery image">
+
+                    <!-- Navigation Buttons -->
+                    <button id="prevBtn" class="btn btn-dark position-absolute top-50 start-0 translate-middle-y px-3 py-2 opacity-75">
+                        <i class="fa fa-chevron-left fa-lg"></i>
+                    </button>
+                    <button id="nextBtn" class="btn btn-dark position-absolute top-50 end-0 translate-middle-y px-3 py-2 opacity-75">
+                        <i class="fa fa-chevron-right fa-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- GT Footer Section Start -->
     <?php view("guest/partials/footer.partial.php") ?>
 
     <!--<< All JS Plugins >>-->
     <?php view("guest/partials/plugins.partial.php") ?>
+
+    <!-- Display Image On Modal Slider -->
+    <script>
+        $(document).ready(function() {
+            let currentImages = [];
+            let currentIndex = 0;
+            const modalElement = document.getElementById('modalSlider');
+            const modal = new bootstrap.Modal(modalElement);
+
+            const $modalImage = $('#modalImage');
+
+            $('.img-container').on('click', function() {
+                currentImages = JSON.parse($(this).attr('data-images'));
+                currentIndex = 0;
+                $modalImage.attr('src', currentImages[currentIndex]);
+                modal.show();
+            });
+
+            $('#prevBtn').on('click', function() {
+                if (!currentImages.length) return;
+                currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+                $modalImage.attr('src', currentImages[currentIndex]);
+            });
+
+            $('#nextBtn').on('click', function() {
+                if (!currentImages.length) return;
+                currentIndex = (currentIndex + 1) % currentImages.length;
+                $modalImage.attr('src', currentImages[currentIndex]);
+            });
+
+            $(modalElement).on('hidden.bs.modal', function() {
+                $modalImage.attr('src', '');
+                currentImages = [];
+            });
+
+            $(document).on('keydown', function(e) {
+                if (!currentImages.length) return;
+
+                if (e.key === "ArrowLeft") {
+                    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+                } else if (e.key === "ArrowRight") {
+                    currentIndex = (currentIndex + 1) % currentImages.length;
+                }
+                $modalImage.attr('src', currentImages[currentIndex]);
+            });
+        });
+    </script>
+
 </body>
 
 </html>

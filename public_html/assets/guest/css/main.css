@@ -1629,6 +1629,8 @@ span {
 }
 .gt-room-explore-wrapper .gt-room-exlore-box-items {
   max-width: 410px;
+  max-height: 550px;
+  overflow-y: auto;
   background-color: var(--gt-white);
   padding: 32px;
   border-radius: 8px;
@@ -7422,8 +7424,8 @@ span {
 #modalSlider .modal-img {
   max-width: 80vw;   
   max-height: 80vh;  
-  width: auto;
-  height: auto;
+  min-width: 40vh;
+  min-height: 40vh;
   object-fit: contain;  
 }  
 #modalSliderContent { 

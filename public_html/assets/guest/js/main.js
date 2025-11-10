@@ -199,6 +199,39 @@
       });
     }
 
+    if ($(".gt-exclusive-explore-slider").length > 0) {
+      const gtHallExploreSlider = new Swiper(".gt-exclusive-explore-slider", {
+        spaceBetween: 30,
+        speed: 1300,
+        loop: true,
+        autoplay: {
+          delay: 2000,
+          disableOnInteraction: false,
+        },
+        navigation: {
+          nextEl: ".array-next",
+          prevEl: ".array-prev",
+        },
+        breakpoints: {
+          1199: {
+            slidesPerView: 2,
+          },
+          991: {
+            slidesPerView: 1,
+          },
+          767: {
+            slidesPerView: 1,
+          },
+          575: {
+            slidesPerView: 1,
+          },
+          0: {
+            slidesPerView: 1,
+          },
+        },
+      });
+    }
+
     if ($(".room-slider-3").length > 0) {
       const gtRoomSlider3 = new Swiper(".room-slider-3", {
         spaceBetween: 30,
