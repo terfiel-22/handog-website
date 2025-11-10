@@ -182,6 +182,24 @@
                                 </div>
 
 
+                                <!-- Additionals -->
+                                <div class="form-block">
+                                    <h4 class="fw-bold">Additionals</h4>
+                                    <div class="row g-4">
+                                        <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                                            <label for="additional_bed_count">Additional Bed Count</label>
+                                            <div class="form-clt">
+                                                <input type="number" name="additional_bed_count" id="additional_bed_count" value="<?= old("additional_bed_count", 0) ?>">
+                                                <?php if (isset($errors["additional_bed_count"])) : ?>
+                                                    <div class="error-text">
+                                                        <?= $errors["additional_bed_count"] ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <!-- Contact Information -->
                                 <div class="form-block">
                                     <h4 class="fw-bold">Payment Information</h4>
@@ -649,6 +667,14 @@
                 return rate;
             };
 
+            const computeAdditionals = () => {
+                let additionalTotal = 0;
+                const additionalBedCount = $("#additional_bed_count").val();
+                if (additionalBedCount > 0)
+                    additionalTotal += additionalBedCount * rates.additional_bed_rate;
+                return additionalTotal;
+            }
+
             // ---------------------------------------------------------
             // Main calculator
             // ---------------------------------------------------------
@@ -677,6 +703,9 @@
                     total += parseFloat(rates.videoke_rent) || 0;
                 }
 
+                // Additionals
+                total += computeAdditionals();
+
                 // Output
                 $("#total_rate").val(total.toFixed(2));
                 $("#booking_deposit").val((total / 2).toFixed(2));
@@ -688,7 +717,7 @@
 
             $(document).on(
                 "change input",
-                "#time_range, #check_in, #rent_videoke, #facility, #guest-list input",
+                "#time_range, #check_in, #rent_videoke, #facility, #guest-list input, #additional_bed_count",
                 computeTotal
             );
         });

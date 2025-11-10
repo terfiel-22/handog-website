@@ -119,6 +119,15 @@ $pageName = "Reservations"
                                             <?php endif; ?>
                                         </div>
                                         <div class="col-12">
+                                            <label class="form-label" for="additional_bed_count">Additional Bed Count</label>
+                                            <input type="number" id="additional_bed_count" name="additional_bed_count" class="form-control" min="0" max="99" value="<?= old("additional_bed_count", $reservation['additional_bed_count']) ?>">
+                                            <?php if (isset($errors["additional_bed_count"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["additional_bed_count"] ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="col-12">
                                             <a href="/admin/reservations" class="btn btn-danger-600">Cancel</a>
                                             <button type="button" id="nextBtn" class="btn btn-primary next">Next</button>
                                         </div>
@@ -658,6 +667,14 @@ $pageName = "Reservations"
                 return rate;
             };
 
+            const computeAdditionals = () => {
+                let additionalTotal = 0;
+                const additionalBedCount = $("#additional_bed_count").val();
+                if (additionalBedCount > 0)
+                    additionalTotal += additionalBedCount * rates.additional_bed_rate;
+                return additionalTotal;
+            }
+
             // ---------------------------------------------------------
             // Main calculator
             // ---------------------------------------------------------
@@ -686,6 +703,9 @@ $pageName = "Reservations"
                     total += parseFloat(rates.videoke_rent) || 0;
                 }
 
+                // Additionals
+                total += computeAdditionals();
+
                 // Output
                 $("#total_rate").val(total.toFixed(2));
                 // Display Balance
@@ -699,7 +719,7 @@ $pageName = "Reservations"
 
             $(document).on(
                 "change input",
-                "#time_range, #check_in, #rent_videoke, #facility, #guest-list input",
+                "#time_range, #check_in, #rent_videoke, #facility, #guest-list input, #additional_bed_count",
                 computeTotal
             );
         });
