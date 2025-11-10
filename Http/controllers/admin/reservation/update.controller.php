@@ -25,6 +25,7 @@ $updatedReservation = [
     "time_range" => $_POST["time_range"],
     "check_out" => $check_out,
     "rent_videoke" => $_POST["rent_videoke"],
+    "additional_bed_count" => $_POST["additional_bed_count"],
     "guest_count" => count($_POST["guests"]),
     "total_price" => $total_price,
     "status" => $_POST["status"]

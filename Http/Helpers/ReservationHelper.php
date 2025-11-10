@@ -59,8 +59,11 @@ class ReservationHelper
         // Get videoke rent
         $videokeRentRate = $_POST["rent_videoke"] == YesNo::YES ? $miscRates["videoke_rent"] : 0;
 
+        // Get additonal bed count price 
+        $additionalBedCountPrice = $data['additional_bed_count'] > 0 ? $data['additional_bed_count'] * $miscRates["additional_bed_rate"] : 0;
+
         // Initialize total price
-        $total_price = $facilityRate + $videokeRentRate;
+        $total_price = $facilityRate + $videokeRentRate + $additionalBedCountPrice;
 
         // Get miscRates for adult and kid based on time slot
         $adultRate = $_POST["time_slot"] == TimeSlot::DAY ? $miscRates["adult_rate_day"] : $miscRates["adult_rate_night"];
