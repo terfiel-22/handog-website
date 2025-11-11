@@ -23,6 +23,10 @@
    $router->get('/admin', 'admin/authentication/index.controller.php')->only('guest');
    $router->post('/admin', 'admin/authentication/store.controller.php')->only('guest');
    $router->delete('/admin', 'admin/authentication/destroy.controller.php')->only('admin');
+
+   // Reset Password
+   $router->get('/reset-password', 'admin/reset_password/index.controller.php')->only('guest');
+   $router->post('/reset-password', 'admin/reset_password/store.controller.php')->only('guest');
    /** END ACCESSIBLE TO GUEST ADMIN */
 
 

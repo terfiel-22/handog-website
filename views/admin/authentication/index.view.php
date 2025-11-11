@@ -58,7 +58,7 @@ $pageName = "Sign In"
                                 <input class="form-check-input border border-neutral-300" type="checkbox" value="" name="remember" id="remember">
                                 <label class="form-check-label" for="remember">Remember me </label>
                             </div>
-                            <a href="javascript:void(0)" class="text-primary-600 fw-medium">Forgot Password?</a>
+                            <a href="/reset-password" class="text-primary-600 fw-medium">Forgot Password?</a>
                         </div>
                     </div>
 
