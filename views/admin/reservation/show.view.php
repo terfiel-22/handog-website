@@ -33,9 +33,100 @@ $pageName = "Reservation"
                 <div class="col-12 col-md-8">
                     <div class="card h-100 p-0">
                         <div class="card-header border-bottom bg-base py-16 px-24">
-                            <h6 class="text-lg fw-semibold mb-0">Reservation Information</h6>
+                            <div class="d-flex align-items-center gap-2">
+                                <a href="/admin/reservations" class="text-decoration-none d-flex align-items-center">
+                                    <iconify-icon icon="mdi:arrow-left" width="22" class="me-1"></iconify-icon>
+                                </a>
+                                <h6 class="text-lg fw-semibold mb-0 ms-2">Reservation Information</h6>
+                            </div>
                         </div>
                         <div class="card-body p-24">
+                            <table class="table table-sm table-borderless mb-0">
+                                <tr>
+                                    <th class="text-secondary-light fw-semibold">Contact Person</th>
+                                    <td><?= htmlspecialchars($reservation['contact_person']) ?></td>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-secondary-light fw-semibold">Contact Number</th>
+                                    <td><?= htmlspecialchars($reservation['contact_no']) ?></td>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-secondary-light fw-semibold">Email</th>
+                                    <td><?= htmlspecialchars($reservation['contact_email']) ?></td>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-secondary-light fw-semibold">Address</th>
+                                    <td><?= htmlspecialchars($reservation['contact_address']) ?></td>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-secondary-light fw-semibold">Check-In</th>
+                                    <td><?= formatDatetimeToReadable($reservation['check_in']) ?></td>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-secondary-light fw-semibold">Time Range</th>
+                                    <td><?= htmlspecialchars($reservation['time_range']) ?></td>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-secondary-light fw-semibold">Check-Out</th>
+                                    <td><?= formatDatetimeToReadable($reservation['check_out']) ?></td>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-secondary-light fw-semibold">Guest Count</th>
+                                    <td><?= htmlspecialchars($reservation['guest_count']) ?></td>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-secondary-light fw-semibold">Rent Videoke</th>
+                                    <td><?= htmlspecialchars(ucfirst($reservation['rent_videoke'])) ?></td>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-secondary-light fw-semibold">Additional Bed</th>
+                                    <td><?= htmlspecialchars(ucfirst($reservation['additional_bed_count'])) ?></td>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-secondary-light fw-semibold">Total Price</th>
+                                    <td><?= moneyFormat((float)$reservation['total_price']) ?></td>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-secondary-light fw-semibold">Status</th>
+                                    <td><?= htmlspecialchars(ucfirst($reservation['status'])) ?></td>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-secondary-light fw-semibold">Payment Status</th>
+                                    <td><?= htmlspecialchars(ucfirst($reservation['payment_status'])) ?></td>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-secondary-light fw-semibold">Paid Amount</th>
+                                    <td><?= moneyFormat((float)$reservation['paid_amount']) ?></td>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-secondary-light fw-semibold">Balance</th>
+                                    <td><?= moneyFormat((float)$reservation['total_price'] - (float)$reservation['paid_amount']) ?></td>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-secondary-light fw-semibold">Created At</th>
+                                    <td><?= formatDatetimeToReadable($reservation['created_at']) ?></td>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-secondary-light fw-semibold">Updated At</th>
+                                    <td><?= formatDatetimeToReadable($reservation['updated_at']) ?></td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
