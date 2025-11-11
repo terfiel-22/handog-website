@@ -53,13 +53,13 @@ $pageName = "Forgot Password"
                                 <span class="icon top-50 translate-middle-y">
                                     <iconify-icon icon="solar:lock-password-outline"></iconify-icon>
                                 </span>
-                                <input type="password" class="form-control h-56-px bg-neutral-50 radius-12" name="npassword" id="npassword" placeholder="Enter New Password">
+                                <input type="password" class="form-control h-56-px bg-neutral-50 radius-12" name="password" id="password" placeholder="Enter New Password">
                             </div>
-                            <span class="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light" data-toggle="#npassword"></span>
+                            <span class="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light" data-toggle="#password"></span>
                         </div>
-                        <?php if (isset($errors["npassword"])) : ?>
+                        <?php if (isset($errors["password"])) : ?>
                             <div class="error-text">
-                                <?= $errors["npassword"] ?>
+                                <?= $errors["password"] ?>
                             </div>
                         <?php endif; ?>
                     </div>

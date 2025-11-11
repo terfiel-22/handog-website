@@ -85,13 +85,23 @@ class User
             SET 
                 password=:password,
                 salt=:salt,
-                session_token=:session_token
+                session_token=:session_token,
+                reset_pin=:reset_pin
             WHERE 
                 id=:id",
             $attributes
         );
 
         return true;
+    }
+
+    public function fetchUserByResetPin($reset_pin)
+    {
+
+        return $this->db->query(
+            "SELECT * FROM users WHERE reset_pin=:reset_pin",
+            compact('reset_pin')
+        )->find();
     }
 
     public function updateResetPin($id, $attributes)

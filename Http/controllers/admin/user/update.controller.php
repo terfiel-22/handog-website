@@ -32,7 +32,8 @@ if (!empty($_POST["password"]) && !empty($_POST['cpassword'])) {
     $salt = generateSalt();
     $password = password_hash($salt . $_POST['password'], PASSWORD_BCRYPT);
     $session_token = null;
-    App::resolve(User::class)->updateUserPassword($origUser["id"], compact('password', 'salt', 'session_token'));
+    $reset_pin = null;
+    App::resolve(User::class)->updateUserPassword($origUser["id"], compact('password', 'salt', 'session_token', 'reset_pin'));
 }
 
 /** START Update User Data on Database **/
