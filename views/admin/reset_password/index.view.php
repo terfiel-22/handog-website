@@ -1,5 +1,5 @@
 <?php
-$pageName = "Sign In"
+$pageName = "Forgot Password"
 ?>
 
 <!-- meta tags and other links -->
@@ -49,23 +49,6 @@ $pageName = "Sign In"
 
     <!-- JS Plugins -->
     <?php view("admin/partials/plugins.partial.php") ?>
-    <script>
-        // ================== Password Show Hide Js Start ==========
-        function initializePasswordToggle(toggleSelector) {
-            $(toggleSelector).on('click', function() {
-                $(this).toggleClass("ri-eye-off-line");
-                var input = $($(this).attr("data-toggle"));
-                if (input.attr("type") === "password") {
-                    input.attr("type", "text");
-                } else {
-                    input.attr("type", "password");
-                }
-            });
-        }
-        // Call the function
-        initializePasswordToggle('.toggle-password');
-        // ========================= Password Show Hide Js End ===========================
-    </script>
 
 </body>
 
