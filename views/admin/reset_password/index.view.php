@@ -30,11 +30,18 @@ $pageName = "Forgot Password"
                     <p class="mb-32 text-secondary-light text-lg">Enter the email address associated with your account and we will send you a link to reset your password.</p>
                 </div>
                 <form method="POST">
-                    <div class="icon-field mb-16">
-                        <span class="icon top-50 translate-middle-y">
-                            <iconify-icon icon="mage:email"></iconify-icon>
-                        </span>
-                        <input type="email" class="form-control h-56-px bg-neutral-50 radius-12" name="email" placeholder="Email" value="<?= old("email") ?>">
+                    <div class="mb-16">
+                        <div class="icon-field">
+                            <span class="icon top-50 translate-middle-y">
+                                <iconify-icon icon="mage:email"></iconify-icon>
+                            </span>
+                            <input type="email" class="form-control h-56-px bg-neutral-50 radius-12" name="email" placeholder="Email" value="<?= old("email") ?>">
+                        </div>
+                        <?php if (isset($errors["email"])) : ?>
+                            <div class="error-text">
+                                <?= $errors["email"] ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                     <button type="submit" class="btn btn-primary text-sm btn-sm px-12 py-16 w-100 radius-12 mt-32" data-bs-toggle="modal" data-bs-target="#exampleModal">Continue</button>
 

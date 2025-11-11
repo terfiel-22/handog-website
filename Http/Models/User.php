@@ -94,6 +94,23 @@ class User
         return true;
     }
 
+    public function updateResetPin($id, $attributes)
+    {
+        $attributes["id"] = $id;
+
+        $this->db->query(
+            "UPDATE 
+                users 
+            SET  
+                reset_pin=:reset_pin
+            WHERE 
+                id=:id",
+            $attributes
+        );
+
+        return true;
+    }
+
     public function updateUserSessionToken($attributes)
     {
         $this->db->query(

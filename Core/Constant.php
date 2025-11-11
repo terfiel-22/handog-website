@@ -27,3 +27,6 @@ define('TERMS_CONDITIONS_PATH', "assets/default/sample-terms-conditions-agreemen
 
 // ==== User Avatar Default ====
 define('USER_AVATAR_PATH', "assets/default/user.jpg");
+
+// ==== Website Name ====
+define('WEBSITE_NAME', "Handog Resort And Event Place");
