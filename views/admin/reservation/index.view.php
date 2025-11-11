@@ -70,6 +70,10 @@ $pageName = "Reservations"
                                         <td><?= ucfirst($reservation['status']) ?></td>
                                         <td>
                                             <div class="d-flex align-items-center gap-2">
+                                                <a href="/admin/reservations/show?id=<?= $reservation['id'] ?>" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                    <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
+                                                </a>
+
                                                 <a href="/admin/reservations/edit?id=<?= $reservation['id'] ?>" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
                                                     <iconify-icon icon="lucide:edit"></iconify-icon>
                                                 </a>
