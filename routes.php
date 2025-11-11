@@ -28,7 +28,7 @@
    $router->get('/reset-password', 'admin/reset_password/index.controller.php')->only('guest');
    $router->post('/reset-password', 'admin/reset_password/store.controller.php')->only('guest');
    $router->get('/reset-password/show', 'admin/reset_password/show.controller.php')->only('guest');
-   $router->put('/reset-password/update', 'admin/reset_password/update.controller.php')->only('guest');
+   $router->put('/reset-password/show', 'admin/reset_password/update.controller.php')->only('guest');
    /** END ACCESSIBLE TO GUEST ADMIN */
 
 

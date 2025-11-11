@@ -30,6 +30,7 @@ $pageName = "Forgot Password"
                     <p class="mb-32 text-secondary-light text-lg">Check your email and enter the PIN to reset your password.</p>
                 </div>
                 <form method="POST">
+                    <input type="hidden" name="_method" value="PUT">
                     <div class="mb-20">
                         <div class="position-relative">
                             <div class="icon-field">
