@@ -28,101 +28,83 @@ $pageName = "Dashboard"
             <!-- Breadcrumbs -->
             <?php view("admin/partials/breadcrumb.partial.php", compact('pageName')) ?>
 
-            <div class="row row-cols-xxxl-5 row-cols-lg-3 row-cols-sm-2 row-cols-1 gy-4">
-                <div class="col">
-                    <div class="card shadow-none border bg-gradient-start-1 h-100">
-                        <div class="card-body p-20">
-                            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-                                <div>
-                                    <p class="fw-medium text-primary-light mb-1">Total Visits</p>
-                                    <h6 class="mb-0"><?= $result["total_visits"] ?></h6>
-                                </div>
-                                <div class="w-50-px h-50-px bg-cyan rounded-circle d-flex justify-content-center align-items-center">
-                                    <iconify-icon icon="gridicons:multiple-users" class="text-white text-2xl mb-0"></iconify-icon>
-                                </div>
+            <!-- Top Cards -->
+            <div class="row mt-24 gy-0">
+                <div class="col-xxl-3 col-sm-6 pe-0">
+                    <div
+                        class="card-body p-20 bg-base border h-100 d-flex flex-column justify-content-center border-end-0">
+                        <div
+                            class="d-flex flex-wrap align-items-center justify-content-between gap-1 mb-8">
+                            <div>
+                                <span
+                                    class="mb-12 w-44-px h-44-px bg-purple border border-primary-light-white flex-shrink-0 d-flex justify-content-center align-items-center radius-8 h6 mb-12">
+                                    <iconify-icon
+                                        icon="fa-solid:calendar"
+                                        class="icon text-white"></iconify-icon>
+                                </span>
+                                <span class="mb-1 fw-medium text-secondary-light text-md">Reservation Today</span>
+                                <h6 class="fw-semibold text-primary-light mb-1"><?= $result["reservations_today"] ?></h6>
                             </div>
-                            <p class="fw-medium text-sm text-primary-light mt-12 mb-0">
-                                <span class="text-success-main"><iconify-icon icon="bxs:up-arrow" class="text-xs"></iconify-icon> +5000</span>
-                                Last 30 days users
-                            </p>
                         </div>
-                    </div><!-- card end -->
+                    </div>
                 </div>
-                <div class="col">
-                    <div class="card shadow-none border bg-gradient-start-4 h-100">
-                        <div class="card-body p-20">
-                            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-                                <div>
-                                    <p class="fw-medium text-primary-light mb-1">Today&apos;s Earnings</p>
-                                    <h6 class="mb-0"><?= moneyFormat($result["earnings_today"]) ?></h6>
-                                </div>
-                                <div class="w-50-px h-50-px bg-success-main rounded-circle d-flex justify-content-center align-items-center">
-                                    <iconify-icon icon="solar:wallet-bold" class="text-white text-2xl mb-0"></iconify-icon>
-                                </div>
+                <div class="col-xxl-3 col-sm-6 px-0">
+                    <div
+                        class="card-body p-20 bg-base border h-100 d-flex flex-column justify-content-center border-end-0">
+                        <div
+                            class="d-flex flex-wrap align-items-center justify-content-between gap-1 mb-8">
+                            <div>
+                                <span
+                                    class="mb-12 w-44-px h-44-px text-yellow bg-yellow-light border border-yellow-light-white flex-shrink-0 d-flex justify-content-center align-items-center radius-8 h6 mb-12">
+                                    <iconify-icon
+                                        icon="flowbite:users-group-solid"
+                                        class="icon"></iconify-icon>
+                                </span>
+                                <span class="mb-1 fw-medium text-secondary-light text-md">Current Guests</span>
+                                <h6 class="fw-semibold text-primary-light mb-1">
+                                    200
+                                </h6>
                             </div>
-                            <p class="fw-medium text-sm text-primary-light mt-12 mb-0">
-                                <span class="text-success-main"><iconify-icon icon="bxs:up-arrow" class="text-xs"></iconify-icon> +$20,000</span>
-                                Last 30 days income
-                            </p>
                         </div>
-                    </div><!-- card end -->
+                    </div>
                 </div>
-                <div class="col">
-                    <div class="card shadow-none border bg-gradient-start-2 h-100">
-                        <div class="card-body p-20">
-                            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-                                <div>
-                                    <p class="fw-medium text-primary-light mb-1">Reservations</p>
-                                    <h6 class="mb-0"><?= $result["reservations_today"] ?></h6>
-                                </div>
-                                <div class="w-50-px h-50-px bg-purple rounded-circle d-flex justify-content-center align-items-center">
-                                    <iconify-icon icon="fa-solid:calendar" class="text-white text-2xl mb-0"></iconify-icon>
-                                </div>
+                <div class="col-xxl-3 col-sm-6 px-0">
+                    <div
+                        class="card-body p-20 bg-base border h-100 d-flex flex-column justify-content-center border-end-0">
+                        <div
+                            class="d-flex flex-wrap align-items-center justify-content-between gap-1 mb-8">
+                            <div>
+                                <span
+                                    class="mb-12 w-44-px h-44-px bg-cyan border border-lilac-light-white flex-shrink-0 d-flex justify-content-center align-items-center radius-8 h6 mb-12">
+                                    <iconify-icon
+                                        icon="gridicons:multiple-users"
+                                        class="icon text-white"></iconify-icon>
+                                </span>
+                                <span class="mb-1 fw-medium text-secondary-light text-md">Total Visits</span>
+                                <h6 class="fw-semibold text-primary-light mb-1"><?= $result["total_visits"] ?></h6>
                             </div>
-                            <p class="fw-medium text-sm text-primary-light mt-12 mb-0">
-                                <span class="text-danger-main"><iconify-icon icon="bxs:down-arrow" class="text-xs"></iconify-icon> -800</span>
-                                Last 30 days subscription
-                            </p>
                         </div>
-                    </div><!-- card end -->
+                    </div>
                 </div>
-                <div class="col">
-                    <div class="card shadow-none border bg-gradient-start-3 h-100">
-                        <div class="card-body p-20">
-                            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-                                <div>
-                                    <p class="fw-medium text-primary-light mb-1">Total Free Users</p>
-                                    <h6 class="mb-0">5,000</h6>
-                                </div>
-                                <div class="w-50-px h-50-px bg-info rounded-circle d-flex justify-content-center align-items-center">
-                                    <iconify-icon icon="fluent:people-20-filled" class="text-white text-2xl mb-0"></iconify-icon>
-                                </div>
+                <div class="col-xxl-3 col-sm-6 ps-0">
+                    <div
+                        class="card-body p-20 bg-base border h-100 d-flex flex-column justify-content-center">
+                        <div
+                            class="d-flex flex-wrap align-items-center justify-content-between gap-1 mb-8">
+                            <div>
+                                <span
+                                    class="mb-12 w-44-px h-44-px text-pink bg-pink-light border border-pink-light-white flex-shrink-0 d-flex justify-content-center align-items-center radius-8 h6 mb-12">
+                                    <iconify-icon
+                                        icon="solar:wallet-bold"
+                                        class="icon"></iconify-icon>
+                                </span>
+                                <span class="mb-1 fw-medium text-secondary-light text-md">Today&apos;s Earnings</span>
+                                <h6 class="fw-semibold text-primary-light mb-1">
+                                    <?= moneyFormat($result["earnings_today"]) ?>
+                                </h6>
                             </div>
-                            <p class="fw-medium text-sm text-primary-light mt-12 mb-0">
-                                <span class="text-success-main"><iconify-icon icon="bxs:up-arrow" class="text-xs"></iconify-icon> +200</span>
-                                Last 30 days users
-                            </p>
                         </div>
-                    </div><!-- card end -->
-                </div>
-                <div class="col">
-                    <div class="card shadow-none border bg-gradient-start-5 h-100">
-                        <div class="card-body p-20">
-                            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-                                <div>
-                                    <p class="fw-medium text-primary-light mb-1">Total Expense</p>
-                                    <h6 class="mb-0">$30,000</h6>
-                                </div>
-                                <div class="w-50-px h-50-px bg-red rounded-circle d-flex justify-content-center align-items-center">
-                                    <iconify-icon icon="fa6-solid:file-invoice-dollar" class="text-white text-2xl mb-0"></iconify-icon>
-                                </div>
-                            </div>
-                            <p class="fw-medium text-sm text-primary-light mt-12 mb-0">
-                                <span class="text-success-main"><iconify-icon icon="bxs:up-arrow" class="text-xs"></iconify-icon> +$5,000</span>
-                                Last 30 days expense
-                            </p>
-                        </div>
-                    </div><!-- card end -->
+                    </div>
                 </div>
             </div>
 
