@@ -62,7 +62,7 @@ $pageName = "Dashboard"
                                 </span>
                                 <span class="mb-1 fw-medium text-secondary-light text-md">Current Guests</span>
                                 <h6 class="fw-semibold text-primary-light mb-1">
-                                    200
+                                    <?= $result["current_guests"] ?>
                                 </h6>
                             </div>
                         </div>

@@ -2,7 +2,6 @@
 
 namespace Http\Services;
 
-use Http\Enums\FacilityType;
 use Core\Database;
 use Core\App;
 use DateTime;
@@ -15,9 +14,6 @@ class DashboardService
         return App::resolve(Database::class);
     }
 
-    /**
-     * Get available facilities (based on available_unit - current reservations)
-     */
     public static function availableFacilities(): array
     {
         $db = self::db();
@@ -54,9 +50,6 @@ class DashboardService
         return $result;
     }
 
-    /**
-     * Get unavailable facilities (currently fully booked)
-     */
     public static function unavailableFacilities(): array
     {
         $db = self::db();
@@ -89,9 +82,6 @@ class DashboardService
         return $result;
     }
 
-    /**
-     * Earnings, Reservations, etc. remain the same...
-     */
     public static function earningsToday(): float
     {
         $db = self::db();
@@ -119,6 +109,21 @@ class DashboardService
         ", [$today])->find();
 
         return (int) ($result['total'] ?? 0);
+    }
+
+
+    public static function currentGuests(): int
+    {
+        $db = self::db();
+
+        $guests = $db->query("
+            SELECT SUM(guest_count) as total
+            FROM reservations   
+            WHERE check_in <= CURDATE()
+            AND check_out > CURDATE()
+        ")->find();
+
+        return (int) ($guests['total'] ?? 0);
     }
 
     public static function occupancyRate(): array
@@ -179,6 +184,7 @@ class DashboardService
         return [
             'earnings_today' => self::earningsToday(),
             'reservations_today' => self::reservationsToday(),
+            'current_guests' => self::currentGuests(),
             'occupancy_rate' => self::occupancyRate(),
             'available_facilities' => self::availableFacilities(),
             'unavailable_facilities' => self::unavailableFacilities(),
