@@ -317,8 +317,6 @@
         </div>
     </div>
 
-
-
     <!-- GT Footer Section Start -->
     <?php view("guest/partials/footer.partial.php") ?>
 
@@ -724,7 +722,7 @@
 
                     if (isSenior) {
                         const discountPercent = parseFloat(rates.senior_pwd_discount) || 0;
-                        rate -= rate * (discountPercent / 100);
+                        rate -= rate * discountPercent;
                         rate = Math.max(0, rate);
                     }
 

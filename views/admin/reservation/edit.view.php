@@ -213,7 +213,7 @@ $pageName = "Reservations"
                                         </div>
                                         <div class="col-12">
                                             <label for="balance" class="form-label">Balance</label>
-                                            <input type="number" id="balance" class="form-control" value="<?= number_format($reservation["total_price"] - $reservation["paid_amount"], 2) ?>" disabled>
+                                            <input type="number" id="balance" class="form-control" value="<?= $reservation["total_price"] - $reservation["paid_amount"] ?>" disabled>
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label" for="payment_status">Payment Status</label>
@@ -241,9 +241,14 @@ $pageName = "Reservations"
                                                 </div>
                                             <?php endif; ?>
                                         </div>
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-secondary prev">Previous</button>
-                                            <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+                                        <div class="col-12 d-flex justify-content-between gap-2">
+                                            <div class="d-flex gap-2">
+                                                <button type="button" class="btn btn-secondary prev">Previous</button>
+                                                <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+                                            </div>
+                                            <button type="button" class="btn btn-outline-secondary" id="showBreakdownBtn">
+                                                Payment Breakdown
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -256,6 +261,57 @@ $pageName = "Reservations"
 
         </div>
     </main>
+
+
+    <!-- Payment Breakdown Modal -->
+    <div class="modal fade" id="paymentBreakdownModal" tabindex="-1" aria-labelledby="paymentBreakdownLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <!-- Customer Info -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold text-secondary border-bottom pb-2">Reservation Details</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="mb-1"><strong>Name:</strong> <span id="breakdown-name">N/A</span></p>
+                                <p class="mb-1"><strong>Contact Number:</strong> <span id="breakdown-contact-number">N/A</span></p>
+                                <p class="mb-1"><strong>Contact Email:</strong> <span id="breakdown-contact-email">N/A</span></p>
+                                <p class="mb-1"><strong>Contact Address:</strong> <span id="breakdown-contact-address">N/A</span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-1"><strong>Check-in:</strong> <span id="breakdown-checkin">N/A</span></p>
+                                <p class="mb-1"><strong>Check-out:</strong> <span id="breakdown-checkout">N/A</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Breakdown Table -->
+                    <h6 class="fw-bold text-secondary pb-2">Payment Breakdown</h6>
+                    <div class="payment-breakdown-table-container">
+                        <table class="table table-bordered table-striped mb-3 ">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Description</th>
+                                    <th class="text-end">Amount (₱)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="breakdown-body"></tbody>
+                            <tfoot>
+                                <tr class="fw-bold">
+                                    <td>Total</td>
+                                    <td class="text-end" id="breakdown-total">0.00</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- JS Plugins -->
     <?php view("admin/partials/plugins.partial.php") ?>
@@ -651,20 +707,24 @@ $pageName = "Reservations"
             };
 
             const computeGuestRate = (guestIndex, timeSlot) => {
+                const name = $(`[name='guests[${guestIndex}][guest_name]']`).val();
                 const age = Number($(`[name='guests[${guestIndex}][guest_age]']`).val());
-                const isAdult = age >= 10;
-                const isSenior = $(`[name='guests[${guestIndex}][senior_pwd]']`).val() === yesNo.YES;
+                if (name && age) {
+                    const isAdult = age >= 10;
+                    const isSenior = $(`[name='guests[${guestIndex}][senior_pwd]']`).val() === yesNo.YES;
 
-                const rateKey = isAdult ? `adult_rate_${timeSlot}` : `kid_rate_${timeSlot}`;
-                let rate = parseFloat(rates[rateKey]) || 0;
+                    const rateKey = isAdult ? `adult_rate_${timeSlot}` : `kid_rate_${timeSlot}`;
+                    let rate = parseFloat(rates[rateKey]) || 0;
 
-                if (isSenior) {
-                    const discountPercent = parseFloat(rates.senior_pwd_discount) || 0;
-                    rate -= rate * (discountPercent / 100);
-                    rate = Math.max(0, rate);
+                    if (isSenior) {
+                        const discountPercent = parseFloat(rates.senior_pwd_discount) || 0;
+                        rate -= rate * discountPercent;
+                        rate = Math.max(0, rate);
+                    }
+
+                    return rate;
                 }
-
-                return rate;
+                return 0;
             };
 
             const computeAdditionals = () => {
@@ -674,6 +734,20 @@ $pageName = "Reservations"
                     additionalTotal += additionalBedCount * rates.additional_bed_rate;
                 return additionalTotal;
             }
+
+            const formatDateTime = (value) => {
+                if (!value) return "N/A";
+                const date = new Date(value);
+                if (isNaN(date)) return "N/A";
+                return date.toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "2-digit",
+                    hour12: true,
+                });
+            };
 
             // ---------------------------------------------------------
             // Main calculator
@@ -714,6 +788,97 @@ $pageName = "Reservations"
             };
 
             // ---------------------------------------------------------
+            // Payment Breakdown
+            // ---------------------------------------------------------
+            const showPaymentBreakdown = () => {
+                const breakdownBody = $("#breakdown-body");
+                breakdownBody.empty();
+
+                // Collect User Info
+                const name = $("#contact_person").val() || "N/A";
+                const contactNum = $("#contact_no").val() || "N/A";
+                const contactEmail = $("#contact_email").val() || "N/A";
+                const contactAdd = $("#contact_address").val() || "N/A";
+                const checkInRaw = $("#check_in").val();
+                const checkOutRaw = $("#check_out").val();
+
+                // Update top info in modal
+                $("#breakdown-name").text(name);
+                $("#breakdown-contact-number").text(contactNum);
+                $("#breakdown-contact-email").text(contactEmail);
+                $("#breakdown-contact-address").text(contactAdd);
+                $("#breakdown-checkin").text(formatDateTime(checkInRaw));
+                $("#breakdown-checkout").text(formatDateTime(checkOutRaw));
+
+                // Facility Rate
+                const rawFacilityRate = getFacilityRateByTimeRange();
+                const facilityRate = applyPromo(rawFacilityRate);
+                const timeRange = $("#time_range").val();
+                const hasPromo = rawFacilityRate !== facilityRate;
+                breakdownBody.append(`
+                    <tr>
+                        <td>Facility Rate (${timeRange}) ${hasPromo ? '<small class="text-success">(Promo Applied)</small>' : ''}</td>
+                        <td class="text-end">${facilityRate.toFixed(2)}</td>
+                    </tr>
+                `);
+
+                // Guests 
+                const timeSlot = isDaySlot(checkInRaw) ? timeSlots.DAY : timeSlots.NIGHT;
+                let guestTotal = 0;
+                $("#guest-list [name*='[guest_age]']").each(function() {
+                    const guestIndex = this.name.match(/\d+/)[0];
+                    const name = $(`[name='guests[${guestIndex}][guest_name]']`).val();
+                    const age = $(`[name='guests[${guestIndex}][guest_age]']`).val();
+                    const isSenior = $(`[name='guests[${guestIndex}][senior_pwd]']`).val() === yesNo.YES;
+                    if (name && age) {
+                        const rate = computeGuestRate(guestIndex, timeSlot);
+                        guestTotal += rate;
+
+                        breakdownBody.append(`
+                        <tr>
+                            <td>Guest #${Number(guestIndex) + 1} (Name: ${name}, Age: ${age} ${isSenior ? ', Senior/PWD' : ''})</td>
+                            <td class="text-end">${rate.toFixed(2)}</td>
+                        </tr>
+                    `);
+                    }
+                });
+
+                // Videoke
+                let videokeTotal = 0;
+                if ($("#rent_videoke").val() === yesNo.YES) {
+                    videokeTotal = parseFloat(rates.videoke_rent) || 0;
+                    breakdownBody.append(`
+                        <tr>
+                            <td>Videoke Rental</td>
+                            <td class="text-end">${videokeTotal.toFixed(2)}</td>
+                        </tr>
+                    `);
+                }
+
+                // Additionals
+                let addTotal = computeAdditionals();
+                if (addTotal > 0) {
+                    const bedCount = $("#additional_bed_count").val();
+                    breakdownBody.append(`
+                        <tr>
+                            <td>Additional Bed x${bedCount}</td>
+                            <td class="text-end">${addTotal.toFixed(2)}</td>
+                        </tr>
+                    `);
+                }
+
+                // Total & Deposit
+                const total = facilityRate + guestTotal + videokeTotal + addTotal;
+                const deposit = total / 2;
+
+                $("#breakdown-total").text(total.toFixed(2));
+
+                // Show modal
+                const modal = new bootstrap.Modal(document.getElementById("paymentBreakdownModal"));
+                modal.show();
+            };
+
+            // ---------------------------------------------------------
             // Events
             // ---------------------------------------------------------
 
@@ -722,6 +887,8 @@ $pageName = "Reservations"
                 "#time_range, #check_in, #rent_videoke, #facility, #guest-list input, #guest-list select, #additional_bed_count",
                 computeTotal
             );
+
+            $("#showBreakdownBtn").on("click", showPaymentBreakdown);
         });
     </script>
 </body>
