@@ -55,7 +55,7 @@ Version: 1.0.0
   --danger-main: #EF4A00;
 }
 
-.gt-theme-btn {
+.gt-theme-btn, .gt-theme-secondary-btn {
   display: inline-block;
   vertical-align: middle;
   appearance: none;
@@ -76,6 +76,11 @@ Version: 1.0.0
   text-align: center;
   z-index: 1;
   border-radius: 4px;
+}
+.gt-theme-secondary-btn {
+  background-color: var(--gt-white);
+  border: 1px solid var(--gt-theme);
+  color: var(--gt-theme);
 }
 .gt-theme-btn::before {
   content: "";
@@ -7458,5 +7463,17 @@ span {
 @media (max-width: 575px) {
   .tab-title {
     font-size: 20px;
+  }
+}
+
+/* Payment Breakdown Table */
+.payment-breakdown-table-container {
+  max-height: 64vh; 
+  overflow-y: auto;
+}
+@media (max-width: 575px) {
+  .payment-breakdown-table-container {
+    max-height: 48vh; 
+    overflow-y: auto;
   }
 }
