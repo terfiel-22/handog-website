@@ -719,7 +719,7 @@ $pageName = "Reservations"
 
             $(document).on(
                 "change input",
-                "#time_range, #check_in, #rent_videoke, #facility, #guest-list input, #additional_bed_count",
+                "#time_range, #check_in, #rent_videoke, #facility, #guest-list input, #guest-list select, #additional_bed_count",
                 computeTotal
             );
         });
