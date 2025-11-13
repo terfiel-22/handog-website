@@ -109,6 +109,8 @@ $pageName = "Dashboard"
             </div>
 
             <div class="row gy-4 mt-1">
+
+                <!-- Earning Statistics -->
                 <div class="col-xxl-6 col-xl-12">
                     <div class="card h-100">
                         <div class="card-body">
@@ -124,12 +126,12 @@ $pageName = "Dashboard"
                             $badgeClass = $isGrowthPositive
                                 ? 'bg-success-focus text-success-main br-success'
                                 : 'bg-danger-focus text-danger-main br-danger';
-                            $growthSign = $isGrowthPositive ? '+' : '';
+                            $growthSign = $isGrowthPositive ? '+' : '-';
                             ?>
 
                             <div class="d-flex flex-wrap align-items-center gap-2 mt-8">
                                 <h6 class="mb-0"><?= moneyFormat($todayForecast, 2) ?></h6>
-                                <span class="text-sm fw-semibold rounded-pill <?= $badgeClass ?> border px-8 py-6 d-flex gap-1">
+                                <span class="text-sm fw-semibold rounded-pill <?= $badgeClass ?> border px-8 py-2 d-flex gap-1">
                                     <?= $growthSign . $growthPercent ?>% <iconify-icon icon="<?= $arrowIcon ?>" class="text-xs"></iconify-icon>
                                 </span>
                                 <span class="text-xs fw-medium">
@@ -142,24 +144,27 @@ $pageName = "Dashboard"
                     </div>
                 </div>
 
-                <!-- Total Subscriber -->
+                <!-- Current Week Guests -->
                 <div class="col-xxl-3 col-xl-6">
                     <div class="card h-100 radius-8 border">
                         <div class="card-body p-24">
-                            <h6 class="mb-12 fw-semibold text-lg mb-16">Total Subscriber</h6>
+                            <h6 class="mb-12 fw-semibold text-lg mb-16">Current Week Guests</h6>
+
                             <div class="d-flex align-items-center gap-2 mb-20">
-                                <h6 class="fw-semibold mb-0">5,000</h6>
+                                <h6 class="fw-semibold mb-0"><?= number_format($result["current_week_guests"]['total_guests']) ?></h6>
                                 <p class="text-sm mb-0">
-                                    <span class="bg-danger-focus border br-danger px-8 py-2 rounded-pill fw-semibold text-danger-main text-sm d-inline-flex align-items-center gap-1">
-                                        10%
-                                        <iconify-icon icon="iconamoon:arrow-down-2-fill" class="icon"></iconify-icon>
+                                    <span class="bg-<?= $result["current_week_guests"]['growth_percent'] >= 0 ? 'success' : 'danger' ?>-focus border br-<?= $result["current_week_guests"]['growth_percent'] >= 0 ? 'success' : 'danger' ?> px-8 py-2 d-flex gap-1 rounded-pill fw-semibold text-<?= $result["current_week_guests"]['growth_percent'] >= 0 ? 'success' : 'danger' ?>-main text-sm d-inline-flex align-items-center gap-1">
+                                        <?= abs($result["current_week_guests"]['growth_percent']) ?>%
+                                        <iconify-icon icon="iconamoon:arrow-<?= $result["current_week_guests"]['growth_percent'] >= 0 ? 'up' : 'down' ?>-2-fill" class="icon"></iconify-icon>
                                     </span>
-                                    - 20 Per Day
+
+                                    <span class="text-xs fw-medium">
+                                        <?= $result["current_week_guests"]['avg_guests_per_day'] ?> per day
+                                    </span>
                                 </p>
                             </div>
 
-                            <div id="barChart"></div>
-
+                            <div id="currentWeekGuestsChart"></div>
                         </div>
                     </div>
                 </div>
@@ -452,6 +457,79 @@ $pageName = "Dashboard"
 
             // Render chart
             var chart = new ApexCharts(document.querySelector("#earningsChart"), options);
+            chart.render();
+        });
+    </script>
+
+    <!-- Current Week Guests Chart -->
+    <script>
+        $(document).ready(function() {
+            const weekGuests = <?= json_encode($result["current_week_guests"]) ?>;
+
+            const barOptions = {
+                series: [{
+                    name: "Guests",
+                    data: weekGuests.daily_data.map(item => parseInt(item.total_guests)),
+                }, ],
+                chart: {
+                    type: "bar",
+                    height: 235,
+                    toolbar: {
+                        show: false
+                    },
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: 6,
+                        horizontal: false,
+                        columnWidth: 24,
+                        columnWidth: "52%",
+                        endingShape: "rounded",
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                fill: {
+                    type: "gradient",
+                    colors: ["#dae5ff"],
+                    gradient: {
+                        shade: "light",
+                        type: "vertical",
+                        shadeIntensity: 0.5,
+                        gradientToColors: ["#dae5ff"],
+                        inverseColors: false,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [0, 100],
+                    },
+                },
+                grid: {
+                    show: false,
+                    borderColor: "#D1D5DB",
+                    strokeDashArray: 4,
+                    position: "back",
+                    padding: {
+                        top: -5,
+                        right: -5,
+                        bottom: -5,
+                        left: -5,
+                    },
+                },
+                xaxis: {
+                    categories: weekGuests.daily_data.map(item => {
+                        const date = new Date(item.date);
+                        return date.toLocaleDateString('en-US', {
+                            weekday: 'short'
+                        });
+                    }),
+                },
+                yaxis: {
+                    show: false,
+                },
+            };
+
+            var chart = new ApexCharts(document.querySelector("#currentWeekGuestsChart"), barOptions);
             chart.render();
         });
     </script>

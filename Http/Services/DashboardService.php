@@ -177,6 +177,75 @@ class DashboardService
         return $visit["total"];
     }
 
+    public static function currentWeekGuests(): array
+    {
+        $db = self::db();
+
+        // Get start and end of current week (Monday–Sunday)
+        $startOfWeek = date('Y-m-d', strtotime('monday this week'));
+        $endOfWeek = date('Y-m-d', strtotime('sunday this week'));
+
+        // --- Fetch reservations grouped by date ---
+        $reservations = $db->query("
+            SELECT 
+                DATE(check_in) AS date,
+                SUM(guest_count) AS total_guests
+            FROM reservations
+            WHERE DATE(check_in) BETWEEN '{$startOfWeek}' AND '{$endOfWeek}'
+            GROUP BY DATE(check_in)
+        ")->get();
+
+        // Initialize all 7 days with 0 guests
+        $dailyData = [];
+        for ($i = 0; $i < 7; $i++) {
+            $date = date('Y-m-d', strtotime("{$startOfWeek} +{$i} day"));
+            $dailyData[$date] = [
+                'date' => $date,
+                'total_guests' => 0
+            ];
+        }
+
+        // Populate actual guest counts from DB
+        foreach ($reservations as $row) {
+            $dailyData[$row['date']]['total_guests'] = (int) $row['total_guests'];
+        }
+
+        // Convert back to sequential array
+        $dailyData = array_values($dailyData);
+
+        // --- Last Week Total Guests for growth calculation ---
+        $startOfLastWeek = date('Y-m-d', strtotime('monday last week'));
+        $endOfLastWeek = date('Y-m-d', strtotime('sunday last week'));
+
+        $lastWeek = $db->query("
+            SELECT SUM(guest_count) AS total_guests
+            FROM reservations
+            WHERE DATE(check_in) BETWEEN '{$startOfLastWeek}' AND '{$endOfLastWeek}'
+        ")->find();
+
+        $totalGuestsThisWeek = array_sum(array_column($dailyData, 'total_guests'));
+        $totalGuestsLastWeek = (int) ($lastWeek['total_guests'] ?? 0);
+
+        // Growth %
+        $growthPercent = $totalGuestsLastWeek > 0
+            ? round((($totalGuestsThisWeek - $totalGuestsLastWeek) / $totalGuestsLastWeek) * 100, 2)
+            : 0;
+
+        // Average per day
+        $avgGuestsPerDay = round($totalGuestsThisWeek / 7, 2);
+
+        return [
+            'start_of_week' => $startOfWeek,
+            'end_of_week' => $endOfWeek,
+            'total_guests' => $totalGuestsThisWeek,
+            'growth_percent' => $growthPercent,
+            'avg_guests_per_day' => $avgGuestsPerDay,
+            'daily_data' => $dailyData, // 7 days, 0 for empty days
+        ];
+    }
+
+
+
     public static function forecastEarningsWithTrendline(int $daysBack = 30, int $daysAhead = 7): array
     {
         $db = self::db();
@@ -278,6 +347,7 @@ class DashboardService
             'unavailable_facilities' => self::unavailableFacilities(),
             'earnings_analytics' => self::forecastEarningsWithTrendline(),
             'total_visits' => self::totalVisits(),
+            'current_week_guests' => self::currentWeekGuests(),
         ];
     }
 }
