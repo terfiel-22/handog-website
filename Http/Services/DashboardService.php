@@ -111,7 +111,6 @@ class DashboardService
         return (int) ($result['total'] ?? 0);
     }
 
-
     public static function currentGuests(): int
     {
         $db = self::db();
@@ -178,6 +177,95 @@ class DashboardService
         return $visit["total"];
     }
 
+    public static function forecastEarningsWithTrendline(int $daysBack = 30, int $daysAhead = 7): array
+    {
+        $db = self::db();
+
+        $history = $db->query("
+            SELECT 
+                DATE(p.created_at) AS date,
+                COALESCE(SUM(p.amount), 0) AS earnings
+            FROM payments p
+            WHERE p.payment_status = 'paid'
+            AND DATE(p.created_at) BETWEEN DATE_SUB(CURDATE(), INTERVAL {$daysBack} DAY) AND CURDATE()
+            GROUP BY DATE(p.created_at)
+            ORDER BY DATE(p.created_at)
+        ")->get();
+
+        if (empty($history)) {
+            return [
+                'message' => 'No payment data available for forecast.',
+                'forecast' => [],
+                'todayForecast' => 0,
+                'growthPercent' => 0
+            ];
+        }
+
+        // Prepare regression data
+        $x = [];
+        $y = []; // earnings only
+
+        $i = 0;
+        foreach ($history as $row) {
+            $x[] = $i++;
+            $y[] = (float) $row['earnings'];
+        }
+
+        // Calculate regression (trendline)
+        $trend = self::linearRegression($x, $y);
+
+        // Forecast future values
+        $forecast = [];
+        for ($d = 1; $d <= $daysAhead; $d++) {
+            $futureX = count($x) + $d - 1;
+            $forecastDate = date('Y-m-d', strtotime("+{$d} day"));
+
+            $forecast[] = [
+                'date' => $forecastDate,
+                'predicted_earnings' => max(0, $trend['a'] + $trend['b'] * $futureX)
+            ];
+        }
+
+        // Today's and tomorrow's forecast
+        $todayForecast = $forecast[0]['predicted_earnings'] ?? 0;
+        $tomorrowForecast = $forecast[1]['predicted_earnings'] ?? 0;
+
+        // Growth percentage
+        $growthPercent = $todayForecast > 0
+            ? round((($tomorrowForecast - $todayForecast) / $todayForecast) * 100, 2)
+            : 0;
+
+        return [
+            'days_back' => $daysBack,
+            'days_ahead' => $daysAhead,
+            'historical' => $history,
+            'forecast' => $forecast,
+            'todayForecast' => $todayForecast,
+            'growthPercent' => $growthPercent
+        ];
+    }
+
+    private static function linearRegression(array $x, array $y): array
+    {
+        $n = count($x);
+        if ($n === 0) return ['a' => 0, 'b' => 0];
+
+        $sumX = array_sum($x);
+        $sumY = array_sum($y);
+        $sumXY = 0;
+        $sumX2 = 0;
+
+        for ($i = 0; $i < $n; $i++) {
+            $sumXY += $x[$i] * $y[$i];
+            $sumX2 += $x[$i] * $x[$i];
+        }
+
+        $b = ($n * $sumXY - $sumX * $sumY) / ($n * $sumX2 - $sumX * $sumX);
+        $a = ($sumY - $b * $sumX) / $n;
+
+        return ['a' => $a, 'b' => $b];
+    }
+
 
     public static function summary(): array
     {
@@ -188,6 +276,7 @@ class DashboardService
             'occupancy_rate' => self::occupancyRate(),
             'available_facilities' => self::availableFacilities(),
             'unavailable_facilities' => self::unavailableFacilities(),
+            'earnings_analytics' => self::forecastEarningsWithTrendline(),
             'total_visits' => self::totalVisits(),
         ];
     }

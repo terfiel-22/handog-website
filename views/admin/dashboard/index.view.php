@@ -113,25 +113,36 @@ $pageName = "Dashboard"
                     <div class="card h-100">
                         <div class="card-body">
                             <div class="d-flex flex-wrap align-items-center justify-content-between">
-                                <h6 class="text-lg mb-0">Sales Statistic</h6>
-                                <select class="form-select bg-base form-select-sm w-auto">
-                                    <option>Yearly</option>
-                                    <option>Monthly</option>
-                                    <option>Weekly</option>
-                                    <option>Today</option>
-                                </select>
+                                <h6 class="text-lg mb-0">Earnings Statistic</h6>
                             </div>
+
+                            <?php
+                            $todayForecast = $result['earnings_analytics']['todayForecast'] ?? 0;
+                            $growthPercent = $result['earnings_analytics']['growthPercent'] ?? 0;
+                            $isGrowthPositive = $growthPercent >= 0;
+                            $arrowIcon = $isGrowthPositive ? 'bxs:up-arrow' : 'bxs:down-arrow';
+                            $badgeClass = $isGrowthPositive
+                                ? 'bg-success-focus text-success-main br-success'
+                                : 'bg-danger-focus text-danger-main br-danger';
+                            $growthSign = $isGrowthPositive ? '+' : '';
+                            ?>
+
                             <div class="d-flex flex-wrap align-items-center gap-2 mt-8">
-                                <h6 class="mb-0">$27,200</h6>
-                                <span class="text-sm fw-semibold rounded-pill bg-success-focus text-success-main border br-success px-8 py-4 line-height-1">
-                                    10% <iconify-icon icon="bxs:up-arrow" class="text-xs"></iconify-icon>
+                                <h6 class="mb-0"><?= moneyFormat($todayForecast, 2) ?></h6>
+                                <span class="text-sm fw-semibold rounded-pill <?= $badgeClass ?> border px-8 py-6 d-flex gap-1">
+                                    <?= $growthSign . $growthPercent ?>% <iconify-icon icon="<?= $arrowIcon ?>" class="text-xs"></iconify-icon>
                                 </span>
-                                <span class="text-xs fw-medium">+ $1500 Per Day</span>
+                                <span class="text-xs fw-medium">
+                                    <?= $growthSign ?><?= number_format(abs($todayForecast * ($growthPercent / 100)), 2) ?> per day
+                                </span>
                             </div>
-                            <div id="chart" class="pt-28 apexcharts-tooltip-style-1"></div>
+
+                            <div id="earningsChart" class="pt-28 apexcharts-tooltip-style-1"></div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Total Subscriber -->
                 <div class="col-xxl-3 col-xl-6">
                     <div class="card h-100 radius-8 border">
                         <div class="card-body p-24">
@@ -152,6 +163,8 @@ $pageName = "Dashboard"
                         </div>
                     </div>
                 </div>
+
+                <!-- User Donut -->
                 <div class="col-xxl-3 col-xl-6">
                     <div class="card h-100 radius-8 border-0 overflow-hidden">
                         <div class="card-body p-24">
@@ -188,6 +201,8 @@ $pageName = "Dashboard"
                         </div>
                     </div>
                 </div>
+
+                <!-- Facility Available/Unavailable -->
                 <div class="col-xxl-9 col-xl-12">
                     <div class="card h-100">
                         <div class="card-body p-24">
@@ -264,6 +279,8 @@ $pageName = "Dashboard"
                         </div>
                     </div>
                 </div>
+
+                <!-- Occupancy Rate -->
                 <div class="col-xxl-3 col-xl-12">
                     <div class="card h-100">
                         <div class="card-body">
@@ -288,177 +305,6 @@ $pageName = "Dashboard"
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-6 col-xl-12">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between mb-20">
-                                <h6 class="mb-2 fw-bold text-lg mb-0">Top Countries</h6>
-                                <select class="form-select form-select-sm w-auto bg-base border text-secondary-light">
-                                    <option>Today</option>
-                                    <option>Weekly</option>
-                                    <option>Monthly</option>
-                                    <option>Yearly</option>
-                                </select>
-                            </div>
-
-                            <div class="row gy-4">
-                                <div class="col-lg-6">
-                                    <div id="world-map" class="h-100 border radius-8"></div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="h-100 border p-16 pe-0 radius-8">
-                                        <div class="max-h-266-px overflow-y-auto scroll-sm pe-16">
-                                            <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
-                                                <div class="d-flex align-items-center w-100">
-                                                    <img src="/assets/admin/images/flags/flag1.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
-                                                    <div class="flex-grow-1">
-                                                        <h6 class="text-sm mb-0">USA</h6>
-                                                        <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center gap-2 w-100">
-                                                    <div class="w-100 max-w-66 ms-auto">
-                                                        <div class="progress progress-sm rounded-pill" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                            <div class="progress-bar bg-primary-600 rounded-pill" style="width: 80%;"></div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="text-secondary-light font-xs fw-semibold">80%</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
-                                                <div class="d-flex align-items-center w-100">
-                                                    <img src="/assets/admin/images/flags/flag2.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
-                                                    <div class="flex-grow-1">
-                                                        <h6 class="text-sm mb-0">Japan</h6>
-                                                        <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center gap-2 w-100">
-                                                    <div class="w-100 max-w-66 ms-auto">
-                                                        <div class="progress progress-sm rounded-pill" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                            <div class="progress-bar bg-orange rounded-pill" style="width: 60%;"></div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="text-secondary-light font-xs fw-semibold">60%</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
-                                                <div class="d-flex align-items-center w-100">
-                                                    <img src="/assets/admin/images/flags/flag3.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
-                                                    <div class="flex-grow-1">
-                                                        <h6 class="text-sm mb-0">France</h6>
-                                                        <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center gap-2 w-100">
-                                                    <div class="w-100 max-w-66 ms-auto">
-                                                        <div class="progress progress-sm rounded-pill" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                            <div class="progress-bar bg-yellow rounded-pill" style="width: 49%;"></div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="text-secondary-light font-xs fw-semibold">49%</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
-                                                <div class="d-flex align-items-center w-100">
-                                                    <img src="/assets/admin/images/flags/flag4.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
-                                                    <div class="flex-grow-1">
-                                                        <h6 class="text-sm mb-0">Germany</h6>
-                                                        <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center gap-2 w-100">
-                                                    <div class="w-100 max-w-66 ms-auto">
-                                                        <div class="progress progress-sm rounded-pill" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                            <div class="progress-bar bg-success-main rounded-pill" style="width: 100%;"></div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="text-secondary-light font-xs fw-semibold">100%</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
-                                                <div class="d-flex align-items-center w-100">
-                                                    <img src="/assets/admin/images/flags/flag5.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
-                                                    <div class="flex-grow-1">
-                                                        <h6 class="text-sm mb-0">South Korea</h6>
-                                                        <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center gap-2 w-100">
-                                                    <div class="w-100 max-w-66 ms-auto">
-                                                        <div class="progress progress-sm rounded-pill" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                            <div class="progress-bar bg-info-main rounded-pill" style="width: 30%;"></div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="text-secondary-light font-xs fw-semibold">30%</span>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-between gap-3">
-                                                <div class="d-flex align-items-center w-100">
-                                                    <img src="/assets/admin/images/flags/flag1.png" alt="" class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12">
-                                                    <div class="flex-grow-1">
-                                                        <h6 class="text-sm mb-0">USA</h6>
-                                                        <span class="text-xs text-secondary-light fw-medium">1,240 Users</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center gap-2 w-100">
-                                                    <div class="w-100 max-w-66 ms-auto">
-                                                        <div class="progress progress-sm rounded-pill" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                            <div class="progress-bar bg-primary-600 rounded-pill" style="width: 80%;"></div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="text-secondary-light font-xs fw-semibold">80%</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xxl-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between">
-                                <h6 class="mb-2 fw-bold text-lg mb-0">Generated Content</h6>
-                                <select class="form-select form-select-sm w-auto bg-base border text-secondary-light">
-                                    <option>Today</option>
-                                    <option>Weekly</option>
-                                    <option>Monthly</option>
-                                    <option>Yearly</option>
-                                </select>
-                            </div>
-
-                            <ul class="d-flex flex-wrap align-items-center mt-3 gap-3">
-                                <li class="d-flex align-items-center gap-2">
-                                    <span class="w-12-px h-12-px rounded-circle bg-primary-600"></span>
-                                    <span class="text-secondary-light text-sm fw-semibold">Word:
-                                        <span class="text-primary-light fw-bold">500</span>
-                                    </span>
-                                </li>
-                                <li class="d-flex align-items-center gap-2">
-                                    <span class="w-12-px h-12-px rounded-circle bg-yellow"></span>
-                                    <span class="text-secondary-light text-sm fw-semibold">Image:
-                                        <span class="text-primary-light fw-bold">300</span>
-                                    </span>
-                                </li>
-                            </ul>
-
-                            <div class="mt-40">
-                                <div id="paymentStatusChart" class="margin-16-minus"></div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </main>
@@ -467,6 +313,148 @@ $pageName = "Dashboard"
     <?php view("admin/partials/plugins.partial.php") ?>
     <script src="/assets/admin/js/homeOneChart.js"></script>
 
+    <!-- Earnings Statistic Chart -->
+    <script>
+        $(document).ready(function() {
+            // --- Helpers ---
+            const formatDateTime = (value) => {
+                if (!value) return "N/A";
+                const date = new Date(value);
+                if (isNaN(date)) return "N/A";
+                return date.toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric"
+                });
+            };
+
+            // Assuming your PHP returns JSON to the frontend
+            const forecastData = <?= json_encode($result["earnings_analytics"]) ?>;
+
+            const historical = forecastData.historical || [];
+            const forecast = forecastData.forecast || [];
+
+            // Merge historical + forecast dates for continuous trend
+            const labels = [
+                ...historical.map(item => formatDateTime(item.date)),
+                ...forecast.map(item => formatDateTime(item.date))
+            ];
+
+            const actualEarnings = historical.map(item => parseFloat(item.earnings));
+            const predictedEarnings = forecast.map(item => parseFloat(item.predicted_earnings));
+
+            // Create ApexCharts options
+            var options = {
+                series: [{
+                        name: "Actual Earnings",
+                        data: actualEarnings,
+                    },
+                    {
+                        name: "Forecast",
+                        data: Array(historical.length).fill(null).concat(predictedEarnings),
+                    },
+                ],
+                chart: {
+                    height: 264,
+                    type: "line",
+                    toolbar: {
+                        show: false,
+                    },
+                    zoom: {
+                        enabled: false,
+                    },
+                    dropShadow: {
+                        enabled: true,
+                        top: 6,
+                        left: 0,
+                        blur: 4,
+                        color: "#000",
+                        opacity: 0.1,
+                    },
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                stroke: {
+                    curve: "smooth",
+                    width: 3,
+                    colors: ["#487FFF", "#10B981"],
+                    dashArray: [0, 6],
+                },
+                markers: {
+                    size: 0,
+                    strokeWidth: 3,
+                    hover: {
+                        size: 8,
+                    },
+                },
+                tooltip: {
+                    enabled: true,
+                    x: {
+                        show: true,
+                    },
+                    y: {
+                        formatter: function(value) {
+                            return "₱ " + value.toLocaleString();
+                        },
+                    },
+                },
+                grid: {
+                    row: {
+                        colors: ["transparent", "transparent"],
+                        opacity: 0.5,
+                    },
+                    borderColor: "#D1D5DB",
+                    strokeDashArray: 3,
+                },
+                yaxis: {
+                    labels: {
+                        formatter: function(value) {
+                            return "₱ " + value.toLocaleString();
+                        },
+                        style: {
+                            fontSize: "14px",
+                        },
+                    },
+                },
+                xaxis: {
+                    categories: labels,
+                    tooltip: {
+                        enabled: false,
+                    },
+                    labels: {
+                        rotate: -45,
+                        style: {
+                            fontSize: "12px",
+                        },
+                    },
+                    axisBorder: {
+                        show: false,
+                    },
+                    crosshairs: {
+                        show: true,
+                        width: 20,
+                        stroke: {
+                            width: 0,
+                        },
+                        fill: {
+                            type: "solid",
+                            color: "#487FFF40",
+                        },
+                    },
+                },
+                legend: {
+                    show: true,
+                    position: "top",
+                    horizontalAlign: "right",
+                },
+            };
+
+            // Render chart
+            var chart = new ApexCharts(document.querySelector("#earningsChart"), options);
+            chart.render();
+        });
+    </script>
 </body>
 
 </html>
