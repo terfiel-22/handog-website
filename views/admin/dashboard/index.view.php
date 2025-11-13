@@ -169,38 +169,25 @@ $pageName = "Dashboard"
                     </div>
                 </div>
 
-                <!-- User Donut -->
+                <!-- Reservation Status Breakdown -->
                 <div class="col-xxl-3 col-xl-6">
                     <div class="card h-100 radius-8 border-0 overflow-hidden">
                         <div class="card-body p-24">
                             <div class="d-flex align-items-center flex-wrap gap-2 justify-content-between">
-                                <h6 class="mb-2 fw-bold text-lg">Users Overview</h6>
-                                <div class="">
-                                    <select class="form-select form-select-sm w-auto bg-base border text-secondary-light">
-                                        <option>Today</option>
-                                        <option>Weekly</option>
-                                        <option>Monthly</option>
-                                        <option>Yearly</option>
-                                    </select>
-                                </div>
+                                <h6 class="mb-2 fw-bold text-lg">Reservation Status Breakdown</h6>
                             </div>
 
-
-                            <div id="userOverviewDonutChart"></div>
-
+                            <div id="reservationStatusBreakdownChart"></div>
                             <ul class="d-flex flex-wrap align-items-center justify-content-between mt-3 gap-3">
-                                <li class="d-flex align-items-center gap-2">
-                                    <span class="w-12-px h-12-px radius-2 bg-primary-600"></span>
-                                    <span class="text-secondary-light text-sm fw-normal">New:
-                                        <span class="text-primary-light fw-semibold">500</span>
-                                    </span>
-                                </li>
-                                <li class="d-flex align-items-center gap-2">
-                                    <span class="w-12-px h-12-px radius-2 bg-yellow"></span>
-                                    <span class="text-secondary-light text-sm fw-normal">Subscribed:
-                                        <span class="text-primary-light fw-semibold">300</span>
-                                    </span>
-                                </li>
+                                <?php foreach ($result['reservation_status_breakdown']['legendData'] as $item): ?>
+                                    <li class="d-flex align-items-center gap-2">
+                                        <span class="w-12-px h-12-px radius-2" style="background-color: <?= $item['color'] ?>;"></span>
+                                        <span class="text-secondary-light text-sm fw-normal">
+                                            <?= htmlspecialchars($item['status']) ?>:
+                                            <span class="text-primary-light fw-semibold"><?= number_format($item['total']) ?></span>
+                                        </span>
+                                    </li>
+                                <?php endforeach; ?>
                             </ul>
 
                         </div>
@@ -316,7 +303,6 @@ $pageName = "Dashboard"
 
     <!-- JS Plugins -->
     <?php view("admin/partials/plugins.partial.php") ?>
-    <script src="/assets/admin/js/homeOneChart.js"></script>
 
     <!-- Earnings Statistic Chart -->
     <script>
@@ -349,7 +335,7 @@ $pageName = "Dashboard"
             const predictedEarnings = forecast.map(item => parseFloat(item.predicted_earnings));
 
             // Create ApexCharts options
-            var options = {
+            var lineOptions = {
                 series: [{
                         name: "Actual Earnings",
                         data: actualEarnings,
@@ -456,8 +442,7 @@ $pageName = "Dashboard"
             };
 
             // Render chart
-            var chart = new ApexCharts(document.querySelector("#earningsChart"), options);
-            chart.render();
+            new ApexCharts(document.querySelector("#earningsChart"), lineOptions).render();
         });
     </script>
 
@@ -529,8 +514,54 @@ $pageName = "Dashboard"
                 },
             };
 
-            var chart = new ApexCharts(document.querySelector("#currentWeekGuestsChart"), barOptions);
-            chart.render();
+            new ApexCharts(document.querySelector("#currentWeekGuestsChart"), barOptions).render();
+        });
+    </script>
+
+    <!-- Reservation Status Breakdown Chart -->
+    <script>
+        $(document).ready(function() {
+            const statusData = <?= json_encode($result["reservation_status_breakdown"]['chartData']) ?>;
+            const donutOptions = {
+                series: statusData.map(item => item.value),
+                chart: {
+                    type: "donut",
+                    height: 270,
+                    sparkline: {
+                        enabled: true,
+                    },
+                    margin: {
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
+                        left: 0,
+                    },
+                    padding: {
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
+                        left: 0,
+                    },
+                },
+                labels: statusData.map(item => item.label),
+                colors: statusData.map(item => item.color),
+                legend: {
+                    show: false
+                },
+                stroke: {
+                    width: 0,
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                tooltip: {
+                    y: {
+                        formatter: val => val.toLocaleString()
+                    }
+                },
+            };
+
+            new ApexCharts(document.querySelector("#reservationStatusBreakdownChart"), donutOptions).render();
         });
     </script>
 </body>

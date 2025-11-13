@@ -6,6 +6,7 @@ use Core\Database;
 use Core\App;
 use DateTime;
 use Http\Enums\PaymentStatus;
+use Http\Enums\ReservationStatus;
 
 class DashboardService
 {
@@ -244,7 +245,60 @@ class DashboardService
         ];
     }
 
+    public static function reservationStatusBreakdown(): array
+    {
+        $db = self::db();
 
+        // Define all statuses with default 0 count
+        $statuses = [
+            ReservationStatus::PENDING => 0,
+            ReservationStatus::CONFIRMED => 0,
+            ReservationStatus::CANCELED => 0,
+            ReservationStatus::COMPLETED => 0,
+        ];
+
+        // Assign colors for each status
+        $statusColors = [
+            ReservationStatus::PENDING => '#F59E0B',   // Yellow
+            ReservationStatus::CONFIRMED => '#3B82F6', // Blue
+            ReservationStatus::CANCELED => '#EF4444',  // Red
+            ReservationStatus::COMPLETED => '#10B981', // Green
+        ];
+
+        // Fetch actual counts from DB
+        $result = $db->query("
+            SELECT status, COUNT(*) AS total
+            FROM reservations
+            GROUP BY status
+        ")->get();
+
+        foreach ($result as $row) {
+            $status = $row['status'];
+            $statuses[$status] = (int) $row['total'];
+        }
+
+        // Prepare chart & legend data
+        $chartData = [];
+        $legendData = [];
+
+        foreach ($statuses as $status => $total) {
+            $chartData[] = [
+                'label' => ucfirst($status),
+                'value' => $total,
+                'color' => $statusColors[$status],
+            ];
+            $legendData[] = [
+                'status' => ucfirst($status),
+                'total' => $total,
+                'color' => $statusColors[$status],
+            ];
+        }
+
+        return [
+            'chartData' => $chartData,
+            'legendData' => $legendData,
+        ];
+    }
 
     public static function forecastEarningsWithTrendline(int $daysBack = 30, int $daysAhead = 7): array
     {
@@ -348,6 +402,7 @@ class DashboardService
             'earnings_analytics' => self::forecastEarningsWithTrendline(),
             'total_visits' => self::totalVisits(),
             'current_week_guests' => self::currentWeekGuests(),
+            'reservation_status_breakdown' => self::reservationStatusBreakdown(),
         ];
     }
 }
