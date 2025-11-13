@@ -41,5 +41,8 @@ class BookingForm extends Form
         if (!Validator::not_empty_array($guests)) {
             $this->errors["guests"] = "Atleast one guest is required.";
         }
+        if (!Validator::quantity($amount_to_pay)) {
+            $this->errors["amount_to_pay"] = "Amount to pay should be a valid value.";
+        }
     }
 }

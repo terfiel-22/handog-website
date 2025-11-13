@@ -14,10 +14,18 @@ use Http\Models\Reservation;
 $bookingForm = BookingForm::validate($_POST);
 
 $facilityRate = App::resolve(ReservationHelper::class)->getFacilityRate($_POST["time_range"], $_POST['facility']);
+
 $total_price = App::resolve(ReservationHelper::class)->getReservationTotalPrice($facilityRate, $_POST);
-$check_out = App::resolve(ReservationHelper::class)->calculateCheckOut($_POST["check_in"], $_POST["time_range"]);
 $bookingDeposit = bookingDeposit($total_price);
-$paymentLink = App::resolve(PaymentHelper::class)->createPaymentLink($bookingDeposit);
+$amountToPay = (float) $_POST["amount_to_pay"];
+if ($amountToPay < $bookingDeposit || $amountToPay > $total_price) {
+    $bookingForm->error(
+        "amount_to_pay",
+        "Amount to pay should be at range $bookingDeposit - $total_price."
+    )->throw();
+}
+
+$paymentLink = App::resolve(PaymentHelper::class)->createPaymentLink($amountToPay);
 if ($paymentLink["success"] == YesNo::NO) {
     $bookingForm->error(
         "total_rate",
@@ -25,6 +33,7 @@ if ($paymentLink["success"] == YesNo::NO) {
     )->throw();
 }
 
+$check_out = App::resolve(ReservationHelper::class)->calculateCheckOut($_POST["check_in"], $_POST["time_range"]);
 $reservation = [
     "facility_id" => $_POST["facility"],
     "contact_person" => $_POST["contact_person"],
@@ -47,7 +56,7 @@ App::resolve(ReservationHelper::class)->addGuestList($reservationId, $_POST["gue
 
 $payment = [
     "reservation_id" => $reservationId,
-    "amount" => $bookingDeposit,
+    "amount" => $amountToPay,
     "payment_method" => NULL,
     "payment_status" => PaymentStatus::UNPAID,
     "payment_type" => PaymentType::DEPOSIT,

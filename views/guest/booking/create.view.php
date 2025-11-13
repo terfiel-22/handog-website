@@ -204,17 +204,28 @@
                                 <div class="form-block">
                                     <h4 class="fw-bold">Payment Information</h4>
                                     <div class="row g-4">
-                                        <div class="col-12 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="total_rate">Total Rate</label>
                                             <div class="form-clt">
                                                 <input type="number" name="total_rate" id="total_rate" disabled>
                                             </div>
                                             <div class="discount-container"></div>
                                         </div>
-                                        <div class="col-12 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s">
                                             <label for="booking_deposit">Booking Deposit</label>
                                             <div class="form-clt">
                                                 <input type="number" name="booking_deposit" id="booking_deposit" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s">
+                                            <label for="amount_to_pay">Amount To Pay</label>
+                                            <div class="form-clt">
+                                                <input type="number" name="amount_to_pay" id="amount_to_pay">
+                                                <?php if (isset($errors["amount_to_pay"])) : ?>
+                                                    <div class="error-text">
+                                                        <?= $errors["amount_to_pay"] ?>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -304,6 +315,10 @@
                                 <tr>
                                     <td>50% Deposit</td>
                                     <td class="text-end text-primary" id="breakdown-deposit">0.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Amount To Pay</td>
+                                    <td class="text-end text-primary" id="breakdown-amount-to-pay">0.00</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -753,6 +768,25 @@
                 });
             };
 
+            const setPaymentRange = (totalAmount, depositValue) => {
+                const input = $('#amount_to_pay');
+
+                input.attr('min', depositValue);
+                input.attr('max', totalAmount);
+                input.val(depositValue);
+
+                // Optional live validation to keep input within range
+                input.on('change', function() {
+                    let val = parseFloat($(this).val());
+                    const min = parseFloat($(this).attr('min'));
+                    const max = parseFloat($(this).attr('max'));
+
+                    if (val < min) $(this).val(min);
+                    if (val > max) $(this).val(max);
+                });
+            }
+
+
             // ---------------------------------------------------------
             // Main calculator
             // ---------------------------------------------------------
@@ -785,8 +819,13 @@
                 total += computeAdditionals();
 
                 // Output
-                $("#total_rate").val(total.toFixed(2));
-                $("#booking_deposit").val((total / 2).toFixed(2));
+                const totalAmount = total.toFixed(2);
+                const depositValue = (totalAmount / 2).toFixed(2);
+                $("#total_rate").val(totalAmount);
+                $("#booking_deposit").val(depositValue);
+
+                // Allowed payment
+                setPaymentRange(totalAmount, depositValue);
             };
 
 
@@ -870,12 +909,14 @@
                     `);
                 }
 
-                // Total & Deposit
+                // Total, Deposit, Amount To Pay
                 const total = facilityRate + guestTotal + videokeTotal + addTotal;
                 const deposit = total / 2;
+                const amountToPay = $("#amount_to_pay").val();
 
                 $("#breakdown-total").text(total.toFixed(2));
                 $("#breakdown-deposit").text(deposit.toFixed(2));
+                $("#breakdown-amount-to-pay").text(amountToPay);
 
                 // Show modal
                 const modal = new bootstrap.Modal(document.getElementById("paymentBreakdownModal"));
