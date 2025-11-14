@@ -163,6 +163,16 @@ $pageName = "Reservation"
                                                     <th class="text-secondary-light fw-semibold">Senior/PWD:</th>
                                                     <td><?= htmlspecialchars(ucfirst($guest['senior_pwd'])) ?></td>
                                                 </tr>
+                                                <?php if (isset($guest['presented_id'])): ?>
+                                                    <tr>
+                                                        <th class="text-secondary-light fw-semibold">Senior/PWD ID:</th>
+                                                        <td>
+                                                            <a href="<?= handleFilePath($guest['presented_id']) ?>" target="_blank" rel="noopener" class="text-primary-600 d-flex align-items-center gap-2">
+                                                                View <iconify-icon icon="mingcute:square-arrow-right-line" class="text-xl"></iconify-icon>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                <?php endif; ?>
                                             </table>
 
                                         </li>
