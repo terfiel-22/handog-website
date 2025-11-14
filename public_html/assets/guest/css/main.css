@@ -7477,3 +7477,9 @@ span {
     overflow-y: auto;
   }
 }
+
+.text-small {
+  color: var(--gt-text); 
+  letter-spacing: 1px;
+  font-size: 12px;
+}

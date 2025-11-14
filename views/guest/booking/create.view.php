@@ -41,7 +41,7 @@
                             </h2>
                             <p>Complete filling up the form to continue.</p>
                             <div class="error-text" role="alert" id="check_in_msg"></div>
-                            <form action="/booking/store" method="POST" class="booking" id="bookingForm">
+                            <form action="/booking/store" method="POST" class="booking" id="bookingForm" enctype="multipart/form-data">
                                 <input type="hidden" name="time_slot" id="time_slot">
                                 <!-- Booking Information -->
                                 <div class="form-block">
@@ -128,6 +128,11 @@
                                 <div class="form-block">
                                     <h4 class="fw-bold">Guest Information</h4>
                                     <div id="guest-list" class="row g-4"></div>
+                                    <?php if (isset($errors["guests"])) : ?>
+                                        <div class="error-text">
+                                            <?= $errors["guests"] ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
 
                                 <!-- Contact Information -->
@@ -588,6 +593,8 @@
                 $('#check_in_msg').text('');
                 $('#viewTermsBtn').prop('disabled', false);
             }
+
+            checkAvailability();
         });
     </script>
 
@@ -612,19 +619,19 @@
                 if (count > 0) {
                     for (let i = 0; i < count; i++) {
                         let fieldGroup = `
-                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s"> 
+                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s"> 
                             <label for"guests[${i}][guest_name]">Guest ${i + 1} Name</label>
                             <div class="form-clt">
                                 <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Guest Name" value="${oldValues[i]?.guest_name ?? ''}" required>
                             </div>
                         </div> 
-                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s"> 
+                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s"> 
                             <label for"guests[${i}][guest_age]">Age</label>
                             <div class="form-clt">
                                 <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" placeholder="Guest Age" value="${oldValues[i]?.guest_age ?? ''}" required>
                             </div>
                         </div>
-                        <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s"> 
+                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s"> 
                             <label for="guests[${i}][senior_pwd]">Senior/PWD</label> 
                             <div class="form-clt">
                                 <select name="guests[${i}][senior_pwd]" id="guests[${i}][senior_pwd]" class="single-select w-100"> 
@@ -634,6 +641,13 @@
                                 </select>
                             </div> 
                         </div>
+                        <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s"> 
+                            <label for"presented_id_${i}">Senior/PWD ID</label>
+                            <div class="form-clt">
+                                <input type="file" name="presented_id_${i}" id="presented_id_${i}" class="form-control">
+                                <p class="text-small">Upload ID if Senior Citizen or PWD</p>
+                            </div>
+                        </div> 
                         `;
                         $container.append(fieldGroup);
                     }

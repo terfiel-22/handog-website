@@ -1,6 +1,7 @@
 <?php
 
 use Core\App;
+use Core\FileUploadHandler;
 use Http\Enums\PaymentStatus;
 use Http\Enums\PaymentType;
 use Http\Enums\ReservationStatus;
@@ -13,8 +14,36 @@ use Http\Models\Reservation;
 
 $bookingForm = BookingForm::validate($_POST);
 
-$facilityRate = App::resolve(ReservationHelper::class)->getFacilityRate($_POST["time_range"], $_POST['facility']);
+// --- START Validation for Senior/PWD ID:  
+$guests = $_POST["guests"] ?? [];
+$files = $_FILES;
+foreach ($guests as $i => $guest) {
+    $isSenior = isset($guest["senior_pwd"]) && $guest["senior_pwd"] === YesNo::YES;
+    // File info for this guest
+    $fileName  = $files["presented_id_$i"]["name"] ?? null;
+    $fileError = $files["presented_id_$i"]["error"] ?? 4; // 4 = no file uploaded
 
+    $hasFile = ($fileError === 0 && !empty($fileName));
+
+    // RULE 1: Senior/PWD = yes but NO file uploaded
+    if ($isSenior && !$hasFile) {
+        $bookingForm->error(
+            "guests",
+            $guests[$i]["guest_name"] . " marked as Senior/PWD but no ID was uploaded."
+        )->throw();
+    }
+
+    // RULE 2: Senior/PWD = no but file WAS uploaded
+    if (!$isSenior && $hasFile) {
+        $bookingForm->error(
+            "guests",
+            $guests[$i]["guest_name"] . " uploaded an ID but is NOT marked as Senior/PWD."
+        )->throw();
+    }
+}
+// --- END Validation for Senior/PWD ID:
+
+$facilityRate = App::resolve(ReservationHelper::class)->getFacilityRate($_POST["time_range"], $_POST['facility']);
 $total_price = App::resolve(ReservationHelper::class)->getReservationTotalPrice($facilityRate, $_POST);
 $bookingDeposit = bookingDeposit($total_price);
 $amountToPay = (float) $_POST["amount_to_pay"];
@@ -45,14 +74,23 @@ $reservation = [
     "check_out" => $check_out,
     "rent_videoke" => $_POST["rent_videoke"],
     "additional_bed_count" => $_POST["additional_bed_count"],
-    "guest_count" => count($_POST["guests"]),
+    "guest_count" => count($guests),
     "total_price" => $total_price,
     "status" => ReservationStatus::PENDING
 ];
 
 $reservationId = App::resolve(Reservation::class)->createReservation($reservation);
 
-App::resolve(ReservationHelper::class)->addGuestList($reservationId, $_POST["guests"]);
+/** Upload Senior/PWD IDs */
+foreach ($guests as $i => $guest) {
+    $fileuploadResult = App::resolve(FileUploadHandler::class)->upload()->singleFile($files["presented_id_$i"]);
+    if (!$fileuploadResult['success']) {
+        $guests[$i]["presented_id"] = null;
+        continue;
+    }
+    $guests[$i]["presented_id"] = $fileuploadResult['path'];
+}
+App::resolve(ReservationHelper::class)->addGuestList($reservationId, $guests);
 
 $payment = [
     "reservation_id" => $reservationId,

@@ -17,7 +17,7 @@ class ReservationGuest
     public function createReservationGuest($attributes)
     {
         $this->db->query(
-            "INSERT INTO reservation_guests(reservation_id, guest_name, guest_age, guest_type, senior_pwd) VALUES(:reservation_id, :guest_name, :guest_age, :guest_type, :senior_pwd)",
+            "INSERT INTO reservation_guests(reservation_id, guest_name, guest_age, guest_type, senior_pwd, presented_id) VALUES(:reservation_id, :guest_name, :guest_age, :guest_type, :senior_pwd, :presented_id)",
             $attributes
         );
     }
