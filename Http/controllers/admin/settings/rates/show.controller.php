@@ -1,10 +1,9 @@
 <?php
 
-use Core\App;
 use Core\Session;
-use Http\Models\Rates;
+use Http\Services\RatesService;
 
-$rates = App::resolve(Rates::class)->fetchRates();
+$rates = RatesService::getRates();
 $errors = Session::get('errors', []);
 
 view(

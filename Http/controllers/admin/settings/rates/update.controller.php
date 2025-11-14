@@ -5,7 +5,7 @@ use Http\Forms\RatesForm;
 use Http\Models\Rates;
 
 RatesForm::validate($_POST);
-
+dd($_POST);
 unset($_POST["_method"]);
 $_POST["senior_pwd_discount"] = $_POST["senior_pwd_discount"] / 100;
 

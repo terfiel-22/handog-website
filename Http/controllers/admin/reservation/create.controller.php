@@ -4,11 +4,11 @@ use Core\App;
 use Core\Session;
 use Http\Models\Facility;
 use Http\Models\Promo;
-use Http\Models\Rates;
 use Http\Models\Reservation;
+use Http\Services\RatesService;
 
 $facilities = App::resolve(Facility::class)->fetchAvailableFacilities();
-$rates = App::resolve(Rates::class)->fetchRates();
+$rates = RatesService::getRates();
 $errors = Session::get('errors', []);
 $uncompleteReservations = App::resolve(Reservation::class)->uncompleteReservations();
 $bookings = convertToBookingsFormat($uncompleteReservations);
