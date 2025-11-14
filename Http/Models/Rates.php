@@ -19,6 +19,39 @@ class Rates
         return $this->db->query('SELECT * FROM st_rates LIMIT 1')->find();
     }
 
+    public function createRates($attributes)
+    {
+        $this->db->query(
+            "
+        INSERT INTO st_rates (
+            adult_rate_day,
+            adult_rate_night,
+            kid_rate_day,
+            kid_rate_night,
+            senior_pwd_discount,
+            videoke_rent,
+            additional_bed_rate,
+            pool_extension_rate_adult,
+            pool_extension_rate_kid,
+            cottage_extension_rate
+        ) VALUES (
+            :adult_rate_day,
+            :adult_rate_night,
+            :kid_rate_day,
+            :kid_rate_night,
+            :senior_pwd_discount,
+            :videoke_rent,
+            :additional_bed_rate,
+            :pool_extension_rate_adult,
+            :pool_extension_rate_kid,
+            :cottage_extension_rate
+        )
+        ",
+            $attributes
+        );
+    }
+
+
     public function updateRates($attributes)
     {
         $this->db->query(

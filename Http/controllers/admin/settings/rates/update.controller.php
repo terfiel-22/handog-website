@@ -5,10 +5,15 @@ use Http\Forms\RatesForm;
 use Http\Models\Rates;
 
 RatesForm::validate($_POST);
-dd($_POST);
+
 unset($_POST["_method"]);
 $_POST["senior_pwd_discount"] = $_POST["senior_pwd_discount"] / 100;
 
-App::resolve(Rates::class)->updateRates($_POST);
+if (empty($_POST["id"])) {
+    unset($_POST["id"]);
+    App::resolve(Rates::class)->createRates($_POST);
+} else {
+    App::resolve(Rates::class)->updateRates($_POST);
+}
 
 redirect('/admin/settings/rates');

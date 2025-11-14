@@ -23,7 +23,7 @@ class RatesService
 
         if (!$rates) {
             return [
-                "id" => 1,
+                "id" => "",
                 "adult_rate_day" => "120.00",
                 "kid_rate_day" => "80.00",
                 "adult_rate_night" => "200.00",
