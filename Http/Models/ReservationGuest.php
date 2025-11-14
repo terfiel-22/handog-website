@@ -22,6 +22,23 @@ class ReservationGuest
         );
     }
 
+    public function updateReservationGuest($guest)
+    {
+        return $this->db->query(
+            "UPDATE
+                reservation_guests
+            SET
+                guest_name=:guest_name,
+                guest_age=:guest_age,
+                guest_type=:guest_type,
+                senior_pwd=:senior_pwd
+            WHERE
+                id=:guest_id
+                ",
+            $guest
+        );
+    }
+
     public function deleteReservationGuest($reservation_id)
     {
         return $this->db->query(

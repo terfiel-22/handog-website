@@ -33,7 +33,7 @@ $updatedReservation = [
 
 App::resolve(Reservation::class)->updateReservation($origRes["id"], $updatedReservation);
 
-App::resolve(ReservationHelper::class)->addGuestList($origRes["id"], $_POST["guests"]);
+App::resolve(ReservationHelper::class)->updateGuestList($origRes["id"], $_POST["guests"]);
 
 /** Set payment */
 $origPayment = App::resolve(Payment::class)->fetchPaymentByReservationId($origRes["id"]);

@@ -594,7 +594,8 @@ $pageName = "Reservations"
                             <div class="col-12 wow fadeInUp" data-wow-delay=".3s"> 
                                 <label for"guests[${i}][guest_name]">Name</label>
                                 <div class="form-clt">
-                                    <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Guest Name" value="${oldValues[i]?.guest_name ?? ''}" class="form-control" required>
+                                    <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Guest Name" value="${oldValues[i]?.guest_name ?? ''}" class="form-control" required> 
+                                    <input type="hidden" name="guests[${i}][guest_id]" id="guests[${i}][guest_id]" value="${oldValues[i]?.id ?? ''}">
                                 </div>
                             </div> 
                             <div class="col-12 wow fadeInUp" data-wow-delay=".3s"> 

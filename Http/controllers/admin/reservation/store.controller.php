@@ -14,7 +14,7 @@ ReservationForm::validate($_POST);
 $facilityRate = App::resolve(ReservationHelper::class)->getFacilityRate($_POST["time_range"], $_POST['facility']);
 $total_price = App::resolve(ReservationHelper::class)->getReservationTotalPrice($facilityRate, $_POST);
 $check_out = App::resolve(ReservationHelper::class)->calculateCheckOut($_POST["check_in"], $_POST["time_range"]);
-
+$guests = $_POST["guests"] ?? [];
 $reservation = [
     "facility_id" => $_POST["facility"],
     "contact_person" => $_POST["contact_person"],
@@ -26,14 +26,17 @@ $reservation = [
     "check_out" => $check_out,
     "rent_videoke" => $_POST["rent_videoke"],
     "additional_bed_count" => $_POST["additional_bed_count"],
-    "guest_count" => count($_POST["guests"]),
+    "guest_count" => count($guests),
     "total_price" => $total_price,
     "status" => ReservationStatus::CONFIRMED
 ];
 
 $reservationId = App::resolve(Reservation::class)->createReservation($reservation);
 
-App::resolve(ReservationHelper::class)->addGuestList($reservationId, $_POST["guests"]);
+foreach ($guests as $i => $guest) {
+    $guests[$i]["presented_id"] = null;
+}
+App::resolve(ReservationHelper::class)->addGuestList($reservationId, $guests);
 
 /** Set payment */
 $payment = [

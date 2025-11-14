@@ -102,6 +102,21 @@ class ReservationHelper
         }
     }
 
+    public function updateGuestList($reservationId, $guests)
+    {
+        foreach ($guests as $guest) {
+            $guestType = guestType($guest["guest_age"]);
+            if (empty($guest["guest_id"])) {
+                unset($guest["guest_id"]);
+                $data = array_merge($guest, ["reservation_id" => $reservationId, "guest_type" => $guestType, "presented_id" => null]);
+                App::resolve(ReservationGuest::class)->createReservationGuest($data);
+            } else {
+                $data = array_merge($guest, ["guest_type" => $guestType]);
+                App::resolve(ReservationGuest::class)->updateReservationGuest($data);
+            }
+        }
+    }
+
     public function calculateCheckOut(string $checkIn, string $timeRange): string
     {
         $checkInDate = new DateTime($checkIn);
