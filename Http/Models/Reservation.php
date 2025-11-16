@@ -39,6 +39,8 @@ class Reservation
                 time_range = :time_range,
                 check_out = :check_out,
                 rent_videoke = :rent_videoke,
+                extended_pool_hrs = :extended_pool_hrs,
+                extended_cottage_hrs = :extended_cottage_hrs,
                 additional_bed_count = :additional_bed_count,
                 guest_count = :guest_count,
                 total_price = :total_price,

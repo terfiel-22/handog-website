@@ -128,6 +128,24 @@ $pageName = "Reservations"
                                             <?php endif; ?>
                                         </div>
                                         <div class="col-12">
+                                            <label class="form-label" for="extended_pool_hrs">Extended Pool Hours</label>
+                                            <input type="number" id="extended_pool_hrs" name="extended_pool_hrs" class="form-control" min="0" max="99" value="<?= old("extended_pool_hrs", $reservation['extended_pool_hrs']) ?>">
+                                            <?php if (isset($errors["extended_pool_hrs"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["extended_pool_hrs"] ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label" for="extended_cottage_hrs">Extended Cottage Hours</label>
+                                            <input type="number" id="extended_cottage_hrs" name="extended_cottage_hrs" class="form-control" min="0" max="99" value="<?= old("extended_cottage_hrs", $reservation['extended_cottage_hrs']) ?>">
+                                            <?php if (isset($errors["extended_cottage_hrs"])) : ?>
+                                                <div class="error-text">
+                                                    <?= $errors["extended_cottage_hrs"] ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="col-12">
                                             <a href="/admin/reservations" class="btn btn-danger-600">Cancel</a>
                                             <button type="button" id="nextBtn" class="btn btn-primary next">Next</button>
                                         </div>
@@ -736,6 +754,34 @@ $pageName = "Reservations"
                 return additionalTotal;
             }
 
+            const computeExtendedPoolHours = (guestIndex) => {
+                let extendedTotal = 0;
+                const extendedPoolHours = $("#extended_pool_hrs").val();
+                const poolExtensionRateAdult = rates.pool_extension_rate_adult;
+                const poolExtensionRateKid = rates.pool_extension_rate_kid;
+
+                const age = Number($(`[name='guests[${guestIndex}][guest_age]']`).val());
+                if (age && extendedPoolHours > 0) {
+                    if (age > 10) {
+                        extendedTotal += poolExtensionRateAdult * extendedPoolHours;
+                    } else {
+                        extendedTotal += poolExtensionRateKid * extendedPoolHours;
+                    }
+                }
+                return extendedTotal;
+            }
+
+            const computeExtendedCottageHours = () => {
+                let extendedTotal = 0;
+                const extendedCottageHours = $("#extended_cottage_hrs").val();
+                const cottageExtensionRate = rates.cottage_extension_rate;
+
+                if (extendedCottageHours > 0) {
+                    extendedTotal += cottageExtensionRate * extendedCottageHours;
+                }
+                return extendedTotal;
+            }
+
             const formatDateTime = (value) => {
                 if (!value) return "N/A";
                 const date = new Date(value);
@@ -771,7 +817,13 @@ $pageName = "Reservations"
                 $("#guest-list [name*='[guest_age]']").each(function() {
                     const guestIndex = this.name.match(/\d+/)[0];
                     total += computeGuestRate(guestIndex, timeSlot);
+
+                    // Compute extended pool hours
+                    total += computeExtendedPoolHours(guestIndex);
                 });
+
+                // Compute extended cottage hours
+                total += computeExtendedCottageHours();
 
                 // Videoke
                 if ($("#rent_videoke").val() === yesNo.YES) {
@@ -885,7 +937,7 @@ $pageName = "Reservations"
 
             $(document).on(
                 "change input",
-                "#time_range, #check_in, #rent_videoke, #facility, #guest-list input, #guest-list select, #additional_bed_count",
+                "#time_range, #check_in, #rent_videoke, #facility, #guest-list input, #guest-list select, #additional_bed_count, #extended_pool_hrs, #extended_cottage_hrs",
                 computeTotal
             );
 
