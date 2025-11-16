@@ -286,7 +286,7 @@
                 <div class="modal-header flex-column border-bottom-0 pb-0">
                     <div class="w-100 text-center">
                         <img src="<?= $logo ?>" alt="Resort Logo"
-                            style="height: 70px; object-fit: contain;">
+                            style="height: 70px; object-fit: contain;" class="print-logo">
 
                         <h5 class="mt-2 mb-0 fw-bold"><?= WEBSITE_NAME ?></h5>
                         <p class="mb-0 text-muted small">
@@ -346,8 +346,12 @@
                     </div>
                 </div>
 
-                <div class="modal-footer">
+                <div class="modal-footer no-print">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    <button class="btn btn-primary" id="downloadPaymentPDF">
+                        Download Receipt
+                    </button>
                 </div>
             </div>
         </div>
@@ -993,6 +997,38 @@
                 $("#bookingForm").submit();
                 $('#termsModal').modal('hide');
             });
+        });
+    </script>
+
+    <!-- Download Payment Breakdown -->
+    <script>
+        $(document).on("click", "#downloadPaymentPDF", function() {
+
+            let content = $("#paymentBreakdownModal .modal-content").clone();
+
+            let printWindow = window.open("", "_blank");
+
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Payment Receipt</title>
+
+                    <link rel="stylesheet" href="/assets/guest/css/bootstrap.min.css">
+                    <link rel="stylesheet" href="/assets/guest/css/main.css"> 
+                </head>
+                <body style="padding: 1rem">
+                    ${content.prop("outerHTML")}
+                </body>
+                </html>
+            `);
+
+            printWindow.document.close();
+            printWindow.focus();
+
+            setTimeout(() => {
+                printWindow.print();
+                printWindow.close();
+            }, 500);
         });
     </script>
 </body>

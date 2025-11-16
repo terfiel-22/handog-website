@@ -7464,22 +7464,48 @@ span {
   .tab-title {
     font-size: 20px;
   }
-}
-
-/* Payment Breakdown Table */
-.payment-breakdown-table-container {
-  max-height: 64vh; 
-  overflow-y: auto;
-}
-@media (max-width: 575px) {
-  .payment-breakdown-table-container {
-    max-height: 48vh; 
-    overflow-y: auto;
-  }
-}
+} 
 
 .text-small {
   color: var(--gt-text); 
   letter-spacing: 1px;
   font-size: 12px;
+}
+
+/* Payment Breakdown */
+#paymentBreakdownModal .modal-body {
+  max-height: 70vh; 
+  overflow-y: auto;
+} 
+@media print {
+    .no-print,
+    .modal-foote 
+    button {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    img.print-logo {
+        display: block !important;
+        visibility: visible !important;
+        width: 120px !important;
+        margin: 0 auto 10px auto !important;
+    }
+
+    #paymentBreakdownModal .modal-body {
+        max-height: none !important;
+        overflow: visible !important;
+    }
+ 
+    .modal-dialog {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0;
+        padding: 0;
+    }
+
+    .modal-content {
+        border: none !important;
+        box-shadow: none !important;
+    }
 }
