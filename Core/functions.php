@@ -113,3 +113,16 @@ function generateSalt(int $length = 10): string
     $randomString = bin2hex($randomBytes);
     return $randomString;
 }
+
+/** Function to check if check_in is in daySlot */
+function isDaySlot($checkIn)
+{
+    try {
+        $date = new DateTime($checkIn);
+    } catch (Exception $e) {
+        return null;
+    }
+
+    $hour = (int)$date->format('H');
+    return ($hour >= 6 && $hour < 18);
+}

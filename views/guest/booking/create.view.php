@@ -972,7 +972,7 @@
         });
     </script>
 
-    <!-- PDF Modal -->
+    <!-- Terms & Condition Modal -->
     <script>
         $(document).ready(function() {
             $('#submitBtn').prop('disabled', true);
