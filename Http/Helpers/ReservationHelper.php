@@ -141,9 +141,9 @@ class ReservationHelper
         return $checkInDate->format('Y-m-d H:i');
     }
 
-    public function sendEmailForBookingConfirmation($userName, $checkInDate, $checkInTime, $userEmail)
+    public function sendEmailForBookingConfirmation($userName, $checkInDate, $checkInTime, $userEmail, $attachmentPath)
     {
-        $subject = 'Booking Confirmation – Handog Resort Reservation';
+        $subject = 'Booking Confirmation &ndash; Handog Resort Reservation';
         $body = "
             <h2>Booking Confirmation</h2>
             <p>Dear <b>{$userName}</b>,</p>
@@ -165,6 +165,6 @@ class ReservationHelper
             . "Best regards,\nHandog Resort Team";
 
         // Send email
-        App::resolve(EmailHelper::class)->sendEmail($userEmail, $userName, $subject, $body, $altBody);
+        App::resolve(EmailHelper::class)->sendEmail($userEmail, $userName, $subject, $body, $altBody, $attachmentPath);
     }
 }

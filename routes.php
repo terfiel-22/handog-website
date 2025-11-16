@@ -16,9 +16,6 @@
     //  Contact
     $router->post('/contact/store', 'guest/contact/store.controller.php');
 
-    // Template
-    $router->get('/templates/payment-receipt', 'templates/payment_receipt.controller.php');
-
     /** END ACCESSIBLE TO ANYONE */
 
 

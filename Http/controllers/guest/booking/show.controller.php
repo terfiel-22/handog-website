@@ -1,11 +1,13 @@
 <?php
 
 use Core\App;
+use Core\FileUploadHandler;
 use Http\Enums\PaymentStatus;
 use Http\Enums\YesNo;
 use Http\Helpers\PaymentHelper;
 use Http\Helpers\ReservationHelper;
 use Http\Models\Payment;
+use Http\Services\PDFService;
 
 if (!isset($_GET["payment_link"])) {
     redirect("/booking");
@@ -27,8 +29,9 @@ if ($payment["success"] == YesNo::YES) {
                 "payment_status" => PaymentStatus::PAID,
             ];
             App::resolve(Payment::class)->updatePayment($updatedPayment);
-
-            App::resolve(ReservationHelper::class)->sendEmailForBookingConfirmation($savedPayment["contact_person"], $savedPayment["check_in"], $savedPayment["check_out"], $savedPayment["contact_email"]);
+            $attachmentPath = PDFService::generatePDF($savedPayment["reservation_id"]);
+            App::resolve(ReservationHelper::class)->sendEmailForBookingConfirmation($savedPayment["contact_person"], $savedPayment["check_in"], $savedPayment["check_out"], $savedPayment["contact_email"], $attachmentPath);
+            App::resolve(FileUploadHandler::class)->deleteFile($attachmentPath);
         }
     }
 }

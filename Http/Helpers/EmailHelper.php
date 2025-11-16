@@ -28,7 +28,7 @@ class EmailHelper
         $this->fromName  = $config['from_name'] ?? 'Mailer';
     }
 
-    public function sendEmail(string $toEmail, string $toName, string $subject, string $body, string $altBody = '')
+    public function sendEmail(string $toEmail, string $toName, string $subject, string $body, string $altBody = '', string $attachmentPath)
     {
         try {
             // Recipients
@@ -40,6 +40,10 @@ class EmailHelper
             $this->mailer->Subject = $subject;
             $this->mailer->Body    = $body;
             $this->mailer->AltBody = $altBody ?: strip_tags($body);
+
+            if (isset($attachmentPath)) {
+                $this->mailer->addAttachment($attachmentPath);
+            }
 
             $this->mailer->send();
         } catch (Exception $e) {
