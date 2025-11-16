@@ -28,5 +28,8 @@ define('TERMS_CONDITIONS_PATH', "assets/default/sample-terms-conditions-agreemen
 // ==== User Avatar Default ====
 define('USER_AVATAR_PATH', "assets/default/user.jpg");
 
-// ==== Website Name ====
+// ==== Website ====
 define('WEBSITE_NAME', "Handog Resort And Event Place");
+define('WEBSITE_EMAIL', "handogresortandeventsplace2017@gmail.com");
+define('WEBSITE_NUMBER', "09099597451");
+define('WEBSITE_ADDRESS', "Handog Compound, 960 Toclong, Kawit, Cavite");

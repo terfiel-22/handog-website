@@ -283,6 +283,22 @@
     <div class="modal fade" id="paymentBreakdownModal" tabindex="-1" aria-labelledby="paymentBreakdownLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
+                <div class="modal-header flex-column border-bottom-0 pb-0">
+                    <div class="w-100 text-center">
+                        <img src="<?= $logo ?>" alt="Resort Logo"
+                            style="height: 70px; object-fit: contain;">
+
+                        <h5 class="mt-2 mb-0 fw-bold"><?= WEBSITE_NAME ?></h5>
+                        <p class="mb-0 text-muted small">
+                            <?= WEBSITE_ADDRESS ?> • <?= WEBSITE_NUMBER ?>
+                        </p>
+                        <a href="mailto:<?= WEBSITE_EMAIL ?>" class="mb-0 text-muted small">Email: <?= WEBSITE_EMAIL ?></a>
+                    </div>
+
+                    <!-- Divider -->
+                    <hr class="w-100 mt-3 mb-0">
+
+                </div>
                 <div class="modal-body">
                     <!-- Customer Info -->
                     <div class="mb-4">
