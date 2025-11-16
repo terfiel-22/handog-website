@@ -15,6 +15,12 @@ function base_path($path)
     return BASE_PATH . $path;
 }
 
+/** Function for getting public_html */
+function public_html_path($path)
+{
+    return BASE_PATH . "public_html/$path";
+}
+
 /** Function for redirecting to a certain path. */
 function redirect($path = null)
 {
@@ -125,4 +131,12 @@ function isDaySlot($checkIn)
 
     $hour = (int)$date->format('H');
     return ($hour >= 6 && $hour < 18);
+}
+
+/** Function to make image base64 */
+function base64Image($path)
+{
+    $imagePath = public_html_path($path);
+    $logoData = base64_encode(file_get_contents($imagePath));
+    return "data:image/png;base64,$logoData";
 }
