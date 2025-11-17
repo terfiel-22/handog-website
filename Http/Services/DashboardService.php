@@ -115,13 +115,14 @@ class DashboardService
     public static function currentGuests(): int
     {
         $db = self::db();
+        $today = (new DateTime())->format('Y-m-d H:s');
 
         $guests = $db->query("
             SELECT SUM(guest_count) as total
             FROM reservations   
-            WHERE check_in <= CURDATE()
-            AND check_out > CURDATE()
-        ")->find();
+            WHERE ? 
+            BETWEEN check_in AND check_out
+        ", [$today])->find();
 
         return (int) ($guests['total'] ?? 0);
     }
