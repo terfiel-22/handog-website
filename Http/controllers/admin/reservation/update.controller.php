@@ -6,14 +6,17 @@ use Http\Helpers\ReservationHelper;
 use Http\Models\Payment;
 use Http\Models\Reservation;
 use Http\Services\PaymentService;
+use Http\Services\RatesService;
 
 $origRes = App::resolve(Reservation::class)->fetchReservationById($_POST["id"]);
 
 ReservationForm::validate($_POST);
 
-$facilityRate = App::resolve(ReservationHelper::class)->getFacilityRate($_POST["time_range"], $_POST['facility']);
-$total_price = App::resolve(ReservationHelper::class)->getReservationTotalPrice($facilityRate, $_POST);
+$facilityRate = RatesService::getFacilityRate($_POST["time_range"], $_POST['facility']);
+$discountedValue = RatesService::getCurrentDiscountOnFacility($_POST['facility'], $facilityRate);
+$total_price = RatesService::getReservationTotalPrice($_POST);
 $check_out = App::resolve(ReservationHelper::class)->calculateCheckOut($_POST["check_in"], $_POST["time_range"]);
+$guests = $_POST["guests"] ?? [];
 
 $updatedReservation = [
     "facility_id" => $_POST["facility"],
@@ -28,14 +31,15 @@ $updatedReservation = [
     "extended_pool_hrs" => $_POST["extended_pool_hrs"],
     "extended_cottage_hrs" => $_POST["extended_cottage_hrs"],
     "additional_bed_count" => $_POST["additional_bed_count"],
-    "guest_count" => count($_POST["guests"]),
+    "discounted_value" => $discountedValue,
+    "guest_count" => count($guests),
     "total_price" => $total_price,
     "status" => $_POST["status"]
 ];
 
 App::resolve(Reservation::class)->updateReservation($origRes["id"], $updatedReservation);
 
-App::resolve(ReservationHelper::class)->updateGuestList($origRes["id"], $_POST["guests"]);
+App::resolve(ReservationHelper::class)->updateGuestList($origRes["id"], $guests);
 
 /** Set payment */
 $origPayment = App::resolve(Payment::class)->fetchPaymentByReservationId($origRes["id"]);

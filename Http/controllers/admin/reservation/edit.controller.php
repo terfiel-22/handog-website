@@ -7,6 +7,7 @@ use Http\Models\Promo;
 use Http\Models\Reservation;
 use Http\Models\ReservationGuest;
 use Http\Services\RatesService;
+use Http\Services\SettingService;
 
 $id = $_GET["id"] ?? 0;
 
@@ -21,8 +22,9 @@ $uncompleteReservations = App::resolve(Reservation::class)->uncompleteReservatio
 $filtered = array_filter($uncompleteReservations, fn($res) => $res['id'] != $id);
 $bookings = convertToBookingsFormat($filtered);
 $promos = App::resolve(Promo::class)->fetchOngoingPromos();
+$logo = handleFilePath(SettingService::getLogo()["logo"]);
 
 view(
     "admin/reservation/edit.view.php",
-    compact('reservation', 'guests', 'facilities', 'bookings', 'rates', 'promos', 'errors')
+    compact('reservation', 'guests', 'facilities', 'bookings', 'rates', 'promos', 'logo', 'errors')
 );

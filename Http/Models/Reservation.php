@@ -42,6 +42,7 @@ class Reservation
                 extended_pool_hrs = :extended_pool_hrs,
                 extended_cottage_hrs = :extended_cottage_hrs,
                 additional_bed_count = :additional_bed_count,
+                discounted_value = :discounted_value,
                 guest_count = :guest_count,
                 total_price = :total_price,
                 status = :status
