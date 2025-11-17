@@ -5,8 +5,8 @@
                 <div
                     class="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
                     <div class="offcanvas__logo">
-                        <a href="/">
-                            <img src="/assets/guest/img/logo/black-logo.svg" alt="logo-img" />
+                        <a href="/" class="logo-link">
+                            <img src="<?= handleFilePath(\Http\Services\SettingService::getLogo("/assets/guest/img/logo/white-logo.svg")["logo"]) ?>" alt="logo-img" />
                         </a>
                     </div>
                     <div class="offcanvas__close">
@@ -26,10 +26,9 @@
                             <div class="offcanvas__contact-icon">
                                 <i class="fal fa-map-marker-alt"></i>
                             </div>
-                            <div class="offcanvas__contact-text">
+                            <div class="text-uppercase">
                                 <a target="_blank" href="#">
-                                    Handog Compound
-                                    960Toclong, Kawit, Cavite
+                                    <?= WEBSITE_ADDRESS ?>
                                 </a>
                             </div>
                         </li>
@@ -37,9 +36,9 @@
                             <div class="offcanvas__contact-icon mr-15">
                                 <i class="fal fa-envelope"></i>
                             </div>
-                            <div class="offcanvas__contact-text">
-                                <a href="mailto:handogresortandeventplace2017@gmail.com">
-                                    HREP2017@gmail.com
+                            <div class="text-uppercase">
+                                <a href="mailto:<?= WEBSITE_EMAIL ?>">
+                                    <?= WEBSITE_EMAIL ?>
                                 </a>
                             </div>
                         </li>
@@ -47,19 +46,13 @@
                             <div class="offcanvas__contact-icon mr-15">
                                 <i class="far fa-phone"></i>
                             </div>
-                            <div class="offcanvas__contact-text">
-                                <a href="tel:09099597451">09099597451</a>
+                            <div class="text-uppercase">
+                                <a href="tel:<?= WEBSITE_NUMBER ?>"><?= WEBSITE_NUMBER ?></a>
                             </div>
                         </li>
                     </ul>
                     <div class="header-button mt-4"></div>
-                    <a href="/accommodation" class="gt-theme-btn">BOOK NOW</a>
-                    <div class="social-icon d-flex align-items-center">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+                    <a href="/booking" class="gt-theme-btn">BOOK NOW</a>
                 </div>
             </div>
         </div>
