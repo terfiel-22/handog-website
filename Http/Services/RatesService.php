@@ -3,10 +3,13 @@
 namespace Http\Services;
 
 use Core\App;
+use Http\Enums\DiscountType;
 use Http\Enums\GuestType;
 use Http\Enums\ReservationTimeRange;
+use Http\Enums\TimeSlot;
 use Http\Enums\YesNo;
 use Http\Models\Facility;
+use Http\Models\Promo;
 use Http\Models\Rates;
 
 class RatesService
@@ -18,6 +21,10 @@ class RatesService
     protected static function facilityModel()
     {
         return App::resolve(Facility::class);
+    }
+    protected static function promoModel()
+    {
+        return App::resolve(Promo::class);
     }
 
     /**
@@ -96,5 +103,60 @@ class RatesService
         }
 
         return $initialRate;
+    }
+
+    /** Get Current Discount Value */
+    public static function getCurrentDiscountOnFacility($facilityId, $facilityRate)
+    {
+        $promoModel = self::promoModel();
+        $promos = $promoModel->fetchOngoingPromos();
+        $discountedValue = 0;
+        foreach ($promos as $promo) {
+            $promoFacilities = array_map('intval', explode(',', $promo['facilities']));
+            if (in_array((int) $facilityId, $promoFacilities)) {
+                $discountValue = (float) $promo['discount_value'];
+                $discountedValue += $promo['discount_type'] == DiscountType::PERCENTAGE_OFF ? ($facilityRate * ($discountValue / 100)) : $discountValue;
+            }
+        }
+        return $discountedValue;
+    }
+
+    /** Discounted Facility Rate */
+    public static function getDiscountedFacilityRate($timeRange, $facilityId)
+    {
+        $facilityRate = self::getFacilityRate($timeRange, $facilityId);
+        $discountedValue = self::getCurrentDiscountOnFacility($facilityId, $facilityRate);
+        return max(0, $facilityRate - $discountedValue); // Return zero if exceeded the amount
+    }
+
+    /** Reservation Total Rate */
+    public static function getReservationTotalPrice($data)
+    {
+        $rates = self::getRates();
+        $discountedFacilityRate = self::getDiscountedFacilityRate($data["time_range"], $data["facility"]);
+
+        // Get videoke rent
+        $videokeRentRate = $data["rent_videoke"] == YesNo::YES ? $rates["videoke_rent"] : 0;
+
+        // Get additonal bed count price 
+        $additionalBedCountPrice = $data['additional_bed_count'] > 0 ? $data['additional_bed_count'] * $rates["additional_bed_rate"] : 0;
+
+        // Initialize total price
+        $total_price = $discountedFacilityRate + $videokeRentRate + $additionalBedCountPrice;
+
+        // Get all the guests
+        $guests = $data["guests"];
+
+        foreach ($guests as $guest) {
+            $total_price += self::getGuestRate($data["check_in"], $guest["guest_age"], $guest["senior_pwd"]);
+        }
+
+        return $total_price;
+    }
+
+    /** Reservation Deposit Rate */
+    public static function bookingDeposit($total_amount)
+    {
+        return $total_amount / 2;
     }
 }

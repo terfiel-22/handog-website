@@ -213,6 +213,7 @@
                                             <label for="total_rate">Total Rate</label>
                                             <div class="form-clt">
                                                 <input type="number" name="total_rate" id="total_rate" disabled>
+                                                <input type="hidden" name="discounted_value" id="discounted_value">
                                             </div>
                                             <div class="discount-container"></div>
                                         </div>
@@ -733,8 +734,10 @@
 
             const applyPromo = (facilityRate) => {
                 $(".discount-container").empty();
+                $("#discounted_value").val(0);
 
                 const facilityId = Number($("#facility").val());
+                let discountedValue = 0;
 
                 for (const promo of promos) {
                     const promoFacilities = promo.facilities.split(",").map(Number);
@@ -743,20 +746,20 @@
                     const discountValue = parseFloat(promo.discount_value);
                     const isPercent = promo.discount_type == discountTypes.PERCENTAGE_OFF;
 
-                    const discountedValue = isPercent ?
+                    discountedValue += isPercent ?
                         facilityRate * (discountValue / 100) :
                         discountValue;
-
-                    const discountedRate = Math.max(0, facilityRate - discountedValue);
-
-                    $(".discount-container").html(`
-                        <span class="badge bg-primary">${promo.title}</span>
-                    `);
-
-                    return discountedRate;
                 }
 
-                return facilityRate;
+                const discountedRate = Math.max(0, facilityRate - discountedValue);
+                $("#discounted_value").val(discountedValue);
+                if (discountedValue > 0) {
+                    $(".discount-container").html(`
+                        <span class="badge bg-primary">&#8369; ${discountedValue.toFixed(2)} Off</span>
+                    `);
+                }
+
+                return discountedRate;
             };
 
             const computeGuestRate = (guestIndex, timeSlot) => {
@@ -887,16 +890,23 @@
                 $("#breakdown-checkout").text(formatDateTime(checkOutRaw));
 
                 // Facility Rate
-                const rawFacilityRate = getFacilityRateByTimeRange();
-                const facilityRate = applyPromo(rawFacilityRate);
+                const facilityRate = getFacilityRateByTimeRange();
                 const timeRange = $("#time_range").val();
-                const hasPromo = rawFacilityRate !== facilityRate;
+                const discountedValue = $("#discounted_value").val() || 0;
                 breakdownBody.append(`
                     <tr>
-                        <td>Facility Rate (${timeRange}) ${hasPromo ? '<small class="text-success">(Promo Applied)</small>' : ''}</td>
+                        <td>Facility Rate (${timeRange})</td>
                         <td class="text-end">${facilityRate.toFixed(2)}</td>
                     </tr>
                 `);
+                if (discountedValue > 0) {
+                    breakdownBody.append(`
+                    <tr>
+                        <td>Discounted Value</td>
+                        <td class="text-end text-success">${parseFloat(discountedValue).toFixed(2)}</td>
+                    </tr>
+                `);
+                }
 
                 // Guests 
                 const timeSlot = isDaySlot(checkInRaw) ? timeSlots.DAY : timeSlots.NIGHT;
@@ -944,7 +954,7 @@
                 }
 
                 // Total, Deposit, Amount To Pay
-                const total = facilityRate + guestTotal + videokeTotal + addTotal;
+                const total = facilityRate + guestTotal + videokeTotal + addTotal - discountedValue;
                 const deposit = total / 2;
                 const amountToPay = $("#amount_to_pay").val();
 

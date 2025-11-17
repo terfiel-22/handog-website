@@ -11,6 +11,7 @@ use Http\Helpers\PaymentHelper;
 use Http\Helpers\ReservationHelper;
 use Http\Models\Payment;
 use Http\Models\Reservation;
+use Http\Services\RatesService;
 
 $bookingForm = BookingForm::validate($_POST);
 
@@ -43,9 +44,11 @@ foreach ($guests as $i => $guest) {
 }
 // --- END Validation for Senior/PWD ID:
 
-$facilityRate = App::resolve(ReservationHelper::class)->getFacilityRate($_POST["time_range"], $_POST['facility']);
-$total_price = App::resolve(ReservationHelper::class)->getReservationTotalPrice($facilityRate, $_POST);
-$bookingDeposit = bookingDeposit($total_price);
+$facilityRate = RatesService::getFacilityRate($_POST["time_range"], $_POST['facility']);
+$discountedValue = RatesService::getCurrentDiscountOnFacility($_POST['facility'], $facilityRate);
+$total_price = RatesService::getReservationTotalPrice($_POST);
+$bookingDeposit = RatesService::bookingDeposit($total_price);
+
 $amountToPay = (float) $_POST["amount_to_pay"];
 if ($amountToPay < $bookingDeposit || $amountToPay > $total_price) {
     $bookingForm->error(
@@ -74,6 +77,7 @@ $reservation = [
     "check_out" => $check_out,
     "rent_videoke" => $_POST["rent_videoke"],
     "additional_bed_count" => $_POST["additional_bed_count"],
+    "discounted_value" => $discountedValue,
     "guest_count" => count($guests),
     "total_price" => $total_price,
     "status" => ReservationStatus::PENDING
