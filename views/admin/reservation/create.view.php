@@ -203,6 +203,7 @@ $pageName = "Reservations"
                                         <div class="col-12">
                                             <label for="total_rate" class="form-label">Total Rate</label>
                                             <input type="number" id="total_rate" class="form-control" disabled>
+                                            <input type="hidden" name="discounted_value" id="discounted_value">
                                             <div class="discount-container"></div>
                                         </div>
                                         <div class="col-12">
@@ -244,6 +245,22 @@ $pageName = "Reservations"
     <div class="modal fade" id="paymentBreakdownModal" tabindex="-1" aria-labelledby="paymentBreakdownLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
+                <div class="modal-header flex-column border-bottom-0 pb-0">
+                    <div class="w-100 text-center">
+                        <img src="<?= $logo ?>" alt="Resort Logo"
+                            style="height: 70px; object-fit: contain;" class="print-logo">
+
+                        <h5 class="mt-2 mb-0 fw-bold"><?= WEBSITE_NAME ?></h5>
+                        <p class="mb-0 text-muted small">
+                            <?= WEBSITE_ADDRESS ?> • <?= WEBSITE_NUMBER ?>
+                        </p>
+                        <a href="mailto:<?= WEBSITE_EMAIL ?>" class="mb-0 text-muted small">Email: <?= WEBSITE_EMAIL ?></a>
+                    </div>
+
+                    <!-- Divider -->
+                    <hr class="w-100 mt-3 mb-0">
+
+                </div>
                 <div class="modal-body">
                     <!-- Customer Info -->
                     <div class="mb-4">
@@ -283,8 +300,12 @@ $pageName = "Reservations"
                     </div>
                 </div>
 
-                <div class="modal-footer">
+                <div class="modal-footer no-print">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    <button class="btn btn-primary" id="downloadPaymentPDF">
+                        Download Receipt
+                    </button>
                 </div>
             </div>
         </div>
@@ -657,8 +678,10 @@ $pageName = "Reservations"
 
             const applyPromo = (facilityRate) => {
                 $(".discount-container").empty();
+                $("#discounted_value").val(0);
 
                 const facilityId = Number($("#facility").val());
+                let discountedValue = 0;
 
                 for (const promo of promos) {
                     const promoFacilities = promo.facilities.split(",").map(Number);
@@ -667,20 +690,20 @@ $pageName = "Reservations"
                     const discountValue = parseFloat(promo.discount_value);
                     const isPercent = promo.discount_type == discountTypes.PERCENTAGE_OFF;
 
-                    const discountedValue = isPercent ?
+                    discountedValue += isPercent ?
                         facilityRate * (discountValue / 100) :
                         discountValue;
-
-                    const discountedRate = Math.max(0, facilityRate - discountedValue);
-
-                    $(".discount-container").html(`
-                        <span class="badge bg-primary">${promo.title}</span>
-                    `);
-
-                    return discountedRate;
                 }
 
-                return facilityRate;
+                const discountedRate = Math.max(0, facilityRate - discountedValue);
+                $("#discounted_value").val(discountedValue);
+                if (discountedValue > 0) {
+                    $(".discount-container").html(`
+                        <span class="badge bg-primary">&#8369; ${discountedValue.toFixed(2)} Off</span>
+                    `);
+                }
+
+                return discountedRate;
             };
 
             const computeGuestRate = (guestIndex, timeSlot) => {
@@ -785,16 +808,23 @@ $pageName = "Reservations"
                 $("#breakdown-checkout").text(formatDateTime(checkOutRaw));
 
                 // Facility Rate
-                const rawFacilityRate = getFacilityRateByTimeRange();
-                const facilityRate = applyPromo(rawFacilityRate);
+                const facilityRate = getFacilityRateByTimeRange();
                 const timeRange = $("#time_range").val();
-                const hasPromo = rawFacilityRate !== facilityRate;
+                const discountedValue = $("#discounted_value").val() || 0;
                 breakdownBody.append(`
                     <tr>
-                        <td>Facility Rate (${timeRange}) ${hasPromo ? '<small class="text-success">(Promo Applied)</small>' : ''}</td>
+                        <td>Facility Rate (${timeRange})</td>
                         <td class="text-end">${facilityRate.toFixed(2)}</td>
                     </tr>
                 `);
+                if (discountedValue > 0) {
+                    breakdownBody.append(`
+                    <tr>
+                        <td>Discounted Value</td>
+                        <td class="text-end text-success">${parseFloat(discountedValue).toFixed(2)}</td>
+                    </tr>
+                `);
+                }
 
                 // Guests 
                 const timeSlot = isDaySlot(checkInRaw) ? timeSlots.DAY : timeSlots.NIGHT;
@@ -841,9 +871,8 @@ $pageName = "Reservations"
                     `);
                 }
 
-                // Total & Deposit
-                const total = facilityRate + guestTotal + videokeTotal + addTotal;
-                const deposit = total / 2;
+                // Total, Deposit, Amount To Pay
+                const total = facilityRate + guestTotal + videokeTotal + addTotal - discountedValue;
 
                 $("#breakdown-total").text(total.toFixed(2));
 
@@ -866,6 +895,37 @@ $pageName = "Reservations"
         });
     </script>
 
+    <!-- Download Payment Breakdown -->
+    <script>
+        $(document).on("click", "#downloadPaymentPDF", function() {
+
+            let content = $("#paymentBreakdownModal .modal-content").clone();
+
+            let printWindow = window.open("", "_blank");
+
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Payment Receipt</title>
+
+                    <link rel="stylesheet" href="/assets/guest/css/bootstrap.min.css">
+                    <link rel="stylesheet" href="/assets/guest/css/main.css"> 
+                </head>
+                <body style="padding: 1rem">
+                    ${content.prop("outerHTML")}
+                </body>
+                </html>
+            `);
+
+            printWindow.document.close();
+            printWindow.focus();
+
+            setTimeout(() => {
+                printWindow.print();
+                printWindow.close();
+            }, 500);
+        });
+    </script>
 </body>
 
 </html>

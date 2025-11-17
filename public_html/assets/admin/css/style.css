@@ -13176,3 +13176,41 @@ td.fc-header-center {
 #star-rating .star.active {
   color: #FCD554;
 }
+
+/* Payment Breakdown */
+#paymentBreakdownModal .modal-body {
+  max-height: 70vh; 
+  overflow-y: auto;
+} 
+@media print {
+    .no-print,
+    .modal-foote 
+    button {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    img.print-logo {
+        display: block !important;
+        visibility: visible !important;
+        width: 120px !important;
+        margin: 0 auto 10px auto !important;
+    }
+
+    #paymentBreakdownModal .modal-body {
+        max-height: none !important;
+        overflow: visible !important;
+    }
+ 
+    .modal-dialog {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0;
+        padding: 0;
+    }
+
+    .modal-content {
+        border: none !important;
+        box-shadow: none !important;
+    }
+}
