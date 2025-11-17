@@ -60,7 +60,7 @@
             <?php endif; ?>
             <?php foreach ($guests as $i => $guest): ?>
                 <tr>
-                    <td style="padding:8px; border:1px solid #ccc;">Guest #<?= $i ?> (Name: <?= $guest["guest_name"] ?>, Age: <?= $guest["guest_age"] ?> <?= $guest["senior_pwd"] == \Http\Enums\YesNo::YES ? ', Senior/PWD' : '' ?>)</td>
+                    <td style="padding:8px; border:1px solid #ccc;">Guest #<?= $i + 1 ?> (Name: <?= $guest["guest_name"] ?>, Age: <?= $guest["guest_age"] ?> <?= $guest["senior_pwd"] == \Http\Enums\YesNo::YES ? ', Senior/PWD' : '' ?>)</td>
                     <td style="padding:8px; border:1px solid #ccc; text-align:right;"><?= \Http\Services\RatesService::getGuestRate($reservation["check_in"], $guest["guest_age"], $guest["senior_pwd"]) ?></td>
                 </tr>
             <?php endforeach; ?>
