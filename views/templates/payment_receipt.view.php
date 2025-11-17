@@ -44,7 +44,7 @@
         <thead>
             <tr style="background-color:#f2f2f2;">
                 <th style="padding:8px; border:1px solid #ccc; text-align:left;">Description</th>
-                <th style="padding:8px; border:1px solid #ccc; text-align:right;">Amount (₱)</th>
+                <th style="padding:8px; border:1px solid #ccc; text-align:right;">Amount (&#x20B1;)</th>
             </tr>
         </thead>
         <tbody>
@@ -52,6 +52,12 @@
                 <td style="padding:8px; border:1px solid #ccc;">Facility Rate</td>
                 <td style="padding:8px; border:1px solid #ccc; text-align:right;"><?= \Http\Services\RatesService::getFacilityRate($reservation["time_range"], $reservation["facility_id"]) ?></td>
             </tr>
+            <?php if ($reservation["discounted_value"] > 0): ?>
+                <tr>
+                    <td style="padding:8px; border:1px solid #ccc;">Discounted Value</td>
+                    <td style="padding:8px; border:1px solid #ccc; text-align:right; color: #822"><?= $reservation["discounted_value"] ?></td>
+                </tr>
+            <?php endif; ?>
             <?php foreach ($guests as $i => $guest): ?>
                 <tr>
                     <td style="padding:8px; border:1px solid #ccc;">Guest #<?= $i ?> (Name: <?= $guest["guest_name"] ?>, Age: <?= $guest["guest_age"] ?> <?= $guest["senior_pwd"] == \Http\Enums\YesNo::YES ? ', Senior/PWD' : '' ?>)</td>

@@ -143,7 +143,7 @@ class ReservationHelper
 
     public function sendEmailForBookingConfirmation($userName, $checkInDate, $checkInTime, $userEmail, $attachmentPath)
     {
-        $subject = 'Booking Confirmation &ndash; Handog Resort Reservation';
+        $subject = WEBSITE_NAME;
         $body = "
             <h2>Booking Confirmation</h2>
             <p>Dear <b>{$userName}</b>,</p>
