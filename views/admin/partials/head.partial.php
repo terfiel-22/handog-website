@@ -2,7 +2,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
-    <link rel="icon" type="image/png" href="/assets/admin/images/favicon.png" sizes="16x16">
+    <link rel="icon" type="image/png" href=" <?= handleFilePath(\Http\Services\SettingService::getLogo("/assets/admin/images/favicon.png")["icon"]) ?>" sizes="16x16">
     <!-- remix icon font css  -->
     <link rel="stylesheet" href="/assets/admin/css/remixicon.css">
     <!-- BootStrap css -->

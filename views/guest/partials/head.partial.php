@@ -12,7 +12,7 @@
 
 
     <!--<< Favcion >>-->
-    <link rel="shortcut icon" href="/assets/guest/img/favicon.svg" />
+    <link rel="shortcut icon" href="<?= handleFilePath(\Http\Services\SettingService::getLogo("/assets/guest/img/favicon.svg")["icon"]) ?>" />
     <!--<< Bootstrap min.css >>-->
     <link rel="stylesheet" href="/assets/guest/css/bootstrap.min.css" />
     <!--<< All Min Css >>-->
