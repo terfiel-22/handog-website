@@ -27,16 +27,19 @@ class PDFService
         $reservation = $reservationModel->fetchReservationById($reservationId);
         $guests = $reservationGuestModel->fetchGuestsByReservationId($reservationId);
         $logo = base64Image(SettingService::getLogo()["logo"]);
+        $fontPath = public_html_path("/assets/general/fonts");
 
         ob_start();
         view(
             "templates/payment_receipt.view.php",
-            compact('reservation', 'guests', 'logo')
+            compact('reservation', 'guests', 'logo', 'fontPath')
         );
         $html = ob_get_clean();
 
         $options = new Options();
+        $options->set('defaultFont', 'DejaVu Sans');
         $options->set('isRemoteEnabled', true);
+        $options->set('isHtml5ParserEnabled', true);
 
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html);

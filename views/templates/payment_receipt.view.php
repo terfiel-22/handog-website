@@ -4,6 +4,28 @@
 <head>
     <title>Payment Receipt</title>
     <meta charset="UTF-8">
+
+    <style>
+        @font-face {
+            font-family: 'DejaVu Sans';
+            font-weight: normal;
+            font-style: normal;
+            src: url('<?= $fontPath ?>/DejaVuSans.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'DejaVu Sans';
+            font-weight: bold;
+            font-style: normal;
+            src: url('<?= $fontPath ?>/DejaVuSans-Bold.ttf') format('truetype');
+        }
+
+        body,
+        table,
+        * {
+            font-family: 'DejaVu Sans', sans-serif !important;
+        }
+    </style>
 </head>
 
 <body style="font-family:Arial,sans-serif; font-size:12px; color:#333; padding:20px;">
