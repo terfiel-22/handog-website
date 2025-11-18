@@ -97,29 +97,29 @@
             const modalElement = document.getElementById('modalSlider');
             const modal = new bootstrap.Modal(modalElement);
 
-            const $modalImage = $('#modalImage');
+            const modalImage = $('#modalImage');
 
             $('.gallery-folder').on('click', function() {
                 currentImages = JSON.parse($(this).attr('data-images'));
                 currentIndex = 0;
-                $modalImage.attr('src', currentImages[currentIndex]);
+                modalImage.attr('src', currentImages[currentIndex]);
                 modal.show();
             });
 
             $('#prevBtn').on('click', function() {
                 if (!currentImages.length) return;
                 currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-                $modalImage.attr('src', currentImages[currentIndex]);
+                modalImage.attr('src', currentImages[currentIndex]);
             });
 
             $('#nextBtn').on('click', function() {
                 if (!currentImages.length) return;
                 currentIndex = (currentIndex + 1) % currentImages.length;
-                $modalImage.attr('src', currentImages[currentIndex]);
+                modalImage.attr('src', currentImages[currentIndex]);
             });
 
             $(modalElement).on('hidden.bs.modal', function() {
-                $modalImage.attr('src', '');
+                modalImage.attr('src', '');
                 currentImages = [];
             });
 
@@ -131,7 +131,7 @@
                 } else if (e.key === "ArrowRight") {
                     currentIndex = (currentIndex + 1) % currentImages.length;
                 }
-                $modalImage.attr('src', currentImages[currentIndex]);
+                modalImage.attr('src', currentImages[currentIndex]);
             });
         });
     </script>
