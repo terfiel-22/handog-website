@@ -46,17 +46,14 @@
                     <div
                         class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp"
                         data-wow-delay=".3s">
-                        <div class="gt-why-choose-us-images">
-                            <div class="gt-choose-us-image">
+                        <div class="pool-container">
+                            <div class="pool-image-container">
                                 <img
                                     src="<?= handleFilePath($pool["image"], "/assets/guest/img/home-2/choose-us/choose-us-01.jpg")  ?>"
                                     alt="<?= $pool["name"] ?>"
-                                    class="fixed-height-img clickable-img" />
-                                <div class="gt-content">
+                                    class="fixed-height-img" />
+                                <div class="pool-content">
                                     <h3><?= $pool["name"] ?></h3>
-                                    <p>
-                                        <?= $pool["description"] ?>
-                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -166,11 +163,16 @@
         </div>
     </section>
 
+
+
     <!-- GT Footer Section Start -->
     <?php view("guest/partials/footer.partial.php") ?>
 
     <!--<< All JS Plugins >>-->
     <?php view("guest/partials/plugins.partial.php") ?>
+
+    <!-- Display Pool Modal -->
+
 </body>
 
 </html>
