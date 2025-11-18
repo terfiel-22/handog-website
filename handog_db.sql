@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2025 at 09:51 AM
+-- Generation Time: Nov 18, 2025 at 05:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -254,7 +254,10 @@ INSERT INTO `payments` (`id`, `reservation_id`, `amount`, `payment_method`, `pay
 (9, 5, 620.00, 'gcash', 'paid', 'deposit', 'link_6FtM7bTBVCBsf5UTwATmjvHv', '2025-11-09 02:05:01', '2025-11-09 02:05:38'),
 (10, 6, 1050.00, 'gcash', 'paid', 'deposit', 'link_dW7aFf1BUvSf8WVDio2fa7J9', '2025-11-11 03:01:02', '2025-11-11 03:01:51'),
 (11, 7, 1000.00, 'gcash', 'paid', 'deposit', 'link_74SDe2MnJoT5oHgWcyYdHZ6c', '2025-11-14 00:58:14', '2025-11-14 00:59:06'),
-(13, 10, 1860.00, 'cash', 'paid', 'full', NULL, '2025-11-14 16:51:30', '2025-11-14 16:51:30');
+(13, 10, 1860.00, 'cash', 'paid', 'full', NULL, '2025-11-14 16:51:30', '2025-11-14 16:51:30'),
+(14, 11, 870.00, 'gcash', 'paid', 'deposit', 'link_bryajDz9YR3MYGpr1H1dYSGj', '2025-11-17 03:36:10', '2025-11-17 03:36:44'),
+(15, 12, 700.00, 'gcash', 'paid', 'deposit', 'link_9MqMDBydAhLmr89M81kXEECj', '2025-11-17 15:58:39', '2025-11-17 16:04:11'),
+(16, 13, 1400.00, 'cash', 'paid', 'full', NULL, '2025-11-17 16:42:05', '2025-11-17 16:42:05');
 
 -- --------------------------------------------------------
 
@@ -280,7 +283,7 @@ CREATE TABLE `promos` (
 --
 
 INSERT INTO `promos` (`id`, `title`, `description`, `discount_value`, `start_date`, `end_date`, `discount_type`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, '500 Pesos Off Family Weekend Escape', 'Treat the whole family to a relaxing weekend with complimentary breakfast and late checkout. Perfect for bonding and unwinding in a peaceful resort environment.', 500.00, '2025-11-08', '2025-11-09', 'Fixed Price', 'yes', '2025-11-08 07:49:59', '2025-11-08 07:59:04'),
+(1, '500 Pesos Off Family Weekend Escape', 'Treat the whole family to a relaxing weekend with complimentary breakfast and late checkout. Perfect for bonding and unwinding in a peaceful resort environment.', 500.00, '2025-11-08', '2025-11-20', 'Fixed Price', 'yes', '2025-11-08 07:49:59', '2025-11-17 06:47:42'),
 (2, 'November Splash Getaway', 'Enjoy the ultimate haloween escape with free access to all water amenities, including pools, slides, and kayaks. Book a minimum of 2 nights and receive a special discount on your entire stay.', 15.00, '2025-11-09', '2025-11-14', 'Percentage Off', 'yes', '2025-11-08 07:53:02', '2025-11-08 16:09:30');
 
 -- --------------------------------------------------------
@@ -322,6 +325,9 @@ CREATE TABLE `reservations` (
   `guest_count` int(11) NOT NULL DEFAULT 1,
   `rent_videoke` enum('yes','no') NOT NULL DEFAULT 'no',
   `additional_bed_count` int(11) NOT NULL DEFAULT 0,
+  `extended_pool_hrs` int(11) NOT NULL DEFAULT 0,
+  `extended_cottage_hrs` int(11) NOT NULL DEFAULT 0,
+  `discounted_value` decimal(10,2) NOT NULL DEFAULT 0.00,
   `total_price` decimal(10,2) DEFAULT NULL,
   `status` enum('pending','confirmed','canceled','completed') DEFAULT 'pending',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -332,14 +338,17 @@ CREATE TABLE `reservations` (
 -- Dumping data for table `reservations`
 --
 
-INSERT INTO `reservations` (`id`, `facility_id`, `contact_person`, `contact_no`, `contact_email`, `contact_address`, `check_in`, `time_range`, `check_out`, `guest_count`, `rent_videoke`, `additional_bed_count`, `total_price`, `status`, `created_at`, `updated_at`) VALUES
-(2, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-20 12:00:00', '12-Hours', '2025-11-21 00:00:00', 2, 'no', 0, 1240.00, 'confirmed', '2025-10-21 07:37:51', '2025-11-08 18:03:03'),
-(4, 8, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-25 12:00:00', '12-Hours', '2025-11-26 00:00:00', 1, 'no', 0, 1620.00, 'confirmed', '2025-10-28 18:48:32', '2025-11-07 16:48:16'),
-(5, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-13 00:00:00', '12-Hours', '2025-11-13 12:00:00', 2, 'no', 0, 1240.00, 'pending', '2025-11-08 18:05:01', '2025-11-12 17:22:19'),
-(6, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-11 00:00:00', '12-Hours', '2025-11-11 12:00:00', 2, 'no', 2, 2300.00, 'pending', '2025-11-10 19:01:02', '2025-11-10 19:02:45'),
-(7, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-28 12:00:00', '12-Hours', '2025-11-29 00:00:00', 2, 'no', 0, 1740.00, 'pending', '2025-11-13 16:58:14', '2025-11-13 16:58:14'),
-(8, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2026-03-05 00:00:00', '12-Hours', '2026-03-05 12:00:00', 2, 'no', 0, 1860.00, 'pending', '2025-11-14 07:06:47', '2025-11-14 07:06:47'),
-(10, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2026-05-21 00:00:00', '12-Hours', '2026-05-21 12:00:00', 2, 'no', 0, 1860.00, 'confirmed', '2025-11-14 08:51:30', '2025-11-14 08:51:30');
+INSERT INTO `reservations` (`id`, `facility_id`, `contact_person`, `contact_no`, `contact_email`, `contact_address`, `check_in`, `time_range`, `check_out`, `guest_count`, `rent_videoke`, `additional_bed_count`, `extended_pool_hrs`, `extended_cottage_hrs`, `discounted_value`, `total_price`, `status`, `created_at`, `updated_at`) VALUES
+(2, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-20 12:00:00', '12-Hours', '2025-11-21 00:00:00', 2, 'no', 0, 0, 0, 0.00, 1240.00, 'confirmed', '2025-10-21 07:37:51', '2025-11-08 18:03:03'),
+(4, 8, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-25 12:00:00', '12-Hours', '2025-11-26 00:00:00', 1, 'no', 0, 0, 0, 0.00, 1620.00, 'confirmed', '2025-10-28 18:48:32', '2025-11-07 16:48:16'),
+(5, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-13 00:00:00', '12-Hours', '2025-11-13 12:00:00', 2, 'no', 0, 0, 0, 0.00, 1240.00, 'pending', '2025-11-08 18:05:01', '2025-11-12 17:22:19'),
+(6, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-11 00:00:00', '12-Hours', '2025-11-11 12:00:00', 2, 'no', 2, 0, 0, 0.00, 2300.00, 'pending', '2025-11-10 19:01:02', '2025-11-10 19:02:45'),
+(7, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-28 12:00:00', '12-Hours', '2025-11-29 00:00:00', 2, 'no', 0, 0, 0, 0.00, 1740.00, 'pending', '2025-11-13 16:58:14', '2025-11-13 16:58:14'),
+(8, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2026-03-05 00:00:00', '12-Hours', '2026-03-05 12:00:00', 2, 'no', 0, 0, 0, 0.00, 1860.00, 'pending', '2025-11-14 07:06:47', '2025-11-14 07:06:47'),
+(10, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2026-05-21 00:00:00', '12-Hours', '2026-05-21 12:00:00', 2, 'no', 0, 0, 0, 0.00, 1860.00, 'confirmed', '2025-11-14 08:51:30', '2025-11-14 08:51:30'),
+(11, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-17 12:00:00', '12-Hours', '2025-11-18 00:00:00', 2, 'no', 0, 0, 0, 0.00, 1740.00, 'pending', '2025-11-16 19:36:10', '2025-11-16 19:36:10'),
+(12, 2, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-27 00:00:00', '12-Hours', '2025-11-27 12:00:00', 2, 'no', 0, 0, 0, 0.00, 2900.00, 'pending', '2025-11-17 07:58:38', '2025-11-17 13:01:11'),
+(13, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2026-05-10 00:00:00', '12-Hours', '2026-05-10 12:00:00', 2, 'no', 0, 0, 0, 500.00, 1400.00, 'confirmed', '2025-11-17 08:42:05', '2025-11-17 08:42:05');
 
 -- --------------------------------------------------------
 
@@ -374,7 +383,13 @@ INSERT INTO `reservation_guests` (`id`, `reservation_id`, `guest_name`, `guest_a
 (24, 7, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-11-13 16:58:14', '2025-11-13 16:58:14'),
 (25, 7, 'Tafi Fimito', 22, 'adult', 'no', NULL, '2025-11-13 16:58:14', '2025-11-13 16:58:14'),
 (29, 10, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-11-14 08:51:30', '2025-11-14 08:51:30'),
-(30, 10, 'Tafi Fimito', 22, 'adult', 'yes', NULL, '2025-11-14 08:51:30', '2025-11-14 08:51:30');
+(30, 10, 'Tafi Fimito', 22, 'adult', 'yes', NULL, '2025-11-14 08:51:30', '2025-11-14 08:51:30'),
+(31, 11, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-11-16 19:36:10', '2025-11-16 19:36:10'),
+(32, 11, 'Tafi Fimito', 22, 'adult', 'no', NULL, '2025-11-16 19:36:10', '2025-11-16 19:36:10'),
+(33, 12, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-11-17 07:58:38', '2025-11-17 07:58:38'),
+(34, 12, 'Tafi Fimito', 22, 'adult', 'no', NULL, '2025-11-17 07:58:38', '2025-11-17 07:58:38'),
+(35, 13, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-11-17 08:42:05', '2025-11-17 08:42:05'),
+(36, 13, 'Tafi Fimito', 22, 'adult', 'no', NULL, '2025-11-17 08:42:05', '2025-11-17 08:42:05');
 
 -- --------------------------------------------------------
 
@@ -410,15 +425,18 @@ CREATE TABLE `st_rates` (
   `kid_rate_night` decimal(10,2) NOT NULL,
   `senior_pwd_discount` decimal(10,2) NOT NULL,
   `videoke_rent` decimal(10,2) NOT NULL,
-  `additional_bed_rate` decimal(10,2) NOT NULL
+  `additional_bed_rate` decimal(10,2) NOT NULL,
+  `pool_extension_rate_adult` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `pool_extension_rate_kid` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `cottage_extension_rate` decimal(10,2) NOT NULL DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `st_rates`
 --
 
-INSERT INTO `st_rates` (`id`, `adult_rate_day`, `kid_rate_day`, `adult_rate_night`, `kid_rate_night`, `senior_pwd_discount`, `videoke_rent`, `additional_bed_rate`) VALUES
-(1, 120.00, 80.00, 200.00, 100.00, 0.20, 1500.00, 200.00);
+INSERT INTO `st_rates` (`id`, `adult_rate_day`, `kid_rate_day`, `adult_rate_night`, `kid_rate_night`, `senior_pwd_discount`, `videoke_rent`, `additional_bed_rate`, `pool_extension_rate_adult`, `pool_extension_rate_kid`, `cottage_extension_rate`) VALUES
+(1, 120.00, 80.00, 200.00, 100.00, 0.20, 1500.00, 200.00, 50.00, 20.00, 250.00);
 
 -- --------------------------------------------------------
 
@@ -491,8 +509,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `image`, `password`, `salt`, `session_token`, `reset_pin`, `type`) VALUES
-(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$DUajgO9wEGhHp.yKD/Ae2eNWnP7CE41z9azcL84kwHwnk3PCZmRE2', NULL, 'admin'),
-(3, 'Taki Fimito', 'despicablehaythamkenway@gmail.com', 'uploads/images/690b97f142ae6_user-6.jpg', '$2y$10$SSRAidhlKM8j8tvegi4yUe2GfRUWYPLr3i5GnY0rtVn5naaFbvzWG', '67f513e439d93ba9b716', '$2y$10$6X58fD8ehXKjOSE2jbPQ/ehqSd8tCKtsNWfosXYynBgbjkCSqBK2G', NULL, 'staff'),
+(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$l544xUzJJhQ21yBFo8u7IeTtE6XcXk2owAV4pYcOsT60p1M6h.Ww.', NULL, 'admin'),
+(3, 'Taki Fimito', 'despicablehaythamkenway@gmail.com', 'uploads/images/690b97f142ae6_user-6.jpg', '$2y$10$SSRAidhlKM8j8tvegi4yUe2GfRUWYPLr3i5GnY0rtVn5naaFbvzWG', '67f513e439d93ba9b716', '$2y$10$5zGlhsLv/BqmE16vE0LBROmITbqmn/r0.3pHniWU2PsEVDkWHmPQq', NULL, 'staff'),
 (4, 'Tafi Fimito', 'tafi@gmail.com', 'uploads/images/690b9812ea878_user-4.jpg', '$2y$10$/IvWULzTu3XYrw4TU0UYbeTvKF24zKqOipe61PKgxC0HwbHXfaweu', '16d1de68659904d42b1d', NULL, NULL, 'admin');
 
 --
@@ -671,7 +689,7 @@ ALTER TABLE `gallery_images`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `promos`
@@ -689,13 +707,13 @@ ALTER TABLE `promo_facilities`
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `reservation_guests`
 --
 ALTER TABLE `reservation_guests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `st_logos`
