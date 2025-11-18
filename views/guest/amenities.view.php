@@ -42,10 +42,11 @@
                 </div>
             </div>
             <div class="row">
-                <?php foreach ($pools as $pool): ?>
+                <?php foreach ($pools as $i => $pool): ?>
                     <div
-                        class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp"
-                        data-wow-delay=".3s">
+                        class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp pool-item"
+                        data-wow-delay=".3s"
+                        data-index="<?= $i ?>">
                         <div class="pool-container">
                             <div class="pool-image-container">
                                 <img
@@ -163,6 +164,26 @@
         </div>
     </section>
 
+    <!-- Pool Modal -->
+    <div class="modal fade" id="poolModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 text-center position-relative" id="poolModalContent">
+
+                <!-- Close button -->
+                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" id="closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                <div class="modal-header border-0 p-0">
+                    <img id="modalImage" src="" class="w-100 rounded-top" alt="Pool image">
+                </div>
+
+                <div class="modal-body overflow-auto" style="max-height:300px;">
+                    <h3 id="modalTitle" class="fw-bold mb-3"></h3>
+                    <p id="modalDescription"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <!-- GT Footer Section Start -->
@@ -172,7 +193,40 @@
     <?php view("guest/partials/plugins.partial.php") ?>
 
     <!-- Display Pool Modal -->
+    <script>
+        $(document).ready(function() {
+            // Inject Pools
+            const pools = <?= json_encode($pools); ?>;
+
+            // Get modal 
+            const modalElement = document.getElementById('poolModal');
+            const modal = new bootstrap.Modal(modalElement);
+            const modalImage = $('#modalImage');
+
+            $('.pool-item').on('click', function() {
+                const index = $(this).data("index");
+                const selectedPool = pools[index];
+                console.log(selectedPool);
+                $("#modalTitle").html(selectedPool.name);
+                $("#modalDescription").html(selectedPool.description);
+                modalImage.attr('src', selectedPool.image);
+                modal.show();
+            });
+        });
+    </script>
 
 </body>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
 
 </html>

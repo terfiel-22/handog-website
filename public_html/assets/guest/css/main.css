@@ -7417,14 +7417,10 @@ span {
 }
 .modal-backdrop {
   z-index: 10000 !important;
-}
-.modal-dialog {
-  max-width: 90%;  
 } 
-.modal-content {
-  height: 95vh;          
-} 
-.modal-body iframe {
+
+/* Modal Terms & Condition */
+#termsModal .modal-body iframe {
   height: 70vh;          
 }
 
@@ -7558,4 +7554,17 @@ span {
   100% { 
     transform: translateX(-100%); 
   }
+}
+
+/* Modal Pool */ 
+#poolModal .modal-dialog {
+  max-width: 600px; 
+  max-height: 500px;
+  padding: 1rem;
+} 
+#poolModal #modalImage {  
+  max-height: 80vh;   
+  min-height: 40vh; 
+  height: 50vh; 
+  object-fit:cover;
 }
