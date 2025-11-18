@@ -84,7 +84,7 @@
                                             <div class="form-clt">
                                                 <select name="facility" id="facility" class="single-select w-100">
                                                     <?php foreach ($facilities as $facility): ?>
-                                                        <option value="<?= $facility['id'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" data-type="<?= $facility["type"] ?>" data-pax="<?= $facility["capacity"] ?>" <?= (old("facility", $_GET["facility_id"] ?? 0)) == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
+                                                        <option value="<?= $facility['id'] ?>" data-name="<?= $facility['name'] ?>" data-rate-8hrs="<?= $facility['rate_8hrs'] ?>" data-rate-12hrs="<?= $facility['rate_12hrs'] ?>" data-rate-1day="<?= $facility['rate_1day'] ?>" data-type="<?= $facility["type"] ?>" data-pax="<?= $facility["capacity"] ?>" <?= (old("facility", $_GET["facility_id"] ?? 0)) == $facility["id"] ? "selected" : "" ?>><?= $facility['name'] ?> (<?= ucfirst($facility['type']) ?>)</option>
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <?php if (isset($errors["facility"])) : ?>
@@ -893,9 +893,11 @@
                 const facilityRate = getFacilityRateByTimeRange();
                 const timeRange = $("#time_range").val();
                 const discountedValue = $("#discounted_value").val() || 0;
+                const facilityName = $("#facility option:selected").data("name");
+
                 breakdownBody.append(`
                     <tr>
-                        <td>Facility Rate (${timeRange})</td>
+                        <td>Facility Rate (${facilityName}) (${timeRange})</td>
                         <td class="text-end">${facilityRate.toFixed(2)}</td>
                     </tr>
                 `);
