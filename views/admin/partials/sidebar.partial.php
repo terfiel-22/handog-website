@@ -72,6 +72,12 @@
                         <span>Testimonials</span>
                     </a>
                 </li>
+                <li>
+                    <a href="/admin/audit-trail">
+                        <iconify-icon icon="ic:sharp-history-edu" class="menu-icon"></iconify-icon>
+                        <span>Audit Trail</span>
+                    </a>
+                </li>
                 <li class="dropdown">
                     <a href="javascript:void(0)">
                         <iconify-icon icon="ic:outline-settings" class="menu-icon"></iconify-icon>

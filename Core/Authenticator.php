@@ -45,13 +45,7 @@ class Authenticator
         AuditTrailService::audit_log(
             $user["id"],
             AuditAction::LOGIN,
-            AuditModule::AUTHENTICATION,
-            [
-                "session_token" => $user["session_token"]
-            ],
-            [
-                'session_token' => $session_token,
-            ]
+            AuditModule::AUTHENTICATION
         );
     }
 
@@ -68,11 +62,7 @@ class Authenticator
         AuditTrailService::audit_log(
             $user["id"],
             AuditAction::LOGOUT,
-            AuditModule::AUTHENTICATION,
-            [
-                "session_token" => $user["session_token"]
-            ],
-            null
+            AuditModule::AUTHENTICATION
         );
     }
 }

@@ -14,6 +14,20 @@ class AuditTrail
         $this->db = App::resolve(Database::class);
     }
 
+    public function fetchAuditLogs()
+    {
+        return $this->db->query(
+            "
+            SELECT 
+                audit_trail.*, 
+                users.username
+            FROM audit_trail
+            LEFT JOIN users ON users.id = audit_trail.user_id
+            ORDER BY audit_trail.created_at DESC
+            "
+        )->get();
+    }
+
     public function createAuditTrail($attributes)
     {
         return $this->db->query(
