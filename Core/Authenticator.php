@@ -2,7 +2,11 @@
 
 namespace Core;
 
+use Http\Enums\AuditAction;
+use Http\Enums\AuditModule;
 use Http\Models\User;
+use Http\Services\AuditTrailService;
+use Http\Services\UserService;
 
 class Authenticator
 {
@@ -36,13 +40,39 @@ class Authenticator
 
         $params = session_get_cookie_params();
         setcookie('session_token', $session_token, time() + $expiration, $params['path'], $params['domain'], $params['httponly']);
+
+        // Audit Log
+        AuditTrailService::audit_log(
+            $user["id"],
+            AuditAction::LOGIN,
+            AuditModule::AUTHENTICATION,
+            [
+                "session_token" => $user["session_token"]
+            ],
+            [
+                'session_token' => $session_token,
+            ]
+        );
     }
 
     public function logout()
     {
+        $user = UserService::getCurrentUser();
+
         $expiration = 60 * 60 * 24; // 1 day
 
         $params = session_get_cookie_params();
         setcookie('session_token', '', time() - $expiration, $params['path'], $params['domain'], $params['httponly']);
+
+        // Audit Log
+        AuditTrailService::audit_log(
+            $user["id"],
+            AuditAction::LOGOUT,
+            AuditModule::AUTHENTICATION,
+            [
+                "session_token" => $user["session_token"]
+            ],
+            null
+        );
     }
 }

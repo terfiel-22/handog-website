@@ -18,9 +18,6 @@ if (!$signedIn) {
 if (isset($_POST['remember'])) {
     Session::put('email', $_POST['email']);
     Session::put('password', $_POST['password']);
-} else {
-    Session::unsetByKey('email');
-    Session::unsetByKey('password');
 }
 
 return redirect('/admin/dashboard');

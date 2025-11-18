@@ -26,6 +26,7 @@ use Http\Models\ReservationGuest;
 use Http\Models\TermsConditions;
 use Http\Models\Testimonial;
 use Http\Models\User;
+use Http\Models\AuditTrail;
 
 $container = new Container();
 
@@ -92,6 +93,9 @@ $container->bind(TermsConditions::class, function () {
 });
 $container->bind(Testimonial::class, function () {
     return new Testimonial();
+});
+$container->bind(AuditTrail::class, function () {
+    return new AuditTrail();
 });
 
 /** Handler */

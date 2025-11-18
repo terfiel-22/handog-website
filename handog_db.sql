@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2025 at 05:33 AM
+-- Generation Time: Nov 18, 2025 at 06:08 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,7 +40,7 @@ CREATE TABLE `amenities` (
 --
 
 INSERT INTO `amenities` (`id`, `name`, `type`, `description`, `created_at`) VALUES
-(1, 'Serenity Lagoon', 'pool', 'A calm, crystal-clear pool surrounded by lush greenery, perfect for guests seeking peace and quiet. Ideal for morning swims or an afternoon of lounging in tranquility.', '2025-09-29 04:33:23'),
+(1, 'Serenity Lagoon Serenity Lagoon Serenity Lagoon', 'pool', 'A calm, crystal-clear pool surrounded by lush greenery, perfect for guests seeking peace and quiet. Ideal for morning swims or an afternoon of lounging in tranquility.', '2025-09-29 04:33:23'),
 (2, 'Sunset Infinity Pool', 'pool', 'An elegant infinity pool overlooking breathtaking views. Guests can relax with cocktails in hand while watching the sun dip below the horizon.', '2025-09-29 05:26:02'),
 (4, 'Family Splash Zone', 'pool', 'A vibrant pool designed for families and kids, complete with shallow areas, playful water features, and plenty of space for fun under the sun.', '2025-09-29 05:27:52'),
 (5, 'Grillers', 'griller', 'Indulge in a refined outdoor dining experience with our premium grillers, designed to bring people together over flavors and fire. Perfect for private gatherings, each moment is elevated with the touch of resort-style luxury.', '2025-09-29 09:01:30'),
@@ -69,6 +69,24 @@ INSERT INTO `amenity_images` (`id`, `amenity_id`, `image`) VALUES
 (4, 5, 'uploads/images/68da4aeb12222_grillers_1.jpg'),
 (5, 6, 'uploads/images/68da4cb79e946_shower_room_2.jpg'),
 (6, 6, 'uploads/images/68da4cb79eaeb_shower_room_1.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `audit_trail`
+--
+
+CREATE TABLE `audit_trail` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `action` varchar(255) DEFAULT NULL,
+  `module` varchar(100) DEFAULT NULL,
+  `old_value` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`old_value`)),
+  `new_value` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`new_value`)),
+  `ip_address` varchar(50) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -257,7 +275,8 @@ INSERT INTO `payments` (`id`, `reservation_id`, `amount`, `payment_method`, `pay
 (13, 10, 1860.00, 'cash', 'paid', 'full', NULL, '2025-11-14 16:51:30', '2025-11-14 16:51:30'),
 (14, 11, 870.00, 'gcash', 'paid', 'deposit', 'link_bryajDz9YR3MYGpr1H1dYSGj', '2025-11-17 03:36:10', '2025-11-17 03:36:44'),
 (15, 12, 700.00, 'gcash', 'paid', 'deposit', 'link_9MqMDBydAhLmr89M81kXEECj', '2025-11-17 15:58:39', '2025-11-17 16:04:11'),
-(16, 13, 1400.00, 'cash', 'paid', 'full', NULL, '2025-11-17 16:42:05', '2025-11-17 16:42:05');
+(16, 13, 1400.00, 'cash', 'paid', 'full', NULL, '2025-11-17 16:42:05', '2025-11-17 16:42:05'),
+(17, 14, 700.00, 'gcash', 'paid', 'deposit', 'link_5Bu5arJxYEafVJyxZ1uLYZpJ', '2025-11-18 17:09:48', '2025-11-18 17:16:46');
 
 -- --------------------------------------------------------
 
@@ -348,7 +367,8 @@ INSERT INTO `reservations` (`id`, `facility_id`, `contact_person`, `contact_no`,
 (10, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2026-05-21 00:00:00', '12-Hours', '2026-05-21 12:00:00', 2, 'no', 0, 0, 0, 0.00, 1860.00, 'confirmed', '2025-11-14 08:51:30', '2025-11-14 08:51:30'),
 (11, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-17 12:00:00', '12-Hours', '2025-11-18 00:00:00', 2, 'no', 0, 0, 0, 0.00, 1740.00, 'pending', '2025-11-16 19:36:10', '2025-11-16 19:36:10'),
 (12, 2, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-27 00:00:00', '12-Hours', '2025-11-27 12:00:00', 2, 'no', 0, 0, 0, 0.00, 2900.00, 'pending', '2025-11-17 07:58:38', '2025-11-17 13:01:11'),
-(13, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2026-05-10 00:00:00', '12-Hours', '2026-05-10 12:00:00', 2, 'no', 0, 0, 0, 500.00, 1400.00, 'confirmed', '2025-11-17 08:42:05', '2025-11-17 08:42:05');
+(13, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2026-05-10 00:00:00', '12-Hours', '2026-05-10 12:00:00', 2, 'no', 0, 0, 0, 500.00, 1400.00, 'confirmed', '2025-11-17 08:42:05', '2025-11-17 08:42:05'),
+(14, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2026-05-09 00:00:00', '12-Hours', '2026-05-09 12:00:00', 2, 'no', 0, 0, 0, 500.00, 1400.00, 'pending', '2025-11-18 09:09:48', '2025-11-18 09:09:48');
 
 -- --------------------------------------------------------
 
@@ -389,7 +409,9 @@ INSERT INTO `reservation_guests` (`id`, `reservation_id`, `guest_name`, `guest_a
 (33, 12, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-11-17 07:58:38', '2025-11-17 07:58:38'),
 (34, 12, 'Tafi Fimito', 22, 'adult', 'no', NULL, '2025-11-17 07:58:38', '2025-11-17 07:58:38'),
 (35, 13, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-11-17 08:42:05', '2025-11-17 08:42:05'),
-(36, 13, 'Tafi Fimito', 22, 'adult', 'no', NULL, '2025-11-17 08:42:05', '2025-11-17 08:42:05');
+(36, 13, 'Tafi Fimito', 22, 'adult', 'no', NULL, '2025-11-17 08:42:05', '2025-11-17 08:42:05'),
+(37, 14, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-11-18 09:09:48', '2025-11-18 09:09:48'),
+(38, 14, 'Tafi Fimito', 22, 'adult', 'no', NULL, '2025-11-18 09:09:48', '2025-11-18 09:09:48');
 
 -- --------------------------------------------------------
 
@@ -509,8 +531,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `image`, `password`, `salt`, `session_token`, `reset_pin`, `type`) VALUES
-(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$l544xUzJJhQ21yBFo8u7IeTtE6XcXk2owAV4pYcOsT60p1M6h.Ww.', NULL, 'admin'),
-(3, 'Taki Fimito', 'despicablehaythamkenway@gmail.com', 'uploads/images/690b97f142ae6_user-6.jpg', '$2y$10$SSRAidhlKM8j8tvegi4yUe2GfRUWYPLr3i5GnY0rtVn5naaFbvzWG', '67f513e439d93ba9b716', '$2y$10$5zGlhsLv/BqmE16vE0LBROmITbqmn/r0.3pHniWU2PsEVDkWHmPQq', NULL, 'staff'),
+(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$o3XAtnJHzzbx0DoIl4cDCefsWGFjTk94nZ6m/9iDHc34f8y8BX7f2', NULL, 'admin'),
+(3, 'Taki Fimito', 'despicablehaythamkenway@gmail.com', 'uploads/images/690b97f142ae6_user-6.jpg', '$2y$10$SSRAidhlKM8j8tvegi4yUe2GfRUWYPLr3i5GnY0rtVn5naaFbvzWG', '67f513e439d93ba9b716', '$2y$10$n8XtfY374fg0nCwlAMBjZODk9tbXczy0sdld7Z8.gektDF8Tugzde', NULL, 'staff'),
 (4, 'Tafi Fimito', 'tafi@gmail.com', 'uploads/images/690b9812ea878_user-4.jpg', '$2y$10$/IvWULzTu3XYrw4TU0UYbeTvKF24zKqOipe61PKgxC0HwbHXfaweu', '16d1de68659904d42b1d', NULL, NULL, 'admin');
 
 --
@@ -529,6 +551,13 @@ ALTER TABLE `amenities`
 ALTER TABLE `amenity_images`
   ADD PRIMARY KEY (`id`),
   ADD KEY `amenity_images_ibfk_1` (`amenity_id`);
+
+--
+-- Indexes for table `audit_trail`
+--
+ALTER TABLE `audit_trail`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `events`
@@ -650,6 +679,12 @@ ALTER TABLE `amenity_images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `audit_trail`
+--
+ALTER TABLE `audit_trail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
@@ -689,7 +724,7 @@ ALTER TABLE `gallery_images`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `promos`
@@ -707,13 +742,13 @@ ALTER TABLE `promo_facilities`
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `reservation_guests`
 --
 ALTER TABLE `reservation_guests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `st_logos`
@@ -754,6 +789,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `amenity_images`
   ADD CONSTRAINT `amenity_images_ibfk_1` FOREIGN KEY (`amenity_id`) REFERENCES `amenities` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `audit_trail`
+--
+ALTER TABLE `audit_trail`
+  ADD CONSTRAINT `audit_trail_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `facility_images`
