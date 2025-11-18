@@ -97,7 +97,7 @@ class Reservation
         return $this->db->query(
             "
             SELECT 
-                res.*, 
+                res.*, fac.name as facility_name,
                 (SELECT p1.payment_status 
                 FROM payments p1 
                 WHERE p1.reservation_id = res.id 
@@ -110,6 +110,10 @@ class Reservation
                 payments p 
             ON 
                 res.id=p.reservation_id
+            INNER JOIN 
+                facilities fac
+            ON 
+                res.facility_id=fac.id
             WHERE
                 res.id=:id 
         ",

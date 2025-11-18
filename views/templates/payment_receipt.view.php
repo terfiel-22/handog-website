@@ -3,6 +3,7 @@
 
 <head>
     <title>Payment Receipt</title>
+    <meta charset="UTF-8">
 </head>
 
 <body style="font-family:Arial,sans-serif; font-size:12px; color:#333; padding:20px;">
@@ -49,7 +50,7 @@
         </thead>
         <tbody>
             <tr>
-                <td style="padding:8px; border:1px solid #ccc;">Facility Rate</td>
+                <td style="padding:8px; border:1px solid #ccc;">Facility Rate (<?= $reservation["facility_name"] ?>) (<?= $reservation["time_range"] ?>)</td>
                 <td style="padding:8px; border:1px solid #ccc; text-align:right;"><?= \Http\Services\RatesService::getFacilityRate($reservation["time_range"], $reservation["facility_id"]) ?></td>
             </tr>
             <?php if ($reservation["discounted_value"] > 0): ?>
