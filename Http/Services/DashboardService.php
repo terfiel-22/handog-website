@@ -92,7 +92,7 @@ class DashboardService
             SELECT SUM(amount) as total 
             FROM payments 
             WHERE DATE(created_at) = ? 
-            AND payment_status = ? OR payment_status = ?
+            AND payment_status IN (?, ?)
         ", [$today, PaymentStatus::DEPOSITED, PaymentStatus::PAID])->find();
 
         return (float) ($result['total'] ?? 0);
@@ -314,7 +314,7 @@ class DashboardService
                 DATE(p.created_at) AS date,
                 COALESCE(SUM(p.amount), 0) AS earnings
             FROM payments p
-            WHERE p.payment_status = ? OR p.payment_status = ?
+            WHERE p.payment_status IN (?,?)
             AND DATE(p.created_at) BETWEEN DATE_SUB(CURDATE(), INTERVAL {$daysBack} DAY) AND CURDATE()
             GROUP BY DATE(p.created_at)
             ORDER BY DATE(p.created_at)
