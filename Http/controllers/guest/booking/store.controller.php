@@ -88,6 +88,15 @@ $reservation = [
 
 $reservationId = App::resolve(Reservation::class)->createReservation($reservation);
 
+/** Audit Log */
+AuditTrailService::audit_log(
+    null,
+    AuditAction::RESERVATION_CREATED,
+    AuditModule::RESERVATION,
+    null,
+    array_merge(["id" => $reservationId], $reservation),
+);
+
 /** Upload Senior/PWD IDs */
 foreach ($guests as $i => $guest) {
     $fileuploadResult = App::resolve(FileUploadHandler::class)->upload()->singleFile($files["presented_id_$i"]);
@@ -115,7 +124,7 @@ AuditTrailService::audit_log(
     AuditAction::PAYMENT_CREATED,
     AuditModule::PAYMENT,
     null,
-    array_merge($payment, ["id" => $paymentId]),
+    array_merge(["id" => $paymentId], $payment),
 );
 
 redirect("/booking/show?payment_link=" . $paymentLink["id"]);

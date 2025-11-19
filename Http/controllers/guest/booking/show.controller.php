@@ -52,11 +52,15 @@ if ($payment["success"] == YesNo::YES) {
                     "payment_type" => $savedPayment["payment_type"],
                     "payment_link" => $savedPayment["payment_link"],
                 ],
-                array_merge($updatedPayment, [
+                [
+                    "id" => $savedPayment["id"],
                     "reservation_id" => $savedPayment["reservation_id"],
+                    "amount" => $payment["amount"],
+                    "payment_method" => $payment["payment_method"],
+                    "payment_status" => PaymentStatus::DEPOSITED,
                     "payment_type" => $savedPayment["payment_type"],
                     "payment_link" => $savedPayment["payment_link"],
-                ])
+                ]
             );
         }
     }
