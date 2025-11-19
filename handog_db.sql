@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2025 at 04:23 AM
+-- Generation Time: Nov 19, 2025 at 04:52 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -94,7 +94,10 @@ CREATE TABLE `audit_trail` (
 
 INSERT INTO `audit_trail` (`id`, `user_id`, `action`, `module`, `old_value`, `new_value`, `ip_address`, `user_agent`, `created_at`) VALUES
 (3, NULL, 'Payment Created', 'Payment', NULL, '{\"reservation_id\":15,\"amount\":620,\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_K9Hh5j8uNNx2Dce67AEQNoAX\",\"id\":18}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-19 03:06:04'),
-(4, NULL, 'Payment Updated', 'Payment', '{\"id\":18,\"reservation_id\":15,\"amount\":\"620.00\",\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_K9Hh5j8uNNx2Dce67AEQNoAX\"}', '{\"id\":18,\"amount\":620,\"payment_method\":\"gcash\",\"payment_status\":\"paid\",\"reservation_id\":15,\"payment_type\":\"deposit\",\"payment_link\":\"link_K9Hh5j8uNNx2Dce67AEQNoAX\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-19 03:18:58');
+(4, NULL, 'Payment Updated', 'Payment', '{\"id\":18,\"reservation_id\":15,\"amount\":\"620.00\",\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_K9Hh5j8uNNx2Dce67AEQNoAX\"}', '{\"id\":18,\"amount\":620,\"payment_method\":\"gcash\",\"payment_status\":\"paid\",\"reservation_id\":15,\"payment_type\":\"deposit\",\"payment_link\":\"link_K9Hh5j8uNNx2Dce67AEQNoAX\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-19 03:18:58'),
+(5, NULL, 'Payment Created', 'Payment', NULL, '{\"reservation_id\":16,\"amount\":1450,\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_zTCKsEUxV5mSbA3mSQRAooME\",\"id\":19}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-19 03:38:22'),
+(6, NULL, 'Payment Updated', 'Payment', '{\"id\":19,\"reservation_id\":16,\"amount\":\"1450.00\",\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_zTCKsEUxV5mSbA3mSQRAooME\"}', '{\"id\":19,\"amount\":1450,\"payment_method\":\"gcash\",\"payment_status\":\"deposited\",\"reservation_id\":16,\"payment_type\":\"deposit\",\"payment_link\":\"link_zTCKsEUxV5mSbA3mSQRAooME\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-19 03:39:17'),
+(7, 1, 'Payment Created', 'Payment', NULL, '{\"reservation_id\":16,\"amount\":1450,\"payment_method\":null,\"payment_type\":\"deposit\",\"payment_status\":\"paid\",\"payment_link\":null,\"id\":20}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-19 03:40:00');
 
 -- --------------------------------------------------------
 
@@ -285,7 +288,9 @@ INSERT INTO `payments` (`id`, `reservation_id`, `amount`, `payment_method`, `pay
 (15, 12, 700.00, 'gcash', 'paid', 'deposit', 'link_9MqMDBydAhLmr89M81kXEECj', '2025-11-17 15:58:39', '2025-11-17 16:04:11'),
 (16, 13, 1400.00, 'cash', 'paid', 'full', NULL, '2025-11-17 16:42:05', '2025-11-17 16:42:05'),
 (17, 14, 700.00, 'gcash', 'paid', 'deposit', 'link_5Bu5arJxYEafVJyxZ1uLYZpJ', '2025-11-18 17:09:48', '2025-11-18 17:16:46'),
-(18, 15, 620.00, 'gcash', 'paid', 'deposit', 'link_K9Hh5j8uNNx2Dce67AEQNoAX', '2025-11-19 11:06:04', '2025-11-19 11:18:47');
+(18, 15, 620.00, 'gcash', 'paid', 'deposit', 'link_K9Hh5j8uNNx2Dce67AEQNoAX', '2025-11-19 11:06:04', '2025-11-19 11:18:47'),
+(19, 16, 1450.00, 'gcash', 'deposited', 'deposit', 'link_zTCKsEUxV5mSbA3mSQRAooME', '2025-11-19 11:38:22', '2025-11-19 11:39:11'),
+(20, 16, 1450.00, NULL, 'paid', 'deposit', NULL, '2025-11-19 11:40:00', '2025-11-19 11:40:00');
 
 -- --------------------------------------------------------
 
@@ -378,7 +383,8 @@ INSERT INTO `reservations` (`id`, `facility_id`, `contact_person`, `contact_no`,
 (12, 2, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-27 00:00:00', '12-Hours', '2025-11-27 12:00:00', 2, 'no', 0, 0, 0, 0.00, 2900.00, 'pending', '2025-11-17 07:58:38', '2025-11-17 13:01:11'),
 (13, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2026-05-10 00:00:00', '12-Hours', '2026-05-10 12:00:00', 2, 'no', 0, 0, 0, 500.00, 1400.00, 'confirmed', '2025-11-17 08:42:05', '2025-11-17 08:42:05'),
 (14, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2026-05-09 00:00:00', '12-Hours', '2026-05-09 12:00:00', 2, 'no', 0, 0, 0, 500.00, 1400.00, 'pending', '2025-11-18 09:09:48', '2025-11-18 09:09:48'),
-(15, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-21 12:00:00', '12-Hours', '2025-11-22 00:00:00', 2, 'no', 0, 0, 0, 500.00, 1240.00, 'pending', '2025-11-19 03:06:04', '2025-11-19 03:06:04');
+(15, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-21 12:00:00', '12-Hours', '2025-11-22 00:00:00', 2, 'no', 0, 0, 0, 500.00, 1240.00, 'pending', '2025-11-19 03:06:04', '2025-11-19 03:06:04'),
+(16, 2, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-12-03 00:00:00', '12-Hours', '2025-12-03 12:00:00', 2, 'no', 0, 0, 0, 0.00, 2900.00, 'pending', '2025-11-19 03:38:22', '2025-11-19 03:38:22');
 
 -- --------------------------------------------------------
 
@@ -423,7 +429,9 @@ INSERT INTO `reservation_guests` (`id`, `reservation_id`, `guest_name`, `guest_a
 (37, 14, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-11-18 09:09:48', '2025-11-18 09:09:48'),
 (38, 14, 'Tafi Fimito', 22, 'adult', 'no', NULL, '2025-11-18 09:09:48', '2025-11-18 09:09:48'),
 (39, 15, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-11-19 03:06:04', '2025-11-19 03:06:04'),
-(40, 15, 'Tafi Fimito', 22, 'adult', 'no', NULL, '2025-11-19 03:06:04', '2025-11-19 03:06:04');
+(40, 15, 'Tafi Fimito', 22, 'adult', 'no', NULL, '2025-11-19 03:06:04', '2025-11-19 03:06:04'),
+(41, 16, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-11-19 03:38:22', '2025-11-19 03:38:22'),
+(42, 16, 'Tafi Fimito', 22, 'adult', 'no', NULL, '2025-11-19 03:38:22', '2025-11-19 03:38:22');
 
 -- --------------------------------------------------------
 
@@ -694,7 +702,7 @@ ALTER TABLE `amenity_images`
 -- AUTO_INCREMENT for table `audit_trail`
 --
 ALTER TABLE `audit_trail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `events`
@@ -736,7 +744,7 @@ ALTER TABLE `gallery_images`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `promos`
@@ -754,13 +762,13 @@ ALTER TABLE `promo_facilities`
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `reservation_guests`
 --
 ALTER TABLE `reservation_guests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `st_logos`
