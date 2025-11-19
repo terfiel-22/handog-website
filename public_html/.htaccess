@@ -3,7 +3,7 @@
   RewriteBase / 
   
   # Allow access to specified files
-  RewriteRule ^(index\.php|assets/*) - [L]
+  RewriteRule ^(index\.php|assets/*|uploads/*) - [L]
   
   # Rewrite all other requests to index.php
   RewriteRule ^.*$ index.php [L]
