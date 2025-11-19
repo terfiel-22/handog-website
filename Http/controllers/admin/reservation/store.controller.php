@@ -1,6 +1,8 @@
 <?php
 
 use Core\App;
+use Http\Enums\AuditAction;
+use Http\Enums\AuditModule;
 use Http\Enums\PaymentMethod;
 use Http\Enums\PaymentType;
 use Http\Enums\ReservationStatus;
@@ -8,7 +10,9 @@ use Http\Forms\ReservationForm;
 use Http\Helpers\ReservationHelper;
 use Http\Models\Payment;
 use Http\Models\Reservation;
+use Http\Services\AuditTrailService;
 use Http\Services\RatesService;
+use Http\Services\UserService;
 
 ReservationForm::validate($_POST);
 
@@ -51,6 +55,20 @@ $payment = [
     "payment_link" => NULL,
 ];
 
-App::resolve(Payment::class)->createPayment($payment);
+
+$paymentId = App::resolve(Payment::class)->createPayment($payment);
+
+/** Audit Log */
+$user = UserService::getCurrentUser();
+AuditTrailService::audit_log(
+    $user["id"],
+    AuditAction::PAYMENT_CREATED,
+    AuditModule::PAYMENT,
+    null,
+    array_merge(
+        $payment,
+        ["id" => $paymentId],
+    )
+);
 
 redirect("/admin/reservations");
