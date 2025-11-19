@@ -14,9 +14,16 @@ use Http\Services\AuditTrailService;
 use Http\Services\RatesService;
 use Http\Services\UserService;
 
-ReservationForm::validate($_POST);
+$reservationForm = ReservationForm::validate($_POST);
 
 $facilityRate = RatesService::getFacilityRate($_POST["time_range"], $_POST['facility']);
+if ((int)$facilityRate < 1) {
+    $reservationForm->error(
+        "time_range",
+        "The time range you selected is unavailable at the moment."
+    )->throw();
+}
+
 $discountedValue = RatesService::getCurrentDiscountOnFacility($_POST['facility'], $facilityRate);
 $total_price = RatesService::getReservationTotalPrice($_POST);
 $check_out = App::resolve(ReservationHelper::class)->calculateCheckOut($_POST["check_in"], $_POST["time_range"]);

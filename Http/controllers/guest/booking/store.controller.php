@@ -48,6 +48,12 @@ foreach ($guests as $i => $guest) {
 // --- END Validation for Senior/PWD ID:
 
 $facilityRate = RatesService::getFacilityRate($_POST["time_range"], $_POST['facility']);
+if ((int)$facilityRate < 1) {
+    $bookingForm->error(
+        "time_range",
+        "The time range you selected is unavailable at the moment."
+    )->throw();
+}
 $discountedValue = RatesService::getCurrentDiscountOnFacility($_POST['facility'], $facilityRate);
 $total_price = RatesService::getReservationTotalPrice($_POST);
 $bookingDeposit = RatesService::bookingDeposit($total_price);
