@@ -93,7 +93,7 @@ $pageName = "Reservations"
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label" for="check_out">Check Out</label>
-                                            <input type="text" name="check_out" id="check_out" class="form-control" value="<?= date('Y-m-d H:s', strtotime($reservation["check_out"])) ?>" readonly>
+                                            <input type="text" name="check_out" id="check_out" class="form-control" value="<?= date('Y-m-d H:i', strtotime($reservation["check_out"])) ?>" readonly>
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label" for="guest_count">Guest Count</label>
