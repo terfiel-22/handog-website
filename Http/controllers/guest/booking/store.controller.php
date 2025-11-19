@@ -2,6 +2,8 @@
 
 use Core\App;
 use Core\FileUploadHandler;
+use Http\Enums\AuditAction;
+use Http\Enums\AuditModule;
 use Http\Enums\PaymentStatus;
 use Http\Enums\PaymentType;
 use Http\Enums\ReservationStatus;
@@ -11,6 +13,7 @@ use Http\Helpers\PaymentHelper;
 use Http\Helpers\ReservationHelper;
 use Http\Models\Payment;
 use Http\Models\Reservation;
+use Http\Services\AuditTrailService;
 use Http\Services\RatesService;
 
 $bookingForm = BookingForm::validate($_POST);
@@ -104,6 +107,15 @@ $payment = [
     "payment_type" => PaymentType::DEPOSIT,
     "payment_link" => $paymentLink["id"],
 ];
-App::resolve(Payment::class)->createPayment($payment);
+$paymentId = App::resolve(Payment::class)->createPayment($payment);
+
+/** Audit Log */
+AuditTrailService::audit_log(
+    null,
+    AuditAction::PAYMENT_CREATED,
+    AuditModule::PAYMENT,
+    null,
+    array_merge($payment, ["id" => $paymentId]),
+);
 
 redirect("/booking/show?payment_link=" . $paymentLink["id"]);

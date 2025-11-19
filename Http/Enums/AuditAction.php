@@ -26,6 +26,7 @@ class AuditAction extends Enums
     const GUEST_UPDATED = 'Guest Information Updated';
 
     // Payments
+    const PAYMENT_CREATED = 'Payment Created';
     const PAYMENT_UPDATED = 'Payment Updated';
 
     // Amenity
