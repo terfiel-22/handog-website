@@ -62,12 +62,22 @@ $paymentId = App::resolve(Payment::class)->createPayment($payment);
 $user = UserService::getCurrentUser();
 AuditTrailService::audit_log(
     $user["id"],
+    AuditAction::RESERVATION_CREATED,
+    AuditModule::RESERVATION,
+    null,
+    array_merge(
+        ["id" => $reservationId],
+        $reservation,
+    )
+);
+AuditTrailService::audit_log(
+    $user["id"],
     AuditAction::PAYMENT_CREATED,
     AuditModule::PAYMENT,
     null,
     array_merge(
-        $payment,
         ["id" => $paymentId],
+        $payment,
     )
 );
 
