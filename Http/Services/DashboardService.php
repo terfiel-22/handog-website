@@ -170,13 +170,17 @@ class DashboardService
     public static function totalVisits(): int
     {
         $db = self::db();
+        $today = (new DateTime())->format('Y-m-d H:s');
 
         $visit = $db->query("
-            SELECT COUNT(*) as total
-            FROM reservation_guests
-            ")->find();
+            SELECT SUM(guest_count) as total
+            FROM reservations
+            WHERE check_in <= ? 
+            ", [$today])->find();
 
-        return $visit["total"];
+        if (isset($visit["total"]))
+            return $visit["total"];
+        return 0;
     }
 
     public static function currentWeekGuests(): array
@@ -372,7 +376,8 @@ class DashboardService
     private static function linearRegression(array $x, array $y): array
     {
         $n = count($x);
-        if ($n === 0) return ['a' => 0, 'b' => 0];
+        if ($n === 0)
+            return ['a' => 0, 'b' => 0];
 
         $sumX = array_sum($x);
         $sumY = array_sum($y);
@@ -384,11 +389,20 @@ class DashboardService
             $sumX2 += $x[$i] * $x[$i];
         }
 
-        $b = ($n * $sumXY - $sumX * $sumY) / ($n * $sumX2 - $sumX * $sumX);
+        $denominator = ($n * $sumX2 - $sumX * $sumX);
+
+        if ($denominator == 0) {
+            $b = 0;
+            $a = $sumY / $n;
+            return ['a' => $a, 'b' => $b];
+        }
+
+        $b = ($n * $sumXY - $sumX * $sumY) / $denominator;
         $a = ($sumY - $b * $sumX) / $n;
 
         return ['a' => $a, 'b' => $b];
     }
+
 
 
     public static function summary(): array
