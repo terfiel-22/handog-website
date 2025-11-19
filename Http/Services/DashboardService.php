@@ -18,7 +18,7 @@ class DashboardService
     public static function availableFacilities(): array
     {
         $db = self::db();
-        $today = (new DateTime())->format('Y-m-d H:s');
+        $today = (new DateTime())->format('Y-m-d H:i');
 
         // Fetch all facilities with their available_unit
         $facilities = $db->query("
@@ -54,7 +54,7 @@ class DashboardService
     public static function unavailableFacilities(): array
     {
         $db = self::db();
-        $today = (new DateTime())->format('Y-m-d H:s');
+        $today = (new DateTime())->format('Y-m-d H:i');
 
         $facilities = $db->query("
             SELECT id, type, name, available_unit
@@ -115,7 +115,7 @@ class DashboardService
     public static function currentGuests(): int
     {
         $db = self::db();
-        $today = (new DateTime())->format('Y-m-d H:s');
+        $today = (new DateTime())->format('Y-m-d H:i');
 
         $guests = $db->query("
             SELECT SUM(guest_count) as total
@@ -170,7 +170,7 @@ class DashboardService
     public static function totalVisits(): int
     {
         $db = self::db();
-        $today = (new DateTime())->format('Y-m-d H:s');
+        $today = (new DateTime())->format('Y-m-d H:i');
 
         $visit = $db->query("
             SELECT SUM(guest_count) as total
