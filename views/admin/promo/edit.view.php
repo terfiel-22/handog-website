@@ -83,9 +83,10 @@ $pageName = "Edit Promo"
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="col-12 col-md-4">
+                        <div class="col-12">
                             <label class="form-label" for="facilities">Applicable To</label>
                             <select name="facilities[]" id="facilities" class="multi-select form-select" multiple="multiple">
+                                <option value="select_all" id="select_all">Select All</option>
                                 <?php foreach ($facilities as $facility): ?>
                                     <option value="<?= $facility['id'] ?>"
                                         <?= (is_array($promo['facilities']) && in_array($facility['id'], $promo['facilities'])) ? 'selected' : '' ?>>
@@ -99,7 +100,7 @@ $pageName = "Edit Promo"
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-6">
                             <label class="form-label">
                                 Discount Type
                             </label>
@@ -127,7 +128,7 @@ $pageName = "Edit Promo"
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-6">
                             <label class="form-label" for="is_active">Is Active</label>
                             <select name="is_active" id="is_active" class="form-select">
                                 <?php foreach (\Http\Enums\YesNo::toArray() as $is_active): ?>
@@ -171,6 +172,18 @@ $pageName = "Edit Promo"
                 placeholder: 'Select facility',
                 theme: 'bootstrap-5',
                 width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                templateResult: function(data) {
+                    if (data.id === 'select_all') return $('<strong>Select All</strong>');
+                    return data.text;
+                }
+            });
+
+            $('.multi-select').on('select2:select', function(e) {
+                if (e.params.data.id === "select_all") {
+                    $(".multi-select > option").prop("selected", true);
+                    $("#select_all").prop("selected", false);
+                    $(".multi-select").trigger("change");
+                }
             });
         });
     </script>

@@ -13160,7 +13160,7 @@ td.fc-header-center {
   width: 100%;  
 }
 .select2-selection { 
-  height: 2.75rem;  
+  min-height: 2.75rem !important;   
   border-radius: 0.375rem !important;
 }
 
