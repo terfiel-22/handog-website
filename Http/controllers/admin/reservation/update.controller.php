@@ -43,12 +43,40 @@ $updatedReservation = [
 
 App::resolve(Reservation::class)->updateReservation($origRes["id"], $updatedReservation);
 
+/** Audit Log */
+$user = UserService::getCurrentUser();
+AuditTrailService::reservation_update_log(
+    $user["id"],
+    [
+        "id" => $origRes["id"],
+        "facility_id" => $origRes["facility_id"],
+        "contact_person" => $origRes["contact_person"],
+        "contact_no" => $origRes["contact_no"],
+        "contact_email" => $origRes["contact_email"],
+        "contact_address" => $origRes["contact_address"],
+        "check_in" => $origRes["check_in"],
+        "time_range" => $origRes["time_range"],
+        "check_out" => $origRes["check_out"],
+        "rent_videoke" => $origRes["rent_videoke"],
+        "extended_pool_hrs" => $origRes["extended_pool_hrs"],
+        "extended_cottage_hrs" => $origRes["extended_cottage_hrs"],
+        "additional_bed_count" => $origRes["additional_bed_count"],
+        "discounted_value" => $origRes["discounted_value"],
+        "guest_count" => $origRes["guest_count"],
+        "total_price" => $origRes["total_price"],
+        "status" => $origRes["status"]
+    ],
+    array_merge(
+        ["id" => $origRes["id"]],
+        $updatedReservation
+    )
+);
+
 App::resolve(ReservationHelper::class)->updateGuestList($origRes["id"], $guests);
 
 /** Set payment */
 $origPayment = App::resolve(Payment::class)->fetchPaymentByReservationId($origRes["id"]);
-
-if ($origPayment["payment_status"] != $_POST["payment_status"]) {
+if (!empty($origPayment) && $origPayment["payment_status"] !== $_POST["payment_status"]) {
     $newPayment = [
         "reservation_id" => $origRes["id"],
         "amount" => PaymentService::amount($origRes["total_price"], $origRes["paid_amount"], $_POST["payment_status"]),
@@ -61,15 +89,20 @@ if ($origPayment["payment_status"] != $_POST["payment_status"]) {
     $paymentId = App::resolve(Payment::class)->createPayment($newPayment);
 
     /** Audit Log */
-    $user = UserService::getCurrentUser();
-    AuditTrailService::audit_log(
+    AuditTrailService::payment_update_log(
         $user["id"],
-        AuditAction::PAYMENT_CREATED,
-        AuditModule::PAYMENT,
-        null,
+        [
+            "id" => $origPayment["id"],
+            "reservation_id" => $origRes["id"],
+            "amount" => $origPayment["amount"],
+            "payment_method" => $origPayment["payment_method"],
+            "payment_type" => $origPayment["payment_type"],
+            "payment_status" => $origPayment["payment_status"],
+            "payment_link" => $origPayment["payment_link"],
+        ],
         array_merge(
-            $newPayment,
             ["id" => $paymentId],
+            $newPayment
         )
     );
 }

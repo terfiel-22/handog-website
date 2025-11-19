@@ -42,9 +42,12 @@ class Payment
             "SELECT 
                 *
             FROM payments  
-            WHERE reservation_id=:reservation_id",
+            WHERE reservation_id=:reservation_id
+            ORDER BY created_at DESC
+            LIMIT 1
+            ",
             compact('reservation_id')
-        )->findOrFail();
+        )->find();
     }
 
     public function updatePayment($attributes)
