@@ -180,7 +180,7 @@ $pageName = "Audit Trail"
                 const auditLog = auditLogs[index];
                 console.log(auditLog);
 
-                $("#modal-username").text(auditLog.username);
+                $("#modal-username").text(auditLog.username || 'Guest User');
                 $("#modal-action").text(auditLog.action);
                 $("#modal-module").text(auditLog.module);
                 $("#modal-created").text(formatDateTime(auditLog.created_at));
