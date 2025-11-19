@@ -126,7 +126,7 @@ $pageName = "Dashboard"
                             $badgeClass = $isGrowthPositive
                                 ? 'bg-success-focus text-success-main br-success'
                                 : 'bg-danger-focus text-danger-main br-danger';
-                            $growthSign = $isGrowthPositive ? '+' : '-';
+                            $growthSign = $isGrowthPositive ? '+' : '';
                             ?>
 
                             <div class="d-flex flex-wrap align-items-center gap-2 mt-8">

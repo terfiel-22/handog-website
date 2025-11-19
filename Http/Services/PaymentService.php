@@ -18,9 +18,13 @@ class PaymentService
         }
     }
 
-    public static function amount($resRate, $paidAmount, $paymentStatus)
+    public static function amount($resRate, $paidAmount, $oldPaymentStatus, $newPaymentStatus)
     {
-        switch ($paymentStatus) {
+        if ($oldPaymentStatus == PaymentStatus::UNPAID && $newPaymentStatus == PaymentStatus::PAID) {
+            return $resRate;
+        }
+
+        switch ($newPaymentStatus) {
             case PaymentStatus::PAID:
                 return $resRate - $paidAmount;
             case PaymentStatus::REFUNDED:

@@ -206,19 +206,6 @@ $pageName = "Reservations"
                                             <input type="hidden" name="discounted_value" id="discounted_value">
                                             <div class="discount-container"></div>
                                         </div>
-                                        <div class="col-12">
-                                            <label class="form-label" for="payment_status">Payment Status</label>
-                                            <select name="payment_status" id="payment_status" class="form-control">
-                                                <?php foreach (\Http\Enums\PaymentStatus::toArray() as $payment_status): ?>
-                                                    <option value="<?= $payment_status ?>" <?= old('payment_status') == $payment_status ? "selected" : "" ?>><?= $payment_status ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                            <?php if (isset($errors["payment_status"])) : ?>
-                                                <div class="error-text">
-                                                    <?= $errors["payment_status"] ?>
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
                                         <div class="col-12 d-flex justify-content-between gap-2">
                                             <div class="d-flex gap-2">
                                                 <button type="button" class="btn btn-secondary prev">Previous</button>

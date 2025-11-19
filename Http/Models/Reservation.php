@@ -4,6 +4,7 @@ namespace Http\Models;
 
 use Core\App;
 use Core\Database;
+use Http\Enums\PaymentStatus;
 use Http\Enums\ReservationStatus;
 
 class Reservation
@@ -54,24 +55,37 @@ class Reservation
 
     public function fetchReservations()
     {
-        return $this->db->query("
+        return $this->db->query(
+            "
         SELECT 
-            res.*, fac.name as facility, p.payment_status, SUM(p.amount) as paid_amount
-        FROM 
-            reservations res 
-        INNER JOIN 
-            facilities fac 
-        ON 
-            fac.id=res.facility_id
-        INNER JOIN 
-            payments p 
-        ON 
-            res.id=p.reservation_id
-        GROUP BY
-            res.id
-        ORDER BY 
-            created_at DESC
-        ")->get();
+            res.*,
+            fac.name AS facility, 
+            (
+                SELECT p1.payment_status
+                FROM payments p1
+                WHERE p1.reservation_id = res.id
+                ORDER BY p1.id DESC
+                LIMIT 1
+            ) AS payment_status, 
+            SUM(
+                CASE 
+                    WHEN p.payment_status IN (?, ?)
+                        THEN p.amount
+                    ELSE 0
+                END
+            ) AS paid_amount
+
+        FROM reservations res
+        INNER JOIN facilities fac 
+            ON fac.id = res.facility_id
+        INNER JOIN payments p 
+            ON res.id = p.reservation_id
+
+        GROUP BY res.id
+        ORDER BY res.created_at DESC;
+        ",
+            [PaymentStatus::PAID, PaymentStatus::DEPOSITED]
+        )->get();
     }
 
     public function uncompleteReservations()
@@ -96,28 +110,33 @@ class Reservation
     {
         return $this->db->query(
             "
-            SELECT 
-                res.*, fac.name as facility_name,
-                (SELECT p1.payment_status 
-                FROM payments p1 
-                WHERE p1.reservation_id = res.id 
-                ORDER BY p1.id DESC 
-                LIMIT 1) AS payment_status,
-                SUM(p.amount) as paid_amount
-            FROM 
-                reservations res
-            INNER JOIN 
-                payments p 
-            ON 
-                res.id=p.reservation_id
-            INNER JOIN 
-                facilities fac
-            ON 
-                res.facility_id=fac.id
-            WHERE
-                res.id=:id 
+                SELECT 
+                    res.*, 
+                    fac.name AS facility_name, 
+                    (
+                        SELECT p1.payment_status
+                        FROM payments p1
+                        WHERE p1.reservation_id = res.id
+                        ORDER BY p1.id DESC
+                        LIMIT 1
+                    ) AS payment_status, 
+                    SUM(
+                        CASE 
+                            WHEN p.payment_status IN (?, ?) 
+                            THEN p.amount 
+                            ELSE 0 
+                        END
+                    ) AS paid_amount
+
+                FROM reservations res
+                INNER JOIN payments p 
+                    ON res.id = p.reservation_id
+                INNER JOIN facilities fac
+                    ON res.facility_id = fac.id
+
+                WHERE res.id = ?;
         ",
-            compact('id')
+            [PaymentStatus::PAID, PaymentStatus::DEPOSITED, $id]
         )->findOrFail();
     }
 

@@ -85,7 +85,7 @@ $origPayment = App::resolve(Payment::class)->fetchPaymentByReservationId($origRe
 if (!empty($origPayment) && $origPayment["payment_status"] !== $_POST["payment_status"]) {
     $newPayment = [
         "reservation_id" => $origRes["id"],
-        "amount" => PaymentService::amount($origRes["total_price"], $origRes["paid_amount"], $_POST["payment_status"]),
+        "amount" => PaymentService::amount($origRes["total_price"], $origRes["paid_amount"], $origRes["payment_status"], $_POST["payment_status"]),
         "payment_method" => NULL,
         "payment_type" => PaymentService::paymentType($_POST["payment_status"]),
         "payment_status" => $_POST["payment_status"],

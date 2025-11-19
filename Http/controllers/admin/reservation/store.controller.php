@@ -4,6 +4,7 @@ use Core\App;
 use Http\Enums\AuditAction;
 use Http\Enums\AuditModule;
 use Http\Enums\PaymentMethod;
+use Http\Enums\PaymentStatus;
 use Http\Enums\PaymentType;
 use Http\Enums\ReservationStatus;
 use Http\Forms\ReservationForm;
@@ -14,6 +15,7 @@ use Http\Services\AuditTrailService;
 use Http\Services\RatesService;
 use Http\Services\UserService;
 
+$_POST["payment_status"] = PaymentStatus::PAID;
 $reservationForm = ReservationForm::validate($_POST);
 
 $facilityRate = RatesService::getFacilityRate($_POST["time_range"], $_POST['facility']);
