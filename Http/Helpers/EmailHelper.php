@@ -28,7 +28,7 @@ class EmailHelper
         $this->fromName  = $config['from_name'] ?? 'Mailer';
     }
 
-    public function sendEmail(string $toEmail, string $toName, string $subject, string $body, string $altBody = '', string $attachmentPath)
+    public function sendEmail(string $toEmail, string $toName, string $subject, string $body, string $altBody = '', $attachmentPath = null)
     {
         try {
             // Recipients
