@@ -450,6 +450,7 @@ $pageName = "Reservations"
             $('#check_in').flatpickr({
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
+                defaultDate: "today",
                 time_24hr: true,
                 minDate: "today",
                 onChange: function() {
