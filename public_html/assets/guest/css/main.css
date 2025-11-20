@@ -3458,32 +3458,21 @@ span {
 .header-1 .header-right .sidebar__toggle {
   cursor: pointer;
 }
-.header-1 .header-right .sidebar__toggle .header-bar {
-  position: relative;
+.header-1 .header-right .sidebar__toggle .header-bar { 
   width: 40px;
-  height: 11px;
+  height: 18px;
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-between;
 }
-.header-1 .header-right .sidebar__toggle .header-bar span {
-  position: absolute;
-  width: 100%;
+.header-1 .header-right .sidebar__toggle .header-bar span { 
+  width: 40px;
   height: 2px;
   display: inline-block;
-  transition: all 0.3s;
-  left: 0;
-  background: var(--gt-header);
+  transition: all 0.3s; 
+  background: var(--gt-white);
   overflow: hidden;
-}
-.header-1 .header-right .sidebar__toggle .header-bar span:first-child {
-  top: 0;
-  background: var(--gt-white);
-  left: 0;
-  width: 40px;
-}
-.header-1 .header-right .sidebar__toggle .header-bar span:last-child {
-  bottom: 0;
-  background: var(--gt-white);
-  width: 40px;
-}
+} 
 .header-1 .header-right .sidebar__toggle .header-bar.active span:first-child {
   transform: rotate(45deg) translate(3px, 9px);
 }

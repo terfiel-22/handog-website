@@ -43,6 +43,7 @@
                             <div class="header-bar">
                                 <span></span>
                                 <span></span>
+                                <span></span>
                             </div>
                         </div>
                     </div>
