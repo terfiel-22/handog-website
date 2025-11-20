@@ -114,7 +114,7 @@
             </div>
             <div class="row g-3">
                 <div
-                    class="col-12 col-md-4 wow fadeInUp"
+                    class="col-12 col-md-4 wow fadeInUp rates-container"
                     data-wow-delay=".3s">
                     <div class="colored-container wow fadeInUp" data-wow-delay=".2s">
                         <div class="title-text-container">
@@ -163,7 +163,7 @@
                     </div>
                 </div>
                 <div
-                    class="col-12 col-md-8 wow fadeInUp"
+                    class="col-12 col-md-8 wow fadeInUp rates-container"
                     data-wow-delay=".3s">
                     <div class="colored-container wow fadeInUp" data-wow-delay=".2s">
                         <div class="title-text-container">
