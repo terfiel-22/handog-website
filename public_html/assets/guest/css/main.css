@@ -3654,14 +3654,14 @@ span {
 }
 .offcanvas__wrapper .offcanvas__content .offcanvas__contact {
   margin-top: 20px;
+  word-break: break-word;
 }
 .offcanvas__wrapper .offcanvas__content .offcanvas__contact ul {
   margin-top: 20px;
 }
 .offcanvas__wrapper .offcanvas__content .offcanvas__contact ul li {
   font-size: 16px;
-  font-weight: 600;
-  text-transform: capitalize;
+  font-weight: 600; 
 }
 .offcanvas__wrapper .offcanvas__content .offcanvas__contact ul li a {
   color: var(--gt-text);

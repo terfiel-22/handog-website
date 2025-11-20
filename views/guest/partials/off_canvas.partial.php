@@ -26,7 +26,7 @@
                             <div class="offcanvas__contact-icon">
                                 <i class="fal fa-map-marker-alt"></i>
                             </div>
-                            <div class="text-uppercase">
+                            <div>
                                 <a target="_blank" href="#">
                                     <?= WEBSITE_ADDRESS ?>
                                 </a>
@@ -36,7 +36,7 @@
                             <div class="offcanvas__contact-icon mr-15">
                                 <i class="fal fa-envelope"></i>
                             </div>
-                            <div class="text-uppercase">
+                            <div>
                                 <a href="mailto:<?= WEBSITE_EMAIL ?>">
                                     <?= WEBSITE_EMAIL ?>
                                 </a>
@@ -46,7 +46,7 @@
                             <div class="offcanvas__contact-icon mr-15">
                                 <i class="far fa-phone"></i>
                             </div>
-                            <div class="text-uppercase">
+                            <div>
                                 <a href="tel:<?= WEBSITE_NUMBER ?>"><?= WEBSITE_NUMBER ?></a>
                             </div>
                         </li>
