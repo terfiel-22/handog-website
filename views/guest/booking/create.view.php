@@ -214,6 +214,11 @@
                                             <div class="form-clt">
                                                 <input type="number" name="total_rate" id="total_rate" disabled>
                                                 <input type="hidden" name="discounted_value" id="discounted_value">
+                                                <?php if (isset($errors["total_rate"])) : ?>
+                                                    <div class="error-text">
+                                                        <?= $errors["total_rate"] ?>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                             <div class="discount-container"></div>
                                         </div>
