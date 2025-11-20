@@ -3,6 +3,8 @@
 use Core\App;
 use Http\Enums\AuditAction;
 use Http\Enums\AuditModule;
+use Http\Enums\PaymentMethod;
+use Http\Enums\PaymentStatus;
 use Http\Forms\ReservationForm;
 use Http\Helpers\ReservationHelper;
 use Http\Models\Payment;
@@ -86,7 +88,7 @@ if (!empty($origPayment) && $origPayment["payment_status"] !== $_POST["payment_s
     $newPayment = [
         "reservation_id" => $origRes["id"],
         "amount" => PaymentService::amount($origRes["total_price"], $origRes["paid_amount"], $origRes["payment_status"], $_POST["payment_status"]),
-        "payment_method" => NULL,
+        "payment_method" => $_POST["payment_status"] == PaymentStatus::PAID ? PaymentMethod::CASH : null,
         "payment_type" => PaymentService::paymentType($_POST["payment_status"]),
         "payment_status" => $_POST["payment_status"],
         "payment_link" => NULL,
