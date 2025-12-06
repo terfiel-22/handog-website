@@ -27,6 +27,17 @@ class Validator
         return (bool) filter_var($value, FILTER_VALIDATE_EMAIL);
     }
 
+    public static function password(string $value, int $min = 8, float $max = INF): bool
+    {
+        $value = trim($value);
+
+        if (strlen($value) < $min || strlen($value) > $max) {
+            return false;
+        }
+
+        return preg_match('/^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/', $value) === 1;
+    }
+
     public static function password_match(string $password, string $confirmPassword): bool
     {
         return $password === $confirmPassword;
