@@ -10,7 +10,7 @@ class Authenticator
     {
         extract($attributes);
 
-        $user = App::resolve(User::class)->fetchUserByEmail($email);
+        $user = App::resolve(User::class)->fetchUserByEmailOrUsername($email);
 
         if ($user) {
             if (password_verify($user['salt'] . $password, $user['password'])) {

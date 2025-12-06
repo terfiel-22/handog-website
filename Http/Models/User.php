@@ -37,6 +37,14 @@ class User
         )->find();
     }
 
+    public function fetchUserByEmailOrUsername($value)
+    {
+        return $this->db->query(
+            "SELECT * FROM users WHERE email=:value OR username=:value",
+            compact('value')
+        )->find();
+    }
+
 
     public function fetchUserById($id)
     {
