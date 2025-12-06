@@ -43,6 +43,8 @@ $pageName = "Reservations"
                                     <th scope="col">Contact Person</th>
                                     <th scope="col">Guest Count</th>
                                     <th scope="col">Facility</th>
+                                    <th scope="col">Check In</th>
+                                    <th scope="col">Check Out</th>
                                     <th scope="col">With Videoke</th>
                                     <th scope="col">Total Rate</th>
                                     <th scope="col">Paid Amount</th>
@@ -63,6 +65,8 @@ $pageName = "Reservations"
                                         </td>
                                         <td><?= $reservation['guest_count'] ?></td>
                                         <td><?= $reservation['facility'] ?></td>
+                                        <td><?= formatDatetimeToReadable($reservation['check_in']) ?></td>
+                                        <td><?= formatDatetimeToReadable($reservation['check_out']) ?></td>
                                         <td><?= ucfirst($reservation['rent_videoke']) ?></td>
                                         <td><?= moneyFormat($reservation['total_price']) ?></td>
                                         <td><?= moneyFormat($reservation['paid_amount']) ?></td>
@@ -74,9 +78,11 @@ $pageName = "Reservations"
                                                     <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
                                                 </a>
 
-                                                <a href="/admin/reservations/edit?id=<?= $reservation['id'] ?>" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                                                    <iconify-icon icon="lucide:edit"></iconify-icon>
-                                                </a>
+                                                <?php if ($reservation["status"] == \Http\Enums\ReservationStatus::PENDING): ?>
+                                                    <a href="/admin/reservations/edit?id=<?= $reservation['id'] ?>" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                        <iconify-icon icon="lucide:edit"></iconify-icon>
+                                                    </a>
+                                                <?php endif; ?>
 
                                                 <button
                                                     type="button"
@@ -91,6 +97,22 @@ $pageName = "Reservations"
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Contact Person</th>
+                                    <th scope="col">Guest Count</th>
+                                    <th scope="col">Facility</th>
+                                    <th scope="col">Check In</th>
+                                    <th scope="col">Check Out</th>
+                                    <th scope="col">With Videoke</th>
+                                    <th scope="col">Total Rate</th>
+                                    <th scope="col">Paid Amount</th>
+                                    <th scope="col">Balance</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -105,8 +127,35 @@ $pageName = "Reservations"
     <?php view("admin/shared/delete-modal.php") ?>
 
     <script>
-        let table = new DataTable('#dataTable', {
-            ordering: false
+        new DataTable('#dataTable', {
+            ordering: false,
+            initComplete: function() {
+                this.api()
+                    .columns()
+                    .every(function() {
+                        let column = this;
+                        let title = column.footer().textContent;
+
+                        if (title == "Action") return;
+                        let input = document.createElement('input');
+                        input.placeholder = title;
+                        column.footer().replaceChildren(input);
+
+                        input.addEventListener('keyup', () => {
+                            if (column.search() !== this.value) {
+                                column.search(input.value).draw();
+                            }
+                        });
+                    });
+
+
+                var r = $('#dataTable tfoot tr');
+                r.find('th').each(function() {
+                    $(this).css('padding', 8);
+                });
+                $('#dataTable thead').html(r);
+                $('#search_0').css('text-align', 'center');
+            },
         });
     </script>
 

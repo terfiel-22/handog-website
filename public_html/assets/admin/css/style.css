@@ -13214,3 +13214,11 @@ td.fc-header-center {
         box-shadow: none !important;
     }
 }
+
+/* Data Table */
+#dataTable tfoot input {
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+    display: table-row-group;
+}

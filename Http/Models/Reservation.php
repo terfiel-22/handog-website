@@ -140,6 +140,40 @@ class Reservation
         )->findOrFail();
     }
 
+    public function fetchReservationByIdAndPendingStatus($id)
+    {
+        return $this->db->query(
+            "
+                SELECT 
+                    res.*, 
+                    fac.name AS facility_name, 
+                    (
+                        SELECT p1.payment_status
+                        FROM payments p1
+                        WHERE p1.reservation_id = res.id
+                        ORDER BY p1.id DESC
+                        LIMIT 1
+                    ) AS payment_status, 
+                    SUM(
+                        CASE 
+                            WHEN p.payment_status IN (?, ?) 
+                            THEN p.amount 
+                            ELSE 0 
+                        END
+                    ) AS paid_amount 
+                FROM reservations res
+                INNER JOIN payments p 
+                    ON res.id = p.reservation_id
+                INNER JOIN facilities fac
+                    ON res.facility_id = fac.id 
+                WHERE res.id = ?
+                GROUP BY res.id
+                HAVING res.status = ?
+        ",
+            [PaymentStatus::PAID, PaymentStatus::DEPOSITED, $id, ReservationStatus::PENDING]
+        )->findOrFail();
+    }
+
     public function deleteReservation($id)
     {
         $this->db->query(

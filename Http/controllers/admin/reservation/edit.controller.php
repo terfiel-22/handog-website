@@ -11,7 +11,7 @@ use Http\Services\SettingService;
 
 $id = $_GET["id"] ?? 0;
 
-$reservation = App::resolve(Reservation::class)->fetchReservationById($id);
+$reservation = App::resolve(Reservation::class)->fetchReservationByIdAndPendingStatus($id);
 
 $guests = App::resolve(ReservationGuest::class)->fetchGuestsByReservationId($id);
 
