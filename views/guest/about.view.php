@@ -195,9 +195,7 @@
                                     <div class="content">
                                         <p>Location</p>
                                         <h4>
-                                            Handog Compound
-                                            960Toclong, Kawit, Cavite
-                                            Philippines
+                                            <?= \Http\Services\SocialService::getSocialDetails()["address"] ?>
                                         </h4>
                                     </div>
                                 </li>
@@ -208,8 +206,8 @@
                                     <div class="content">
                                         <p>Email Address</p>
                                         <h4 class="fs-8">
-                                            <a href="mailto:handogresortandeventplace2017@gmail.com">
-                                                HREP2017@gmail.com
+                                            <a href="mailto:<?= \Http\Services\SocialService::getSocialDetails()["email"] ?>">
+                                                <?= \Http\Services\SocialService::getSocialDetails()["email"] ?>
                                             </a>
                                         </h4>
                                     </div>
@@ -220,7 +218,7 @@
                                     </div>
                                     <div class="content">
                                         <p>Phone No</p>
-                                        <h4><a href="tel:09099597451">09099597451</a></h4>
+                                        <h4><a href="tel:<?= \Http\Services\SocialService::getSocialDetails()["contact_no"] ?>"><?= \Http\Services\SocialService::getSocialDetails()["contact_no"] ?></a></h4>
                                     </div>
                                 </li>
                             </ul>

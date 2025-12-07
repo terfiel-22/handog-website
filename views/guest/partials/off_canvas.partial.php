@@ -28,7 +28,7 @@
                             </div>
                             <div>
                                 <a target="_blank" href="#">
-                                    <?= WEBSITE_ADDRESS ?>
+                                    <?= \Http\Services\SocialService::getSocialDetails()["address"] ?>
                                 </a>
                             </div>
                         </li>
@@ -37,8 +37,8 @@
                                 <i class="fal fa-envelope"></i>
                             </div>
                             <div>
-                                <a href="mailto:<?= WEBSITE_EMAIL ?>">
-                                    <?= WEBSITE_EMAIL ?>
+                                <a href="mailto:<?= \Http\Services\SocialService::getSocialDetails()["email"] ?>">
+                                    <?= \Http\Services\SocialService::getSocialDetails()["email"] ?>
                                 </a>
                             </div>
                         </li>
@@ -47,7 +47,7 @@
                                 <i class="far fa-phone"></i>
                             </div>
                             <div>
-                                <a href="tel:<?= WEBSITE_NUMBER ?>"><?= WEBSITE_NUMBER ?></a>
+                                <a href="tel:<?= \Http\Services\SocialService::getSocialDetails()["contact_no"] ?>"><?= \Http\Services\SocialService::getSocialDetails()["contact_no"] ?></a>
                             </div>
                         </li>
                     </ul>

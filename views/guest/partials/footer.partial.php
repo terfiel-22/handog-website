@@ -15,11 +15,11 @@
                          <ul class="contact-list">
                              <li>
                                  <img src="/assets/guest/img/home-1/footer/call.svg" alt="img" />
-                                 <a href="tel:<?= WEBSITE_NUMBER ?>"><?= WEBSITE_NUMBER ?></a>
+                                 <a href="tel:<?= \Http\Services\SocialService::getSocialDetails()["contact_no"] ?>"><?= \Http\Services\SocialService::getSocialDetails()["contact_no"] ?></a>
                              </li>
                              <li>
                                  <img src="/assets/guest/img/home-1/footer/email.svg" alt="img" />
-                                 <a href="mailto:<?= WEBSITE_EMAIL ?>"><?= WEBSITE_EMAIL ?></a>
+                                 <a href="mailto:<?= \Http\Services\SocialService::getSocialDetails()["email"] ?>"><?= \Http\Services\SocialService::getSocialDetails()["email"] ?></a>
                              </li>
                          </ul>
                          <ul class="footer-menu-list">
@@ -54,21 +54,21 @@
                                              <img
                                                  src="/assets/guest/img/home-1/footer/location.svg"
                                                  alt="img" />
-                                             <p><?= WEBSITE_ADDRESS ?></p>
+                                             <p><?= \Http\Services\SocialService::getSocialDetails()["address"] ?></p>
                                          </li>
                                          <li>
                                              <img
                                                  src="/assets/guest/img/home-1/footer/email.svg"
                                                  alt="img" />
-                                             <a href="mailto:<?= WEBSITE_EMAIL ?>">
-                                                 <?= WEBSITE_EMAIL ?>
+                                             <a href="mailto:<?= \Http\Services\SocialService::getSocialDetails()["email"] ?>">
+                                                 <?= \Http\Services\SocialService::getSocialDetails()["email"] ?>
                                              </a>
                                          </li>
                                          <li>
                                              <img
                                                  src="/assets/guest/img/home-1/footer/call.svg"
                                                  alt="img" />
-                                             <a href="tel:<?= WEBSITE_NUMBER ?>"><?= WEBSITE_NUMBER ?></a>
+                                             <a href="tel:<?= \Http\Services\SocialService::getSocialDetails()["contact_no"] ?>"><?= \Http\Services\SocialService::getSocialDetails()["contact_no"] ?></a>
                                          </li>
                                      </ul>
                                  </div>
