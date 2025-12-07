@@ -293,9 +293,9 @@ $pageName = "Reservations"
 
                         <h5 class="mt-2 mb-0 fw-bold"><?= WEBSITE_NAME ?></h5>
                         <p class="mb-0 text-muted small">
-                            <?= WEBSITE_ADDRESS ?> • <?= WEBSITE_NUMBER ?>
+                            <?= \Http\Services\SocialService::getSocialDetails()["address"] ?> • <?= \Http\Services\SocialService::getSocialDetails()["contact_no"] ?>
                         </p>
-                        <a href="mailto:<?= WEBSITE_EMAIL ?>" class="mb-0 text-muted small">Email: <?= WEBSITE_EMAIL ?></a>
+                        <a href="mailto:<?= \Http\Services\SocialService::getSocialDetails()["email"] ?>" class="mb-0 text-muted small">Email: <?= \Http\Services\SocialService::getSocialDetails()["email"] ?></a>
                     </div>
 
                     <!-- Divider -->
