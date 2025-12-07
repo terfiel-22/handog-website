@@ -47,7 +47,7 @@ function abort($code = 404)
 /** Convert number into currency number format */
 function moneyFormat($value)
 {
-    return "₱ " . number_format($value, 2);
+    return "₱" . number_format($value, 2);
 }
 
 /** Function for getting old form data */

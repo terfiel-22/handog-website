@@ -13216,9 +13216,6 @@ td.fc-header-center {
 }
 
 /* Data Table */
-#dataTable tfoot input {
-    width: 100%;
-    padding: 3px;
-    box-sizing: border-box;
-    display: table-row-group;
-}
+#dataTable thead input {
+    width: 100%;  
+} 
