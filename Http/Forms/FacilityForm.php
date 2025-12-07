@@ -28,9 +28,19 @@ class FacilityForm extends Form
         if (!Validator::quantity($capacity)) {
             $this->errors["capacity"] = "Please put a valid capacity.";
         }
-
         if (!Validator::not_empty($image)) {
             $this->errors["image"] = "Atleast one image is required.";
+        }
+
+        // Rates
+        if (!Validator::is_less_than($rate_hourly, $rate_8hrs)) {
+            $this->errors["rate_hourly"] = "Hourly rate must be less than 8-hour rate.";
+        }
+        if (!Validator::is_less_than($rate_8hrs, $rate_12hrs)) {
+            $this->errors["rate_8hrs"] = "8-hour rate must be less than 12-hour rate.";
+        }
+        if (!Validator::is_less_than($rate_12hrs, $rate_1day)) {
+            $this->errors["rate_12hrs"] = "12-hour rate must be less than 1-day rate.";
         }
     }
 }

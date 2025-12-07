@@ -80,6 +80,14 @@ class Validator
         return preg_match($pattern, $value);
     }
 
+    public static function is_less_than($valueA,  $valueB): bool
+    {
+        $numA = floatval($valueA);
+        $numB = floatval($valueB);
+
+        return $numA < $numB;
+    }
+
     public static function future_date(string $date): bool
     {
         $currentDate = new DateTime();
