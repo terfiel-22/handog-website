@@ -93,6 +93,9 @@
                         <li>
                             <a href="/admin/settings/terms-conditions"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Terms & Conditions</a>
                         </li>
+                        <li>
+                            <a href="/admin/settings/socials"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Social Links</a>
+                        </li>
                     </ul>
                 </li>
             <?php endif; ?>

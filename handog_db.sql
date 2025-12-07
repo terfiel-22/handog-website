@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2025 at 12:33 PM
+-- Generation Time: Dec 07, 2025 at 06:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -93,14 +93,26 @@ CREATE TABLE `audit_trail` (
 --
 
 INSERT INTO `audit_trail` (`id`, `user_id`, `action`, `module`, `old_value`, `new_value`, `ip_address`, `user_agent`, `created_at`) VALUES
-(1, NULL, 'Reservation Created', 'Reservation', '[]', '{\"id\":1,\"facility_id\":\"1\",\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-28 00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-28 12:00\",\"rent_videoke\":\"no\",\"additional_bed_count\":\"0\",\"discounted_value\":500,\"guest_count\":2,\"total_price\":1400,\"status\":\"pending\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-19 10:38:09'),
-(2, NULL, 'Payment Created', 'Payment', '[]', '{\"id\":1,\"reservation_id\":1,\"amount\":700,\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_HRoJWgbsaRMUz8kAm2VhKLAs\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-19 10:38:09'),
-(3, NULL, 'Payment Updated', 'Payment', '{\"id\":1,\"reservation_id\":1,\"amount\":\"700.00\",\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_HRoJWgbsaRMUz8kAm2VhKLAs\"}', '{\"id\":1,\"reservation_id\":1,\"amount\":700,\"payment_method\":\"gcash\",\"payment_status\":\"deposited\",\"payment_type\":\"deposit\",\"payment_link\":\"link_HRoJWgbsaRMUz8kAm2VhKLAs\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-19 10:41:11'),
-(4, 1, 'Reservation Confirmed', 'Reservation', '{\"facility_id\":null,\"contact_person\":null,\"contact_no\":null,\"contact_email\":null,\"contact_address\":null,\"check_in\":null,\"time_range\":null,\"check_out\":null,\"rent_videoke\":null,\"extended_pool_hrs\":null,\"extended_cottage_hrs\":null,\"additional_bed_count\":null,\"discounted_value\":null,\"guest_count\":null,\"total_price\":null,\"status\":null}', '{\"id\":1,\"facility_id\":\"1\",\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-28 00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-28 12:00\",\"rent_videoke\":\"no\",\"extended_pool_hrs\":\"0\",\"extended_cottage_hrs\":\"0\",\"additional_bed_count\":\"0\",\"discounted_value\":500,\"guest_count\":2,\"total_price\":1400,\"status\":\"confirmed\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-19 10:42:21'),
-(5, 1, 'Reservation Updated', 'Reservation', '{\"id\":1,\"facility_id\":null,\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-28 00:00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-28 12:00:00\",\"rent_videoke\":\"no\",\"extended_pool_hrs\":0,\"extended_cottage_hrs\":0,\"additional_bed_count\":0,\"discounted_value\":\"500.00\",\"guest_count\":2,\"total_price\":\"1400.00\",\"status\":\"confirmed\"}', '{\"id\":1,\"facility_id\":\"1\",\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-28 00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-28 12:00\",\"rent_videoke\":\"no\",\"extended_pool_hrs\":\"0\",\"extended_cottage_hrs\":\"0\",\"additional_bed_count\":\"0\",\"discounted_value\":500,\"guest_count\":2,\"total_price\":1400,\"status\":\"confirmed\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-19 10:43:34'),
-(6, 1, 'Reservation Updated', 'Reservation', '{\"id\":1,\"facility_id\":1,\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-28 00:00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-28 12:00:00\",\"rent_videoke\":\"no\",\"extended_pool_hrs\":0,\"extended_cottage_hrs\":0,\"additional_bed_count\":0,\"discounted_value\":\"500.00\",\"guest_count\":2,\"total_price\":\"1400.00\",\"status\":\"confirmed\"}', '{\"id\":1,\"facility_id\":\"1\",\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-28 00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-28 12:00\",\"rent_videoke\":\"no\",\"extended_pool_hrs\":\"0\",\"extended_cottage_hrs\":\"0\",\"additional_bed_count\":\"0\",\"discounted_value\":500,\"guest_count\":2,\"total_price\":1400,\"status\":\"confirmed\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-19 10:44:16'),
-(7, 1, 'Reservation Updated', 'Reservation', '{\"id\":1,\"facility_id\":1,\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-28 00:00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-28 12:00:00\",\"rent_videoke\":\"no\",\"extended_pool_hrs\":0,\"extended_cottage_hrs\":0,\"additional_bed_count\":0,\"discounted_value\":\"500.00\",\"guest_count\":2,\"total_price\":\"1400.00\",\"status\":\"confirmed\"}', '{\"id\":1,\"facility_id\":\"1\",\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-28 00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-28 12:00\",\"rent_videoke\":\"no\",\"extended_pool_hrs\":\"0\",\"extended_cottage_hrs\":\"0\",\"additional_bed_count\":\"0\",\"discounted_value\":500,\"guest_count\":2,\"total_price\":1400,\"status\":\"confirmed\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-19 10:55:06'),
-(8, 1, 'Payment Paid', 'Payment', '{\"id\":1,\"reservation_id\":1,\"amount\":\"700.00\",\"payment_method\":\"gcash\",\"payment_type\":\"deposit\",\"payment_status\":\"deposited\",\"payment_link\":\"link_HRoJWgbsaRMUz8kAm2VhKLAs\"}', '{\"id\":2,\"reservation_id\":1,\"amount\":700,\"payment_method\":null,\"payment_type\":\"deposit\",\"payment_status\":\"paid\",\"payment_link\":null}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-19 10:55:06');
+(1, NULL, 'Reservation Created', 'Reservation', '[]', '{\"id\":1,\"facility_id\":\"1\",\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-20 00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-20 12:00\",\"rent_videoke\":\"no\",\"additional_bed_count\":\"0\",\"discounted_value\":500,\"guest_count\":2,\"total_price\":1400,\"status\":\"pending\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-20 11:52:09'),
+(2, NULL, 'Payment Created', 'Payment', '[]', '{\"id\":1,\"reservation_id\":1,\"amount\":700,\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_mHW1PVfMuWwCrvAetLEtvZbK\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-20 11:52:10'),
+(3, NULL, 'Payment Updated', 'Payment', '{\"id\":1,\"reservation_id\":1,\"amount\":\"700.00\",\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_mHW1PVfMuWwCrvAetLEtvZbK\"}', '{\"id\":1,\"reservation_id\":1,\"amount\":700,\"payment_method\":\"gcash\",\"payment_status\":\"deposited\",\"payment_type\":\"deposit\",\"payment_link\":\"link_mHW1PVfMuWwCrvAetLEtvZbK\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-20 11:52:58'),
+(4, NULL, 'Reservation Created', 'Reservation', '[]', '{\"id\":2,\"facility_id\":\"1\",\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-20 12:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-21 00:00\",\"rent_videoke\":\"yes\",\"additional_bed_count\":\"0\",\"discounted_value\":500,\"guest_count\":2,\"total_price\":2740,\"status\":\"pending\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-20 11:53:30'),
+(5, NULL, 'Payment Created', 'Payment', '[]', '{\"id\":2,\"reservation_id\":2,\"amount\":1370,\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_Lk4mCx33XrDsvDkngXZsvPBz\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-20 11:53:30'),
+(6, NULL, 'Payment Updated', 'Payment', '{\"id\":2,\"reservation_id\":2,\"amount\":\"1370.00\",\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_Lk4mCx33XrDsvDkngXZsvPBz\"}', '{\"id\":2,\"reservation_id\":2,\"amount\":1370,\"payment_method\":\"gcash\",\"payment_status\":\"deposited\",\"payment_type\":\"deposit\",\"payment_link\":\"link_Lk4mCx33XrDsvDkngXZsvPBz\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-20 11:54:13'),
+(7, NULL, 'Reservation Created', 'Reservation', '[]', '{\"id\":3,\"facility_id\":\"1\",\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-21 00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-21 12:00\",\"rent_videoke\":\"no\",\"additional_bed_count\":\"0\",\"discounted_value\":500,\"guest_count\":2,\"total_price\":1400,\"status\":\"pending\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-20 11:55:37'),
+(8, NULL, 'Payment Created', 'Payment', '[]', '{\"id\":3,\"reservation_id\":3,\"amount\":700,\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_4w9SXANxDoxGUF8EcEYDw66Y\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-20 11:55:37'),
+(9, NULL, 'Payment Updated', 'Payment', '{\"id\":3,\"reservation_id\":3,\"amount\":\"700.00\",\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_4w9SXANxDoxGUF8EcEYDw66Y\"}', '{\"id\":3,\"reservation_id\":3,\"amount\":700,\"payment_method\":\"gcash\",\"payment_status\":\"deposited\",\"payment_type\":\"deposit\",\"payment_link\":\"link_4w9SXANxDoxGUF8EcEYDw66Y\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-20 11:56:17'),
+(10, NULL, 'Reservation Created', 'Reservation', '[]', '{\"id\":4,\"facility_id\":\"1\",\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-21 00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-21 12:00\",\"rent_videoke\":\"no\",\"additional_bed_count\":\"0\",\"discounted_value\":500,\"guest_count\":1,\"total_price\":1200,\"status\":\"pending\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-20 11:59:01'),
+(11, NULL, 'Payment Created', 'Payment', '[]', '{\"id\":4,\"reservation_id\":4,\"amount\":600,\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_x4CnwWicgJ1ADtG3CvpUi634\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-20 11:59:02'),
+(12, NULL, 'Payment Updated', 'Payment', '{\"id\":4,\"reservation_id\":4,\"amount\":\"600.00\",\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_x4CnwWicgJ1ADtG3CvpUi634\"}', '{\"id\":4,\"reservation_id\":4,\"amount\":600,\"payment_method\":\"gcash\",\"payment_status\":\"deposited\",\"payment_type\":\"deposit\",\"payment_link\":\"link_x4CnwWicgJ1ADtG3CvpUi634\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-20 11:59:51'),
+(13, 3, 'Reservation Confirmed', 'Reservation', '{\"id\":4,\"facility_id\":1,\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-21 00:00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-21 12:00:00\",\"rent_videoke\":\"no\",\"extended_pool_hrs\":0,\"extended_cottage_hrs\":0,\"additional_bed_count\":0,\"discounted_value\":\"500.00\",\"guest_count\":1,\"total_price\":\"1200.00\",\"status\":\"pending\"}', '{\"id\":4,\"facility_id\":\"1\",\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-20 00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-20 12:00\",\"rent_videoke\":\"no\",\"extended_pool_hrs\":\"0\",\"extended_cottage_hrs\":\"0\",\"additional_bed_count\":\"0\",\"discounted_value\":500,\"guest_count\":1,\"total_price\":1200,\"status\":\"confirmed\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-20 12:26:36'),
+(14, 3, 'Reservation Updated', 'Reservation', '{\"id\":4,\"facility_id\":1,\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-20 00:00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-20 12:00:00\",\"rent_videoke\":\"no\",\"extended_pool_hrs\":0,\"extended_cottage_hrs\":0,\"additional_bed_count\":0,\"discounted_value\":\"500.00\",\"guest_count\":1,\"total_price\":\"1200.00\",\"status\":\"confirmed\"}', '{\"id\":4,\"facility_id\":\"1\",\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-20 00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-20 12:00\",\"rent_videoke\":\"no\",\"extended_pool_hrs\":\"0\",\"extended_cottage_hrs\":\"0\",\"additional_bed_count\":\"0\",\"discounted_value\":500,\"guest_count\":1,\"total_price\":1200,\"status\":\"confirmed\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-20 12:27:22'),
+(15, 3, 'Payment Paid', 'Payment', '{\"id\":4,\"reservation_id\":4,\"amount\":\"600.00\",\"payment_method\":\"gcash\",\"payment_type\":\"deposit\",\"payment_status\":\"deposited\",\"payment_link\":\"link_x4CnwWicgJ1ADtG3CvpUi634\"}', '{\"id\":5,\"reservation_id\":4,\"amount\":600,\"payment_method\":null,\"payment_type\":\"deposit\",\"payment_status\":\"paid\",\"payment_link\":null}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-20 12:27:22'),
+(16, 3, 'Reservation Updated', 'Reservation', '{\"id\":4,\"facility_id\":1,\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-20 00:00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-20 12:00:00\",\"rent_videoke\":\"no\",\"extended_pool_hrs\":0,\"extended_cottage_hrs\":0,\"additional_bed_count\":0,\"discounted_value\":\"500.00\",\"guest_count\":1,\"total_price\":\"1200.00\",\"status\":\"confirmed\"}', '{\"id\":4,\"facility_id\":\"1\",\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-11-20 00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-11-20 12:00\",\"rent_videoke\":\"no\",\"extended_pool_hrs\":\"0\",\"extended_cottage_hrs\":\"0\",\"additional_bed_count\":\"0\",\"discounted_value\":500,\"guest_count\":1,\"total_price\":1200,\"status\":\"confirmed\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-20 12:29:34'),
+(17, 3, 'Payment Paid', 'Payment', '{\"id\":4,\"reservation_id\":4,\"amount\":\"600.00\",\"payment_method\":\"gcash\",\"payment_type\":\"deposit\",\"payment_status\":\"deposited\",\"payment_link\":\"link_x4CnwWicgJ1ADtG3CvpUi634\"}', '{\"id\":6,\"reservation_id\":4,\"amount\":600,\"payment_method\":\"cash\",\"payment_type\":\"deposit\",\"payment_status\":\"paid\",\"payment_link\":null}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-20 12:29:34'),
+(18, NULL, 'Reservation Created', 'Reservation', '[]', '{\"id\":5,\"facility_id\":\"1\",\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-12-19 00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-12-19 12:00\",\"rent_videoke\":\"no\",\"additional_bed_count\":\"0\",\"discounted_value\":0,\"guest_count\":2,\"total_price\":1860,\"status\":\"pending\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', '2025-12-05 12:56:56'),
+(19, NULL, 'Payment Created', 'Payment', '[]', '{\"id\":7,\"reservation_id\":5,\"amount\":930,\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_e6XWnCwNJjF4Wjdux6KAoWpM\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', '2025-12-05 12:56:56'),
+(20, NULL, 'Payment Updated', 'Payment', '{\"id\":7,\"reservation_id\":5,\"amount\":\"930.00\",\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_e6XWnCwNJjF4Wjdux6KAoWpM\"}', '{\"id\":7,\"reservation_id\":5,\"amount\":930,\"payment_method\":\"gcash\",\"payment_status\":\"deposited\",\"payment_type\":\"deposit\",\"payment_link\":\"link_e6XWnCwNJjF4Wjdux6KAoWpM\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', '2025-12-05 12:57:52');
 
 -- --------------------------------------------------------
 
@@ -152,7 +164,7 @@ CREATE TABLE `facilities` (
 --
 
 INSERT INTO `facilities` (`id`, `name`, `type`, `available_unit`, `description`, `capacity`, `rate_hourly`, `rate_8hrs`, `rate_12hrs`, `rate_1day`, `amenities`, `status`, `created_at`) VALUES
-(1, 'Honeymoon Suite', 'room', 1, 'Experience pure romance in our Honeymoon Suite, featuring a plush king bed, private balcony with ocean views, and a marble bathroom with a soaking tub. Enjoy champagne on arrival and an intimate, elegant setting designed for unforgettable moments together.', 4, 0.00, 0.00, 1500.00, 0.00, 'TV, Shower', 'available', '2025-09-12 16:42:16'),
+(1, 'Honeymoon Suite', 'room', 2, 'Experience pure romance in our Honeymoon Suite, featuring a plush king bed, private balcony with ocean views, and a marble bathroom with a soaking tub. Enjoy champagne on arrival and an intimate, elegant setting designed for unforgettable moments together.', 4, 0.00, 0.00, 1500.00, 0.00, 'TV, Shower', 'available', '2025-09-12 16:42:16'),
 (2, 'Romantic Oceanfront Villa', 'room', 1, 'Escape to your private villa with breathtaking sea views, a sunlit terrace, and a spacious bathroom with a deep soaking tub. Perfect for couples seeking intimacy, elegance, and unforgettable sunsets.', 2, 0.00, 0.00, 2500.00, 0.00, 'TV, Shower, Ocean View', 'available', '2025-09-13 09:16:05'),
 (6, 'Whispering Pines Cottage', 'cottage', 1, 'A cozy retreat surrounded by evergreens, perfect for relaxing by the fireplace, enjoying quiet mornings on the porch, or exploring nearby trails.', 6, 0.00, 0.00, 500.00, 0.00, '', 'available', '2025-09-23 15:57:00'),
 (7, 'Event Hall', 'event_hall', 1, 'Planning a special event? Our spacious event hall is perfect for birthdays, reunions, weddings, and more. With a flexible setup, relaxing resort vibes, and access to our pool and amenities, it\'s the perfect place to celebrate. Book now and make your event easy, fun, and unforgettable!', 50, 3000.00, 0.00, 25000.00, 0.00, 'A Standard Room, Chairs and Tables', 'available', '2025-09-24 14:12:14'),
@@ -280,8 +292,12 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`id`, `reservation_id`, `amount`, `payment_method`, `payment_status`, `payment_type`, `payment_link`, `created_at`, `updated_at`) VALUES
-(1, 1, 700.00, 'gcash', 'deposited', 'deposit', 'link_HRoJWgbsaRMUz8kAm2VhKLAs', '2025-11-19 18:38:09', '2025-11-19 18:41:04'),
-(2, 1, 700.00, NULL, 'paid', 'deposit', NULL, '2025-11-19 18:55:06', '2025-11-19 18:55:06');
+(1, 1, 700.00, 'gcash', 'deposited', 'deposit', 'link_mHW1PVfMuWwCrvAetLEtvZbK', '2025-11-20 19:52:10', '2025-11-20 19:52:45'),
+(2, 2, 1370.00, 'gcash', 'deposited', 'deposit', 'link_Lk4mCx33XrDsvDkngXZsvPBz', '2025-11-20 19:53:30', '2025-11-20 19:54:08'),
+(3, 3, 700.00, 'gcash', 'deposited', 'deposit', 'link_4w9SXANxDoxGUF8EcEYDw66Y', '2025-11-20 19:55:37', '2025-11-20 19:56:11'),
+(4, 4, 600.00, 'gcash', 'deposited', 'deposit', 'link_x4CnwWicgJ1ADtG3CvpUi634', '2025-11-20 19:59:02', '2025-11-20 19:59:45'),
+(6, 4, 600.00, 'cash', 'paid', 'deposit', NULL, '2025-11-20 20:29:34', '2025-11-20 20:29:34'),
+(7, 5, 930.00, 'gcash', 'deposited', 'deposit', 'link_e6XWnCwNJjF4Wjdux6KAoWpM', '2025-12-05 20:56:56', '2025-12-05 20:57:38');
 
 -- --------------------------------------------------------
 
@@ -363,7 +379,11 @@ CREATE TABLE `reservations` (
 --
 
 INSERT INTO `reservations` (`id`, `facility_id`, `contact_person`, `contact_no`, `contact_email`, `contact_address`, `check_in`, `time_range`, `check_out`, `guest_count`, `rent_videoke`, `additional_bed_count`, `extended_pool_hrs`, `extended_cottage_hrs`, `discounted_value`, `total_price`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-28 00:00:00', '12-Hours', '2025-11-28 12:00:00', 2, 'no', 0, 0, 0, 500.00, 1400.00, 'confirmed', '2025-11-19 10:38:09', '2025-11-19 10:42:21');
+(1, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-20 00:00:00', '12-Hours', '2025-11-20 12:00:00', 2, 'no', 0, 0, 0, 500.00, 1400.00, 'completed', '2025-11-20 11:52:09', '2025-11-20 13:17:52'),
+(2, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-20 00:00:00', '12-Hours', '2025-11-20 12:00:00', 2, 'yes', 0, 0, 0, 500.00, 2740.00, 'pending', '2025-11-20 11:53:30', '2025-11-20 11:55:00'),
+(3, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-21 00:00:00', '12-Hours', '2025-11-21 12:00:00', 2, 'no', 0, 0, 0, 500.00, 1400.00, 'pending', '2025-11-20 11:55:37', '2025-11-20 11:55:37'),
+(4, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-20 00:00:00', '12-Hours', '2025-11-20 12:00:00', 1, 'no', 0, 0, 0, 500.00, 1200.00, 'completed', '2025-11-20 11:59:01', '2025-11-20 13:17:52'),
+(5, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-12-19 00:00:00', '12-Hours', '2025-12-19 12:00:00', 2, 'no', 0, 0, 0, 0.00, 1860.00, 'pending', '2025-12-05 12:56:56', '2025-12-05 12:56:56');
 
 -- --------------------------------------------------------
 
@@ -388,8 +408,15 @@ CREATE TABLE `reservation_guests` (
 --
 
 INSERT INTO `reservation_guests` (`id`, `reservation_id`, `guest_name`, `guest_age`, `guest_type`, `senior_pwd`, `presented_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-11-19 10:38:09', '2025-11-19 10:38:09'),
-(2, 1, 'Tafi Fimito', 22, 'adult', 'no', NULL, '2025-11-19 10:38:09', '2025-11-19 10:38:09');
+(1, 1, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-11-20 11:52:09', '2025-11-20 11:52:09'),
+(2, 1, 'Tafi Fimito', 22, 'adult', 'no', NULL, '2025-11-20 11:52:09', '2025-11-20 11:52:09'),
+(3, 2, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-11-20 11:53:30', '2025-11-20 11:53:30'),
+(4, 2, 'Tafi Fimito', 22, 'adult', 'no', NULL, '2025-11-20 11:53:30', '2025-11-20 11:53:30'),
+(5, 3, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-11-20 11:55:37', '2025-11-20 11:55:37'),
+(6, 3, 'Tafi Fimito', 22, 'adult', 'no', NULL, '2025-11-20 11:55:37', '2025-11-20 11:55:37'),
+(7, 4, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-11-20 11:59:02', '2025-11-20 11:59:02'),
+(8, 5, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-12-05 12:56:56', '2025-12-05 12:56:56'),
+(9, 5, 'Tafi Fimito', 22, 'adult', 'yes', 'uploads/images/6932d69882d1d_pwd.png', '2025-12-05 12:56:56', '2025-12-05 12:56:56');
 
 -- --------------------------------------------------------
 
@@ -437,6 +464,28 @@ CREATE TABLE `st_rates` (
 
 INSERT INTO `st_rates` (`id`, `adult_rate_day`, `kid_rate_day`, `adult_rate_night`, `kid_rate_night`, `senior_pwd_discount`, `videoke_rent`, `additional_bed_rate`, `pool_extension_rate_adult`, `pool_extension_rate_kid`, `cottage_extension_rate`) VALUES
 (1, 120.00, 80.00, 200.00, 100.00, 0.20, 1500.00, 200.00, 50.00, 20.00, 250.00);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `st_social_details`
+--
+
+CREATE TABLE `st_social_details` (
+  `id` int(11) NOT NULL,
+  `facebook` varchar(200) NOT NULL,
+  `instagram` varchar(200) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `contact_no` varchar(200) NOT NULL,
+  `address` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `st_social_details`
+--
+
+INSERT INTO `st_social_details` (`id`, `facebook`, `instagram`, `email`, `contact_no`, `address`) VALUES
+(1, 'https://www.facebook.com/handogresortandeventsplace2017', 'https://www.instagram.com/handogresortandeventsplace/', 'handogresortandeventsplace2017@gmail.com', '09099597451', 'Handog Compound, 960 Toclong, Kawit, Cavite');
 
 -- --------------------------------------------------------
 
@@ -509,9 +558,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `image`, `password`, `salt`, `session_token`, `reset_pin`, `type`) VALUES
-(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$cAn4TEF4CtfVNbrkZz/Wd.8N2gA/fEs.saWguV/jIPcE2B/E0mLuC', NULL, 'admin'),
-(3, 'Taki Fimito', 'despicablehaythamkenway@gmail.com', 'uploads/images/690b97f142ae6_user-6.jpg', '$2y$10$SSRAidhlKM8j8tvegi4yUe2GfRUWYPLr3i5GnY0rtVn5naaFbvzWG', '67f513e439d93ba9b716', '$2y$10$n8XtfY374fg0nCwlAMBjZODk9tbXczy0sdld7Z8.gektDF8Tugzde', NULL, 'staff'),
-(4, 'Tafi Fimito', 'tafi@gmail.com', 'uploads/images/690b9812ea878_user-4.jpg', '$2y$10$/IvWULzTu3XYrw4TU0UYbeTvKF24zKqOipe61PKgxC0HwbHXfaweu', '16d1de68659904d42b1d', NULL, NULL, 'admin');
+(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$xGz8oYfNsOJPJUX4iMTu/uttrMCI5fmvFggX7Z9VZTXXE.23AZBpK', NULL, 'admin'),
+(3, 'Taki Fimito', 'despicablehaythamkenway@gmail.com', 'uploads/images/690b97f142ae6_user-6.jpg', '$2y$10$SSRAidhlKM8j8tvegi4yUe2GfRUWYPLr3i5GnY0rtVn5naaFbvzWG', '67f513e439d93ba9b716', '$2y$10$HFSzzR/jZP/wqjKlSRNe1.GU1GQ2b6XSOEoQ5fL.y5b.JkcCtyglC', NULL, 'staff'),
+(4, 'Tafi Fimito', 'tafi@gmail.com', 'uploads/images/690b9812ea878_user-4.jpg', '$2y$10$/IvWULzTu3XYrw4TU0UYbeTvKF24zKqOipe61PKgxC0HwbHXfaweu', '16d1de68659904d42b1d', NULL, NULL, 'admin'),
+(6, 'takifimito', 'taki@gmail.com', 'uploads/images/6933fc721ac9e_user.png', '$2y$10$8ARNPuNgd0.TozIY0uotAeRarShgHGjskq3SypzBXzjA3TOEYeXzy', '015da64f853f33fddc68', '$2y$10$1pSV4hvBXZiAgZS8xYbaOe894Pv2ty5JDRClXfmnPkQF.gMXBVAWy', NULL, 'admin');
 
 --
 -- Indexes for dumped tables
@@ -623,6 +673,12 @@ ALTER TABLE `st_rates`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `st_social_details`
+--
+ALTER TABLE `st_social_details`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `st_terms_conditions`
 --
 ALTER TABLE `st_terms_conditions`
@@ -660,7 +716,7 @@ ALTER TABLE `amenity_images`
 -- AUTO_INCREMENT for table `audit_trail`
 --
 ALTER TABLE `audit_trail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `events`
@@ -702,7 +758,7 @@ ALTER TABLE `gallery_images`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `promos`
@@ -720,13 +776,13 @@ ALTER TABLE `promo_facilities`
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `reservation_guests`
 --
 ALTER TABLE `reservation_guests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `st_logos`
@@ -738,6 +794,12 @@ ALTER TABLE `st_logos`
 -- AUTO_INCREMENT for table `st_rates`
 --
 ALTER TABLE `st_rates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `st_social_details`
+--
+ALTER TABLE `st_social_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
@@ -756,7 +818,7 @@ ALTER TABLE `testimonials`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
