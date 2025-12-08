@@ -30,8 +30,9 @@ $pageName = "Terms & Conditions"
 
             <!-- Data -->
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="card-title mb-0">Modify Terms & Conditions</h6>
+                <div class="card-header pb-0">
+                    <h6 class="card-title mb-0">Modify <?= $pageName ?></h6>
+                    <p class="text-secondary small">Fields marked with an asterisk (*) are required.</p>
                 </div>
 
                 <div class="card-body">
@@ -42,7 +43,7 @@ $pageName = "Terms & Conditions"
                             <iframe id="pdfViewer" frameborder="0" width="100%" height="600px"></iframe>
                         </div>
                         <div class="col-12">
-                            <label class="form-label" for="filepath">Upload New</label>
+                            <label class="form-label" for="filepath">Upload New *</label>
                             <input type="file" name="filepath" id="filepath" class="form-control" accept="application/pdf">
                             <?php if (isset($errors["filepath"])) : ?>
                                 <div class="error-text">
