@@ -29,8 +29,9 @@ $pageName = "Edit Event"
 
             <!-- Form -->
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header pb-0">
                     <h6 class="card-title mb-0"><?= $pageName ?></h6>
+                    <p class="text-secondary small">Fields marked with an asterisk (*) are required.</p>
                 </div>
 
                 <div class="card-body">
@@ -38,7 +39,7 @@ $pageName = "Edit Event"
                         <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="id" value="<?= $event["id"] ?>">
                         <div class="col-12">
-                            <label class="form-label" for="upload-file-multiple">Upload gallery image</label>
+                            <label class="form-label" for="upload-file-multiple">Upload gallery image *</label>
                             <div class="upload-image-wrapper d-flex align-items-center gap-3 flex-wrap">
                                 <div class="uploaded-imgs-container d-flex gap-3 flex-wrap"></div>
                                 <label class="upload-file-multiple h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50 bg-hover-neutral-200 d-flex align-items-center flex-column justify-content-center gap-1">
@@ -55,7 +56,7 @@ $pageName = "Edit Event"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-6">
-                            <label class="form-label" for="name">Name</label>
+                            <label class="form-label" for="name">Name *</label>
                             <input type="text" name="name" id="name" class="form-control" placeholder="Enter event name" value="<?= $event["name"] ?>">
                             <?php if (isset($errors["name"])) : ?>
                                 <div class="error-text">
@@ -64,7 +65,7 @@ $pageName = "Edit Event"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-6">
-                            <label class="form-label" for="date">Event Date</label>
+                            <label class="form-label" for="date">Event Date *</label>
                             <input type="text" name="date" id="date" class="form-control" placeholder="Enter event date" value="<?= $event["date"] ?>">
                             <?php if (isset($errors["date"])) : ?>
                                 <div class="error-text">
@@ -73,7 +74,7 @@ $pageName = "Edit Event"
                             <?php endif; ?>
                         </div>
                         <div class="col-12">
-                            <label class="form-label" for="description">Description</label>
+                            <label class="form-label" for="description">Description *</label>
                             <textarea type="number" name="description" id="description" class="form-control" placeholder="Enter event description"><?= $event["description"] ?></textarea>
                             <?php if (isset($errors["description"])) : ?>
                                 <div class="error-text">
