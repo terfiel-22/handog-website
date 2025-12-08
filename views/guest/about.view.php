@@ -229,11 +229,12 @@
                             <h2>
                                 Send Us Message
                             </h2>
-                            <p>There will be no publication of your email address. Required fields are indicated with a *.</p>
+                            <p>There will be no publication of your email address.</p>
+                            <p class="text-secondary small">Fields marked with an asterisk (*) are required.</p>
                             <form action="/contact/store" id="contact-form" method="POST" class="contact-form-box">
                                 <div class="row g-4 align-items-center">
                                     <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
-                                        <label for="name">Your Name</label>
+                                        <label for="name">Your Name *</label>
                                         <div class="form-clt">
                                             <input type="text" name="name" id="name" placeholder="Enter your name" value="<?= old("name") ?>" required>
                                             <?php if (isset($errors["name"])) : ?>
@@ -244,7 +245,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".5s">
-                                        <label for="email">Your Email</label>
+                                        <label for="email">Your Email *</label>
                                         <div class="form-clt">
                                             <input type="email" name="email" id="email" placeholder="Enter your email" value="<?= old("email") ?>" required>
                                             <?php if (isset($errors["email"])) : ?>
@@ -270,7 +271,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 wow fadeInUp" data-wow-delay=".3s">
-                                        <label for="message">Your Message</label>
+                                        <label for="message">Your Message *</label>
                                         <div class="form-clt">
                                             <textarea name="message" id="message" placeholder="Type your message" required><?= old("message") ?></textarea>
                                             <?php if (isset($errors["message"])) : ?>
