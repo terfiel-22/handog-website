@@ -43,7 +43,7 @@ $pageName = "Reservations"
                 <!-- Form -->
                 <div class="col-12 col-md-4">
                     <div class="card basic-data-table">
-                        <div class="card-header">
+                        <div class="card-header pb-0">
                             <h6 class="card-title mb-0">Edit Reservation</h6>
                             <p class="text-secondary small">Fields marked with an asterisk (*) are required.</p>
                         </div>
