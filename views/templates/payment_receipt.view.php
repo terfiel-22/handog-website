@@ -34,8 +34,8 @@
     <div style="text-align:center; margin-bottom:15px;">
         <img src="<?= $logo ?>" alt="Logo" style="height:70px; object-fit:contain; margin-bottom:10px;">
         <div style="font-weight:bold; font-size:16px;"><?= WEBSITE_NAME ?></div>
-        <div style="font-size:11px; color:#555;"><?= \Http\Services\SocialService::getSocialDetails()["address"] ?> • <?= \Http\Services\SocialService::getSocialDetails()["contact_no"] ?></div>
-        <a href="mailto:<?= \Http\Services\SocialService::getSocialDetails()["email"] ?>" style="font-size:11px; color:#555;">Email: <?= \Http\Services\SocialService::getSocialDetails()["email"] ?></a>
+        <div style="font-size:11px; color:#555;"><?= \Http\Services\ContactDetailService::getContactDetails()["address"] ?> • <?= \Http\Services\ContactDetailService::getContactDetails()["contact_no"] ?></div>
+        <a href="mailto:<?= \Http\Services\ContactDetailService::getContactDetails()["email"] ?>" style="font-size:11px; color:#555;">Email: <?= \Http\Services\ContactDetailService::getContactDetails()["email"] ?></a>
     </div>
 
     <hr />

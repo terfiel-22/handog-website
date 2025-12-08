@@ -27,7 +27,7 @@ use Http\Models\TermsConditions;
 use Http\Models\Testimonial;
 use Http\Models\User;
 use Http\Models\AuditTrail;
-use Http\Models\SocialDetails;
+use Http\Models\ContactDetails;
 
 $container = new Container();
 
@@ -98,8 +98,8 @@ $container->bind(Testimonial::class, function () {
 $container->bind(AuditTrail::class, function () {
     return new AuditTrail();
 });
-$container->bind(SocialDetails::class, function () {
-    return new SocialDetails();
+$container->bind(ContactDetails::class, function () {
+    return new ContactDetails();
 });
 
 /** Handler */

@@ -126,6 +126,6 @@
     $router->put('/admin/settings/logo', 'admin/settings/logo/update.controller.php')->only('admin');
     $router->get('/admin/settings/terms-conditions', 'admin/settings/terms-conditions/show.controller.php')->only('admin');
     $router->put('/admin/settings/terms-conditions', 'admin/settings/terms-conditions/update.controller.php')->only('admin');
-    $router->get('/admin/settings/socials', 'admin/settings/socials/show.controller.php')->only('admin');
-    $router->put('/admin/settings/socials', 'admin/settings/socials/update.controller.php')->only('admin');
+    $router->get('/admin/settings/contact-details', 'admin/settings/contact_details/show.controller.php')->only('admin');
+    $router->put('/admin/settings/contact-details', 'admin/settings/contact_details/update.controller.php')->only('admin');
     /** END ACCESSIBLE TO ADMIN */

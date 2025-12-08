@@ -195,7 +195,7 @@
                                     <div class="content">
                                         <p>Location</p>
                                         <h4>
-                                            <?= \Http\Services\SocialService::getSocialDetails()["address"] ?>
+                                            <?= \Http\Services\ContactDetailService::getContactDetails()["address"] ?>
                                         </h4>
                                     </div>
                                 </li>
@@ -206,8 +206,8 @@
                                     <div class="content">
                                         <p>Email Address</p>
                                         <h4 class="fs-8">
-                                            <a href="mailto:<?= \Http\Services\SocialService::getSocialDetails()["email"] ?>">
-                                                <?= \Http\Services\SocialService::getSocialDetails()["email"] ?>
+                                            <a href="mailto:<?= \Http\Services\ContactDetailService::getContactDetails()["email"] ?>">
+                                                <?= \Http\Services\ContactDetailService::getContactDetails()["email"] ?>
                                             </a>
                                         </h4>
                                     </div>
@@ -218,7 +218,7 @@
                                     </div>
                                     <div class="content">
                                         <p>Phone No</p>
-                                        <h4><a href="tel:<?= \Http\Services\SocialService::getSocialDetails()["contact_no"] ?>"><?= \Http\Services\SocialService::getSocialDetails()["contact_no"] ?></a></h4>
+                                        <h4><a href="tel:<?= \Http\Services\ContactDetailService::getContactDetails()["contact_no"] ?>"><?= \Http\Services\ContactDetailService::getContactDetails()["contact_no"] ?></a></h4>
                                     </div>
                                 </li>
                             </ul>

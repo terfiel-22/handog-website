@@ -55,14 +55,14 @@
                     <img src="/assets/guest/img/bottom-shape2.png" alt="img" />
                 </div>
                 <div class="social-icon d-flex align-items-center">
-                    <a href="<?= \Http\Services\SocialService::getSocialDetails()["facebook"] ?>"><i class="fab fa-facebook-f"></i></a>
-                    <a href="<?= \Http\Services\SocialService::getSocialDetails()["instagram"] ?>"><i class="fab fa-instagram"></i></a>
+                    <a href="<?= \Http\Services\ContactDetailService::getContactDetails()["facebook"] ?>"><i class="fab fa-facebook-f"></i></a>
+                    <a href="<?= \Http\Services\ContactDetailService::getContactDetails()["instagram"] ?>"><i class="fab fa-instagram"></i></a>
                     <span>Follow Us:</span>
                 </div>
                 <ul class="hero-contact">
                     <li>
                         <img src="/assets/guest/img/home-1/footer/email.svg" alt="img" />
-                        <a href="mailto:<?= \Http\Services\SocialService::getSocialDetails()["email"] ?>"> <?= \Http\Services\SocialService::getSocialDetails()["email"] ?></a>
+                        <a href="mailto:<?= \Http\Services\ContactDetailService::getContactDetails()["email"] ?>"> <?= \Http\Services\ContactDetailService::getContactDetails()["email"] ?></a>
                     </li>
                 </ul>
                 <div class="container">

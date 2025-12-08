@@ -4,7 +4,7 @@ namespace Http\Forms;
 
 use Core\Validator;
 
-class SocialDetailsForm extends Form
+class ContactDetailsForm extends Form
 {
     public function __construct(array $attributes)
     {
