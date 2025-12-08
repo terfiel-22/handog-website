@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2025 at 06:18 PM
+-- Generation Time: Dec 08, 2025 at 01:23 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -550,18 +550,19 @@ CREATE TABLE `users` (
   `salt` varchar(200) NOT NULL,
   `session_token` varchar(200) DEFAULT NULL,
   `reset_pin` varchar(200) DEFAULT NULL,
-  `type` enum('admin','staff') NOT NULL DEFAULT 'staff'
+  `type` enum('admin','staff') NOT NULL DEFAULT 'staff',
+  `first_time_login` enum('yes','no') NOT NULL DEFAULT 'yes'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `image`, `password`, `salt`, `session_token`, `reset_pin`, `type`) VALUES
-(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$xGz8oYfNsOJPJUX4iMTu/uttrMCI5fmvFggX7Z9VZTXXE.23AZBpK', NULL, 'admin'),
-(3, 'Taki Fimito', 'despicablehaythamkenway@gmail.com', 'uploads/images/690b97f142ae6_user-6.jpg', '$2y$10$SSRAidhlKM8j8tvegi4yUe2GfRUWYPLr3i5GnY0rtVn5naaFbvzWG', '67f513e439d93ba9b716', '$2y$10$HFSzzR/jZP/wqjKlSRNe1.GU1GQ2b6XSOEoQ5fL.y5b.JkcCtyglC', NULL, 'staff'),
-(4, 'Tafi Fimito', 'tafi@gmail.com', 'uploads/images/690b9812ea878_user-4.jpg', '$2y$10$/IvWULzTu3XYrw4TU0UYbeTvKF24zKqOipe61PKgxC0HwbHXfaweu', '16d1de68659904d42b1d', NULL, NULL, 'admin'),
-(6, 'takifimito', 'taki@gmail.com', 'uploads/images/6933fc721ac9e_user.png', '$2y$10$8ARNPuNgd0.TozIY0uotAeRarShgHGjskq3SypzBXzjA3TOEYeXzy', '015da64f853f33fddc68', '$2y$10$1pSV4hvBXZiAgZS8xYbaOe894Pv2ty5JDRClXfmnPkQF.gMXBVAWy', NULL, 'admin');
+INSERT INTO `users` (`id`, `username`, `email`, `image`, `password`, `salt`, `session_token`, `reset_pin`, `type`, `first_time_login`) VALUES
+(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$xGz8oYfNsOJPJUX4iMTu/uttrMCI5fmvFggX7Z9VZTXXE.23AZBpK', NULL, 'admin', 'yes'),
+(3, 'Taki Fimito', 'despicablehaythamkenway@gmail.com', 'uploads/images/690b97f142ae6_user-6.jpg', '$2y$10$SSRAidhlKM8j8tvegi4yUe2GfRUWYPLr3i5GnY0rtVn5naaFbvzWG', '67f513e439d93ba9b716', '$2y$10$HFSzzR/jZP/wqjKlSRNe1.GU1GQ2b6XSOEoQ5fL.y5b.JkcCtyglC', '344747', 'staff', 'yes'),
+(4, 'Tafi Fimito', 'tafi@gmail.com', 'uploads/images/690b9812ea878_user-4.jpg', '$2y$10$/IvWULzTu3XYrw4TU0UYbeTvKF24zKqOipe61PKgxC0HwbHXfaweu', '16d1de68659904d42b1d', NULL, NULL, 'admin', 'yes'),
+(6, 'takifimito', 'taki@gmail.com', 'uploads/images/6933fc721ac9e_user.png', '$2y$10$UfgFcwEiyqNmNOcZARXRBuWIFKRMIFzuaMUGG/.cviKj9uEcd052i', '2b737840b3c81b8eacd6', '$2y$10$313UjjdA8OKipSX9Ped.2ODpWFgqPtNtdnRGDrAgSs1cs6EXFSbOK', NULL, 'staff', 'no');
 
 --
 -- Indexes for dumped tables

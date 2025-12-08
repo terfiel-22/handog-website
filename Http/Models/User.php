@@ -103,6 +103,23 @@ class User
         return true;
     }
 
+    public function updateUserFirstTimeLogin($id, $attributes)
+    {
+        $attributes["id"] = $id;
+
+        $this->db->query(
+            "UPDATE 
+                users 
+            SET 
+                first_time_login=:first_time_login
+            WHERE 
+                id=:id",
+            $attributes
+        );
+
+        return true;
+    }
+
     public function fetchUserByResetPin($reset_pin)
     {
 

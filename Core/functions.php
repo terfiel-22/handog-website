@@ -140,3 +140,24 @@ function base64Image($path)
     $logoData = base64_encode(file_get_contents($imagePath));
     return "data:image/png;base64,$logoData";
 }
+
+/** Function to create 1-day cookie */
+function create_cookie($key, $value)
+{
+    $expiration = 60 * 60 * 24; // 1 day 
+    $params = session_get_cookie_params();
+    setcookie($key, $value, time() + $expiration, $params['path'], $params['domain'], $params['httponly']);
+}
+/** Function to destroy 1-day cookie */
+function destroy_cookie($key)
+{
+    $expiration = 60 * 60 * 24;
+    $params = session_get_cookie_params();
+    setcookie($key, '', time() - $expiration, $params['path'], $params['domain'], $params['httponly']);
+}
+/** Function to get cookie */
+function get_cookie($key)
+{
+    if (!isset($_COOKIE[$key])) return false;
+    return $_COOKIE[$key];
+}

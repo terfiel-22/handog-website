@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use Http\Enums\UserType;
+use Http\Enums\YesNo;
 use Http\Models\User;
 
 class Authenticator
@@ -25,6 +27,13 @@ class Authenticator
 
     private function login($user): void
     {
+        // If user is staff and first time login:
+        if ($user['type'] == UserType::STAFF && $user["first_time_login"] == YesNo::YES) {
+            create_cookie('new_account_email', $user['email']);
+            redirect('/new-account-reset-password');
+            die();
+        }
+
         $session_token = generateSessionToken($user["id"]);
         $updatedUser = [
             'id' => $user["id"],
@@ -32,17 +41,11 @@ class Authenticator
         ];
         App::resolve(User::class)->updateUserSessionToken($updatedUser);
 
-        $expiration = 60 * 60 * 24; // 1 day
-
-        $params = session_get_cookie_params();
-        setcookie('session_token', $session_token, time() + $expiration, $params['path'], $params['domain'], $params['httponly']);
+        create_cookie('session_token', $session_token);
     }
 
     public function logout()
     {
-        $expiration = 60 * 60 * 24; // 1 day
-
-        $params = session_get_cookie_params();
-        setcookie('session_token', '', time() - $expiration, $params['path'], $params['domain'], $params['httponly']);
+        destroy_cookie('session_token');
     }
 }
