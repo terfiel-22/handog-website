@@ -43,8 +43,9 @@ $pageName = "Reservations"
                 <!-- Form -->
                 <div class="col-12 col-md-4">
                     <div class="card basic-data-table">
-                        <div class="card-header d-flex justify-content-between align-items-center">
+                        <div class="card-header pb-0">
                             <h6 class="card-title mb-0">Add Reservation</h6>
+                            <p class="text-secondary small">Fields marked with an asterisk (*) are required.</p>
                         </div>
                         <div class="card-body step-container">
                             <form action="/admin/reservations/store" method="POST">
@@ -81,7 +82,7 @@ $pageName = "Reservations"
                                             <?php endif; ?>
                                         </div>
                                         <div class="col-12">
-                                            <label class="form-label" for="check_in">Check In</label>
+                                            <label class="form-label" for="check_in">Check In *</label>
                                             <input type="text" name="check_in" id="check_in" class="form-control" value="<?= old("check_in",  date("d/m/Y H:i")) ?>">
                                             <?php if (isset($errors["check_in"])) : ?>
                                                 <div class="error-text">
@@ -94,7 +95,7 @@ $pageName = "Reservations"
                                             <input type="text" name="check_out" id="check_out" class="form-control" readonly>
                                         </div>
                                         <div class="col-12">
-                                            <label class="form-label" for="guest_count">Guest Count</label>
+                                            <label class="form-label" for="guest_count">Guest Count *</label>
                                             <input type="number" id="guest_count" name="guest_count" class="form-control" min="0" max="99" value="<?= old("guest_count") || 1 ?>">
                                             <?php if (isset($errors["guest_count"])) : ?>
                                                 <div class="error-text">
@@ -137,7 +138,7 @@ $pageName = "Reservations"
                                     <h6>Step 2: Contact Info</h6>
                                     <div class="row gy-3">
                                         <div class="col-12">
-                                            <label class="form-label" for="contact_person">Contact Person</label>
+                                            <label class="form-label" for="contact_person">Contact Person *</label>
                                             <input type="text" name="contact_person" id="contact_person" class="form-control" placeholder="Enter Name" value="<?= old("contact_person") ?>">
                                             <?php if (isset($errors["contact_person"])) : ?>
                                                 <div class="error-text">
@@ -146,7 +147,7 @@ $pageName = "Reservations"
                                             <?php endif; ?>
                                         </div>
                                         <div class="col-12">
-                                            <label class="form-label" for="contact_no">Phone Number</label>
+                                            <label class="form-label" for="contact_no">Phone Number *</label>
                                             <input type="tel" name="contact_no" id="contact_no" class="form-control" placeholder="Enter Phone No." value="<?= old("contact_no") ?>">
                                             <?php if (isset($errors["contact_no"])) : ?>
                                                 <div class="error-text">
@@ -155,7 +156,7 @@ $pageName = "Reservations"
                                             <?php endif; ?>
                                         </div>
                                         <div class="col-12">
-                                            <label class="form-label" for="contact_email">Email</label>
+                                            <label class="form-label" for="contact_email">Email *</label>
                                             <input type="text" name="contact_email" id="contact_email" class="form-control" placeholder="Enter Email" value="<?= old("contact_email") ?>">
                                             <?php if (isset($errors["contact_email"])) : ?>
                                                 <div class="error-text">
@@ -164,7 +165,7 @@ $pageName = "Reservations"
                                             <?php endif; ?>
                                         </div>
                                         <div class="col-12">
-                                            <label class="form-label" for="contact_address">Address</label>
+                                            <label class="form-label" for="contact_address">Address *</label>
                                             <input type="text" name="contact_address" id="contact_address" class="form-control" placeholder="Enter Address" value="<?= old("contact_address") ?>">
                                             <?php if (isset($errors["contact_address"])) : ?>
                                                 <div class="error-text">
@@ -583,14 +584,14 @@ $pageName = "Reservations"
                         <p class="lead">Guest ${i + 1}</p>
                         <div class="col-12 row py-2 gap-1"> 
                             <div class="col-12 wow fadeInUp" data-wow-delay=".3s"> 
-                                <label for"guests[${i}][guest_name]">Name</label>
+                                <label for"guests[${i}][guest_name]">Name *</label>
                                 <div class="form-clt">
                                     <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Name" value="${oldValues[i]?.guest_name ?? ''}" class="form-control" required>
                                     ${nameError ? `<div class="error-text">${nameError}</div>` : ""}
                                 </div>
                             </div> 
                             <div class="col-12 wow fadeInUp" data-wow-delay=".3s"> 
-                                <label for"guests[${i}][guest_age]">Age</label>
+                                <label for"guests[${i}][guest_age]">Age *</label>
                                 <div class="form-clt">
                                     <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" placeholder="Age" value="${oldValues[i]?.guest_age ?? ''}" class="form-control" required>
                                     ${ageError ? `<div class="error-text">${ageError}</div>` : ""}
