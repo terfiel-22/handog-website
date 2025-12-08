@@ -566,14 +566,19 @@ $pageName = "Reservations"
                 generateGuestFields(capacity());
             };
             const generateGuestFields = (count) => {
-                let $container = $("#guest-list");
-                $container.empty(); // clear old fields
+                let container = $("#guest-list");
+                container.empty(); // clear old fields
 
                 // Inject PHP
                 let oldValues = <?= json_encode(old('guests', [])) ?>;
+                let errors = <?= json_encode($errors["guests_fields"] ?? []) ?>;
 
                 if (count > 0) {
                     for (let i = 0; i < count; i++) {
+
+                        let nameError = errors[i]?.guest_name ?? "";
+                        let ageError = errors[i]?.guest_age ?? "";
+
                         let fieldGroup = `
                         <p class="lead">Guest ${i + 1}</p>
                         <div class="col-12 row py-2 gap-1"> 
@@ -581,12 +586,14 @@ $pageName = "Reservations"
                                 <label for"guests[${i}][guest_name]">Name</label>
                                 <div class="form-clt">
                                     <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Name" value="${oldValues[i]?.guest_name ?? ''}" class="form-control" required>
+                                    ${nameError ? `<div class="error-text">${nameError}</div>` : ""}
                                 </div>
                             </div> 
                             <div class="col-12 wow fadeInUp" data-wow-delay=".3s"> 
                                 <label for"guests[${i}][guest_age]">Age</label>
                                 <div class="form-clt">
                                     <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" placeholder="Age" value="${oldValues[i]?.guest_age ?? ''}" class="form-control" required>
+                                    ${ageError ? `<div class="error-text">${ageError}</div>` : ""}
                                 </div>
                             </div>
                             <div class="col-12 wow fadeInUp" data-wow-delay=".3s"> 
@@ -602,7 +609,7 @@ $pageName = "Reservations"
                         </div>
                         <hr/>
                         `;
-                        $container.append(fieldGroup);
+                        container.append(fieldGroup);
                     }
                 }
             }

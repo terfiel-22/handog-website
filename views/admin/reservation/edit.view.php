@@ -614,6 +614,7 @@ $pageName = "Reservations"
         $(document).ready(function() {
             // Inject PHP 
             let oldValues = <?= json_encode(old('guests', $guests)) ?>;
+            let errors = <?= json_encode($errors["guests_fields"] ?? []) ?>;
 
             const capacity = () => parseInt($("#facility option:selected").data("pax"));
             const changeMax = (cap) => $('#guest_count').attr('max', cap);
@@ -623,11 +624,15 @@ $pageName = "Reservations"
                 generateGuestFields(capacity());
             };
             const generateGuestFields = (count) => {
-                let $container = $("#guest-list");
-                $container.empty(); // clear old fields
+                let container = $("#guest-list");
+                container.empty(); // clear old fields
 
                 if (count > 0) {
                     for (let i = 0; i < count; i++) {
+
+                        let nameError = errors[i]?.guest_name ?? "";
+                        let ageError = errors[i]?.guest_age ?? "";
+
                         let fieldGroup = ` 
                         <p class="lead">Guest ${i + 1}</p>
                         <div class="col-12 row py-2 gap-1">
@@ -636,12 +641,14 @@ $pageName = "Reservations"
                                 <div class="form-clt">
                                     <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Guest Name" value="${oldValues[i]?.guest_name ?? ''}" class="form-control" required> 
                                     <input type="hidden" name="guests[${i}][guest_id]" id="guests[${i}][guest_id]" value="${oldValues[i]?.id ?? ''}">
+                                    ${nameError ? `<div class="error-text">${nameError}</div>` : ""}
                                 </div>
                             </div> 
                             <div class="col-12 wow fadeInUp" data-wow-delay=".3s"> 
                                 <label for"guests[${i}][guest_age]">Age</label>
                                 <div class="form-clt">
                                     <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" placeholder="Guest Age" value="${oldValues[i]?.guest_age ?? ''}" class="form-control" required>
+                                    ${ageError ? `<div class="error-text">${ageError}</div>` : ""}
                                 </div>
                             </div>
                             <div class="col-12 wow fadeInUp" data-wow-delay=".3s"> 
@@ -657,7 +664,7 @@ $pageName = "Reservations"
                         </div>
                         <hr/>
                         `;
-                        $container.append(fieldGroup);
+                        container.append(fieldGroup);
                     }
                 }
             }
