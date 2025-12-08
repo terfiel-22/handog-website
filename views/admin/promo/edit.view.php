@@ -30,8 +30,9 @@ $pageName = "Edit Promo"
 
             <!-- Form -->
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header pb-0">
                     <h6 class="card-title mb-0"><?= $pageName ?></h6>
+                    <p class="text-secondary small">Fields marked with an asterisk (*) are required.</p>
                 </div>
 
                 <div class="card-body">
@@ -39,7 +40,7 @@ $pageName = "Edit Promo"
                         <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="id" value="<?= $promo["id"] ?>">
                         <div class="col-12 col-md-6">
-                            <label class="form-label" for="title">Title</label>
+                            <label class="form-label" for="title">Title *</label>
                             <input type="text" name="title" id="title" class="form-control" placeholder="Enter promo title" value="<?= $promo['title'] ?>">
                             <?php if (isset($errors["title"])) : ?>
                                 <div class="error-text">
@@ -48,7 +49,7 @@ $pageName = "Edit Promo"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-6">
-                            <label class="form-label" for="discount_value">Discount Value</label>
+                            <label class="form-label" for="discount_value">Discount Value *</label>
                             <input type="number" name="discount_value" id="discount_value" class="form-control" placeholder="Enter promo discount_value" value="<?= $promo['discount_value'] ?>">
                             <?php if (isset($errors["discount_value"])) : ?>
                                 <div class="error-text">
@@ -57,7 +58,7 @@ $pageName = "Edit Promo"
                             <?php endif; ?>
                         </div>
                         <div class="col-12">
-                            <label class="form-label" for="description">Description</label>
+                            <label class="form-label" for="description">Description *</label>
                             <textarea name="description" id="description" class="form-control" placeholder="Enter promo description"><?= $promo['description'] ?></textarea>
                             <?php if (isset($errors["description"])) : ?>
                                 <div class="error-text">
@@ -66,7 +67,7 @@ $pageName = "Edit Promo"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-6">
-                            <label class="form-label" for="start_date">Start Date</label>
+                            <label class="form-label" for="start_date">Start Date *</label>
                             <input type="text" name="start_date" id="start_date" class="form-control" placeholder="Enter promo start date" value="<?= $promo['start_date'] ?>">
                             <?php if (isset($errors["start_date"])) : ?>
                                 <div class="error-text">
@@ -75,7 +76,7 @@ $pageName = "Edit Promo"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-6">
-                            <label class="form-label" for="end_date">End Date</label>
+                            <label class="form-label" for="end_date">End Date *</label>
                             <input type="text" name="end_date" id="end_date" class="form-control" placeholder="Enter promo end date" value="<?= $promo['end_date'] ?>">
                             <?php if (isset($errors["end_date"])) : ?>
                                 <div class="error-text">
@@ -84,7 +85,7 @@ $pageName = "Edit Promo"
                             <?php endif; ?>
                         </div>
                         <div class="col-12">
-                            <label class="form-label" for="facilities">Applicable To</label>
+                            <label class="form-label" for="facilities">Applicable To *</label>
                             <select name="facilities[]" id="facilities" class="multi-select form-select" multiple="multiple">
                                 <option value="select_all" id="select_all">Select All</option>
                                 <?php foreach ($facilities as $facility): ?>
@@ -102,7 +103,7 @@ $pageName = "Edit Promo"
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label">
-                                Discount Type
+                                Discount Type *
                             </label>
                             <div class="d-flex align-items-center flex-wrap gap-28">
                                 <?php foreach (\Http\Enums\DiscountType::toArray() as $discount_type): ?>
