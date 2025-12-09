@@ -25,6 +25,12 @@
             </li>
             <?php if (\Http\Services\UserService::getCurrentUser()["type"] == \Http\Enums\UserType::ADMIN): ?>
                 <li>
+                    <a href="/admin/income-reports">
+                        <iconify-icon icon="ic:outline-analytics" class="menu-icon"></iconify-icon>
+                        <span>Income Reports</span>
+                    </a>
+                </li>
+                <li>
                     <a href="/admin/facilities">
                         <iconify-icon icon="ic:outline-home" class="menu-icon"></iconify-icon>
                         <span>Facilities</span>
