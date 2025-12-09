@@ -4,7 +4,6 @@ namespace Http\Services;
 
 use Core\App;
 use Core\Database;
-use DateTime;
 use Http\Enums\PaymentStatus;
 
 class IncomeReportService
@@ -65,6 +64,22 @@ class IncomeReportService
         ])->get();
 
         return $result;
+    }
+
+    public static function getPaymentFirstAndLastRecordDates()
+    {
+        $db = self::db();
+
+        $result = $db->query("
+            SELECT 
+                (SELECT created_at FROM payments ORDER BY created_at ASC LIMIT 1) AS first,
+                (SELECT created_at FROM payments ORDER BY created_at DESC LIMIT 1) AS last;
+        ")->find();
+
+        return [
+            'first' => formatDatetimeToYmD($result['first']),
+            'last' => formatDatetimeToYmD($result['last'])
+        ];
     }
 
     public static function summary($start_date, $end_date): array

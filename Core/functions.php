@@ -103,6 +103,14 @@ function formatDatetimeToReadable($datetime)
     return $readableDatetime->format('h:i A | M. d, Y');
 }
 
+/** Function to format date time into readable input fields date */
+function formatDatetimeToYmD($datetime)
+{
+    $readableDatetime = new DateTime($datetime);
+
+    return $readableDatetime->format('Y-m-d');
+}
+
 /** Function to generate a session token given user id*/
 function generateSessionToken($uid)
 {

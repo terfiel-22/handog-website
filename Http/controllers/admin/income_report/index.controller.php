@@ -2,9 +2,13 @@
 
 use Http\Services\IncomeReportService;
 
-// Example date
-$start_date = "2025-11-20";
-$end_date =  "2025-11-21";
+$recordDates = IncomeReportService::getPaymentFirstAndLastRecordDates();
+$start_date = $_GET["start_date"] ?? $recordDates["first"];
+$end_date =  $_GET["end_date"] ?? $recordDates["last"];
 
 $incomeReports = IncomeReportService::summary($start_date, $end_date);
-dd($incomeReports);
+
+view(
+    "admin/income_report/index.view.php",
+    compact('incomeReports', 'start_date', 'end_date')
+);
