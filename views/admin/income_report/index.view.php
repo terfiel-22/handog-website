@@ -34,21 +34,22 @@ $pageName = "Income Reports"
                     <h6 class="card-title mb-0">Payment Records</h6>
                 </div>
                 <div class="card-body">
-                    <div class="filter-print-container pb-3">
-                        <form>
-                            <div class="d-flex gap-2 align-items-end">
-                                <div>
-                                    <label class="form-label" for="start_date">From</label>
-                                    <input type="text" name="start_date" id="start_date" class="form-control" value="<?= $start_date ?? date("Y-m-d") ?>">
-                                </div>
-                                <div>
-                                    <label class="form-label" for="end_date">To</label>
-                                    <input type="text" name="end_date" id="end_date" class="form-control" value="<?= $end_date ?? date("Y-m-d") ?>">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Filter</button>
+                    <form class="mb-3">
+                        <div class="row align-items-end">
+                            <div class="col-12 col-md-3">
+                                <label class="form-label" for="start_date">From</label>
+                                <input type="text" name="start_date" id="start_date" class="form-control" value="<?= $start_date ?? date("Y-m-d") ?>">
                             </div>
-                        </form>
-                    </div>
+                            <div class="col-12 col-md-3">
+                                <label class="form-label" for="end_date">To</label>
+                                <input type="text" name="end_date" id="end_date" class="form-control" value="<?= $end_date ?? date("Y-m-d") ?>">
+                            </div>
+                            <div class="col-12 col-md-6 d-flex justify-content-between mt-3">
+                                <button type="submit" class="btn btn-secondary">Filter</button>
+                                <button type="button" class="btn btn-primary">Print</button>
+                            </div>
+                        </div>
+                    </form>
                     <div class="table-responsive">
                         <table class="table bordered-table mb-0" id="dataTable" data-page-length='10'>
                             <thead>
