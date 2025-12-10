@@ -56,40 +56,24 @@ $pageName = "Sales Report"
                     <div class="card mb-3">
                         <div class="card-body p-24">
                             <div class="d-flex align-items-center flex-wrap gap-2 justify-content-start mb-20">
-                                <h6 class="mb-2 fw-bold text-lg mb-0">Top Facilities</h6>
+                                <h6 class="mb-2 fw-bold text-lg mb-0">Top 5 Facilities</h6>
                             </div>
-                            <div class="table-responsive scroll-sm">
-                                <table class="table bordered-table mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Facility</th>
-                                            <th scope="col">Total Reservations</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php if (empty($salesReport["top_facilities"])): ?>
-                                            <tr>
-                                                <td colspan="2" class="text-center">
-                                                    No data available in table
-                                                </td>
-                                            </tr>
-                                        <?php else: ?>
-                                            <?php foreach ($salesReport["top_facilities"] as $topFacility): ?>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <img src="<?= handleFilePath($topFacility['facility_image']) ?>" alt="<?= $topFacility['facility_name'] ?>" class="flex-shrink-0 me-12 radius-8" style="width: 80px;">
-                                                            <div class="flex-grow-1">
-                                                                <h6 class="text-md mb-0 fw-medium"><?= $topFacility['facility_name'] ?></h6>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td><?= $topFacility["total_reservations"] ?></td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    </tbody>
-                                </table>
+                            <div>
+                                <?php if (empty($salesReport["top_facilities"])): ?>
+                                    <p>No data available</p>
+                                <?php else: ?>
+                                    <?php foreach ($salesReport["top_facilities"] as $topFacility): ?>
+                                        <div class="d-flex align-items-center justify-content-between gap-3 mb-20">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <img src="<?= handleFilePath($topFacility['facility_image']) ?>" alt="<?= $topFacility['facility_name'] ?>" class="w-40-px h-40-px radius-8 flex-shrink-0">
+                                                <div class="flex-grow-1">
+                                                    <h6 class="text-md mb-0 fw-medium"><?= $topFacility['facility_name'] ?></h6>
+                                                </div>
+                                            </div>
+                                            <span class="text-secondary">Reservations: <span class="text-primary-light text-md fw-medium"><?= $topFacility["total_reservations"] ?></span></span>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

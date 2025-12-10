@@ -87,18 +87,19 @@ class SalesReportService
                 f.name AS facility_name,
                 fi.image AS facility_image,
                 COUNT(r.id) AS total_reservations
-            FROM reservations r
-            LEFT JOIN facilities f ON f.id = r.facility_id
+            FROM facilities f
+            LEFT JOIN reservations r 
+                ON r.facility_id = f.id
+                AND DATE(r.created_at) BETWEEN ? AND ?
             LEFT JOIN facility_images fi 
                 ON fi.id = (
-                    SELECT MIN(id) 
-                    FROM facility_images 
+                    SELECT MIN(id)
+                    FROM facility_images
                     WHERE facility_id = f.id
                 )
-            WHERE DATE(r.created_at) BETWEEN ? AND ?
-            GROUP BY r.facility_id
+            GROUP BY f.id
             ORDER BY total_reservations DESC
-            LIMIT 5
+            LIMIT 5;
         ", [
             $start_date,
             $end_date
