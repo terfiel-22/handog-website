@@ -58,7 +58,7 @@ class SalesReportService
             SELECT 
                 p.*,
                 CASE 
-                    WHEN p.processed_by IS NULL THEN 'client'
+                    WHEN p.processed_by IS NULL THEN 'guest'
                     ELSE u.type 
                 END AS came_from,
                 CASE
