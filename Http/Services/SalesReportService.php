@@ -53,7 +53,6 @@ class SalesReportService
     {
         $db = self::db();
 
-        // TODO: Columns should include (ID, Came From, Name, Date Created, Amount, Payment Status)
         $result = $db->query("
             SELECT 
                 p.*,
@@ -71,6 +70,35 @@ class SalesReportService
             LEFT JOIN reservations r
                 ON r.id = p.reservation_id
             WHERE DATE(p.created_at) BETWEEN ? AND ?
+        ", [
+            $start_date,
+            $end_date
+        ])->get();
+
+        return $result;
+    }
+
+    private static function getTopFacilities($start_date, $end_date)
+    {
+        $db = self::db();
+
+        $result = $db->query("
+            SELECT
+                f.name AS facility_name,
+                fi.image AS facility_image,
+                COUNT(r.id) AS total_reservations
+            FROM reservations r
+            LEFT JOIN facilities f ON f.id = r.facility_id
+            LEFT JOIN facility_images fi 
+                ON fi.id = (
+                    SELECT MIN(id) 
+                    FROM facility_images 
+                    WHERE facility_id = f.id
+                )
+            WHERE DATE(r.created_at) BETWEEN ? AND ?
+            GROUP BY r.facility_id
+            ORDER BY total_reservations DESC
+            LIMIT 5
         ", [
             $start_date,
             $end_date
@@ -98,6 +126,7 @@ class SalesReportService
     public static function summary($start_date, $end_date): array
     {
         return [
+            'top_facilities' => self::getTopFacilities($start_date, $end_date),
             'total_income' => self::getTotalIncome($start_date, $end_date),
             'payment_count' => self::getPaymentCount($start_date, $end_date),
             'payments' => self::getPayments($start_date, $end_date),

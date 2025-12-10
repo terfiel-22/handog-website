@@ -28,12 +28,9 @@ $pageName = "Sales Report"
             <!-- Breadcrumbs -->
             <?php view("admin/partials/breadcrumb.partial.php", compact('pageName')) ?>
 
-            <!-- Table -->
-            <div class="card basic-data-table">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="card-title mb-0">Payment Records</h6>
-                </div>
-                <div class="card-body">
+            <!-- Filter -->
+            <div class="card mb-3">
+                <div class="card-body py-1">
                     <form class="mb-3">
                         <div class="row align-items-end">
                             <div class="col-12 col-md-3">
@@ -50,6 +47,67 @@ $pageName = "Sales Report"
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+
+            <!-- Facility Table & Sales Chart -->
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body p-24">
+                            <div class="d-flex align-items-center flex-wrap gap-2 justify-content-start mb-20">
+                                <h6 class="mb-2 fw-bold text-lg mb-0">Top Facilities</h6>
+                            </div>
+                            <div class="table-responsive scroll-sm">
+                                <table class="table bordered-table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Facility</th>
+                                            <th scope="col">Total Reservations</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php if (empty($salesReport["top_facilities"])): ?>
+                                            <tr>
+                                                <td colspan="2" class="text-center">
+                                                    No data available in table
+                                                </td>
+                                            </tr>
+                                        <?php else: ?>
+                                            <?php foreach ($salesReport["top_facilities"] as $topFacility): ?>
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <img src="<?= handleFilePath($topFacility['facility_image']) ?>" alt="<?= $topFacility['facility_name'] ?>" class="flex-shrink-0 me-12 radius-8" style="width: 80px;">
+                                                            <div class="flex-grow-1">
+                                                                <h6 class="text-md mb-0 fw-medium"><?= $topFacility['facility_name'] ?></h6>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td><?= $topFacility["total_reservations"] ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="card basic-data-table">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="card-title mb-0">Payments Table</h6>
+                </div>
+                <div class="card-body">
                     <div class="table-responsive">
                         <table class="table bordered-table mb-0" id="dataTable" data-page-length='10'>
                             <thead>
