@@ -68,10 +68,10 @@ $pageName = "Income Reports"
                                         <td><a href="javascript:void(0)" class="text-primary-600"><?= $payments['id'] ?></a></td>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <h6 class="text-md mb-0 fw-medium flex-grow-1">Client</h6>
+                                                <h6 class="text-md mb-0 fw-medium flex-grow-1"><?= ucfirst($payments["came_from"]) ?></h6>
                                             </div>
                                         </td>
-                                        <td>Taki Fimito</td>
+                                        <td><?= ucfirst($payments["came_from_name"]) ?></td>
                                         <td><?= formatDatetimeToReadable($payments["created_at"]) ?></td>
                                         <td><?= moneyFormat($payments["amount"]) ?></td>
                                         <td><?= ucfirst($payments["payment_status"]) ?></td>

@@ -71,8 +71,8 @@
             <?php foreach ($incomeReports["payments"] as $payments): ?>
                 <tr>
                     <td style="padding:8px; border:1px solid #ccc;"><?= $payments['id'] ?></td>
-                    <td style="padding:8px; border:1px solid #ccc;">Client</td>
-                    <td style="padding:8px; border:1px solid #ccc;">Taki Fimito</td>
+                    <td style="padding:8px; border:1px solid #ccc;"><?= ucfirst($payments['came_from']) ?></td>
+                    <td style="padding:8px; border:1px solid #ccc;"><?= $payments['came_from_name'] ?></td>
                     <td style="padding:8px; border:1px solid #ccc;"><?= formatDatetimeToReadable($payments["created_at"]) ?></td>
                     <td style="padding:8px; border:1px solid #ccc;"><?= moneyFormat($payments["amount"]) ?></td>
                     <td style="padding:8px; border:1px solid #ccc;"><?= ucfirst($payments["payment_status"]) ?></td>

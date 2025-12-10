@@ -55,9 +55,22 @@ class IncomeReportService
 
         // TODO: Columns should include (ID, Came From, Name, Date Created, Amount, Payment Status)
         $result = $db->query("
-            SELECT *
-            FROM payments
-            WHERE DATE(created_at) BETWEEN ? AND ?
+            SELECT 
+                p.*,
+                CASE 
+                    WHEN p.processed_by IS NULL THEN 'client'
+                    ELSE u.type 
+                END AS came_from,
+                CASE
+                    WHEN p.processed_by IS NULL THEN r.contact_person
+                    ELSE u.username
+                END AS came_from_name
+            FROM payments p
+            LEFT JOIN users u 
+                ON u.id = p.processed_by
+            LEFT JOIN reservations r
+                ON r.id = p.reservation_id
+            WHERE DATE(p.created_at) BETWEEN ? AND ?
         ", [
             $start_date,
             $end_date

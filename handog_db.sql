@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2025 at 07:49 PM
+-- Generation Time: Dec 10, 2025 at 12:21 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -114,7 +114,10 @@ INSERT INTO `audit_trail` (`id`, `user_id`, `action`, `module`, `old_value`, `ne
 (19, NULL, 'Payment Created', 'Payment', '[]', '{\"id\":7,\"reservation_id\":5,\"amount\":930,\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_e6XWnCwNJjF4Wjdux6KAoWpM\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', '2025-12-05 12:56:56'),
 (20, NULL, 'Payment Updated', 'Payment', '{\"id\":7,\"reservation_id\":5,\"amount\":\"930.00\",\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_e6XWnCwNJjF4Wjdux6KAoWpM\"}', '{\"id\":7,\"reservation_id\":5,\"amount\":930,\"payment_method\":\"gcash\",\"payment_status\":\"deposited\",\"payment_type\":\"deposit\",\"payment_link\":\"link_e6XWnCwNJjF4Wjdux6KAoWpM\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', '2025-12-05 12:57:52'),
 (21, 1, 'Reservation Created', 'Reservation', '[]', '{\"id\":6,\"facility_id\":\"1\",\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09384736281\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-12-09 00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-12-09 12:00\",\"rent_videoke\":\"no\",\"additional_bed_count\":\"0\",\"discounted_value\":0,\"guest_count\":1,\"total_price\":1700,\"status\":\"confirmed\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', '2025-12-08 17:02:05'),
-(22, 1, 'Payment Created', 'Payment', '[]', '{\"id\":8,\"reservation_id\":6,\"amount\":1700,\"payment_method\":\"cash\",\"payment_type\":\"full\",\"payment_status\":\"paid\",\"payment_link\":null}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', '2025-12-08 17:02:05');
+(22, 1, 'Payment Created', 'Payment', '[]', '{\"id\":8,\"reservation_id\":6,\"amount\":1700,\"payment_method\":\"cash\",\"payment_type\":\"full\",\"payment_status\":\"paid\",\"payment_link\":null}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', '2025-12-08 17:02:05'),
+(23, NULL, 'Reservation Created', 'Reservation', '[]', '{\"id\":7,\"facility_id\":\"9\",\"contact_person\":\"Taki Fimito\",\"contact_no\":\"09099597451\",\"contact_email\":\"taki@gmail.com\",\"contact_address\":\"Manila, Philippines\",\"check_in\":\"2025-12-19 00:00\",\"time_range\":\"12-Hours\",\"check_out\":\"2025-12-19 12:00\",\"rent_videoke\":\"no\",\"additional_bed_count\":\"0\",\"discounted_value\":0,\"guest_count\":1,\"total_price\":500,\"status\":\"pending\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', '2025-12-10 07:49:43'),
+(24, NULL, 'Payment Created', 'Payment', '[]', '{\"id\":9,\"reservation_id\":7,\"amount\":250,\"payment_method\":null,\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_qGDde1ojgx6T1QQx8etdHtf7\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', '2025-12-10 07:49:43'),
+(25, NULL, 'Payment Updated', 'Payment', '{\"id\":9,\"reservation_id\":7,\"amount\":\"250.00\",\"payment_method\":\"gcash\",\"payment_status\":\"unpaid\",\"payment_type\":\"deposit\",\"payment_link\":\"link_qGDde1ojgx6T1QQx8etdHtf7\"}', '{\"id\":9,\"reservation_id\":7,\"amount\":250,\"payment_method\":\"gcash\",\"payment_status\":\"deposited\",\"payment_type\":\"deposit\",\"payment_link\":\"link_qGDde1ojgx6T1QQx8etdHtf7\"}', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', '2025-12-10 07:55:20');
 
 -- --------------------------------------------------------
 
@@ -280,6 +283,7 @@ INSERT INTO `gallery_images` (`id`, `folder_id`, `image`, `created_at`, `updated
 CREATE TABLE `payments` (
   `id` int(11) NOT NULL,
   `reservation_id` int(11) NOT NULL,
+  `processed_by` int(11) DEFAULT NULL,
   `amount` decimal(10,2) NOT NULL,
   `payment_method` varchar(200) DEFAULT NULL,
   `payment_status` enum('unpaid','paid','failed','refunded','cancelled','deposited') DEFAULT 'unpaid',
@@ -293,14 +297,15 @@ CREATE TABLE `payments` (
 -- Dumping data for table `payments`
 --
 
-INSERT INTO `payments` (`id`, `reservation_id`, `amount`, `payment_method`, `payment_status`, `payment_type`, `payment_link`, `created_at`, `updated_at`) VALUES
-(1, 1, 700.00, 'gcash', 'deposited', 'deposit', 'link_mHW1PVfMuWwCrvAetLEtvZbK', '2025-11-20 19:52:10', '2025-11-20 19:52:45'),
-(2, 2, 1370.00, 'gcash', 'deposited', 'deposit', 'link_Lk4mCx33XrDsvDkngXZsvPBz', '2025-11-20 19:53:30', '2025-11-20 19:54:08'),
-(3, 3, 700.00, 'gcash', 'deposited', 'deposit', 'link_4w9SXANxDoxGUF8EcEYDw66Y', '2025-11-20 19:55:37', '2025-11-20 19:56:11'),
-(4, 4, 600.00, 'gcash', 'deposited', 'deposit', 'link_x4CnwWicgJ1ADtG3CvpUi634', '2025-11-20 19:59:02', '2025-11-20 19:59:45'),
-(6, 4, 600.00, 'cash', 'paid', 'deposit', NULL, '2025-11-20 20:29:34', '2025-11-20 20:29:34'),
-(7, 5, 930.00, 'gcash', 'deposited', 'deposit', 'link_e6XWnCwNJjF4Wjdux6KAoWpM', '2025-12-05 20:56:56', '2025-12-05 20:57:38'),
-(8, 6, 1700.00, 'cash', 'paid', 'full', NULL, '2025-12-09 01:02:05', '2025-12-09 01:02:05');
+INSERT INTO `payments` (`id`, `reservation_id`, `processed_by`, `amount`, `payment_method`, `payment_status`, `payment_type`, `payment_link`, `created_at`, `updated_at`) VALUES
+(1, 1, NULL, 700.00, 'gcash', 'deposited', 'deposit', 'link_mHW1PVfMuWwCrvAetLEtvZbK', '2025-11-20 19:52:10', '2025-11-20 19:52:45'),
+(2, 2, NULL, 1370.00, 'gcash', 'deposited', 'deposit', 'link_Lk4mCx33XrDsvDkngXZsvPBz', '2025-11-20 19:53:30', '2025-11-20 19:54:08'),
+(3, 3, NULL, 700.00, 'gcash', 'paid', 'deposit', 'link_4w9SXANxDoxGUF8EcEYDw66Y', '2025-11-20 19:55:37', '2025-12-10 01:13:52'),
+(4, 4, NULL, 600.00, 'gcash', 'deposited', 'deposit', 'link_x4CnwWicgJ1ADtG3CvpUi634', '2025-11-20 19:59:02', '2025-12-10 19:06:45'),
+(6, 4, NULL, 600.00, 'cash', 'paid', 'deposit', NULL, '2025-11-20 20:29:34', '2025-11-20 20:29:34'),
+(7, 5, NULL, 930.00, 'gcash', 'deposited', 'deposit', 'link_e6XWnCwNJjF4Wjdux6KAoWpM', '2025-12-05 20:56:56', '2025-12-10 01:13:38'),
+(8, 6, 3, 1700.00, 'cash', 'paid', 'full', NULL, '2025-12-09 01:02:05', '2025-12-10 19:06:54'),
+(9, 7, NULL, 250.00, 'gcash', 'deposited', 'deposit', 'link_qGDde1ojgx6T1QQx8etdHtf7', '2025-12-10 15:49:43', '2025-12-10 15:55:11');
 
 -- --------------------------------------------------------
 
@@ -387,7 +392,8 @@ INSERT INTO `reservations` (`id`, `facility_id`, `contact_person`, `contact_no`,
 (3, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-21 00:00:00', '12-Hours', '2025-11-21 12:00:00', 2, 'no', 0, 0, 0, 500.00, 1400.00, 'pending', '2025-11-20 11:55:37', '2025-11-20 11:55:37'),
 (4, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-11-20 00:00:00', '12-Hours', '2025-11-20 12:00:00', 1, 'no', 0, 0, 0, 500.00, 1200.00, 'completed', '2025-11-20 11:59:01', '2025-11-20 13:17:52'),
 (5, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-12-19 00:00:00', '12-Hours', '2025-12-19 12:00:00', 2, 'no', 0, 0, 0, 0.00, 1860.00, 'pending', '2025-12-05 12:56:56', '2025-12-05 12:56:56'),
-(6, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-12-09 00:00:00', '12-Hours', '2025-12-09 12:00:00', 1, 'no', 0, 0, 0, 0.00, 1700.00, 'confirmed', '2025-12-08 17:02:05', '2025-12-08 17:02:05');
+(6, 1, 'Taki Fimito', '09384736281', 'taki@gmail.com', 'Manila, Philippines', '2025-12-09 00:00:00', '12-Hours', '2025-12-09 12:00:00', 1, 'no', 0, 0, 0, 0.00, 1700.00, 'confirmed', '2025-12-08 17:02:05', '2025-12-08 17:02:05'),
+(7, 9, 'Taki Fimito', '09099597451', 'taki@gmail.com', 'Manila, Philippines', '2025-12-19 00:00:00', '12-Hours', '2025-12-19 12:00:00', 1, 'no', 0, 0, 0, 0.00, 500.00, 'pending', '2025-12-10 07:49:43', '2025-12-10 07:49:43');
 
 -- --------------------------------------------------------
 
@@ -421,7 +427,8 @@ INSERT INTO `reservation_guests` (`id`, `reservation_id`, `guest_name`, `guest_a
 (7, 4, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-11-20 11:59:02', '2025-11-20 11:59:02'),
 (8, 5, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-12-05 12:56:56', '2025-12-05 12:56:56'),
 (9, 5, 'Tafi Fimito', 22, 'adult', 'yes', 'uploads/images/6932d69882d1d_pwd.png', '2025-12-05 12:56:56', '2025-12-05 12:56:56'),
-(10, 6, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-12-08 17:02:05', '2025-12-08 17:02:05');
+(10, 6, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-12-08 17:02:05', '2025-12-08 17:02:05'),
+(11, 7, 'Taki Fimito', 22, 'adult', 'no', NULL, '2025-12-10 07:49:43', '2025-12-10 07:49:43');
 
 -- --------------------------------------------------------
 
@@ -564,8 +571,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `image`, `password`, `salt`, `session_token`, `reset_pin`, `type`, `first_time_login`) VALUES
-(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$lvTFatVnHlf4AZcVYzSJqOadaUQF78avgaj0kTZACwTFp.BfTjXzG', NULL, 'admin', 'yes'),
-(3, 'Taki Fimito', 'despicablehaythamkenway@gmail.com', 'uploads/images/690b97f142ae6_user-6.jpg', '$2y$10$SSRAidhlKM8j8tvegi4yUe2GfRUWYPLr3i5GnY0rtVn5naaFbvzWG', '67f513e439d93ba9b716', '$2y$10$HFSzzR/jZP/wqjKlSRNe1.GU1GQ2b6XSOEoQ5fL.y5b.JkcCtyglC', '344747', 'staff', 'yes'),
+(1, 'Handog Resort', 'handogresortandeventsplace2017@gmail.com', NULL, '$2y$10$jwN82I3FN1TLA1HkyzG6q.0n/L/HwhL7KscuW7JyNA/Ain9y1Lrqa', '8d6d06c6db37ae1c8d85', '$2y$10$7hww8PVKs9z4iRh.NrUdh.Je3ZEAtVDsGEIwnjzOlir1Z1idNkdhW', NULL, 'admin', 'yes'),
+(3, 'Rick Grimes', 'despicablehaythamkenway@gmail.com', 'uploads/images/690b97f142ae6_user-6.jpg', '$2y$10$SSRAidhlKM8j8tvegi4yUe2GfRUWYPLr3i5GnY0rtVn5naaFbvzWG', '67f513e439d93ba9b716', '$2y$10$HFSzzR/jZP/wqjKlSRNe1.GU1GQ2b6XSOEoQ5fL.y5b.JkcCtyglC', '344747', 'staff', 'yes'),
 (4, 'Tafi Fimito', 'tafi@gmail.com', 'uploads/images/690b9812ea878_user-4.jpg', '$2y$10$/IvWULzTu3XYrw4TU0UYbeTvKF24zKqOipe61PKgxC0HwbHXfaweu', '16d1de68659904d42b1d', NULL, NULL, 'admin', 'yes'),
 (6, 'takifimito', 'taki@gmail.com', 'uploads/images/6933fc721ac9e_user.png', '$2y$10$UfgFcwEiyqNmNOcZARXRBuWIFKRMIFzuaMUGG/.cviKj9uEcd052i', '2b737840b3c81b8eacd6', '$2y$10$313UjjdA8OKipSX9Ped.2ODpWFgqPtNtdnRGDrAgSs1cs6EXFSbOK', NULL, 'staff', 'no');
 
@@ -636,7 +643,8 @@ ALTER TABLE `gallery_images`
 --
 ALTER TABLE `payments`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `payments_ibfk_1` (`reservation_id`);
+  ADD KEY `payments_ibfk_1` (`reservation_id`),
+  ADD KEY `processed_by` (`processed_by`);
 
 --
 -- Indexes for table `promos`
@@ -722,7 +730,7 @@ ALTER TABLE `amenity_images`
 -- AUTO_INCREMENT for table `audit_trail`
 --
 ALTER TABLE `audit_trail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `events`
@@ -764,7 +772,7 @@ ALTER TABLE `gallery_images`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `promos`
@@ -782,13 +790,13 @@ ALTER TABLE `promo_facilities`
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `reservation_guests`
 --
 ALTER TABLE `reservation_guests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `st_contact_details`
@@ -858,7 +866,8 @@ ALTER TABLE `gallery_images`
 -- Constraints for table `payments`
 --
 ALTER TABLE `payments`
-  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservations` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservations` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`processed_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `promo_facilities`
