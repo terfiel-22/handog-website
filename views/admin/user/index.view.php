@@ -51,7 +51,7 @@ $pageName = "Users"
                                         <td><a href="javascript:void(0)" class="text-primary-600"><?= $user['id'] ?></a></td>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <img src="<?= handleFilePath($user['image'] ?? USER_AVATAR_PATH, "/assets/guest/img/home-1/testimonial/client-info-right-img.png") ?>" alt="<?= $testimonial['name'] ?>" class="flex-shrink-0 me-12 radius-8" style="width: 80px;">
+                                                <img src="<?= handleFilePath($user['image'] ?? USER_AVATAR_PATH, "/assets/guest/img/home-1/testimonial/client-info-right-img.png") ?>" alt="<?= $user['username'] ?>" class="flex-shrink-0 me-12 radius-8" style="width: 80px;">
                                                 <div class="flex-grow-1">
                                                     <h6 class="text-md mb-0 fw-medium"><?= $user['username'] ?></h6>
                                                     <p class="text-md mb-0 fw-small"><?= $user['type'] ?></p>
