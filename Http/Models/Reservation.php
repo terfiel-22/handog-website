@@ -167,10 +167,10 @@ class Reservation
                 INNER JOIN facilities fac
                     ON res.facility_id = fac.id 
                 WHERE res.id = ?
-                GROUP BY res.id
-                HAVING res.status = ?
+                AND res.status != ?
+                GROUP BY res.id 
         ",
-            [PaymentStatus::PAID, PaymentStatus::DEPOSITED, $id, ReservationStatus::PENDING]
+            [PaymentStatus::PAID, PaymentStatus::DEPOSITED, $id, ReservationStatus::COMPLETED]
         )->findOrFail();
     }
 
