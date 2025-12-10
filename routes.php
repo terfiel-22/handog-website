@@ -41,8 +41,8 @@
   $router->get('/admin/dashboard', 'admin/dashboard/index.controller.php')->only('authenticated');
 
   // Income Reports 
-  $router->get('/admin/income-reports', 'admin/income_report/index.controller.php')->only('authenticated');
-  $router->get('/admin/income-reports/print', 'admin/income_report/print.controller.php')->only('authenticated');
+  $router->get('/admin/sales-report', 'admin/sales_report/index.controller.php')->only('authenticated');
+  $router->get('/admin/sales-report/print', 'admin/sales_report/print.controller.php')->only('authenticated');
 
   // Reservation 
   $router->get('/admin/reservations', 'admin/reservation/index.controller.php')->only('authenticated');

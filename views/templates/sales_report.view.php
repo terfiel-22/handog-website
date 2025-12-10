@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Income Reports</title>
+    <title>Sales Report</title>
     <meta charset="UTF-8">
 
     <style>
@@ -41,16 +41,16 @@
     <hr />
 
     <!-- Income Details -->
-    <h2 style="margin-bottom:5px; margin-top:5px; font-weight:bold; border-bottom:1px solid #ccc; padding-bottom:5px;">Income Reports</h2>
+    <h2 style="margin-bottom:5px; margin-top:5px; font-weight:bold; border-bottom:1px solid #ccc; padding-bottom:5px;">Sales Report</h2>
     <table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
         <tr>
             <td style="width:50%; padding:5px;"><strong>Date Range:</strong> <?= formatDateToReadable($start_date) ?> - <?= formatDateToReadable($end_date) ?></td>
         </tr>
         <tr>
-            <td style="width:50%; padding:5px;"><strong>Total Income:</strong> <?= moneyFormat($incomeReports["total_income"]) ?></td>
+            <td style="width:50%; padding:5px;"><strong>Total Income:</strong> <?= moneyFormat($salesReport["total_income"]) ?></td>
         </tr>
         <tr>
-            <td style="padding:5px;"><strong>Payment Count:</strong> <?= $incomeReports["payment_count"] ?></td>
+            <td style="padding:5px;"><strong>Payment Count:</strong> <?= $salesReport["payment_count"] ?></td>
         </tr>
     </table>
 
@@ -68,7 +68,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($incomeReports["payments"] as $payments): ?>
+            <?php foreach ($salesReport["payments"] as $payments): ?>
                 <tr>
                     <td style="padding:8px; border:1px solid #ccc;"><?= $payments['id'] ?></td>
                     <td style="padding:8px; border:1px solid #ccc;"><?= ucfirst($payments['came_from']) ?></td>

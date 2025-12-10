@@ -1,5 +1,5 @@
 <?php
-$pageName = "Income Reports"
+$pageName = "Sales Report"
 ?>
 
 <!-- meta tags and other links -->
@@ -63,7 +63,7 @@ $pageName = "Income Reports"
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($incomeReports["payments"] as $payments): ?>
+                                <?php foreach ($salesReport["payments"] as $payments): ?>
                                     <tr>
                                         <td><a href="javascript:void(0)" class="text-primary-600"><?= $payments['id'] ?></a></td>
                                         <td>
@@ -105,7 +105,7 @@ $pageName = "Income Reports"
                 const start_date = $("#start_date").val();
                 const end_date = $("#end_date").val();
 
-                const url = `/admin/income-reports/print?start_date=${start_date}&end_date=${end_date}`;
+                const url = `/admin/sales-report/print?start_date=${start_date}&end_date=${end_date}`;
                 window.open(url, "_blank");
             });
         });

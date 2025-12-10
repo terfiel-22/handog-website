@@ -6,7 +6,7 @@ use Core\App;
 use Core\Database;
 use Http\Enums\PaymentStatus;
 
-class IncomeReportService
+class SalesReportService
 {
     protected static function db()
     {
