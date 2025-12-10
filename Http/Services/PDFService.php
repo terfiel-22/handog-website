@@ -10,7 +10,7 @@ class PDFService
     /**
      * Handles actual PDF rendering + saving
      */
-    public static function generatePDF($html, $filename, $folder)
+    public static function generatePDF($html, $filename, $folder, $stream = false)
     {
         $options = new Options();
         $options->set('defaultFont', 'DejaVu Sans');
@@ -21,6 +21,11 @@ class PDFService
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
+
+        if ($stream) {
+            $dompdf->stream($filename, ["Attachment" => true]);
+            die();
+        }
 
         $output = $dompdf->output();
         $directory = base_path("/storage/$folder/");

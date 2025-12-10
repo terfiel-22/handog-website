@@ -98,17 +98,25 @@ function convertToBookingsFormat(array $data): array
 /** Function to format date time into readable date and time */
 function formatDatetimeToReadable($datetime)
 {
-    $readableDatetime = new DateTime($datetime);
+    $date = new DateTime($datetime);
 
-    return $readableDatetime->format('h:i A | M. d, Y');
+    return $date->format('h:i A | M. d, Y');
+}
+
+/** Function to format date time into readable date */
+function formatDateToReadable($datetime)
+{
+    $date = new DateTime($datetime);
+
+    return $date->format('M. d, Y');
 }
 
 /** Function to format date time into readable input fields date */
 function formatDatetimeToYmD($datetime)
 {
-    $readableDatetime = new DateTime($datetime);
+    $date = new DateTime($datetime);
 
-    return $readableDatetime->format('Y-m-d');
+    return $date->format('Y-m-d');
 }
 
 /** Function to generate a session token given user id*/

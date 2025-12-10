@@ -46,7 +46,7 @@ $pageName = "Income Reports"
                             </div>
                             <div class="col-12 col-md-6 d-flex justify-content-between mt-3">
                                 <button type="submit" class="btn btn-secondary">Filter</button>
-                                <button type="button" class="btn btn-primary">Print</button>
+                                <button type="button" id="printBtn" class="btn btn-primary">Print</button>
                             </div>
                         </div>
                     </form>
@@ -99,6 +99,14 @@ $pageName = "Income Reports"
         $(document).ready(function() {
             $('#start_date, #end_date').flatpickr({
                 dateFormat: "Y-m-d",
+            });
+
+            $("#printBtn").on('click', function() {
+                const start_date = $("#start_date").val();
+                const end_date = $("#end_date").val();
+
+                const url = `/admin/income-reports/print?start_date=${start_date}&end_date=${end_date}`;
+                window.open(url, "_blank");
             });
         });
     </script>
