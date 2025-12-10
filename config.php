@@ -13,14 +13,14 @@ return [
     ],
     "php_mailer" => [
         'host'        => 'smtp.gmail.com',
-        'email'       => 'despicablehaythamkenway@gmail.com',
-        'password'    => 'ekqr fgmg tbln pvng',
+        'email'       => 'handogresortandeventsplace2017@gmail.com',
+        'password'    => 'kwtn klkz vbpj tnif',
         'port'        => 587,
-        'from_email'  => 'despicablehaythamkenway@gmail.com',
-        'from_name'   => 'Handog Resort'
+        'from_email'  => 'handogresortandeventsplace2017@gmail.com',
+        'from_name'   => 'Handog Resort And Event Place'
     ],
     "owner" => [
-        "email" => "despicablehaythamkenway@gmail.com",
-        "name" => "Handog Resort Team"
+        "email" => "handogresortandeventsplace2017@gmail.com",
+        "name" => "Handog Resort And Event Place Team"
     ]
 ];
