@@ -408,6 +408,11 @@ $pageName = "Dashboard"
                 yaxis: {
                     show: false,
                 },
+                tooltip: {
+                    y: {
+                        formatter: val => parseInt(val)
+                    }
+                },
             };
 
             new ApexCharts(document.querySelector("#currentWeekGuestsChart"), barOptions).render();
