@@ -108,6 +108,39 @@ class SalesReportService
         return $result;
     }
 
+    private static function getSalesChartData($start_date, $end_date)
+    {
+        $db = self::db();
+
+        $result = $db->query("
+            SELECT 
+                DATE(created_at) AS date,
+                SUM(amount) AS total_sales
+            FROM payments
+            WHERE DATE(created_at) BETWEEN ? AND ?
+            GROUP BY DATE(created_at)
+            ORDER BY DATE(created_at)
+        ", [
+            $start_date,
+            $end_date
+        ])->get();
+
+
+        $dates = [];
+        $sales = [];
+
+        foreach ($result as $row) {
+            $dates[] = formatDateToReadable($row["date"]);
+            $sales[] = floatval($row["total_sales"]);
+        }
+
+        return [
+            'dates' => $dates,
+            'sales' => $sales
+        ];
+    }
+
+
     public static function getPaymentFirstAndLastRecordDates()
     {
         $db = self::db();
@@ -128,6 +161,7 @@ class SalesReportService
     {
         return [
             'top_facilities' => self::getTopFacilities($start_date, $end_date),
+            'sales_chart' => self::getSalesChartData($start_date, $end_date),
             'total_income' => self::getTotalIncome($start_date, $end_date),
             'payment_count' => self::getPaymentCount($start_date, $end_date),
             'payments' => self::getPayments($start_date, $end_date),

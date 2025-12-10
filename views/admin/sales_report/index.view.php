@@ -51,9 +51,9 @@ $pageName = "Sales Report"
             </div>
 
             <!-- Facility Table & Sales Chart -->
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col-12 col-md-6">
-                    <div class="card mb-3">
+                    <div class="card h-100">
                         <div class="card-body p-24">
                             <div class="d-flex align-items-center flex-wrap gap-2 justify-content-start mb-20">
                                 <h6 class="mb-2 fw-bold text-lg mb-0">Top 5 Facilities</h6>
@@ -79,8 +79,9 @@ $pageName = "Sales Report"
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="card mb-3">
+                    <div class="card h-100">
                         <div class="card-body">
+                            <div id="sales_chart" class="pt-28 apexcharts-tooltip-style-1"></div>
                         </div>
                     </div>
                 </div>
@@ -133,10 +134,8 @@ $pageName = "Sales Report"
 
     <?php view("admin/shared/delete-modal.php") ?>
 
-    <script>
-        let table = new DataTable('#dataTable');
-    </script>
 
+    <!-- Print -->
     <script>
         $(document).ready(function() {
             $('#start_date, #end_date').flatpickr({
@@ -153,6 +152,134 @@ $pageName = "Sales Report"
         });
     </script>
 
+    <!-- Sales Chart -->
+    <script>
+        $(document).ready(function() {
+            const salesChart = <?= json_encode($salesReport["sales_chart"]) ?>;
+            var areaOptions = {
+                series: [{
+                    name: 'Sales',
+                    data: salesChart.sales,
+                }, ],
+                chart: {
+                    type: 'area',
+                    width: '100%',
+                    height: 360,
+                    sparkline: {
+                        enabled: false
+                    },
+                    toolbar: {
+                        show: false
+                    },
+                    padding: {
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 4,
+                    colors: ['#487fff'],
+                    lineCap: 'round'
+                },
+                grid: {
+                    show: true,
+                    borderColor: '#D1D5DB',
+                    strokeDashArray: 1,
+                    position: 'back',
+                    xaxis: {
+                        lines: {
+                            show: false
+                        }
+                    },
+                    yaxis: {
+                        lines: {
+                            show: true
+                        }
+                    },
+                    row: {
+                        colors: undefined,
+                        opacity: 0.5
+                    },
+                    column: {
+                        colors: undefined,
+                        opacity: 0.5
+                    },
+                },
+                fill: {
+                    type: 'gradient',
+                    colors: ['#487fff'],
+                    gradient: {
+                        shade: 'light',
+                        type: 'vertical',
+                        shadeIntensity: 0.5,
+                        gradientToColors: ['#487fff00'],
+                        inverseColors: false,
+                        opacityFrom: .6,
+                        opacityTo: 0.3,
+                        stops: [0, 100],
+                    },
+                },
+                markers: {
+                    colors: ['#487fff'],
+                    strokeWidth: 3,
+                    size: 0,
+                    hover: {
+                        size: 10
+                    }
+                },
+                xaxis: {
+                    categories: salesChart.dates,
+                    tooltip: {
+                        enabled: false,
+                    },
+                    labels: {
+                        rotate: -45,
+                        style: {
+                            fontSize: "12px",
+                        },
+                    },
+                    axisBorder: {
+                        show: false,
+                    },
+                    crosshairs: {
+                        show: true,
+                        width: 20,
+                        stroke: {
+                            width: 0,
+                        },
+                        fill: {
+                            type: "solid",
+                            color: "#487FFF40",
+                        },
+                    },
+                },
+                yaxis: {
+                    labels: {
+                        formatter: function(value) {
+                            return "₱ " + value.toLocaleString();
+                        },
+                    },
+                },
+                tooltip: {
+                    x: {
+                        format: 'dd/MM/yy HH:mm'
+                    },
+                },
+            };
+            new ApexCharts(document.querySelector("#sales_chart"), areaOptions).render();
+        });
+    </script>
+
+    <!-- Payments DataTable -->
+    <script>
+        let table = new DataTable('#dataTable');
+    </script>
 </body>
 
 </html>
