@@ -15,74 +15,6 @@ class DashboardService
         return App::resolve(Database::class);
     }
 
-    public static function availableFacilities(): array
-    {
-        $db = self::db();
-        $today = (new DateTime())->format('Y-m-d H:i');
-
-        // Fetch all facilities with their available_unit
-        $facilities = $db->query("
-            SELECT id, type, name, available_unit
-            FROM facilities
-        ")->get();
-
-        $result = [];
-
-        foreach ($facilities as $facility) {
-            // Count active reservations for this facility (today between check_in & check_out)
-            $reserved = $db->query("
-                SELECT COUNT(*) AS total
-                FROM reservations
-                WHERE facility_id = ?
-                AND ? BETWEEN check_in AND check_out
-            ", [$facility['id'], $today])->find();
-            $reservedCount = (int)($reserved['total'] ?? 0);
-
-            // Compute remaining available units
-            $remainingUnits = max(0, (int)$facility['available_unit'] - $reservedCount);
-
-            // Add to the grouped type result
-            $result[] = [
-                "name" => $facility['name'],
-                "unit" => $remainingUnits
-            ];
-        }
-
-        return $result;
-    }
-
-    public static function unavailableFacilities(): array
-    {
-        $db = self::db();
-        $today = (new DateTime())->format('Y-m-d H:i');
-
-        $facilities = $db->query("
-            SELECT id, type, name, available_unit
-            FROM facilities
-        ")->get();
-
-        $result = [];
-
-        foreach ($facilities as $facility) {
-            $reserved = $db->query("
-                SELECT COUNT(*) AS total
-                FROM reservations
-                WHERE facility_id = ?
-                AND ? BETWEEN check_in AND check_out
-            ", [$facility['id'], $today])->find();
-
-            $reservedCount = (int)($reserved['total'] ?? 0);
-
-            // If all units are booked, mark as unavailable 
-            $result[] = [
-                "name" => $facility['name'],
-                "unit" => $reservedCount
-            ];
-        }
-
-        return $result;
-    }
-
     public static function earningsToday(): float
     {
         $db = self::db();
@@ -125,46 +57,6 @@ class DashboardService
         ", [$today])->find();
 
         return (int) ($guests['total'] ?? 0);
-    }
-
-    public static function occupancyRate(): array
-    {
-        $db = self::db();
-        $today = (new DateTime())->format('Y-m-d H:i:s');
-
-        // Fetch all facilities with their total units
-        $facilities = $db->query("
-            SELECT id, name, available_unit
-            FROM facilities
-        ")->get();
-
-        $data = [];
-
-        foreach ($facilities as $facility) {
-            // Count booked units for this facility
-            $booked = $db->query("
-            SELECT COUNT(*) as total
-            FROM reservations
-            WHERE facility_id = ?
-            AND ? BETWEEN check_in AND check_out
-        ", [$facility['id'], $today])->find();
-
-            $bookedUnits = (int) ($booked['total'] ?? 0);
-            $totalUnits = (int) ($facility['available_unit'] ?? 0);
-
-            $occupancyRate = $totalUnits > 0
-                ? round(($bookedUnits / $totalUnits) * 100, 2)
-                : 0;
-
-            $data[] = [
-                'facility_name' => $facility['name'],
-                'booked_units' => $bookedUnits,
-                'total_units' => $totalUnits,
-                'occupancy_rate' => $occupancyRate,
-            ];
-        }
-
-        return $data;
     }
 
     public static function totalVisits(): int
@@ -411,9 +303,6 @@ class DashboardService
             'earnings_today' => self::earningsToday(),
             'reservations_today' => self::reservationsToday(),
             'current_guests' => self::currentGuests(),
-            'occupancy_rate' => self::occupancyRate(),
-            'available_facilities' => self::availableFacilities(),
-            'unavailable_facilities' => self::unavailableFacilities(),
             'earnings_analytics' => self::forecastEarningsWithTrendline(),
             'total_visits' => self::totalVisits(),
             'current_week_guests' => self::currentWeekGuests(),

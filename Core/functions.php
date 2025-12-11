@@ -47,7 +47,7 @@ function abort($code = 404)
 /** Convert number into currency number format */
 function moneyFormat($value)
 {
-    return "₱ " . number_format($value, 2);
+    return "₱" . number_format($value, 2);
 }
 
 /** Function for getting old form data */
@@ -98,9 +98,25 @@ function convertToBookingsFormat(array $data): array
 /** Function to format date time into readable date and time */
 function formatDatetimeToReadable($datetime)
 {
-    $readableDatetime = new DateTime($datetime);
+    $date = new DateTime($datetime);
 
-    return $readableDatetime->format('h:i A | M. d, Y');
+    return $date->format('h:i A | M. d, Y');
+}
+
+/** Function to format date time into readable date */
+function formatDateToReadable($datetime)
+{
+    $date = new DateTime($datetime);
+
+    return $date->format('M. d, Y');
+}
+
+/** Function to format date time into readable input fields date */
+function formatDatetimeToYmD($datetime)
+{
+    $date = new DateTime($datetime);
+
+    return $date->format('Y-m-d');
 }
 
 /** Function to generate a session token given user id*/
@@ -139,4 +155,25 @@ function base64Image($path)
     $imagePath = public_html_path($path);
     $logoData = base64_encode(file_get_contents($imagePath));
     return "data:image/png;base64,$logoData";
+}
+
+/** Function to create 1-day cookie */
+function create_cookie($key, $value)
+{
+    $expiration = 60 * 60 * 24; // 1 day 
+    $params = session_get_cookie_params();
+    setcookie($key, $value, time() + $expiration, $params['path'], $params['domain'], $params['httponly']);
+}
+/** Function to destroy 1-day cookie */
+function destroy_cookie($key)
+{
+    $expiration = 60 * 60 * 24;
+    $params = session_get_cookie_params();
+    setcookie($key, '', time() - $expiration, $params['path'], $params['domain'], $params['httponly']);
+}
+/** Function to get cookie */
+function get_cookie($key)
+{
+    if (!isset($_COOKIE[$key])) return false;
+    return $_COOKIE[$key];
 }

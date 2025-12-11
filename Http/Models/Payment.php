@@ -4,6 +4,7 @@ namespace Http\Models;
 
 use Core\App;
 use Core\Database;
+use Http\Services\UserService;
 
 class Payment
 {
@@ -16,8 +17,11 @@ class Payment
 
     public function createPayment($attributes)
     {
+        $user = UserService::getCurrentUser();
+        $attributes["processed_by"] = $user ? $user["id"] : null;
+
         return $this->db->query(
-            "INSERT INTO payments(reservation_id, amount, payment_method, payment_status, payment_type, payment_link) VALUES(:reservation_id, :amount, :payment_method, :payment_status, :payment_type, :payment_link)",
+            "INSERT INTO payments(reservation_id, processed_by, amount, payment_method, payment_status, payment_type, payment_link) VALUES(:reservation_id, :processed_by, :amount, :payment_method, :payment_status, :payment_type, :payment_link)",
             $attributes
         )->id();
     }
@@ -52,8 +56,11 @@ class Payment
 
     public function updatePayment($attributes)
     {
+        $user = UserService::getCurrentUser();
+        $attributes["processed_by"] = $user ? $user["id"] : null;
+
         $this->db->query(
-            "UPDATE payments SET amount=:amount, payment_method=:payment_method, payment_status=:payment_status WHERE id=:id",
+            "UPDATE payments SET processed_by=:processed_by, amount=:amount, payment_method=:payment_method, payment_status=:payment_status WHERE id=:id",
             $attributes
         );
     }

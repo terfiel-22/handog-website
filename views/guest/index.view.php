@@ -55,21 +55,14 @@
                     <img src="/assets/guest/img/bottom-shape2.png" alt="img" />
                 </div>
                 <div class="social-icon d-flex align-items-center">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="<?= \Http\Services\ContactDetailService::getContactDetails()["facebook"] ?>"><i class="fab fa-facebook-f"></i></a>
+                    <a href="<?= \Http\Services\ContactDetailService::getContactDetails()["instagram"] ?>"><i class="fab fa-instagram"></i></a>
                     <span>Follow Us:</span>
                 </div>
                 <ul class="hero-contact">
                     <li>
-                        <img src="/assets/guest/img/home-1/footer/location.svg" alt="img" />
-                        <a href="mailto:info@example.com">
-                            Tuesday - Saturday 8:00 Am - 11:00 Pm</a>
-                    </li>
-                    <li>
                         <img src="/assets/guest/img/home-1/footer/email.svg" alt="img" />
-                        <a href="mailto:info@example.com"> info@example.com</a>
+                        <a href="mailto:<?= \Http\Services\ContactDetailService::getContactDetails()["email"] ?>"> <?= \Http\Services\ContactDetailService::getContactDetails()["email"] ?></a>
                     </li>
                 </ul>
                 <div class="container">

@@ -30,8 +30,9 @@ $pageName = "Logo"
 
             <!-- Data -->
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="card-title mb-0">Modify Logo</h6>
+                <div class="card-header pb-0">
+                    <h6 class="card-title mb-0">Modify <?= $pageName ?></h6>
+                    <p class="text-secondary small">Fields marked with an asterisk (*) are required.</p>
                 </div>
 
                 <div class="card-body">
@@ -39,7 +40,7 @@ $pageName = "Logo"
                         <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="id" value="<?= $logo['id'] ?>">
                         <div class="col-12 col-md-6">
-                            <label class="form-label" for="upload-logo">Upload logo</label>
+                            <label class="form-label" for="upload-logo">Upload logo *</label>
                             <div class="upload-image-wrapper d-flex align-items-center gap-3 flex-wrap">
                                 <div class="uploaded-imgs-container d-flex gap-3 flex-wrap" id="uploaded-logo-container"></div>
                                 <label class="upload-logo h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50 bg-hover-neutral-200 d-flex align-items-center flex-column justify-content-center gap-1">
@@ -56,7 +57,7 @@ $pageName = "Logo"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-6">
-                            <label class="form-label" for="upload-icon">Upload icon</label>
+                            <label class="form-label" for="upload-icon">Upload icon *</label>
                             <div class="upload-image-wrapper d-flex align-items-center gap-3 flex-wrap">
                                 <div class="uploaded-imgs-container d-flex gap-3 flex-wrap" id="uploaded-icon-container"></div>
                                 <label class="upload-icon h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50 bg-hover-neutral-200 d-flex align-items-center flex-column justify-content-center gap-1">

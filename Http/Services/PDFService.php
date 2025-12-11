@@ -2,40 +2,16 @@
 
 namespace Http\Services;
 
-use Core\App;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-use Http\Models\Reservation;
-use Http\Models\ReservationGuest;
 
 class PDFService
 {
-    protected static function reservationModel()
+    /**
+     * Handles actual PDF rendering + saving
+     */
+    public static function generatePDF($html, $filename, $folder, $stream = false)
     {
-        return App::resolve(Reservation::class);
-    }
-    protected static function reservationGuestModel()
-    {
-        return App::resolve(ReservationGuest::class);
-    }
-
-    public static function generatePDF($reservationId)
-    {
-        $reservationModel = self::reservationModel();
-        $reservationGuestModel = self::reservationGuestModel();
-
-        $reservation = $reservationModel->fetchReservationById($reservationId);
-        $guests = $reservationGuestModel->fetchGuestsByReservationId($reservationId);
-        $logo = base64Image(SettingService::getLogo()["logo"]);
-        $fontPath = public_html_path("/assets/general/fonts");
-
-        ob_start();
-        view(
-            "templates/payment_receipt.view.php",
-            compact('reservation', 'guests', 'logo', 'fontPath')
-        );
-        $html = ob_get_clean();
-
         $options = new Options();
         $options->set('defaultFont', 'DejaVu Sans');
         $options->set('isRemoteEnabled', true);
@@ -46,15 +22,19 @@ class PDFService
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
+        if ($stream) {
+            $dompdf->stream($filename, ["Attachment" => true]);
+            die();
+        }
+
         $output = $dompdf->output();
-        $directory = base_path("/storage/receipts/");
+        $directory = base_path("/storage/$folder/");
 
         if (!is_dir($directory)) {
             mkdir($directory, 0755, true);
         }
 
-        $filePath = $directory . "receipt_{$reservationId}.pdf";
-
+        $filePath = $directory . $filename;
         file_put_contents($filePath, $output);
 
         return $filePath;

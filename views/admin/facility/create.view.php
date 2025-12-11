@@ -30,14 +30,15 @@ $pageName = "Add Facility"
 
             <!-- Form -->
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header pb-0">
                     <h6 class="card-title mb-0"><?= $pageName ?></h6>
+                    <p class="text-secondary small">Fields marked with an asterisk (*) are required.</p>
                 </div>
 
                 <div class="card-body">
                     <form class="row gy-3" method="POST" action="/admin/facilities/store" enctype="multipart/form-data">
                         <div class="col-12">
-                            <label class="form-label" for="upload-file-multiple">Upload facility images</label>
+                            <label class="form-label" for="upload-file-multiple">Upload facility images *</label>
                             <div class="upload-image-wrapper d-flex align-items-center gap-3 flex-wrap">
                                 <div class="uploaded-imgs-container d-flex gap-3 flex-wrap"></div>
                                 <label class="upload-file-multiple h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50 bg-hover-neutral-200 d-flex align-items-center flex-column justify-content-center gap-1">
@@ -53,7 +54,7 @@ $pageName = "Add Facility"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-3">
-                            <label class="form-label" for="name">Name</label>
+                            <label class="form-label" for="name">Name *</label>
                             <input type="text" name="name" id="name" class="form-control" placeholder="Enter facility name" value="<?= old('name') ?>">
                             <?php if (isset($errors["name"])) : ?>
                                 <div class="error-text">
@@ -75,7 +76,7 @@ $pageName = "Add Facility"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-3">
-                            <label class="form-label" for="available_unit">Available Unit</label>
+                            <label class="form-label" for="available_unit">Available Unit *</label>
                             <input type="number" name="available_unit" id="available_unit" class="form-control" placeholder="Enter facility available unit" value="<?= old('available_unit') ?>">
                             <?php if (isset($errors["available_unit"])) : ?>
                                 <div class="error-text">
@@ -84,7 +85,7 @@ $pageName = "Add Facility"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-3">
-                            <label class="form-label" for="capacity">Capacity</label>
+                            <label class="form-label" for="capacity">Capacity *</label>
                             <input type="number" name="capacity" id="capacity" class="form-control" placeholder="Enter facility capacity" value="<?= old('capacity') ?>">
                             <?php if (isset($errors["capacity"])) : ?>
                                 <div class="error-text">
@@ -93,7 +94,7 @@ $pageName = "Add Facility"
                             <?php endif; ?>
                         </div>
                         <div class="col-12">
-                            <label class="form-label" for="description">Description</label>
+                            <label class="form-label" for="description">Description *</label>
                             <textarea type="number" name="description" id="description" class="form-control" placeholder="Enter facility description"><?= old('description') ?></textarea>
                             <?php if (isset($errors["description"])) : ?>
                                 <div class="error-text">
@@ -102,7 +103,7 @@ $pageName = "Add Facility"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-3">
-                            <label class="form-label" for="rate_hourly">Hourly Rate</label>
+                            <label class="form-label" for="rate_hourly">Hourly Rate *</label>
                             <input type="number" name="rate_hourly" id="rate_hourly" class="form-control" placeholder="Enter facility hourly rate" value="<?= old('rate_hourly') ?>">
                             <?php if (isset($errors["rate_hourly"])) : ?>
                                 <div class="error-text">
@@ -111,7 +112,7 @@ $pageName = "Add Facility"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-3">
-                            <label class="form-label" for="rate_8hrs">8-Hours Rate</label>
+                            <label class="form-label" for="rate_8hrs">8-Hours Rate *</label>
                             <input type="number" name="rate_8hrs" id="rate_8hrs" class="form-control" placeholder="Enter facility 8-hours rate" value="<?= old('rate_8hrs') ?>">
                             <?php if (isset($errors["rate_8hrs"])) : ?>
                                 <div class="error-text">
@@ -120,7 +121,7 @@ $pageName = "Add Facility"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-3">
-                            <label class="form-label" for="rate_12hrs">12-Hours Rate</label>
+                            <label class="form-label" for="rate_12hrs">12-Hours Rate *</label>
                             <input type="number" name="rate_12hrs" id="rate_12hrs" class="form-control" placeholder="Enter facility 12-hours rate" value="<?= old('rate_12hrs') ?>">
                             <?php if (isset($errors["rate_12hrs"])) : ?>
                                 <div class="error-text">
@@ -129,7 +130,7 @@ $pageName = "Add Facility"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-3">
-                            <label class="form-label" for="rate_1day">1-Day Rate</label>
+                            <label class="form-label" for="rate_1day">1-Day Rate *</label>
                             <input type="number" name="rate_1day" id="rate_1day" class="form-control" placeholder="Enter facility 1-day rate" value="<?= old('rate_1day') ?>">
                             <?php if (isset($errors["rate_1day"])) : ?>
                                 <div class="error-text">
@@ -138,7 +139,7 @@ $pageName = "Add Facility"
                             <?php endif; ?>
                         </div>
                         <div class="col-12">
-                            <label class="form-label" for="amenities">Amenities <span class="fw-normal">(Optional)</span></label>
+                            <label class="form-label" for="amenities">Amenities</label>
                             <textarea type="number" name="amenities" id="amenities" class="form-control" placeholder="Enter facility amenities"><?= old('amenities') ?></textarea>
                         </div>
                         <div class="col-12 g-5">

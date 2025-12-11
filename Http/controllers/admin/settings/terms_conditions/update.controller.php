@@ -38,4 +38,4 @@ if (!$origTerms) {
 $attributes['id'] = $origTerms['id'];
 App::resolve(TermsConditions::class)->updateTermsConditions($attributes);
 App::resolve(FileUploadHandler::class)->deleteFile($origTerms["filepath"]);
-redirect('/admin/settings/terms-conditions');
+redirect('/admin/settings/terms_conditions');

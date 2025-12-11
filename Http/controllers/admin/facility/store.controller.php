@@ -13,6 +13,7 @@ $_POST["image"] = $_FILES["images"]["name"][0];
 FacilityForm::validate($_POST);
 unset($_POST["image"]);
 
+dd($_POST);
 /** START Add Facility Data on Database **/
 $facilityId = App::resolve(Facility::class)->createFacility($_POST);
 /** END Add Facility Data on Database **/

@@ -12,8 +12,8 @@ class PasswordForm extends Form
 
         extract($this->attributes);
 
-        if (!Validator::string($password, 8)) {
-            $this->errors["password"] = "Password should at least 8 characters.";
+        if (!Validator::password($password)) {
+            $this->errors["password"] = "Password must contain at least 8 characters, one uppercase letter, one number and one special character.";
         }
         if (!Validator::password_match($password, $cpassword)) {
             $this->errors["cpassword"] = "Password confirmation does not matched.";

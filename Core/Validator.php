@@ -27,6 +27,47 @@ class Validator
         return (bool) filter_var($value, FILTER_VALIDATE_EMAIL);
     }
 
+    public static function link(string $value): bool
+    {
+        $value = trim($value);
+
+        if (strlen($value) === 0) {
+            return false;
+        }
+
+        if (!filter_var($value, FILTER_VALIDATE_URL)) {
+            return false;
+        }
+
+        if (!preg_match('/^https?:\/\//i', $value)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static function phone(string $value): bool
+    {
+        $value = trim($value);
+
+        $pattern1 = '/^09\d{9}$/';
+
+        $pattern2 = '/^\+639\d{9}$/';
+
+        return preg_match($pattern1, $value) === 1 || preg_match($pattern2, $value) === 1;
+    }
+
+    public static function password(string $value, int $min = 8, float $max = INF): bool
+    {
+        $value = trim($value);
+
+        if (strlen($value) < $min || strlen($value) > $max) {
+            return false;
+        }
+
+        return preg_match('/^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/', $value) === 1;
+    }
+
     public static function password_match(string $password, string $confirmPassword): bool
     {
         return $password === $confirmPassword;
@@ -37,6 +78,14 @@ class Validator
         $pattern = '/^\+\d{12}$/';
 
         return preg_match($pattern, $value);
+    }
+
+    public static function is_less_than($valueA,  $valueB): bool
+    {
+        $numA = floatval($valueA);
+        $numB = floatval($valueB);
+
+        return $numA < $numB;
     }
 
     public static function future_date(string $date): bool

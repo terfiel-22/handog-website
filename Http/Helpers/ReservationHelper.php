@@ -13,7 +13,10 @@ use Http\Helpers\EmailHelper;
 use Http\Models\Facility;
 use Http\Models\Promo;
 use Http\Models\Rates;
+use Http\Models\Reservation;
 use Http\Models\ReservationGuest;
+use Http\Services\PDFService;
+use Http\Services\SettingService;
 
 class ReservationHelper
 {
@@ -166,5 +169,28 @@ class ReservationHelper
 
         // Send email
         App::resolve(EmailHelper::class)->sendEmail($userEmail, $userName, $subject, $body, $altBody, $attachmentPath);
+    }
+
+
+
+    /**
+     * Generate Reservation PDF (prepares data, HTML, then calls generatePDF)
+     */
+    public function generateReservationPDF($reservationId)
+    {
+        $reservation = App::resolve(Reservation::class)->fetchReservationById($reservationId);
+        $guests = App::resolve(ReservationGuest::class)->fetchGuestsByReservationId($reservationId);
+
+        $logo = base64Image(SettingService::getLogo()["logo"]);
+        $fontPath = public_html_path("/assets/general/fonts");
+
+        ob_start();
+        view(
+            "templates/payment_receipt.view.php",
+            compact('reservation', 'guests', 'logo', 'fontPath')
+        );
+        $html = ob_get_clean();
+
+        return PDFService::generatePDF($html, "receipt_{$reservationId}.pdf", "receipts");
     }
 }

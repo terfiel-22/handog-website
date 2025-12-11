@@ -40,6 +40,7 @@
                                 Book a reservation
                             </h2>
                             <p>Complete filling up the form to continue.</p>
+                            <p class="text-secondary small">Fields marked with an asterisk (*) are required.</p>
                             <div class="error-text" role="alert" id="check_in_msg"></div>
                             <form action="/booking/store" method="POST" class="booking" id="bookingForm" enctype="multipart/form-data">
                                 <input type="hidden" name="time_slot" id="time_slot">
@@ -48,7 +49,7 @@
                                     <h4 class="fw-bold">Booking Information</h4>
                                     <div class="row g-4">
                                         <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s">
-                                            <label for="check_in">Check In</label>
+                                            <label for="check_in">Check In *</label>
                                             <div class="form-clt">
                                                 <input type="text" name="check_in" id="check_in" value="<?= old("check_in", ($_GET["check_in"] ?? date("d/m/Y H:i"))) ?>">
                                                 <?php if (isset($errors["check_in"])) : ?>
@@ -95,7 +96,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s">
-                                            <label for="guest_count">Guest Count</label>
+                                            <label for="guest_count">Guest Count *</label>
                                             <div class="form-clt">
                                                 <input type="number" name="guest_count" id="guest_count" placeholder="Guest Count" value="<?= $_GET["guest_count"] ?? 1 ?>" min="1">
                                                 <?php if (isset($errors["guest_count"])) : ?>
@@ -140,7 +141,7 @@
                                     <h4 class="fw-bold">Contact Information</h4>
                                     <div class="row g-4">
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
-                                            <label for="contact_person">Full Name</label>
+                                            <label for="contact_person">Full Name *</label>
                                             <div class="form-clt">
                                                 <input type="text" name="contact_person" id="contact_person" placeholder="Your Name" value="<?= old("contact_person") ?>">
                                                 <?php if (isset($errors["contact_person"])) : ?>
@@ -151,7 +152,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".5s">
-                                            <label for="contact_email">Email</label>
+                                            <label for="contact_email">Email *</label>
                                             <div class="form-clt">
                                                 <input type="email" name="contact_email" id="contact_email" placeholder="Your Email" value="<?= old("contact_email") ?>">
                                                 <?php if (isset($errors["contact_email"])) : ?>
@@ -162,7 +163,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
-                                            <label for="contact_no">Phone Number</label>
+                                            <label for="contact_no">Phone Number *</label>
                                             <div class="form-clt">
                                                 <input type="tel" name="contact_no" id="contact_no" placeholder="Your Phone Number" value="<?= old("contact_no") ?>">
                                                 <?php if (isset($errors["contact_no"])) : ?>
@@ -173,7 +174,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
-                                            <label for="contact_address">Address</label>
+                                            <label for="contact_address">Address *</label>
                                             <div class="form-clt">
                                                 <input type="text" name="contact_address" id="contact_address" placeholder="Your Address" value="<?= old("contact_address") ?>">
                                                 <?php if (isset($errors["contact_address"])) : ?>
@@ -229,7 +230,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay=".3s">
-                                            <label for="amount_to_pay">Amount To Pay</label>
+                                            <label for="amount_to_pay">Amount To Pay *</label>
                                             <div class="form-clt">
                                                 <input type="number" name="amount_to_pay" id="amount_to_pay">
                                                 <?php if (isset($errors["amount_to_pay"])) : ?>
@@ -296,9 +297,9 @@
 
                         <h5 class="mt-2 mb-0 fw-bold"><?= WEBSITE_NAME ?></h5>
                         <p class="mb-0 text-muted small">
-                            <?= WEBSITE_ADDRESS ?> • <?= WEBSITE_NUMBER ?>
+                            <?= \Http\Services\ContactDetailService::getContactDetails()["address"] ?> • <?= \Http\Services\ContactDetailService::getContactDetails()["contact_no"] ?>
                         </p>
-                        <a href="mailto:<?= WEBSITE_EMAIL ?>" class="mb-0 text-muted small">Email: <?= WEBSITE_EMAIL ?></a>
+                        <a href="mailto:<?= \Http\Services\ContactDetailService::getContactDetails()["email"] ?>" class="mb-0 text-muted small">Email: <?= \Http\Services\ContactDetailService::getContactDetails()["email"] ?></a>
                     </div>
 
                     <!-- Divider -->
@@ -638,24 +639,31 @@
                 generateGuestFields(count);
             };
             const generateGuestFields = (count) => {
-                let $container = $("#guest-list");
-                $container.empty(); // clear old fields
+                let container = $("#guest-list");
+                container.empty(); // clear old fields
 
                 let oldValues = <?= json_encode(old('guests', [])) ?>;
+                let errors = <?= json_encode($errors["guests_fields"] ?? []) ?>;
 
                 if (count > 0) {
                     for (let i = 0; i < count; i++) {
+
+                        let nameError = errors[i]?.guest_name ?? "";
+                        let ageError = errors[i]?.guest_age ?? "";
+
                         let fieldGroup = `
                         <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s"> 
-                            <label for"guests[${i}][guest_name]">Guest ${i + 1} Name</label>
+                            <label for"guests[${i}][guest_name]">Guest ${i + 1} Name *</label>
                             <div class="form-clt">
-                                <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Guest Name" value="${oldValues[i]?.guest_name ?? ''}" required>
+                                <input type="text" name="guests[${i}][guest_name]" id="guests[${i}][guest_name]" placeholder="Guest Name" value="${oldValues[i]?.guest_name ?? ''}" required>  
+                                ${nameError ? `<div class="error-text">${nameError}</div>` : ""}
                             </div>
                         </div> 
                         <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s"> 
-                            <label for"guests[${i}][guest_age]">Age</label>
+                            <label for"guests[${i}][guest_age]">Age *</label>
                             <div class="form-clt">
                                 <input type="number" name="guests[${i}][guest_age]" id="guests[${i}][guest_age]" placeholder="Guest Age" value="${oldValues[i]?.guest_age ?? ''}" required>
+                                ${ageError ? `<div class="error-text">${ageError}</div>` : ""}
                             </div>
                         </div>
                         <div class="col-12 col-md-3 wow fadeInUp" data-wow-delay=".3s"> 
@@ -676,7 +684,7 @@
                             </div>
                         </div> 
                         `;
-                        $container.append(fieldGroup);
+                        container.append(fieldGroup);
                     }
                 }
             }

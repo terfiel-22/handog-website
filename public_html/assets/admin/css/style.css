@@ -13214,3 +13214,8 @@ td.fc-header-center {
         box-shadow: none !important;
     }
 }
+
+/* Data Table */
+#dataTable thead input {
+    width: 100%;  
+} 

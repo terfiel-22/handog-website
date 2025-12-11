@@ -25,6 +25,12 @@
             </li>
             <?php if (\Http\Services\UserService::getCurrentUser()["type"] == \Http\Enums\UserType::ADMIN): ?>
                 <li>
+                    <a href="/admin/sales-report">
+                        <iconify-icon icon="ic:outline-analytics" class="menu-icon"></iconify-icon>
+                        <span>Sales Report</span>
+                    </a>
+                </li>
+                <li>
                     <a href="/admin/facilities">
                         <iconify-icon icon="ic:outline-home" class="menu-icon"></iconify-icon>
                         <span>Facilities</span>
@@ -92,6 +98,9 @@
                         </li>
                         <li>
                             <a href="/admin/settings/terms-conditions"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Terms & Conditions</a>
+                        </li>
+                        <li>
+                            <a href="/admin/settings/contact-details"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Contact Details</a>
                         </li>
                     </ul>
                 </li>

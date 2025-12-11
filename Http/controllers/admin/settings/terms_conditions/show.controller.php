@@ -15,6 +15,6 @@ if (!$terms) {
 $errors = Session::get('errors', []);
 
 view(
-    "admin/settings/terms-conditions/show.view.php",
+    "admin/settings/terms_conditions/show.view.php",
     compact('terms', 'errors')
 );

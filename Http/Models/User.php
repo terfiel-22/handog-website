@@ -37,6 +37,14 @@ class User
         )->find();
     }
 
+    public function fetchUserByEmailOrUsername($value)
+    {
+        return $this->db->query(
+            "SELECT * FROM users WHERE email=:value OR username=:value",
+            compact('value')
+        )->find();
+    }
+
 
     public function fetchUserById($id)
     {
@@ -87,6 +95,23 @@ class User
                 salt=:salt,
                 session_token=:session_token,
                 reset_pin=:reset_pin
+            WHERE 
+                id=:id",
+            $attributes
+        );
+
+        return true;
+    }
+
+    public function updateUserFirstTimeLogin($id, $attributes)
+    {
+        $attributes["id"] = $id;
+
+        $this->db->query(
+            "UPDATE 
+                users 
+            SET 
+                first_time_login=:first_time_login
             WHERE 
                 id=:id",
             $attributes

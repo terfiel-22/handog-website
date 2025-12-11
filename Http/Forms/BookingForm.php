@@ -44,5 +44,14 @@ class BookingForm extends Form
         if (!Validator::quantity($amount_to_pay)) {
             $this->errors["amount_to_pay"] = "Amount to pay should be a valid value.";
         }
+
+        foreach ($guests as $index => $guest) {
+            if (!Validator::not_empty($guest["guest_name"])) {
+                $this->errors["guests_fields"][$index]["guest_name"] = "Guest " . $index + 1 . " name is required.";
+            }
+            if (!Validator::not_empty($guest["guest_age"])) {
+                $this->errors["guests_fields"][$index]["guest_age"] = "Guest " . $index + 1 . " age is required.";
+            }
+        }
     }
 }

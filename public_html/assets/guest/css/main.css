@@ -1360,6 +1360,10 @@ span {
   font-family: "Barlow", sans-serif;
   margin-top: 5px;
   font-weight: 500;
+  text-transform: none;
+}
+.gt-contact-wrapper .gt-contact-left-items .gt-contact-list li h4 a { 
+  line-break: anywhere !important;
 }
 .gt-contact-wrapper .gt-contact-right-items {
   border-radius: 8px;
@@ -4534,7 +4538,7 @@ span {
   writing-mode: vertical-rl;
   transform: rotate(180deg) translateY(-50%);
   position: absolute;
-  top: -10%;
+  top: 50px;
   left: 30px;
 }
 @media (max-width: 1399px) {

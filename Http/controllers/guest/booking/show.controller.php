@@ -10,7 +10,6 @@ use Http\Helpers\PaymentHelper;
 use Http\Helpers\ReservationHelper;
 use Http\Models\Payment;
 use Http\Services\AuditTrailService;
-use Http\Services\PDFService;
 
 if (!isset($_GET["payment_link"])) {
     redirect("/booking");
@@ -34,7 +33,7 @@ if ($payment["success"] == YesNo::YES) {
             App::resolve(Payment::class)->updatePayment($updatedPayment);
 
             /** Send Receipt on Email */
-            $attachmentPath = PDFService::generatePDF($savedPayment["reservation_id"]);
+            $attachmentPath = App::resolve(ReservationHelper::class)->generateReservationPDF($savedPayment["reservation_id"]);
             App::resolve(ReservationHelper::class)->sendEmailForBookingConfirmation($savedPayment["contact_person"], $savedPayment["check_in"], $savedPayment["check_out"], $savedPayment["contact_email"], $attachmentPath);
             App::resolve(FileUploadHandler::class)->deleteFile($attachmentPath);
 

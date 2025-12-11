@@ -16,8 +16,8 @@ class ResetPasswordForm extends Form
         if (!Validator::not_empty($reset_pin)) {
             $this->errors["reset_pin"] = "Reset pin is required.";
         }
-        if (!Validator::string($password, 8)) {
-            $this->errors["password"] = "Password should at least 8 characters.";
+        if (!Validator::password($password)) {
+            $this->errors["password"] = "Password must contain at least 8 characters, one uppercase letter, one number and one special character.";
         }
         if (!Validator::password_match($password, $cpassword)) {
             $this->errors["cpassword"] = "Password confirmation does not matched.";

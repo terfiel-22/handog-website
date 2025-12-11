@@ -4,6 +4,7 @@
  * -------------------------------------------------------------
  *  Global Constants File
  *  Define all constant values used across the website
+ * 
  * -------------------------------------------------------------
  */
 

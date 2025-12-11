@@ -30,8 +30,9 @@ $pageName = "Edit Testimonial"
 
             <!-- Form -->
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header pb-0">
                     <h6 class="card-title mb-0"><?= $pageName ?></h6>
+                    <p class="text-secondary small">Fields marked with an asterisk (*) are required.</p>
                 </div>
 
                 <div class="card-body">
@@ -39,7 +40,7 @@ $pageName = "Edit Testimonial"
                         <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="id" value="<?= $testimonial["id"] ?>">
                         <div class="col-12">
-                            <label class="form-label" for="upload-file-multiple">Upload client image</label>
+                            <label class="form-label" for="upload-file-multiple">Upload client image *</label>
                             <div class="upload-image-wrapper d-flex align-items-center gap-3 flex-wrap">
                                 <div class="uploaded-imgs-container d-flex gap-3 flex-wrap"></div>
                                 <label class="upload-file-multiple h-120-px w-120-px border input-form-light radius-8 overflow-hidden border-dashed bg-neutral-50 bg-hover-neutral-200 d-flex align-items-center flex-column justify-content-center gap-1">
@@ -56,7 +57,7 @@ $pageName = "Edit Testimonial"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-4">
-                            <label class="form-label" for="name">Client Full Name</label>
+                            <label class="form-label" for="name">Client Full Name *</label>
                             <input type="text" name="name" id="name" class="form-control" placeholder="Enter name" value="<?= $testimonial['name'] ?>">
                             <?php if (isset($errors["name"])) : ?>
                                 <div class="error-text">
@@ -65,7 +66,7 @@ $pageName = "Edit Testimonial"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-4">
-                            <label class="form-label" for="work">Client Work</label>
+                            <label class="form-label" for="work">Client Work *</label>
                             <input type="text" name="work" id="work" class="form-control" placeholder="Enter work" value="<?= $testimonial['work'] ?>">
                             <?php if (isset($errors["work"])) : ?>
                                 <div class="error-text">
@@ -74,7 +75,7 @@ $pageName = "Edit Testimonial"
                             <?php endif; ?>
                         </div>
                         <div class="col-12 col-md-4">
-                            <label class="form-label" for="rating">Rating</label>
+                            <label class="form-label" for="rating">Rating *</label>
                             <div id="star-rating" class="mb-2 d-flex gap-3">
                                 <iconify-icon icon="ic:baseline-star" class="star" data-value="1"></iconify-icon>
                                 <iconify-icon icon="ic:baseline-star" class="star" data-value="2"></iconify-icon>
@@ -92,7 +93,7 @@ $pageName = "Edit Testimonial"
                             <?php endif; ?>
                         </div>
                         <div class="col-12">
-                            <label class="form-label" for="feedback">Feedback</label>
+                            <label class="form-label" for="feedback">Feedback *</label>
                             <textarea type="number" name="feedback" id="feedback" class="form-control" placeholder="Enter event feedback"><?= $testimonial["feedback"] ?></textarea>
                             <?php if (isset($errors["feedback"])) : ?>
                                 <div class="error-text">

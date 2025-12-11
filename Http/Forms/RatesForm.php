@@ -34,5 +34,14 @@ class RatesForm extends Form
         if (!Validator::quantity($additional_bed_rate)) {
             $this->errors["additional_bed_rate"] = "Please input a valid value.";
         }
+        if (!Validator::quantity($pool_extension_rate_adult)) {
+            $this->errors["pool_extension_rate_adult"] = "Please input a valid value.";
+        }
+        if (!Validator::quantity($pool_extension_rate_kid)) {
+            $this->errors["pool_extension_rate_kid"] = "Please input a valid value.";
+        }
+        if (!Validator::quantity($cottage_extension_rate)) {
+            $this->errors["cottage_extension_rate"] = "Please input a valid value.";
+        }
     }
 }
